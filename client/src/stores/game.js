@@ -17,6 +17,8 @@ export const useGameStore = defineStore('game', () => {
   const skills = ref([])
   const quests = ref([])
   const gameConfig = ref(null)
+  const isDead = ref(false)
+  const roomDrops = ref([])
   
   // 计算属性
   const isLoggedIn = computed(() => !!token.value && !!user.value)
@@ -137,6 +139,11 @@ export const useGameStore = defineStore('game', () => {
     socket.value.on('room_info', (room) => {
       console.log('Room info:', room)
       currentRoom.value = room
+      if (room?.drops) {
+        roomDrops.value = room.drops
+      } else {
+        roomDrops.value = []
+      }
       if (room) {
         addMessage('room', `【${room.name}】${room.description}`)
         if (room.exits && room.exits.length > 0) {
@@ -200,12 +207,24 @@ export const useGameStore = defineStore('game', () => {
     
     socket.value.on('battle_ended', async (data) => {
       battle.value = null
+      // 检查是否死亡：loser是玩家 或 HP<=0
+      const userId = user.value?._id
+      const loserId = data.battle?.loser?.userId
+      const isLoser = loserId && userId && loserId.toString() === userId.toString()
+      const hpZero = user.value?.hp?.current <= 0
+      if (isLoser || hpZero) {
+        isDead.value = true
+      }
       addMessage('system', '战斗结束！')
       if (data.result?.mutualDefeat) {
         addMessage('battle', '双方同归于尽。')
       }
       if (data.rewards) {
         addMessage('system', `获得 ${data.rewards.expGained} 经验, ${data.rewards.goldGained} 金币`)
+      }
+      if (data.rewards?.deathPenalty) {
+        const p = data.rewards.deathPenalty
+        addMessage('error', `💀 死亡惩罚: 经验 -${p.expLost || 0}, 金币 -${p.goldLost || 0}`)
       }
       await Promise.all([refreshCurrentUser(), loadInventory(), loadQuests()])
     })
@@ -228,6 +247,59 @@ export const useGameStore = defineStore('game', () => {
         user.value.hp = data.hp
         user.value.mp = data.mp
       }
+    })
+    
+    socket.value.on('revived', async (data) => {
+      isDead.value = false
+      addMessage('success', data.message || '你已复活')
+      if (data.hp) user.value.hp = data.hp
+      if (data.mp) user.value.mp = data.mp
+      if (data.location) user.value.location = data.location
+      await Promise.all([refreshCurrentUser(), loadInventory()])
+      // 重新获取房间信息（复活后位置变了）
+      if (socket.value) socket.value.emit('look')
+    })
+    
+    socket.value.on('room_drops', (data) => {
+      roomDrops.value = data.drops || []
+    })
+    
+    socket.value.on('room_drops_updated', (data) => {
+      roomDrops.value = data.drops || []
+    })
+    
+    socket.value.on('item_picked_up', async (data) => {
+      addMessage('success', `拾取了 ${data.name || data.itemId || '物品'}${data.quantity > 1 ? '×' + data.quantity : ''}`)
+      await Promise.all([refreshCurrentUser(), loadInventory()])
+    })
+    
+    socket.value.on('points_allocated', async (data) => {
+      addMessage('success', `属性点分配成功！${data.statName || data.stat} +${data.pointsAllocated || data.amount || 1}`)
+      await refreshCurrentUser()
+    })
+    
+    socket.value.on('battle_logs', (data) => {
+      // 存储战斗日志列表供UI使用
+      battleLogList.value = data.logs || []
+    })
+    
+    socket.value.on('battle_detail', (data) => {
+      battleLogDetail.value = data
+    })
+    
+    socket.value.on('faction_advanced', async (data) => {
+      addMessage('success', data.message || '门派等级提升！')
+      await refreshCurrentUser()
+    })
+    
+    socket.value.on('item_repaired', async (data) => {
+      addMessage('success', `修复了 ${data.itemId || '装备'}，花费 ${data.repairCost} 金币`)
+      await Promise.all([refreshCurrentUser(), loadInventory()])
+    })
+    
+    socket.value.on('items_repaired', async (data) => {
+      addMessage('success', `修复了 ${data.repairedItems?.length || 0} 件装备，花费 ${data.totalCost} 金币`)
+      await Promise.all([refreshCurrentUser(), loadInventory()])
     })
     
     socket.value.on('npc_dialog', (data) => {
@@ -311,6 +383,9 @@ export const useGameStore = defineStore('game', () => {
     })
   }
   
+  const battleLogList = ref([])
+  const battleLogDetail = ref(null)
+
   function addMessage(type, content) {
     messages.value.push({
       type,
@@ -560,7 +635,62 @@ export const useGameStore = defineStore('game', () => {
       loadQuests()
     ])
 
+    // 检查死亡状态
+    if (user.value?.status === 'dead' || (user.value?.hp?.current <= 0 && !battle.value)) {
+      isDead.value = true
+    } else {
+      isDead.value = false
+    }
+    
     return true
+  }
+  
+  function revive() {
+    if (socket.value) {
+      socket.value.emit('revive')
+    }
+  }
+  
+  function allocatePoints(stat) {
+    if (socket.value) {
+      socket.value.emit('allocate_points', { stat })
+    }
+  }
+  
+  function pickupItem(dropId) {
+    if (socket.value) {
+      socket.value.emit('pickup_item', { itemId: dropId })
+    }
+  }
+  
+  function repairItem(inventoryId) {
+    if (socket.value) {
+      socket.value.emit('repair_item', { inventoryId })
+    }
+  }
+  
+  function repairAll() {
+    if (socket.value) {
+      socket.value.emit('repair_all')
+    }
+  }
+  
+  function loadBattleLogs(limit = 20, offset = 0) {
+    if (socket.value) {
+      socket.value.emit('get_battle_logs', { limit, offset })
+    }
+  }
+  
+  function loadBattleLogDetail(logId) {
+    if (socket.value) {
+      socket.value.emit('get_battle_detail', { battleId: logId })
+    }
+  }
+  
+  function advanceFaction() {
+    if (socket.value) {
+      socket.value.emit('faction_advance')
+    }
   }
   
   return {
@@ -577,6 +707,10 @@ export const useGameStore = defineStore('game', () => {
     skills,
     quests,
     gameConfig,
+    isDead,
+    roomDrops,
+    battleLogList,
+    battleLogDetail,
     // 计算属性
     isLoggedIn,
     isGM,
@@ -595,6 +729,14 @@ export const useGameStore = defineStore('game', () => {
     loadInventory,
     loadSkills,
     loadQuests,
-    loadPlayerData
+    loadPlayerData,
+    revive,
+    allocatePoints,
+    pickupItem,
+    repairItem,
+    repairAll,
+    loadBattleLogs,
+    loadBattleLogDetail,
+    advanceFaction
   }
 })

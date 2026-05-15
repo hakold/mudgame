@@ -52,23 +52,42 @@
           <div class="stat-row">
             <span class="stat-label">力量</span>
             <span class="stat-value">{{ gameStore.user?.attributes?.strength }}</span>
+            <button v-if="freePoints > 0" class="attr-plus-btn" @click="allocatePoints('strength')">+</button>
           </div>
           <div class="stat-row">
             <span class="stat-label">敏捷</span>
             <span class="stat-value">{{ gameStore.user?.attributes?.dexterity }}</span>
+            <button v-if="freePoints > 0" class="attr-plus-btn" @click="allocatePoints('dexterity')">+</button>
           </div>
           <div class="stat-row">
             <span class="stat-label">体质</span>
             <span class="stat-value">{{ gameStore.user?.attributes?.constitution }}</span>
+            <button v-if="freePoints > 0" class="attr-plus-btn" @click="allocatePoints('constitution')">+</button>
           </div>
           <div class="stat-row">
             <span class="stat-label">悟性</span>
             <span class="stat-value">{{ gameStore.user?.attributes?.intelligence }}</span>
+            <button v-if="freePoints > 0" class="attr-plus-btn" @click="allocatePoints('intelligence')">+</button>
           </div>
           <div class="stat-row">
             <span class="stat-label">根骨</span>
             <span class="stat-value">{{ gameStore.user?.attributes?.charisma }}</span>
+            <button v-if="freePoints > 0" class="attr-plus-btn" @click="allocatePoints('charisma')">+</button>
           </div>
+          <div v-if="freePoints > 0" class="free-points-hint">
+            ✨ 可分配属性点: {{ freePoints }}
+          </div>
+        </div>
+        
+        <!-- 门派信息 -->
+        <div class="faction-info" v-if="gameStore.user?.faction">
+          <div class="faction-header">🏯 {{ factionName }}</div>
+          <div class="faction-detail">
+            <span>等级: {{ factionRankLabel }}</span>
+            <span>声望: {{ gameStore.user?.factionReputation || 0 }}</span>
+            <span>贡献: {{ gameStore.user?.factionContribution || 0 }}</span>
+          </div>
+          <button v-if="canAdvanceFaction" class="faction-advance-btn" @click="advanceFaction">进阶</button>
         </div>
       </div>
       
@@ -82,10 +101,33 @@
     
     <!-- 中央面板 - 游戏内容 -->
     <div class="center-panel">
+      <!-- 死亡遮罩 -->
+      <div class="death-overlay" v-if="isDead">
+        <div class="death-content">
+          <div class="death-icon">💀</div>
+          <div class="death-text">你已倒下...</div>
+          <div class="death-hint">生命值降为零，你陷入了昏迷</div>
+          <button class="revive-btn" @click="revive">🔄 复活</button>
+          <div class="death-penalty-hint">复活后将回到村庄中心，恢复30%生命和内力</div>
+        </div>
+      </div>
+      
       <!-- 房间信息 -->
-      <div class="room-info" v-if="gameStore.currentRoom">
+      <div class="room-info" v-if="gameStore.currentRoom && !isDead">
         <div class="room-name">{{ gameStore.currentRoom.name }}</div>
         <div class="room-description">{{ gameStore.currentRoom.description }}</div>
+        
+        <!-- 地面掉落 -->
+        <div class="room-drops" v-if="gameStore.roomDrops?.length">
+          <div class="drops-title">📦 地面物品</div>
+          <div class="drops-list">
+            <div v-for="(drop, idx) in gameStore.roomDrops" :key="drop.itemId + '-' + idx" class="drop-item">
+              <span class="drop-name">{{ drop.name || drop.itemId }}</span>
+              <span v-if="drop.quantity > 1" class="drop-qty">x{{ drop.quantity }}</span>
+              <button class="pickup-btn" @click="pickupItem(drop.itemId)">拾取</button>
+            </div>
+          </div>
+        </div>
         
         <div class="room-exits">
           <span class="exit-label">出口:</span>
@@ -241,6 +283,7 @@
         <button class="menu-tab" :class="{ active: activeTab === 'inventory' }" @click="activeTab = 'inventory'">背包</button>
         <button class="menu-tab" :class="{ active: activeTab === 'skills' }" @click="activeTab = 'skills'">技能</button>
         <button class="menu-tab" :class="{ active: activeTab === 'quests' }" @click="activeTab = 'quests'">任务</button>
+        <button class="menu-tab" :class="{ active: activeTab === 'battlelog' }" @click="activeTab = 'battlelog'">战报</button>
       </div>
       
       <div class="menu-content">
@@ -257,9 +300,17 @@
             </div>
             <div class="item-actions">
               <button v-if="isConsumable(item.itemId)" class="item-btn" @click="useItem(item)">使用</button>
-              <button v-if="isEquipment(item.itemId) && !item.equipped" class="item-btn" @click="equipItem(item)">装备</button>
-              <button v-if="isEquipment(item.itemId) && item.equipped" class="item-btn equipped-btn" disabled>已装备</button>
+              <button v-if="isEquipment(item.itemId) && !item.isEquipped" class="item-btn" @click="equipItem(item)">装备</button>
+              <button v-if="isEquipment(item.itemId) && item.isEquipped" class="item-btn equipped-btn" disabled>已装备</button>
+              <button v-if="isEquipment(item.itemId) && (item.durability?.current || 0) < (item.durability?.max || 100)" class="item-btn repair-btn" @click="repairItem(item._id)">修复</button>
               <button class="item-btn sell-btn" @click="sellItem(item)">出售</button>
+            </div>
+            <div v-if="isEquipment(item.itemId)" class="durability-bar">
+              <span class="dur-label">耐久</span>
+              <div class="dur-track">
+                <div class="dur-fill" :class="durabilityClass(item)" :style="{ width: durabilityPercent(item) + '%' }"></div>
+              </div>
+              <span class="dur-text" :class="durabilityClass(item)">{{ item.durability?.current || 0 }}/{{ item.durability?.max || 100 }}</span>
             </div>
           </div>
           <div v-if="!inventory.length" class="empty-hint">背包空空如也</div>
@@ -273,6 +324,10 @@
               <span class="skill-level">Lv{{ skill.level }}</span>
             </div>
             <div class="item-detail">{{ getSkillDescription(skill.skillId) }}</div>
+            <div class="skill-exp-bar">
+              <div class="skill-exp-fill" :style="{ width: skillExpPercent(skill) + '%' }"></div>
+              <span class="skill-exp-text">{{ skill.exp || 0 }}/{{ (skill.level || 1) * 100 }}</span>
+            </div>
             <div class="skill-meta">
               <span v-if="getSkillMpCost(skill.skillId)">MP {{ getSkillMpCost(skill.skillId) }}</span>
               <span v-if="getSkillType(skill.skillId)" class="skill-type-tag">{{ getSkillTypeLabel(skill.skillId) }}</span>
@@ -301,6 +356,48 @@
           </div>
           <div v-if="!quests.length" class="empty-hint">没有进行中的任务</div>
         </div>
+
+        <!-- 战斗日志 -->
+        <div v-if="activeTab === 'battlelog'">
+          <button class="item-btn" @click="loadBattleLogs" style="margin-bottom:8px">刷新战报</button>
+          <div v-if="gameStore.battleLogDetail" class="battle-log-detail">
+            <button class="item-btn" @click="gameStore.battleLogDetail = null" style="margin-bottom:8px">← 返回列表</button>
+            <div class="log-detail-header">{{ gameStore.battleLogDetail.monster?.name || '战斗记录' }}</div>
+            <div class="log-detail-result" :class="battleLogWon(gameStore.battleLogDetail) ? 'victory' : 'defeat'">
+              {{ battleLogWon(gameStore.battleLogDetail) ? '🏆 胜利' : '💀 失败' }}
+            </div>
+            <div v-if="gameStore.battleLogDetail.result?.expGained" class="log-detail-info">
+              经验 +{{ gameStore.battleLogDetail.result.expGained }}
+            </div>
+            <div v-if="gameStore.battleLogDetail.result?.goldGained" class="log-detail-info">
+              金币 +{{ gameStore.battleLogDetail.result.goldGained }}
+            </div>
+            <div v-if="gameStore.battleLogDetail.result?.deathPenalty" class="log-detail-info penalty">
+              💀 死亡惩罚: 经验 -{{ gameStore.battleLogDetail.result.deathPenalty.expLost || 0 }}, 金币 -{{ gameStore.battleLogDetail.result.deathPenalty.goldLost || 0 }}
+            </div>
+            <div v-if="gameStore.battleLogDetail.rounds?.length" class="log-turns">
+              <div v-for="(turn, i) in gameStore.battleLogDetail.rounds" :key="i" class="log-turn">
+                回合{{ turn.round || i+1 }}: {{ formatLogTurn(turn) }}
+              </div>
+            </div>
+          </div>
+          <div v-else>
+            <div v-for="log in gameStore.battleLogList" :key="log._id" class="battle-log-item" @click="loadBattleLogDetail(log.battleId || log._id)">
+              <div class="log-header">
+                <span class="log-monster">{{ log.monster?.name || '战斗' }}</span>
+                <span class="log-result" :class="log.result?.won ? 'victory' : 'defeat'">
+                  {{ log.result?.won ? '胜' : '败' }}
+                </span>
+              </div>
+              <div class="log-meta">
+                <span v-if="log.result?.expGained">经验+{{ log.result.expGained }}</span>
+                <span v-if="log.result?.goldGained">金币+{{ log.result.goldGained }}</span>
+                <span class="log-time">{{ formatLogTime(log.endedAt) }}</span>
+              </div>
+            </div>
+            <div v-if="!gameStore.battleLogList.length" class="empty-hint">暂无战斗记录</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -320,6 +417,23 @@ const activeTab = ref('inventory')
 const messageArea = ref(null)
 
 // 计算属性
+const isDead = computed(() => gameStore.isDead || (gameStore.user?.hp?.current <= 0 && !gameStore.battle))
+const freePoints = computed(() => gameStore.user?.freePoints || gameStore.user?.attributePoints || 0)
+
+const factionRankLabel = computed(() => {
+  const rank = gameStore.user?.factionRank
+  const labels = { disciple: '弟子', deacon: '执事', elder: '长老', leader: '掌门' }
+  return labels[rank] || rank || '弟子'
+})
+
+const canAdvanceFaction = computed(() => {
+  const rep = gameStore.user?.factionReputation || 0
+  const rank = gameStore.user?.factionRank
+  if (rank === 'leader') return false
+  if (rank === 'elder') return rep >= 5000
+  if (rank === 'deacon') return rep >= 2000
+  return rep >= 500 // disciple needs 500 to advance
+})
 const hpPercent = computed(() => {
   if (!gameStore.user?.hp) return 0
   return toPercent(gameStore.user.hp.current, gameStore.user.hp.max)
@@ -597,6 +711,84 @@ function getSkillTypeLabel(skillId) {
   return labels[type] || type
 }
 
+function skillExpPercent(skill) {
+  const exp = skill.exp || 0
+  const level = skill.level || 1
+  // 经验公式：每级需要 level * 100 经验
+  const next = level * 100
+  return Math.min(100, Math.floor((exp / next) * 100))
+}
+
+function durabilityPercent(item) {
+  const max = item.durability?.max || 100
+  const cur = item.durability?.current ?? max
+  return Math.max(0, Math.floor((cur / max) * 100))
+}
+
+function durabilityClass(item) {
+  const pct = durabilityPercent(item)
+  if (pct <= 30) return 'dur-critical'
+  if (pct <= 60) return 'dur-warning'
+  return 'dur-good'
+}
+
+function formatLogTime(dateStr) {
+  if (!dateStr) return ''
+  const d = new Date(dateStr)
+  return `${d.getMonth()+1}/${d.getDate()} ${d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`
+}
+
+function battleLogWon(log) {
+  if (!log) return false
+  if (log.result?.won) return true
+  // Check if any participant with userId is winner
+  return log.participants?.some(p => p.isWinner)
+}
+
+function formatLogTurn(turn) {
+  if (!turn) return ''
+  const parts = []
+  if (turn.attacker) parts.push(turn.attacker)
+  if (turn.action === 'skill' && turn.skill) parts.push(`使用${turn.skill}`)
+  else if (turn.action === 'attack') parts.push('攻击')
+  else if (turn.action === 'defend') parts.push('防御')
+  else if (turn.action === 'flee') parts.push('逃跑')
+  else if (turn.action) parts.push(turn.action)
+  if (turn.damage) parts.push(`造成${turn.damage}伤害`)
+  if (turn.healed) parts.push(`恢复${turn.healed}生命`)
+  if (turn.dodged) parts.push('被闪避')
+  if (turn.fled) parts.push('成功逃跑')
+  return parts.join(' ') || JSON.stringify(turn)
+}
+
+function revive() {
+  gameStore.revive()
+}
+
+function allocatePoints(stat) {
+  gameStore.allocatePoints(stat)
+}
+
+function pickupItem(itemId) {
+  gameStore.pickupItem(itemId)
+}
+
+function repairItem(inventoryId) {
+  gameStore.repairItem(inventoryId)
+}
+
+function loadBattleLogs() {
+  gameStore.loadBattleLogs()
+}
+
+function loadBattleLogDetail(logId) {
+  gameStore.loadBattleLogDetail(logId)
+}
+
+function advanceFaction() {
+  gameStore.advanceFaction()
+}
+
 function questStatusClass(status) {
   const map = { accepted: 'status-accepted', in_progress: 'status-progress', completed: 'status-completed', failed: 'status-failed' }
   return map[status] || ''
@@ -633,7 +825,7 @@ onMounted(async () => {
   // 加载游戏配置
   await gameStore.loadGameConfig()
   await gameStore.loadPlayerData()
-  // 发送look命令获取当前房间信息
+  // 发送look命令获取当前房间信息（包含drops）
   gameStore.sendCommand('look')
 })
 </script>
@@ -857,4 +1049,243 @@ onMounted(async () => {
 .rarity-uncommon { color: #4ade80; }
 .rarity-rare { color: #60a5fa; }
 .rarity-epic { color: #c084fc; }
+
+/* 死亡遮罩 */
+.death-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.death-content {
+  text-align: center;
+  color: #f87171;
+}
+.death-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+}
+.death-text {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.death-hint {
+  color: #aaa;
+  font-size: 14px;
+  margin-bottom: 30px;
+}
+.revive-btn {
+  padding: 12px 40px;
+  background: #4caf50;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.revive-btn:hover {
+  background: #66bb6a;
+}
+.death-penalty-hint {
+  color: #888;
+  font-size: 12px;
+  margin-top: 15px;
+}
+
+/* 地面掉落 */
+.room-drops {
+  background: rgba(255,215,0,0.1);
+  border: 1px solid rgba(255,215,0,0.3);
+  border-radius: 5px;
+  padding: 8px;
+  margin: 8px 0;
+}
+.drops-title {
+  color: #ffd700;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+.drops-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.drop-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: #16213e;
+  padding: 4px 8px;
+  border-radius: 3px;
+}
+.drop-name { color: #eee; font-size: 12px; }
+.drop-qty { color: #aaa; font-size: 11px; }
+.pickup-btn {
+  padding: 2px 8px;
+  background: #4caf50;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 11px;
+}
+.pickup-btn:hover { background: #66bb6a; }
+
+/* 属性点分配 */
+.attr-plus-btn {
+  padding: 1px 6px;
+  background: #4caf50;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  margin-left: 4px;
+}
+.attr-plus-btn:hover { background: #66bb6a; }
+.free-points-hint {
+  color: #ffd700;
+  font-size: 12px;
+  margin-top: 8px;
+  text-align: center;
+  background: rgba(255,215,0,0.1);
+  padding: 4px;
+  border-radius: 3px;
+}
+
+/* 门派信息 */
+.faction-info {
+  background: rgba(79,195,247,0.1);
+  border: 1px solid rgba(79,195,247,0.3);
+  border-radius: 5px;
+  padding: 8px;
+  margin-top: 10px;
+}
+.faction-header {
+  color: #4fc3f7;
+  font-size: 14px;
+  font-weight: bold;
+}
+.faction-detail {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 4px;
+}
+.faction-advance-btn {
+  padding: 4px 12px;
+  background: #4fc3f7;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  margin-top: 6px;
+}
+.faction-advance-btn:hover { background: #81d4fa; }
+
+/* 装备耐久 */
+.durability-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+.dur-label { color: #888; font-size: 11px; }
+.dur-track {
+  width: 60px;
+  height: 8px;
+  background: #333;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.dur-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s;
+}
+.dur-good { background: #4caf50; }
+.dur-warning { background: #fbbf24; }
+.dur-critical { background: #f87171; }
+.dur-text { font-size: 11px; }
+.dur-good.dur-text { color: #4caf50; }
+.dur-warning.dur-text { color: #fbbf24; }
+.dur-critical.dur-text { color: #f87171; }
+.repair-btn {
+  background: #1565c0;
+  color: #4fc3f7;
+}
+.repair-btn:hover { background: #1976d2; }
+
+/* 技能经验条 */
+.skill-exp-bar {
+  width: 100%;
+  height: 12px;
+  background: #333;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.skill-exp-fill {
+  height: 100%;
+  background: #60a5fa;
+  border-radius: 6px;
+  transition: width 0.3s;
+}
+.skill-exp-text {
+  font-size: 10px;
+  color: #aaa;
+  margin-top: 2px;
+}
+
+/* 战斗日志 */
+.battle-log-item {
+  background: #16213e;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.battle-log-item:hover { background: #1a3a5e; }
+.log-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.log-monster { color: #eee; font-size: 13px; }
+.log-result { font-size: 12px; font-weight: bold; }
+.log-result.victory { color: #4ade80; }
+.log-result.defeat { color: #f87171; }
+.log-meta {
+  display: flex;
+  gap: 8px;
+  font-size: 11px;
+  color: #888;
+  margin-top: 3px;
+}
+.log-time { color: #666; }
+.battle-log-detail {
+  background: #16213e;
+  padding: 10px;
+  border-radius: 5px;
+}
+.log-detail-header {
+  color: #eee;
+  font-size: 16px;
+  font-weight: bold;
+}
+.log-detail-result { font-size: 18px; font-weight: bold; margin: 8px 0; }
+.log-detail-result.victory { color: #4ade80; }
+.log-detail-result.defeat { color: #f87171; }
+.log-detail-info { color: #fbbf24; font-size: 13px; }
+.log-detail-info.penalty { color: #f87171; }
+.log-turns { margin-top: 8px; }
+.log-turn { color: #aaa; font-size: 12px; line-height: 1.6; }
 </style>

@@ -1,51 +1,64 @@
 # Roadmap
 
-## Phase 1-3: Foundation ✅ COMPLETE
+## Phase 1-4: ✅ COMPLETE
 
-Core game loop, content, and UI panels.
+详见 `docs/P0_IMPLEMENTATION_SUMMARY.md`
 
-## Phase 4: Expand Wuxia Gameplay Depth ✅ COMPLETE (2026-05-15)
+## Phase 5: 客户端UI补全 ⬜ IN PROGRESS
 
-### Batch 1: Core Combat Mechanics ✅
-- Passive skill processing (mpRegen per turn, persistent buffs)
-- Counter-attack mechanic (counterChance on any skill type)
-- Room drops / pickup system (roomDropsService.js)
-- Collect quest trigger (pickup_item → checkProgress)
-- Bug fixes (NPC skill IDs, empty buff on meditation)
+> 让服务端已有功能在客户端完整呈现
 
-### Batch 2: Faction Progression & Death ✅
-- Faction advancement (reputation, contribution, rank: disciple→deacon→elder→leader)
-- Faction tasks (gold donation for reputation)
-- Rank-gated skill learning (rankRequired field support)
-- Skill experience from combat (skills used in battle gain EXP)
-- Death penalty (10% EXP loss, 5% gold loss, equipment durability loss)
-- Revive system (30% HP/MP, teleport to village_center)
+| # | 功能 | 状态 | 说明 |
+|---|------|------|------|
+| 5.1 | 地面掉落面板 | ⬜ | 房间描述下方显示地面物品+拾取 |
+| 5.2 | 死亡复活界面 | ⬜ | HP=0时显示死亡遮罩+复活按钮 |
+| 5.3 | 属性点分配 | ⬜ | freePoints分配到基础属性 |
+| 5.4 | 门派信息面板 | ⬜ | 门派/等级/声望/进阶/捐献 |
+| 5.5 | 装备耐久度 | ⬜ | 耐久条+铁匠修复按钮 |
+| 5.6 | 战斗日志查看 | ⬜ | 历史战斗列表+详情 |
+| 5.7 | 技能等级与经验 | ⬜ | 技能等级/经验条/升级通知 |
+| 5.8 | 休息按钮改进 | ⬜ | 始终可见，区分客栈/野外 |
 
-### Batch 3: UI & Equipment Systems ✅
-- Battle log query (get_battle_logs, get_battle_detail socket events)
-- Attribute point allocation (allocate_points socket event, freePoints from level-up and faction advance)
-- Equipment durability (battle consumes 1-3 per item, death 10 extra; repair_item/repair_all at blacksmith)
+## Phase 6: 社交与互动 ⬜
 
-### Env Configuration ✅
-- Server `.env.example` with all configurable fields
-- Client `.env.example` with VITE_API_URL and VITE_SOCKET_URL
-- `.gitignore` excludes `.env` files
+> 玩家间互动基础（不含组队、好友）
 
-## Phase 5: Client UI Update (NEXT)
+| # | 功能 | 状态 | 说明 |
+|---|------|------|------|
+| 6.1 | 聊天系统增强 | ⬜ | 世界/区域/私聊频道 |
+| 6.2 | 玩家间交易 | ⬜ | 同房间交易请求→确认→交换 |
+| 6.3 | PVP竞技场 | ⬜ | 竞技场挑战+排行榜 |
+| 6.4 | 玩家在线列表 | ⬜ | 在线玩家信息+同房间高亮 |
 
-Update client Vue components to reflect all new server capabilities:
-- Ground drops panel in room view
-- Faction rank/reputation display
-- Durability bars on equipment
-- Battle log viewer
-- Attribute allocation UI
-- Revive button on death screen
-- Skill level-up notifications
-- Repair button at blacksmith rooms
+## Phase 7: 内容深度扩展 ⬜
 
-## Phase 6: Content Expansion
+> 增加长期可玩性
 
-- Populate faction-exclusive skill trees (rankRequired skills)
-- Add more faction tasks and quests
-- Expand map content
-- Balance tuning
+| # | 功能 | 状态 | 说明 |
+|---|------|------|------|
+| 7.1 | 门派专属技能树 | ⬜ | 每门派10-15技能，按rank分级 |
+| 7.2 | 门派任务链 | ⬜ | 每门派3-5专属任务 |
+| 7.3 | 副本系统 | ⬜ | 试炼/秘境/BOSS副本 |
+| 7.4 | 帮派系统 | ⬜ | 创建/管理/帮战/仓库 |
+| 7.5 | 生活技能 | ⬜ | 采集/锻造/炼药/烹饪 |
+| 7.6 | 成就系统 | ⬜ | 战斗/探索/收集/社交成就 |
+
+## Phase 8: 经济与平衡 ⬜
+
+> 可持续经济循环+数值调优
+
+| # | 功能 | 状态 | 说明 |
+|---|------|------|------|
+| 8.1 | 拍卖行 | ⬜ | 挂单/搜索/购买/手续费 |
+| 8.2 | 经济平衡 | ⬜ | 金币产出/消耗审计+调整 |
+| 8.3 | 数值平衡 | ⬜ | 战斗/怪物/装备/经验曲线 |
+| 8.4 | 每日活跃 | ⬜ | 签到/每日任务/活跃度/限时活动 |
+| 8.5 | 天气与时间 | ⬜ | 昼夜交替+天气效果 |
+
+## 详细规划
+
+完整规划文档: `docs/PHASE_5_8_PLAN.md`
+
+---
+
+*最后更新: 2026-05-16*
