@@ -4,6 +4,7 @@ const { getRoom, getRoomExits, getNpcsInRoom, getMonstersInRoom, getSkill, getQu
 const BattleService = require('../game/battleService');
 const questProgressService = require('../game/questProgressService');
 const roomDropsService = require('../game/roomDropsService');
+const tradeService = require('../game/tradeService');
 
 // 在线玩家映射
 const onlinePlayers = new Map();
@@ -35,6 +36,7 @@ function socketHandler(io) {
       name: user.characterName,
       level: user.level,
       location: user.location,
+      faction: user.faction,
       socketId: socket.id
     });
     
@@ -491,6 +493,20 @@ function socketHandler(io) {
     // ==================== 战斗日志 ====================
     
     // 查询战斗历史
+    // 查看在线玩家
+    socket.on('who', async () => {
+      const players = [];
+      for (const [socketId, player] of onlinePlayers) {
+        players.push({
+          name: player.name,
+          level: player.level,
+          location: player.location,
+          faction: player.faction
+        });
+      }
+      socket.emit('online_players', { players, total: players.length });
+    });
+    
     socket.on('get_battle_logs', async (data = {}) => {
       const { limit = 10, offset = 0 } = data;
       
@@ -570,9 +586,16 @@ function socketHandler(io) {
     
     // 私聊
     socket.on('chat_private', async (data) => {
-      const { targetId, content } = data;
+      const { targetId, targetName, content } = data;
       
-      const target = await User.findById(targetId);
+      // 支持按名字或ID查找
+      let target;
+      if (targetName) {
+        target = await User.findOne({ characterName: targetName });
+      } else if (targetId) {
+        target = await User.findById(targetId);
+      }
+      
       if (!target) {
         return socket.emit('error', { message: '目标玩家不存在' });
       }
@@ -606,6 +629,241 @@ function socketHandler(io) {
           content,
           timestamp: message.createdAt
         });
+      }
+    });
+    
+    // ==================== 交易系统 ====================
+    
+    // 发起交易请求
+    socket.on('trade_request', async (data) => {
+      const { targetName } = data;
+      
+      // 查找目标玩家
+      let targetSocketId = null;
+      let targetUserId = null;
+      for (const [sid, player] of onlinePlayers) {
+        if (player.name === targetName) {
+          targetSocketId = sid;
+          targetUserId = player.userId;
+          break;
+        }
+      }
+      
+      if (!targetSocketId) {
+        return socket.emit('error', { message: `玩家 ${targetName} 不在线` });
+      }
+      
+      // 检查是否同一房间
+      const targetPlayer = onlinePlayers.get(targetSocketId);
+      if (targetPlayer.location.roomId !== user.location.roomId) {
+        return socket.emit('error', { message: '只能与同一房间的玩家交易' });
+      }
+      
+      const result = tradeService.createTrade(
+        socket.id, user._id, user.characterName,
+        targetSocketId, targetUserId, targetName
+      );
+      
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      
+      // 通知双方
+      socket.emit('trade_started', { tradeId: result.tradeId, role: 'initiator', partner: targetName });
+      io.to(targetSocketId).emit('trade_started', { tradeId: result.tradeId, role: 'receiver', partner: user.characterName });
+    });
+    
+    // 添加物品到交易
+    socket.on('trade_add_item', async (data) => {
+      const { tradeId, itemId, quantity = 1 } = data;
+      const itemConfig = getItem(itemId);
+      if (!itemConfig) {
+        return socket.emit('error', { message: '物品不存在' });
+      }
+      
+      // 检查背包中是否有该物品
+      const invItem = await Inventory.findOne({ userId: user._id, itemId, isEquipped: false });
+      if (!invItem || invItem.quantity < quantity) {
+        return socket.emit('error', { message: '背包中物品不足' });
+      }
+      
+      const result = tradeService.addItem(tradeId, user._id, itemId, itemConfig.name, quantity);
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      
+      // 通知双方更新
+      const trade = tradeService.getTradeState(tradeId);
+      const tradeData = tradeService.activeTrades.get(tradeId);
+      io.to(tradeData.initiator.socketId).emit('trade_updated', trade);
+      io.to(tradeData.receiver.socketId).emit('trade_updated', trade);
+    });
+    
+    // 设置交易金币
+    socket.on('trade_set_gold', (data) => {
+      const { tradeId, gold } = data;
+      if (gold < 0 || gold > (user.gold || 0)) {
+        return socket.emit('error', { message: '金币不足' });
+      }
+      
+      const result = tradeService.setGold(tradeId, user._id, gold);
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      
+      const trade = tradeService.getTradeState(tradeId);
+      const tradeData = tradeService.activeTrades.get(tradeId);
+      io.to(tradeData.initiator.socketId).emit('trade_updated', trade);
+      io.to(tradeData.receiver.socketId).emit('trade_updated', trade);
+    });
+    
+    // 确认交易
+    socket.on('trade_confirm', async (data) => {
+      const { tradeId } = data;
+      const result = tradeService.confirm(tradeId, user._id);
+      
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      
+      const tradeData = tradeService.activeTrades.get(tradeId);
+      
+      if (result.completed) {
+        // 执行交易：转移物品和金币
+        const trade = tradeService.getTradeState(tradeId);
+        
+        // 转移发起方的物品给接收方
+        for (const item of trade.initiator.offer.items) {
+          await transferItem(tradeData.initiator.userId, tradeData.receiver.userId, item.itemId, item.quantity);
+        }
+        // 转移接收方的物品给发起方
+        for (const item of trade.receiver.offer.items) {
+          await transferItem(tradeData.receiver.userId, tradeData.initiator.userId, item.itemId, item.quantity);
+        }
+        // 转移金币
+        if (trade.initiator.offer.gold > 0) {
+          await User.findByIdAndUpdate(tradeData.initiator.userId, { $inc: { gold: -trade.initiator.offer.gold } });
+          await User.findByIdAndUpdate(tradeData.receiver.userId, { $inc: { gold: trade.initiator.offer.gold } });
+        }
+        if (trade.receiver.offer.gold > 0) {
+          await User.findByIdAndUpdate(tradeData.receiver.userId, { $inc: { gold: -trade.receiver.offer.gold } });
+          await User.findByIdAndUpdate(tradeData.initiator.userId, { $inc: { gold: trade.receiver.offer.gold } });
+        }
+        
+        io.to(tradeData.initiator.socketId).emit('trade_completed', { tradeId, message: '交易完成！' });
+        io.to(tradeData.receiver.socketId).emit('trade_completed', { tradeId, message: '交易完成！' });
+      } else {
+        // 通知双方更新
+        const trade = tradeService.getTradeState(tradeId);
+        io.to(tradeData.initiator.socketId).emit('trade_updated', trade);
+        io.to(tradeData.receiver.socketId).emit('trade_updated', trade);
+      }
+    });
+    
+    // 取消交易
+    socket.on('trade_cancel', (data) => {
+      const { tradeId } = data;
+      const result = tradeService.cancel(tradeId, user._id);
+      
+      const tradeData = tradeService.activeTrades.get(tradeId);
+      if (tradeData) {
+        io.to(tradeData.initiator.socketId).emit('trade_cancelled', { tradeId });
+        io.to(tradeData.receiver.socketId).emit('trade_cancelled', { tradeId });
+      }
+    });
+    
+    // 移除交易物品
+    socket.on('trade_remove_item', (data) => {
+      const { tradeId, itemId } = data;
+      const result = tradeService.removeItem(tradeId, user._id, itemId);
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      
+      const trade = tradeService.getTradeState(tradeId);
+      const tradeData = tradeService.activeTrades.get(tradeId);
+      io.to(tradeData.initiator.socketId).emit('trade_updated', trade);
+      io.to(tradeData.receiver.socketId).emit('trade_updated', trade);
+    });
+    
+    // ==================== PVP竞技场 ====================
+    
+    // 发起PVP挑战
+    socket.on('pvp_challenge', async (data) => {
+      const { targetName } = data;
+      
+      // 查找目标玩家
+      let targetSocketId = null;
+      let targetUserId = null;
+      for (const [sid, player] of onlinePlayers) {
+        if (player.name === targetName) {
+          targetSocketId = sid;
+          targetUserId = player.userId;
+          break;
+        }
+      }
+      
+      if (!targetSocketId) {
+        return socket.emit('error', { message: `玩家 ${targetName} 不在线` });
+      }
+      
+      // 检查等级差（不超过10级）
+      const targetPlayer = onlinePlayers.get(targetSocketId);
+      if (Math.abs(user.level - targetPlayer.level) > 10) {
+        return socket.emit('error', { message: '等级差距过大，无法挑战（不超过10级）' });
+      }
+      
+      // 发送挑战请求
+      io.to(targetSocketId).emit('pvp_challenge_received', {
+        challengerName: user.characterName,
+        challengerLevel: user.level
+      });
+      
+      socket.emit('system_message', { message: `已向 ${targetName} 发出挑战，等待对方回应...` });
+    });
+    
+    // 接受PVP挑战
+    socket.on('pvp_accept', async (data) => {
+      const { challengerName } = data;
+      
+      // 查找挑战者
+      let challengerSocketId = null;
+      let challengerUserId = null;
+      for (const [sid, player] of onlinePlayers) {
+        if (player.name === challengerName) {
+          challengerSocketId = sid;
+          challengerUserId = player.userId;
+          break;
+        }
+      }
+      
+      if (!challengerSocketId) {
+        return socket.emit('error', { message: '挑战者已离线' });
+      }
+      
+      // 开始PVP战斗
+      try {
+        const battle = await battleService.startBattle(challengerUserId, user._id, 'pvp');
+        const challengerSocket = io.sockets.sockets.get(challengerSocketId);
+        if (challengerSocket) {
+          challengerSocket.join(`battle:${battle.battleId}`);
+          challengerSocket.emit('battle_started', battle);
+        }
+        socket.join(`battle:${battle.battleId}`);
+        socket.emit('battle_started', battle);
+      } catch (err) {
+        socket.emit('error', { message: err.message || 'PVP战斗启动失败' });
+      }
+    });
+    
+    // 拒绝PVP挑战
+    socket.on('pvp_decline', (data) => {
+      const { challengerName } = data;
+      for (const [sid, player] of onlinePlayers) {
+        if (player.name === challengerName) {
+          io.to(sid).emit('system_message', { message: `${user.characterName} 拒绝了你的挑战` });
+          break;
+        }
       }
     });
     
@@ -1372,6 +1630,37 @@ function recalculateStats(user) {
   
   user.mp.max = user.calculateMaxMP();
   user.mp.current = Math.min(user.mp.current, user.mp.max);
+}
+
+// 转移物品（交易用）
+async function transferItem(fromUserId, toUserId, itemId, quantity) {
+  // 从发起方背包减少
+  const fromItem = await Inventory.findOne({ userId: fromUserId, itemId });
+  if (!fromItem) return;
+  
+  if (fromItem.quantity <= quantity) {
+    await Inventory.deleteOne({ _id: fromItem._id });
+  } else {
+    fromItem.quantity -= quantity;
+    await fromItem.save();
+  }
+  
+  // 给接收方增加
+  const toItem = await Inventory.findOne({ userId: toUserId, itemId });
+  if (toItem) {
+    toItem.quantity += quantity;
+    await toItem.save();
+  } else {
+    const itemConfig = getItem(itemId);
+    await Inventory.create({
+      userId: toUserId,
+      itemId,
+      name: itemConfig?.name || itemId,
+      type: itemConfig?.type || 'misc',
+      quantity,
+      durability: itemConfig?.durability ? { current: itemConfig.durability, max: itemConfig.durability } : undefined
+    });
+  }
 }
 
 module.exports = socketHandler;

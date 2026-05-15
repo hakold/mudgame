@@ -153,7 +153,17 @@ export const useGameStore = defineStore('game', () => {
     })
     
     socket.value.on('chat_message', (data) => {
-      addMessage(data.channel, `[${data.sender}] ${data.content}`)
+      const channelLabels = {
+        world: '【世界】',
+        room: '【区域】',
+        private: '【私聊】',
+        system: '【系统】'
+      }
+      const label = channelLabels[data.channel] || `【${data.channel}】`
+      const prefix = data.channel === 'private' && data.receiver 
+        ? `${label}${data.sender}→${data.receiver}` 
+        : `${label}${data.sender}`
+      addMessage(data.channel, `${prefix} ${data.content}`)
     })
     
     socket.value.on('system_message', (data) => {
@@ -287,6 +297,36 @@ export const useGameStore = defineStore('game', () => {
       battleLogDetail.value = data
     })
     
+    socket.value.on('online_players', (data) => {
+      onlinePlayers.value = data.players || []
+    })
+    
+    socket.value.on('trade_started', (data) => {
+      activeTrade.value = { tradeId: data.tradeId, role: data.role, partner: data.partner }
+      addMessage('system', `交易开始！与 ${data.partner} 的交易`)
+    })
+    
+    socket.value.on('trade_updated', (data) => {
+      activeTrade.value = data
+    })
+    
+    socket.value.on('trade_completed', (data) => {
+      addMessage('success', data.message || '交易完成！')
+      activeTrade.value = null
+      Promise.all([refreshCurrentUser(), loadInventory()])
+    })
+    
+    socket.value.on('trade_cancelled', (data) => {
+      addMessage('system', '交易已取消')
+      activeTrade.value = null
+    })
+    
+    socket.value.on('pvp_challenge_received', (data) => {
+      addMessage('system', `⚔️ ${data.challengerName}(Lv${data.challengerLevel}) 向你发起了PVP挑战！`)
+      // 存储挑战信息供UI显示
+      pvpChallenge.value = data
+    })
+    
     socket.value.on('faction_advanced', async (data) => {
       addMessage('success', data.message || '门派等级提升！')
       await refreshCurrentUser()
@@ -385,6 +425,9 @@ export const useGameStore = defineStore('game', () => {
   
   const battleLogList = ref([])
   const battleLogDetail = ref(null)
+  const onlinePlayers = ref([])
+  const activeTrade = ref(null)
+  const pvpChallenge = ref(null)
 
   function addMessage(type, content) {
     messages.value.push({
@@ -693,6 +736,68 @@ export const useGameStore = defineStore('game', () => {
     }
   }
   
+  function loadOnlinePlayers() {
+    if (socket.value) {
+      socket.value.emit('who')
+    }
+  }
+  
+  function requestTrade(targetName) {
+    if (socket.value) {
+      socket.value.emit('trade_request', { targetName })
+    }
+  }
+  
+  function tradeAddItem(tradeId, itemId, quantity = 1) {
+    if (socket.value) {
+      socket.value.emit('trade_add_item', { tradeId, itemId, quantity })
+    }
+  }
+  
+  function tradeSetGold(tradeId, gold) {
+    if (socket.value) {
+      socket.value.emit('trade_set_gold', { tradeId, gold })
+    }
+  }
+  
+  function tradeConfirm(tradeId) {
+    if (socket.value) {
+      socket.value.emit('trade_confirm', { tradeId })
+    }
+  }
+  
+  function tradeCancel(tradeId) {
+    if (socket.value) {
+      socket.value.emit('trade_cancel', { tradeId })
+    }
+  }
+  
+  function tradeRemoveItem(tradeId, itemId) {
+    if (socket.value) {
+      socket.value.emit('trade_remove_item', { tradeId, itemId })
+    }
+  }
+  
+  function sendPvpChallenge(targetName) {
+    if (socket.value) {
+      socket.value.emit('pvp_challenge', { targetName })
+    }
+  }
+  
+  function pvpAccept(challengerName) {
+    if (socket.value) {
+      socket.value.emit('pvp_accept', { challengerName })
+      pvpChallenge.value = null
+    }
+  }
+  
+  function pvpDecline(challengerName) {
+    if (socket.value) {
+      socket.value.emit('pvp_decline', { challengerName })
+      pvpChallenge.value = null
+    }
+  }
+  
   return {
     // 状态
     token,
@@ -711,6 +816,9 @@ export const useGameStore = defineStore('game', () => {
     roomDrops,
     battleLogList,
     battleLogDetail,
+    onlinePlayers,
+    activeTrade,
+    pvpChallenge,
     // 计算属性
     isLoggedIn,
     isGM,
@@ -737,6 +845,16 @@ export const useGameStore = defineStore('game', () => {
     repairAll,
     loadBattleLogs,
     loadBattleLogDetail,
-    advanceFaction
+    advanceFaction,
+    loadOnlinePlayers,
+    requestTrade,
+    tradeAddItem,
+    tradeSetGold,
+    tradeConfirm,
+    tradeCancel,
+    tradeRemoveItem,
+    sendPvpChallenge,
+    pvpAccept,
+    pvpDecline
   }
 })

@@ -112,6 +112,67 @@
         </div>
       </div>
       
+      <!-- 交易面板 -->
+      <div class="trade-overlay" v-if="gameStore.activeTrade">
+        <div class="trade-panel">
+          <div class="trade-title">🤝 交易 - {{ gameStore.activeTrade.partner }}</div>
+          <div class="trade-body">
+            <div class="trade-side">
+              <div class="trade-side-title">你的出价</div>
+              <div class="trade-items">
+                <div v-for="item in myTradeOffer.items" :key="item.itemId" class="trade-offer-item">
+                  {{ item.itemName }} x{{ item.quantity }}
+                  <button class="trade-remove-btn" @click="tradeRemoveItem(gameStore.activeTrade.tradeId, item.itemId)">✕</button>
+                </div>
+                <div v-if="myTradeOffer.gold > 0" class="trade-offer-gold">💰 {{ myTradeOffer.gold }} 金币</div>
+              </div>
+              <div class="trade-gold-input">
+                <input v-model.number="tradeGoldInput" type="number" min="0" placeholder="金币" class="trade-gold-field" />
+                <button class="trade-btn" @click="tradeSetGold(gameStore.activeTrade.tradeId, tradeGoldInput)">设置金币</button>
+              </div>
+              <div class="trade-add-section">
+                <select v-model="tradeItemSelect" class="trade-item-select">
+                  <option value="">选择物品...</option>
+                  <option v-for="item in tradeableItems" :key="item.itemId" :value="item.itemId">
+                    {{ item.name || item.itemId }} x{{ item.quantity }}
+                  </option>
+                </select>
+                <button class="trade-btn" @click="addTradeItem" :disabled="!tradeItemSelect">添加</button>
+              </div>
+            </div>
+            <div class="trade-side">
+              <div class="trade-side-title">对方出价</div>
+              <div class="trade-items">
+                <div v-for="item in partnerTradeOffer.items" :key="item.itemId" class="trade-offer-item">
+                  {{ item.itemName }} x{{ item.quantity }}
+                </div>
+                <div v-if="partnerTradeOffer.gold > 0" class="trade-offer-gold">💰 {{ partnerTradeOffer.gold }} 金币</div>
+              </div>
+            </div>
+          </div>
+          <div class="trade-actions">
+            <button class="trade-confirm-btn" @click="tradeConfirm(gameStore.activeTrade.tradeId)" :disabled="myTradeConfirmed">
+              {{ myTradeConfirmed ? '✅ 已确认' : '✔️ 确认交易' }}
+            </button>
+            <button class="trade-cancel-btn" @click="tradeCancel(gameStore.activeTrade.tradeId)">取消</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- PVP挑战通知 -->
+      <div class="pvp-challenge-overlay" v-if="gameStore.pvpChallenge">
+        <div class="pvp-challenge-panel">
+          <div class="pvp-challenge-title">⚔️ PVP挑战</div>
+          <div class="pvp-challenge-info">
+            {{ gameStore.pvpChallenge.challengerName }}(Lv{{ gameStore.pvpChallenge.challengerLevel }}) 向你发起了挑战！
+          </div>
+          <div class="pvp-challenge-actions">
+            <button class="pvp-accept-btn" @click="pvpAccept(gameStore.pvpChallenge.challengerName)">⚔️ 应战</button>
+            <button class="pvp-decline-btn" @click="pvpDecline(gameStore.pvpChallenge.challengerName)">拒绝</button>
+          </div>
+        </div>
+      </div>
+      
       <!-- 房间信息 -->
       <div class="room-info" v-if="gameStore.currentRoom && !isDead">
         <div class="room-name">{{ gameStore.currentRoom.name }}</div>
@@ -243,10 +304,15 @@
       
       <!-- 命令输入 -->
       <div class="command-input">
+        <select v-model="chatChannel" class="chat-channel-select" v-if="showChatMode">
+          <option value="world">世界</option>
+          <option value="room">区域</option>
+          <option value="private">私聊</option>
+        </select>
         <input 
           v-model="command" 
           type="text" 
-          placeholder="输入命令 (help 查看帮助)" 
+          :placeholder="commandPlaceholder" 
           @keyup.enter="sendCommand"
         />
         <button @click="sendCommand">发送</button>
@@ -264,6 +330,7 @@
         </button>
       </div>
       <div class="quick-actions">
+        <button class="quick-btn" @click="showChatMode = !showChatMode">💬 {{ showChatMode ? '命令' : '聊天' }}</button>
         <button class="quick-btn" @click="quickCommand('look')">👁️ 查看</button>
         <button class="quick-btn" @click="quickCommand('where')">📍 位置</button>
         <button class="quick-btn" @click="quickCommand('status')">📊 状态</button>
@@ -284,6 +351,7 @@
         <button class="menu-tab" :class="{ active: activeTab === 'skills' }" @click="activeTab = 'skills'">技能</button>
         <button class="menu-tab" :class="{ active: activeTab === 'quests' }" @click="activeTab = 'quests'">任务</button>
         <button class="menu-tab" :class="{ active: activeTab === 'battlelog' }" @click="activeTab = 'battlelog'">战报</button>
+        <button class="menu-tab" :class="{ active: activeTab === 'online' }" @click="activeTab = 'online'; loadOnlinePlayers()">在线</button>
       </div>
       
       <div class="menu-content">
@@ -398,6 +466,25 @@
             <div v-if="!gameStore.battleLogList.length" class="empty-hint">暂无战斗记录</div>
           </div>
         </div>
+
+        <!-- 在线玩家 -->
+        <div v-if="activeTab === 'online'">
+          <button class="item-btn" @click="loadOnlinePlayers" style="margin-bottom:8px">刷新列表</button>
+          <div class="online-count">当前在线: {{ gameStore.onlinePlayers.length }} 人</div>
+          <div v-for="player in gameStore.onlinePlayers" :key="player.name" class="online-player-item">
+            <div class="online-player-header">
+              <span class="online-player-name">{{ player.name }}</span>
+              <span class="online-player-level">Lv{{ player.level }}</span>
+              <button v-if="player.name !== gameStore.user?.characterName" class="trade-request-btn" @click="requestTrade(player.name)">交易</button>
+              <button v-if="player.name !== gameStore.user?.characterName" class="pvp-btn" @click="pvpChallenge(player.name)">⚔️</button>
+            </div>
+            <div class="online-player-meta">
+              <span v-if="player.faction" class="online-player-faction">{{ getFactionName(player.faction) }}</span>
+              <span class="online-player-room">{{ player.location?.roomId || '' }}</span>
+            </div>
+          </div>
+          <div v-if="!gameStore.onlinePlayers.length" class="empty-hint">暂无其他玩家在线</div>
+        </div>
       </div>
     </div>
   </div>
@@ -415,6 +502,11 @@ const gameStore = useGameStore()
 const command = ref('')
 const activeTab = ref('inventory')
 const messageArea = ref(null)
+const chatChannel = ref('world')
+const chatTarget = ref('')
+const showChatMode = ref(false)
+const tradeGoldInput = ref(0)
+const tradeItemSelect = ref('')
 
 // 计算属性
 const isDead = computed(() => gameStore.isDead || (gameStore.user?.hp?.current <= 0 && !gameStore.battle))
@@ -433,6 +525,47 @@ const canAdvanceFaction = computed(() => {
   if (rank === 'elder') return rep >= 5000
   if (rank === 'deacon') return rep >= 2000
   return rep >= 500 // disciple needs 500 to advance
+})
+
+const commandPlaceholder = computed(() => {
+  if (showChatMode.value) {
+    if (chatChannel.value === 'private') {
+      return chatTarget.value ? `私聊 ${chatTarget.value}: ` : '输入玩家名或 /w 玩家名 内容'
+    }
+    return chatChannel.value === 'room' ? '区域聊天: ' : '世界聊天: '
+  }
+  return '输入命令 (help 查看帮助)'
+})
+
+const myTradeOffer = computed(() => {
+  const trade = gameStore.activeTrade
+  if (!trade) return { items: [], gold: 0 }
+  if (trade.initiator?.name === gameStore.user?.characterName) {
+    return trade.initiator.offer || { items: [], gold: 0 }
+  }
+  return trade.receiver?.offer || { items: [], gold: 0 }
+})
+
+const partnerTradeOffer = computed(() => {
+  const trade = gameStore.activeTrade
+  if (!trade) return { items: [], gold: 0 }
+  if (trade.initiator?.name === gameStore.user?.characterName) {
+    return trade.receiver?.offer || { items: [], gold: 0 }
+  }
+  return trade.initiator?.offer || { items: [], gold: 0 }
+})
+
+const myTradeConfirmed = computed(() => {
+  const trade = gameStore.activeTrade
+  if (!trade) return false
+  if (trade.initiator?.name === gameStore.user?.characterName) {
+    return trade.initiator?.confirmed
+  }
+  return trade.receiver?.confirmed
+})
+
+const tradeableItems = computed(() => {
+  return (gameStore.inventory || []).filter(i => !i.isEquipped)
 })
 const hpPercent = computed(() => {
   if (!gameStore.user?.hp) return 0
@@ -546,7 +679,33 @@ function battleHpPercent(participant) {
 // 方法
 function sendCommand() {
   if (!command.value.trim()) return
-  gameStore.sendCommand(command.value)
+  const cmd = command.value.trim()
+  
+  // 聊天模式
+  if (showChatMode.value) {
+    if (chatChannel.value === 'world') {
+      gameStore.socket?.emit('chat_world', { content: cmd })
+    } else if (chatChannel.value === 'room') {
+      gameStore.socket?.emit('chat_room', { content: cmd })
+    } else if (chatChannel.value === 'private') {
+      if (chatTarget.value) {
+        gameStore.socket?.emit('chat_private', { targetName: chatTarget.value, content: cmd })
+      } else {
+        // 尝试解析 /w 玩家名 内容 格式
+        const match = cmd.match(/^\/w\s+(\S+)\s+(.+)$/)
+        if (match) {
+          gameStore.socket?.emit('chat_private', { targetName: match[1], content: match[2] })
+        } else {
+          gameStore.addMessage('error', '请先输入目标玩家名，或使用 /w 玩家名 内容')
+        }
+      }
+    }
+    command.value = ''
+    return
+  }
+  
+  // 命令模式
+  gameStore.sendCommand(cmd)
   command.value = ''
 }
 
@@ -787,6 +946,53 @@ function loadBattleLogDetail(logId) {
 
 function advanceFaction() {
   gameStore.advanceFaction()
+}
+
+function loadOnlinePlayers() {
+  gameStore.loadOnlinePlayers()
+}
+
+function getFactionName(factionId) {
+  const faction = gameStore.gameConfig?.factions?.[factionId]
+  return faction?.name || factionId || ''
+}
+
+function addTradeItem() {
+  if (!tradeItemSelect.value || !gameStore.activeTrade) return
+  gameStore.tradeAddItem(gameStore.activeTrade.tradeId, tradeItemSelect.value)
+  tradeItemSelect.value = ''
+}
+
+function tradeSetGold(tradeId, gold) {
+  gameStore.tradeSetGold(tradeId, gold)
+}
+
+function tradeConfirm(tradeId) {
+  gameStore.tradeConfirm(tradeId)
+}
+
+function tradeCancel(tradeId) {
+  gameStore.tradeCancel(tradeId)
+}
+
+function tradeRemoveItem(tradeId, itemId) {
+  gameStore.tradeRemoveItem(tradeId, itemId)
+}
+
+function requestTrade(playerName) {
+  gameStore.requestTrade(playerName)
+}
+
+function pvpChallenge(playerName) {
+  gameStore.sendPvpChallenge(playerName)
+}
+
+function pvpAccept(challengerName) {
+  gameStore.pvpAccept(challengerName)
+}
+
+function pvpDecline(challengerName) {
+  gameStore.pvpDecline(challengerName)
 }
 
 function questStatusClass(status) {
@@ -1288,4 +1494,257 @@ onMounted(async () => {
 .log-detail-info.penalty { color: #f87171; }
 .log-turns { margin-top: 8px; }
 .log-turn { color: #aaa; font-size: 12px; line-height: 1.6; }
+
+/* 在线玩家 */
+.online-count {
+  color: #4ade80;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+.online-player-item {
+  background: #16213e;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 6px;
+}
+.online-player-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.online-player-name { color: #eee; font-size: 13px; }
+.online-player-level { color: #fbbf24; font-size: 12px; }
+.online-player-meta {
+  display: flex;
+  gap: 8px;
+  font-size: 11px;
+  color: #888;
+  margin-top: 3px;
+}
+.online-player-faction {
+  color: #4fc3f7;
+}
+
+/* 聊天频道选择 */
+.chat-channel-select {
+  padding: 6px 8px;
+  background: #16213e;
+  border: 1px solid #333;
+  border-radius: 5px;
+  color: #eee;
+  font-size: 13px;
+  cursor: pointer;
+}
+.chat-channel-select option {
+  background: #16213e;
+}
+
+/* 交易面板 */
+.trade-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9000;
+}
+.trade-panel {
+  background: #1a1a2e;
+  border: 2px solid #4fc3f7;
+  border-radius: 10px;
+  padding: 20px;
+  width: 500px;
+  max-width: 90vw;
+}
+.trade-title {
+  color: #4fc3f7;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.trade-body {
+  display: flex;
+  gap: 15px;
+}
+.trade-side {
+  flex: 1;
+  background: #16213e;
+  border-radius: 8px;
+  padding: 10px;
+}
+.trade-side-title {
+  color: #fbbf24;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  text-align: center;
+}
+.trade-offer-item {
+  color: #eee;
+  font-size: 12px;
+  padding: 3px 6px;
+  background: #0f3460;
+  border-radius: 3px;
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.trade-remove-btn {
+  background: #f87171;
+  border: none;
+  color: #fff;
+  padding: 1px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 10px;
+}
+.trade-offer-gold {
+  color: #fbbf24;
+  font-size: 13px;
+  margin-top: 4px;
+}
+.trade-gold-input {
+  display: flex;
+  gap: 5px;
+  margin-top: 8px;
+}
+.trade-gold-field {
+  width: 80px;
+  padding: 4px 8px;
+  background: #0f3460;
+  border: 1px solid #333;
+  border-radius: 3px;
+  color: #fbbf24;
+  font-size: 13px;
+}
+.trade-btn {
+  padding: 4px 10px;
+  background: #4fc3f7;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+}
+.trade-btn:hover { background: #81d4fa; }
+.trade-btn:disabled { background: #555; cursor: not-allowed; }
+.trade-add-section {
+  display: flex;
+  gap: 5px;
+  margin-top: 8px;
+}
+.trade-item-select {
+  flex: 1;
+  padding: 4px 8px;
+  background: #0f3460;
+  border: 1px solid #333;
+  border-radius: 3px;
+  color: #eee;
+  font-size: 12px;
+}
+.trade-item-select option { background: #0f3460; }
+.trade-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 15px;
+}
+.trade-confirm-btn {
+  padding: 8px 20px;
+  background: #4caf50;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+.trade-confirm-btn:hover { background: #66bb6a; }
+.trade-confirm-btn:disabled { background: #555; cursor: not-allowed; }
+.trade-cancel-btn {
+  padding: 8px 20px;
+  background: #f87171;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+}
+.trade-cancel-btn:hover { background: #fca5a5; }
+.trade-request-btn {
+  padding: 2px 8px;
+  background: #4fc3f7;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 11px;
+}
+.trade-request-btn:hover { background: #81d4fa; }
+
+/* PVP挑战 */
+.pvp-challenge-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9000;
+}
+.pvp-challenge-panel {
+  background: #1a1a2e;
+  border: 2px solid #f87171;
+  border-radius: 10px;
+  padding: 25px;
+  text-align: center;
+}
+.pvp-challenge-title {
+  color: #f87171;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.pvp-challenge-info {
+  color: #eee;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+.pvp-challenge-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+.pvp-accept-btn {
+  padding: 10px 25px;
+  background: #f87171;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+}
+.pvp-accept-btn:hover { background: #fca5a5; }
+.pvp-decline-btn {
+  padding: 10px 25px;
+  background: #555;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+}
+.pvp-decline-btn:hover { background: #777; }
+.pvp-btn {
+  padding: 2px 8px;
+  background: #f87171;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 11px;
+}
+.pvp-btn:hover { background: #fca5a5; }
 </style>
