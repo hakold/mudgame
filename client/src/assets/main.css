@@ -1,0 +1,612 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Microsoft YaHei', 'SimHei', sans-serif;
+  background: #1a1a2e;
+  color: #eee;
+  line-height: 1.6;
+}
+
+/* 登录/注册页面 */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.auth-box {
+  background: #16213e;
+  padding: 40px;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.auth-box h1 {
+  text-align: center;
+  color: #e94560;
+  margin-bottom: 30px;
+  font-size: 28px;
+}
+
+.auth-box h2 {
+  text-align: center;
+  color: #eee;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #aaa;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #0f3460;
+  border-radius: 5px;
+  background: #1a1a2e;
+  color: #eee;
+  font-size: 14px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #e94560;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  background: #e94560;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #c23a51;
+}
+
+.btn-secondary {
+  background: #0f3460;
+}
+
+.btn-secondary:hover {
+  background: #1a4a7a;
+}
+
+.auth-links {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.auth-links a {
+  color: #e94560;
+  text-decoration: none;
+}
+
+.auth-links a:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  color: #e94560;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* 游戏主界面 */
+.game-container {
+  display: flex;
+  height: 100vh;
+  background: #1a1a2e;
+}
+
+/* 左侧面板 - 状态 */
+.left-panel {
+  width: 250px;
+  background: #16213e;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.player-info {
+  margin-bottom: 20px;
+}
+
+.player-name {
+  font-size: 18px;
+  color: #e94560;
+  margin-bottom: 10px;
+}
+
+.player-level {
+  color: #aaa;
+  margin-bottom: 10px;
+}
+
+.player-stats {
+  background: #1a1a2e;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  color: #aaa;
+}
+
+.stat-value {
+  color: #eee;
+}
+
+.hp-bar, .mp-bar {
+  height: 20px;
+  background: #1a1a2e;
+  border-radius: 3px;
+  margin-bottom: 5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hp-fill {
+  height: 100%;
+  background: #e94560;
+  border-radius: 3px;
+}
+
+.mp-fill {
+  height: 100%;
+  background: #4169e1;
+  border-radius: 3px;
+}
+
+.bar-text {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: #fff;
+}
+
+/* 中央面板 - 游戏内容 */
+.center-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.room-info {
+  background: #16213e;
+  padding: 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.room-name {
+  font-size: 20px;
+  color: #e94560;
+  margin-bottom: 10px;
+}
+
+.room-description {
+  color: #ccc;
+  margin-bottom: 15px;
+  line-height: 1.8;
+}
+
+.room-exits {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.exit-btn {
+  padding: 8px 15px;
+  background: #0f3460;
+  border: none;
+  border-radius: 3px;
+  color: #eee;
+  cursor: pointer;
+}
+
+.exit-btn:hover {
+  background: #1a4a7a;
+}
+
+.room-entities {
+  display: flex;
+  gap: 20px;
+}
+
+.entity-group {
+  flex: 1;
+}
+
+.entity-title {
+  color: #aaa;
+  margin-bottom: 5px;
+}
+
+.entity-list {
+  background: #1a1a2e;
+  padding: 10px;
+  border-radius: 3px;
+}
+
+.entity-item {
+  color: #eee;
+  margin-bottom: 3px;
+}
+
+.entity-item.clickable {
+  cursor: pointer;
+  color: #4fc3f7;
+}
+
+.entity-item.clickable:hover {
+  text-decoration: underline;
+}
+
+/* 消息区域 */
+.message-area {
+  flex: 1;
+  background: #16213e;
+  border-radius: 5px;
+  padding: 15px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.message {
+  margin-bottom: 8px;
+  padding: 5px 0;
+}
+
+.message.system {
+  color: #ffd700;
+}
+
+.message.room {
+  color: #4fc3f7;
+}
+
+.message.battle {
+  color: #e94560;
+}
+
+.message.error {
+  color: #ff6b6b;
+}
+
+.message.chat {
+  color: #eee;
+}
+
+.message.npc {
+  color: #a78bfa;
+  font-weight: bold;
+}
+
+.message.shop {
+  color: #fbbf24;
+}
+
+.message.success {
+  color: #34d399;
+}
+
+.message.skill {
+  color: #60a5fa;
+}
+
+.message-time {
+  color: #666;
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+/* 命令输入 */
+.command-input {
+  display: flex;
+  gap: 10px;
+}
+
+.command-input input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #0f3460;
+  border-radius: 5px;
+  background: #1a1a2e;
+  color: #eee;
+  font-size: 14px;
+}
+
+.command-input input:focus {
+  outline: none;
+  border-color: #e94560;
+}
+
+.command-input button {
+  padding: 12px 20px;
+  background: #e94560;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* 右侧面板 - 菜单 */
+.right-panel {
+  width: 250px;
+  background: #16213e;
+  padding: 20px;
+}
+
+.menu-tabs {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+
+.menu-tab {
+  flex: 1;
+  padding: 10px;
+  background: #1a1a2e;
+  border: none;
+  border-radius: 3px;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.menu-tab.active {
+  background: #0f3460;
+  color: #eee;
+}
+
+.menu-content {
+  background: #1a1a2e;
+  padding: 15px;
+  border-radius: 5px;
+  height: calc(100vh - 150px);
+  overflow-y: auto;
+}
+
+.inventory-item,
+.skill-item,
+.quest-item {
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #16213e;
+  border-radius: 3px;
+}
+
+.item-name {
+  color: #eee;
+  margin-bottom: 5px;
+}
+
+.item-info {
+  color: #aaa;
+  font-size: 12px;
+}
+
+/* 战斗界面 */
+.battle-container {
+  background: #16213e;
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.battle-title {
+  text-align: center;
+  color: #e94560;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.battle-participants {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.battle-entity {
+  text-align: center;
+}
+
+.battle-entity-name {
+  color: #eee;
+  margin-bottom: 10px;
+}
+
+.battle-hp-bar {
+  width: 150px;
+  height: 25px;
+  background: #1a1a2e;
+  border-radius: 3px;
+  position: relative;
+}
+
+.battle-hp-fill {
+  height: 100%;
+  background: #e94560;
+  border-radius: 3px;
+  max-width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.battle-hp-text {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  text-shadow: 0 0 3px rgba(0,0,0,0.8);
+  z-index: 1;
+}
+
+.battle-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.battle-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.battle-btn {
+  padding: 10px 20px;
+  background: #0f3460;
+  border: none;
+  border-radius: 5px;
+  color: #eee;
+  cursor: pointer;
+}
+
+.battle-btn:hover {
+  background: #1a4a7a;
+}
+
+.battle-btn.attack {
+  background: #e94560;
+}
+
+.battle-btn.skill {
+  background: #1f5f8b;
+}
+
+.battle-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.battle-turn-indicator,
+.battle-mp-text {
+  text-align: center;
+  color: #9cc9ff;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+/* 管理后台 */
+.admin-container {
+  display: flex;
+  height: 100vh;
+}
+
+.admin-sidebar {
+  width: 200px;
+  background: #16213e;
+  padding: 20px;
+}
+
+.admin-menu-item {
+  padding: 10px;
+  margin-bottom: 5px;
+  background: #1a1a2e;
+  border-radius: 3px;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.admin-menu-item:hover,
+.admin-menu-item.active {
+  background: #0f3460;
+  color: #eee;
+}
+
+.admin-content {
+  flex: 1;
+  padding: 20px;
+  background: #1a1a2e;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.admin-title {
+  color: #e94560;
+  font-size: 24px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th,
+.data-table td {
+  padding: 10px;
+  border: 1px solid #0f3460;
+  text-align: left;
+}
+
+.data-table th {
+  background: #16213e;
+  color: #aaa;
+}
+
+.data-table td {
+  color: #eee;
+}
+
+.data-table tr:hover td {
+  background: #16213e;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a2e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0f3460;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #1a4a7a;
+}

@@ -1,0 +1,133 @@
+[
+  {
+    "id": "npc_village_chief",
+    "name": "村长",
+    "description": "村庄的老村长，慈祥而睿智。",
+    "roomId": "village_center",
+    "type": "quest_giver",
+    "dialogues": {
+      "greeting": "年轻人，欢迎来到我们村庄。有什么需要帮助的吗？",
+      "quest_available": "最近村外的森林里野兽增多，你能帮忙清理一下吗？",
+      "quest_accepted": "太好了！去森林入口看看吧。",
+      "quest_completed": "辛苦了！这是给你的报酬。"
+    },
+    "quests": ["quest_clear_forest", "quest_help_villager"]
+  },
+  {
+    "id": "npc_innkeeper",
+    "name": "客栈老板",
+    "description": "客栈的老板，热情好客。",
+    "roomId": "village_inn",
+    "type": "service",
+    "services": ["rest", "rumor"],
+    "dialogues": {
+      "greeting": "欢迎光临！要住店还是打听消息？",
+      "rest": "一间房50金币，可以恢复全部HP和MP。",
+      "rumor": "最近听说洛阳城来了不少江湖人物..."
+    }
+  },
+  {
+    "id": "npc_blacksmith",
+    "name": "铁匠老张",
+    "description": "村里的铁匠，手艺精湛。",
+    "roomId": "village_blacksmith",
+    "type": "shop",
+    "shopType": "weapon",
+    "items": ["weapon_wooden_sword", "weapon_iron_sword"],
+    "dialogues": {
+      "greeting": "要打造武器还是修理装备？",
+      "buy": "看看这些武器，都是我亲手打造的。",
+      "repair": "修理装备要花费一些金币。"
+    }
+  },
+  {
+    "id": "npc_shopkeeper",
+    "name": "杂货铺老板",
+    "description": "杂货铺的老板，出售各种日用品。",
+    "roomId": "village_shop",
+    "type": "shop",
+    "shopType": "general",
+    "items": ["item_hp_potion_small", "item_mp_potion_small", "armor_cloth", "helmet_cloth", "boots_cloth"],
+    "dialogues": {
+      "greeting": "要买点什么？",
+      "buy": "这里都是日常用品，价格实惠。",
+      "sell": "有什么要卖的吗？"
+    }
+  },
+  {
+    "id": "npc_trainer",
+    "name": "武馆教头",
+    "description": "练武场的教头，可以指导新手。",
+    "roomId": "village_training",
+    "type": "trainer",
+    "skills": ["basic_attack", "heal_basic", "meditation"],
+    "dialogues": {
+      "greeting": "年轻人，想学武功吗？",
+      "learn": "我可以教你一些基础功夫。",
+      "train": "练习可以提高你的熟练度。"
+    }
+  },
+  {
+    "id": "npc_faction_shaolin",
+    "name": "少林弟子",
+    "description": "少林派弟子，在此招募新成员。",
+    "roomId": "mountain_temple",
+    "type": "faction",
+    "factionId": "shaolin",
+    "dialogues": {
+      "greeting": "少林派欢迎有志之士加入。",
+      "join": "加入少林派需要等级5以上。",
+      "joined": "欢迎加入少林派！"
+    }
+  },
+  {
+    "id": "npc_faction_wudang",
+    "name": "武当弟子",
+    "description": "武当派弟子，在此招募新成员。",
+    "roomId": "mountain_temple",
+    "type": "faction",
+    "factionId": "wudang",
+    "dialogues": {
+      "greeting": "武当派讲究以柔克刚，欢迎加入。",
+      "join": "加入武当派需要等级5以上。",
+      "joined": "欢迎加入武当派！"
+    }
+  },
+  {
+    "id": "npc_quest_guild",
+    "name": "公会管理员",
+    "description": "侠客公会管理员，负责发布任务。",
+    "roomId": "city_guild",
+    "type": "quest_giver",
+    "quests": ["quest_city_guard", "quest_bounty_bandit", "quest_tournament"],
+    "dialogues": {
+      "greeting": "欢迎来到侠客公会，有什么任务要接？",
+      "quest_list": "这里有一些任务可以接取。",
+      "quest_accepted": "任务已接取，完成后回来领取奖励。"
+    }
+  },
+  {
+    "id": "npc_arena_master",
+    "name": "竞技场主持",
+    "description": "竞技场的主持，负责安排比赛。",
+    "roomId": "city_arena",
+    "type": "arena",
+    "dialogues": {
+      "greeting": "想在竞技场挑战其他侠客吗？",
+      "challenge": "选择对手开始战斗吧。",
+      "result": "战斗结束！"
+    }
+  },
+  {
+    "id": "npc_immortal",
+    "name": "隐世仙人",
+    "description": "隐居深山的仙人，通晓天地玄机。",
+    "roomId": "mountain_peak",
+    "type": "quest_giver",
+    "quests": [],
+    "dialogues": {
+      "greeting": "有缘人，你终于来了。",
+      "default": "世间万物，皆有定数。"
+    }
+  }
+]

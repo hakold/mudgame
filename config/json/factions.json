@@ -1,0 +1,87 @@
+[
+  {
+    "id": "shaolin",
+    "name": "少林派",
+    "description": "天下武功出少林，少林派以刚猛著称，擅长拳脚功夫。",
+    "leader": "方证大师",
+    "location": "mountain_temple",
+    "requireLevel": 5,
+    "bonus": {
+      "strength": 2,
+      "constitution": 2
+    },
+    "skills": ["shaolin_changquan", "shaolin_cudgel", "yijinjing"],
+    "color": "#FFD700"
+  },
+  {
+    "id": "wudang",
+    "name": "武当派",
+    "description": "武当派以太极闻名，讲究以柔克刚，内外兼修。",
+    "leader": "张三丰",
+    "location": "mountain_temple",
+    "requireLevel": 5,
+    "bonus": {
+      "intelligence": 2,
+      "dexterity": 2
+    },
+    "skills": ["taiji_quan", "taiji_jian", "wudang_neigong"],
+    "color": "#4169E1"
+  },
+  {
+    "id": "emei",
+    "name": "峨眉派",
+    "description": "峨眉派以剑法见长，招式灵动飘逸。",
+    "leader": "灭绝师太",
+    "location": "mountain_temple",
+    "requireLevel": 5,
+    "bonus": {
+      "dexterity": 3,
+      "charisma": 1
+    },
+    "skills": ["emei_jianfa", "emei_quanfa", "emei_xinfa"],
+    "color": "#FF69B4"
+  },
+  {
+    "id": "beggar",
+    "name": "丐帮",
+    "description": "丐帮弟子遍布天下，以打狗棒法和降龙十八掌闻名。",
+    "leader": "洪七公",
+    "location": "city_tavern",
+    "requireLevel": 3,
+    "bonus": {
+      "constitution": 2,
+      "charisma": 2
+    },
+    "skills": ["dagou_bangfa", "xianglong_shiba_zhang", "beggar_xinfa"],
+    "color": "#8B4513"
+  },
+  {
+    "id": "mingjiao",
+    "name": "明教",
+    "description": "明教教众众多，武功诡异多变，以乾坤大挪移著称。",
+    "leader": "张无忌",
+    "location": "city_guild",
+    "requireLevel": 10,
+    "bonus": {
+      "strength": 1,
+      "intelligence": 2,
+      "charisma": 1
+    },
+    "skills": ["qiankun_danuoyi", "mingjiao_quanfa", "mingjiao_xinfa"],
+    "color": "#FF4500"
+  },
+  {
+    "id": "xiaoyao",
+    "name": "逍遥派",
+    "description": "逍遥派武功深不可测，以轻功和内功见长。",
+    "leader": "无崖子",
+    "location": "mountain_temple",
+    "requireLevel": 15,
+    "bonus": {
+      "dexterity": 2,
+      "intelligence": 2
+    },
+    "skills": ["xiaoyao_quan", "lingbo_weibu", "beiming_shengong"],
+    "color": "#9370DB"
+  }
+]

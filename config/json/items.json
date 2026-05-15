@@ -1,0 +1,547 @@
+[
+  {
+    "id": "item_hp_potion_small",
+    "name": "小还丹",
+    "type": "consumable",
+    "description": "恢复50点HP",
+    "price": 50,
+    "effects": [
+      { "type": "heal_hp", "value": 50 }
+    ]
+  },
+  {
+    "id": "item_hp_potion_medium",
+    "name": "中还丹",
+    "type": "consumable",
+    "description": "恢复150点HP",
+    "price": 150,
+    "effects": [
+      { "type": "heal_hp", "value": 150 }
+    ]
+  },
+  {
+    "id": "item_hp_potion_large",
+    "name": "大还丹",
+    "type": "consumable",
+    "description": "恢复500点HP",
+    "price": 400,
+    "effects": [
+      { "type": "heal_hp", "value": 500 }
+    ]
+  },
+  {
+    "id": "item_mp_potion_small",
+    "name": "小回气丹",
+    "type": "consumable",
+    "description": "恢复30点MP",
+    "price": 40,
+    "effects": [
+      { "type": "heal_mp", "value": 30 }
+    ]
+  },
+  {
+    "id": "item_mp_potion_medium",
+    "name": "中回气丹",
+    "type": "consumable",
+    "description": "恢复100点MP",
+    "price": 120,
+    "effects": [
+      { "type": "heal_mp", "value": 100 }
+    ]
+  },
+  {
+    "id": "item_mp_potion_large",
+    "name": "大回气丹",
+    "type": "consumable",
+    "description": "恢复300点MP",
+    "price": 300,
+    "effects": [
+      { "type": "heal_mp", "value": 300 }
+    ]
+  },
+  {
+    "id": "weapon_wooden_sword",
+    "name": "木剑",
+    "type": "weapon",
+    "subtype": "sword",
+    "description": "新手木剑，攻击+5",
+    "price": 100,
+    "requireLevel": 1,
+    "stats": { "attack": 5 }
+  },
+  {
+    "id": "weapon_iron_sword",
+    "name": "铁剑",
+    "type": "weapon",
+    "subtype": "sword",
+    "description": "铁制长剑，攻击+15",
+    "price": 500,
+    "requireLevel": 5,
+    "stats": { "attack": 15 }
+  },
+  {
+    "id": "weapon_steel_sword",
+    "name": "钢剑",
+    "type": "weapon",
+    "subtype": "sword",
+    "description": "精钢打造的长剑，攻击+30",
+    "price": 1500,
+    "requireLevel": 15,
+    "stats": { "attack": 30 }
+  },
+  {
+    "id": "weapon_xuantie_sword",
+    "name": "玄铁剑",
+    "type": "weapon",
+    "subtype": "sword",
+    "description": "玄铁打造的重剑，攻击+60",
+    "price": 5000,
+    "requireLevel": 30,
+    "stats": { "attack": 60 }
+  },
+  {
+    "id": "weapon_wolf_sword",
+    "name": "狼牙剑",
+    "type": "weapon",
+    "subtype": "sword",
+    "description": "狼王之牙制成的剑，攻击+25",
+    "price": 800,
+    "requireLevel": 10,
+    "stats": { "attack": 25 }
+  },
+  {
+    "id": "weapon_fire_dragon_sword",
+    "name": "火龙剑",
+    "type": "weapon",
+    "subtype": "sword",
+    "description": "火龙之骨打造的绝世神剑，攻击+100",
+    "price": 50000,
+    "requireLevel": 50,
+    "stats": { "attack": 100 },
+    "special": "fire_damage"
+  },
+  {
+    "id": "armor_cloth",
+    "name": "布衣",
+    "type": "armor",
+    "subtype": "body",
+    "description": "普通布衣，防御+3",
+    "price": 50,
+    "requireLevel": 1,
+    "stats": { "defense": 3 }
+  },
+  {
+    "id": "armor_leather",
+    "name": "皮甲",
+    "type": "armor",
+    "subtype": "body",
+    "description": "皮革制成的护甲，防御+10",
+    "price": 300,
+    "requireLevel": 5,
+    "stats": { "defense": 10 }
+  },
+  {
+    "id": "armor_iron",
+    "name": "铁甲",
+    "type": "armor",
+    "subtype": "body",
+    "description": "铁制护甲，防御+25",
+    "price": 1000,
+    "requireLevel": 15,
+    "stats": { "defense": 25 }
+  },
+  {
+    "id": "armor_gold_silk",
+    "name": "金丝甲",
+    "type": "armor",
+    "subtype": "body",
+    "description": "金丝织成的软甲，防御+50",
+    "price": 5000,
+    "requireLevel": 30,
+    "stats": { "defense": 50 }
+  },
+  {
+    "id": "helmet_cloth",
+    "name": "布帽",
+    "type": "armor",
+    "subtype": "helmet",
+    "description": "普通布帽，防御+2",
+    "price": 30,
+    "requireLevel": 1,
+    "stats": { "defense": 2 }
+  },
+  {
+    "id": "helmet_leather",
+    "name": "皮帽",
+    "type": "armor",
+    "subtype": "helmet",
+    "description": "皮革帽子，防御+5",
+    "price": 150,
+    "requireLevel": 5,
+    "stats": { "defense": 5 }
+  },
+  {
+    "id": "boots_cloth",
+    "name": "布鞋",
+    "type": "armor",
+    "subtype": "boots",
+    "description": "普通布鞋，防御+1，敏捷+2",
+    "price": 40,
+    "requireLevel": 1,
+    "stats": { "defense": 1, "dexterity": 2 }
+  },
+  {
+    "id": "boots_leather",
+    "name": "皮靴",
+    "type": "armor",
+    "subtype": "boots",
+    "description": "皮革靴子，防御+3，敏捷+5",
+    "price": 200,
+    "requireLevel": 5,
+    "stats": { "defense": 3, "dexterity": 5 }
+  },
+  {
+    "id": "item_rabbit_meat",
+    "name": "兔肉",
+    "type": "material",
+    "description": "新鲜的兔肉，可以食用或出售",
+    "price": 10
+  },
+  {
+    "id": "item_rabbit_fur",
+    "name": "兔皮",
+    "type": "material",
+    "description": "柔软的兔皮，可用于制作",
+    "price": 15
+  },
+  {
+    "id": "item_boar_meat",
+    "name": "野猪肉",
+    "type": "material",
+    "description": "野猪肉，可以食用或出售",
+    "price": 20
+  },
+  {
+    "id": "item_boar_tusk",
+    "name": "野猪獠牙",
+    "type": "material",
+    "description": "锋利的野猪獠牙",
+    "price": 30
+  },
+  {
+    "id": "item_wolf_pelt",
+    "name": "狼皮",
+    "type": "material",
+    "description": "狼的毛皮",
+    "price": 40
+  },
+  {
+    "id": "item_wolf_fang",
+    "name": "狼牙",
+    "type": "material",
+    "description": "锋利的狼牙",
+    "price": 50
+  },
+  {
+    "id": "item_wolf_king_fang",
+    "name": "狼王之牙",
+    "type": "material",
+    "description": "狼王的獠牙，蕴含力量",
+    "price": 200
+  },
+  {
+    "id": "item_snake_venom",
+    "name": "蛇毒",
+    "type": "material",
+    "description": "剧毒的蛇毒",
+    "price": 60
+  },
+  {
+    "id": "item_snake_skin",
+    "name": "蛇皮",
+    "type": "material",
+    "description": "蛇的皮",
+    "price": 35
+  },
+  {
+    "id": "item_bear_pelt",
+    "name": "熊皮",
+    "type": "material",
+    "description": "厚实的熊皮",
+    "price": 80
+  },
+  {
+    "id": "item_bear_gall",
+    "name": "熊胆",
+    "type": "material",
+    "description": "珍贵的熊胆，可入药",
+    "price": 150
+  },
+  {
+    "id": "item_tiger_pelt",
+    "name": "虎皮",
+    "type": "material",
+    "description": "虎皮，价值不菲",
+    "price": 200
+  },
+  {
+    "id": "item_tiger_bone",
+    "name": "虎骨",
+    "type": "material",
+    "description": "虎骨，珍贵药材",
+    "price": 250
+  },
+  {
+    "id": "item_dragon_scale",
+    "name": "龙鳞",
+    "type": "material",
+    "description": "龙的鳞片，极其珍贵",
+    "price": 1000
+  },
+  {
+    "id": "item_dragon_venom",
+    "name": "龙毒",
+    "type": "material",
+    "description": "毒龙的剧毒",
+    "price": 800
+  },
+  {
+    "id": "item_fire_dragon_scale",
+    "name": "火龙鳞",
+    "type": "material",
+    "description": "火龙的鳞片，蕴含火焰之力",
+    "price": 2000
+  },
+  {
+    "id": "item_dragon_heart",
+    "name": "龙心",
+    "type": "material",
+    "description": "龙的心脏，传说中的神物",
+    "price": 5000
+  },
+  {
+    "id": "item_ice_crystal",
+    "name": "冰晶",
+    "type": "material",
+    "description": "凝结的冰晶",
+    "price": 100
+  },
+  {
+    "id": "item_fire_essence",
+    "name": "火精",
+    "type": "material",
+    "description": "火焰精华",
+    "price": 150
+  },
+  {
+    "id": "item_fairy_dust",
+    "name": "仙尘",
+    "type": "material",
+    "description": "仙兽身上的尘埃",
+    "price": 300
+  },
+  {
+    "id": "item_immortal_pearl",
+    "name": "仙珠",
+    "type": "material",
+    "description": "仙兽内丹",
+    "price": 1000
+  },
+  {
+    "id": "item_demon_blood",
+    "name": "魔血",
+    "type": "material",
+    "description": "魔族的血液",
+    "price": 200
+  },
+  {
+    "id": "item_dark_crystal",
+    "name": "暗晶",
+    "type": "material",
+    "description": "黑暗力量凝结的晶体",
+    "price": 250
+  },
+  {
+    "id": "item_demon_lord_essence",
+    "name": "魔王精华",
+    "type": "material",
+    "description": "魔王的力量精华",
+    "price": 10000
+  },
+  {
+    "id": "item_bandit_loot",
+    "name": "山贼赃物",
+    "type": "material",
+    "description": "山贼抢来的物品",
+    "price": 30
+  },
+  {
+    "id": "item_bandit_token",
+    "name": "山贼令牌",
+    "type": "material",
+    "description": "山贼头目的令牌",
+    "price": 100
+  },
+  {
+    "id": "item_evil_manual",
+    "name": "魔教秘籍残页",
+    "type": "material",
+    "description": "魔教武功秘籍的残页",
+    "price": 150
+  },
+  {
+    "id": "item_ancient_bandage",
+    "name": "古老绷带",
+    "type": "material",
+    "description": "古墓中的绷带",
+    "price": 50
+  },
+  {
+    "id": "item_cursed_gem",
+    "name": "诅咒宝石",
+    "type": "material",
+    "description": "带有诅咒的宝石",
+    "price": 200
+  },
+  {
+    "id": "weapon_bandit_sword",
+    "name": "山贼弯刀",
+    "type": "weapon",
+    "subtype": "sword",
+    "description": "山贼使用的弯刀，锋利但粗糙",
+    "price": 80,
+    "requireLevel": 1,
+    "stats": { "attack": 8 }
+  },
+  {
+    "id": "item_blood_stone",
+    "name": "血石",
+    "type": "material",
+    "description": "蕴含血气的奇异石头",
+    "price": 120
+  },
+  {
+    "id": "item_snow_wolf_pelt",
+    "name": "雪狼皮",
+    "type": "material",
+    "description": "雪狼的毛皮，保暖且坚韧",
+    "price": 90
+  },
+  {
+    "id": "item_ice_core",
+    "name": "冰晶核心",
+    "type": "material",
+    "description": "极寒之地的冰晶核心，寒气逼人",
+    "price": 200
+  },
+  {
+    "id": "item_frozen_heart",
+    "name": "冰封之心",
+    "type": "material",
+    "description": "传说中被冰封的远古之心",
+    "price": 500
+  },
+  {
+    "id": "item_toxic_gland",
+    "name": "毒腺",
+    "type": "material",
+    "description": "毒虫的毒腺，含有剧毒",
+    "price": 60
+  },
+  {
+    "id": "item_mutated_skin",
+    "name": "变异兽皮",
+    "type": "material",
+    "description": "变异野兽的皮，异常坚韧",
+    "price": 150
+  },
+  {
+    "id": "weapon_poison_dragon_blade",
+    "name": "毒龙刀",
+    "type": "weapon",
+    "subtype": "sword",
+    "description": "淬有剧毒的宝刀，刀身泛着绿光",
+    "price": 800,
+    "requireLevel": 45,
+    "stats": { "attack": 25 }
+  },
+  {
+    "id": "item_sea_serpent_scale",
+    "name": "海蛇鳞片",
+    "type": "material",
+    "description": "海蛇的鳞片，光滑坚硬",
+    "price": 100
+  },
+  {
+    "id": "item_coral_gem",
+    "name": "珊瑚宝石",
+    "type": "material",
+    "description": "海底珊瑚凝结的宝石，色彩斑斓",
+    "price": 180
+  },
+  {
+    "id": "item_magma_core",
+    "name": "熔岩核心",
+    "type": "material",
+    "description": "从熔岩中提取的核心，灼热无比",
+    "price": 250
+  },
+  {
+    "id": "item_guard_badge",
+    "name": "守卫徽章",
+    "type": "material",
+    "description": "城池守卫的身份徽章",
+    "price": 50
+  },
+  {
+    "id": "item_royal_token",
+    "name": "皇家令牌",
+    "type": "material",
+    "description": "皇家颁发的令牌，见令如见君",
+    "price": 300
+  },
+  {
+    "id": "weapon_demon_blade",
+    "name": "魔刀",
+    "type": "weapon",
+    "subtype": "sword",
+    "description": "魔教打造的邪刀，煞气逼人",
+    "price": 1000,
+    "requireLevel": 55,
+    "stats": { "attack": 35 }
+  },
+  {
+    "id": "armor_demon_armor",
+    "name": "魔铠",
+    "type": "armor",
+    "subtype": "body",
+    "description": "魔教秘制的铠甲，坚不可摧",
+    "price": 900,
+    "requireLevel": 55,
+    "stats": { "defense": 30 }
+  },
+  {
+    "id": "item_scorpion_tail",
+    "name": "蝎尾针",
+    "type": "material",
+    "description": "沙漠毒蝎的尾针，含有剧毒",
+    "price": 70
+  },
+  {
+    "id": "item_scorpion_venom",
+    "name": "蝎毒",
+    "type": "material",
+    "description": "提炼自蝎尾的剧毒，可入药亦可制毒",
+    "price": 100
+  },
+  {
+    "id": "item_herb",
+    "name": "草药",
+    "type": "consumable",
+    "description": "常见的草药，可入药疗伤",
+    "price": 15,
+    "effects": [
+      { "type": "heal_hp", "value": 20 }
+    ]
+  }
+]

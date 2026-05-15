@@ -1,0 +1,550 @@
+[
+  {
+    "id": "skill_basic_attack",
+    "name": "基础攻击",
+    "type": "attack",
+    "description": "基础的物理攻击",
+    "faction": "general",
+    "requireLevel": 1,
+    "mpCost": 0,
+    "cooldown": 0,
+    "damage": [5, 15],
+    "learnPrice": 0
+  },
+  {
+    "id": "skill_heal_basic",
+    "name": "基础治疗",
+    "type": "heal",
+    "description": "恢复少量HP",
+    "faction": "general",
+    "requireLevel": 1,
+    "mpCost": 10,
+    "cooldown": 5,
+    "heal": [20, 40],
+    "learnPrice": 50
+  },
+  {
+    "id": "skill_meditation",
+    "name": "冥想",
+    "type": "passive",
+    "description": "被动技能，每回合恢复少量MP",
+    "faction": "general",
+    "requireLevel": 1,
+    "mpRegen": 5,
+    "learnPrice": 100,
+    "buff": { "duration": 999 }
+  },
+  {
+    "id": "skill_charge",
+    "name": "冲撞",
+    "type": "attack",
+    "description": "野猪的冲撞技能",
+    "faction": "monster",
+    "mpCost": 0,
+    "damage": [15, 25],
+    "stunChance": 0.2
+  },
+  {
+    "id": "skill_bite",
+    "name": "撕咬",
+    "type": "attack",
+    "description": "狼的撕咬攻击",
+    "faction": "monster",
+    "mpCost": 0,
+    "damage": [20, 35]
+  },
+  {
+    "id": "skill_poison_bite",
+    "name": "毒咬",
+    "type": "attack",
+    "description": "带毒的撕咬",
+    "faction": "monster",
+    "mpCost": 0,
+    "damage": [10, 20],
+    "poisonDamage": 15,
+    "poisonDuration": 3
+  },
+  {
+    "id": "skill_howl",
+    "name": "狼嚎",
+    "type": "buff",
+    "description": "狼王的嚎叫，提升攻击力",
+    "faction": "monster",
+    "mpCost": 20,
+    "buff": { "attack": 20, "duration": 3 }
+  },
+  {
+    "id": "skill_bear_hug",
+    "name": "熊抱",
+    "type": "attack",
+    "description": "黑熊的拥抱攻击",
+    "faction": "monster",
+    "mpCost": 0,
+    "damage": [30, 50],
+    "stunChance": 0.3
+  },
+  {
+    "id": "skill_tiger_roar",
+    "name": "虎啸",
+    "type": "attack",
+    "description": "猛虎的咆哮攻击",
+    "faction": "monster",
+    "mpCost": 0,
+    "damage": [25, 40],
+    "fearChance": 0.15
+  },
+  {
+    "id": "skill_pounce",
+    "name": "扑击",
+    "type": "attack",
+    "description": "猛虎的扑击",
+    "faction": "monster",
+    "mpCost": 0,
+    "damage": [40, 60]
+  },
+  {
+    "id": "skill_venom_sting",
+    "name": "毒刺",
+    "type": "attack",
+    "description": "蝎子的毒刺",
+    "faction": "monster",
+    "mpCost": 0,
+    "damage": [15, 25],
+    "poisonDamage": 30,
+    "poisonDuration": 5
+  },
+  {
+    "id": "skill_curse",
+    "name": "诅咒",
+    "type": "debuff",
+    "description": "木乃伊的诅咒",
+    "faction": "monster",
+    "mpCost": 30,
+    "debuff": { "attack": -10, "defense": -10, "duration": 5 }
+  },
+  {
+    "id": "skill_life_drain",
+    "name": "吸血",
+    "type": "attack",
+    "description": "吸取生命",
+    "faction": "monster",
+    "mpCost": 20,
+    "damage": [20, 30],
+    "healPercent": 0.5
+  },
+  {
+    "id": "skill_ice_bite",
+    "name": "冰咬",
+    "type": "attack",
+    "description": "雪狼的冰冻撕咬",
+    "faction": "monster",
+    "mpCost": 0,
+    "damage": [25, 40],
+    "freezeChance": 0.2
+  },
+  {
+    "id": "skill_frost_howl",
+    "name": "霜嚎",
+    "type": "attack",
+    "description": "雪狼的霜冻嚎叫",
+    "faction": "monster",
+    "mpCost": 30,
+    "damage": [30, 50],
+    "freezeChance": 0.25
+  },
+  {
+    "id": "skill_ice_strike",
+    "name": "冰击",
+    "type": "attack",
+    "description": "冰魔的冰冻攻击",
+    "faction": "monster",
+    "mpCost": 40,
+    "damage": [50, 80],
+    "freezeChance": 0.3
+  },
+  {
+    "id": "skill_freeze",
+    "name": "冻结",
+    "type": "debuff",
+    "description": "冻结目标",
+    "faction": "monster",
+    "mpCost": 50,
+    "freezeChance": 0.5,
+    "freezeDuration": 2
+  },
+  {
+    "id": "skill_poison_spit",
+    "name": "毒液喷射",
+    "type": "attack",
+    "description": "喷射毒液",
+    "faction": "monster",
+    "mpCost": 20,
+    "damage": [20, 35],
+    "poisonDamage": 25,
+    "poisonDuration": 4
+  },
+  {
+    "id": "skill_acid_pool",
+    "name": "酸池",
+    "type": "attack",
+    "description": "制造酸性区域",
+    "faction": "monster",
+    "mpCost": 40,
+    "damage": [30, 50],
+    "dotDamage": 20,
+    "dotDuration": 3
+  },
+  {
+    "id": "skill_poison_breath",
+    "name": "毒龙吐息",
+    "type": "attack",
+    "description": "毒龙的毒气吐息",
+    "faction": "monster",
+    "mpCost": 100,
+    "damage": [80, 120],
+    "poisonDamage": 50,
+    "poisonDuration": 5
+  },
+  {
+    "id": "skill_tail_sweep",
+    "name": "龙尾横扫",
+    "type": "attack",
+    "description": "龙的尾部横扫攻击",
+    "faction": "monster",
+    "mpCost": 50,
+    "damage": [60, 100]
+  },
+  {
+    "id": "skill_dragon_roar",
+    "name": "龙啸",
+    "type": "buff",
+    "description": "龙的咆哮，大幅提升攻击",
+    "faction": "monster",
+    "mpCost": 80,
+    "buff": { "attack": 50, "duration": 5 }
+  },
+  {
+    "id": "skill_fire_breath",
+    "name": "火龙吐息",
+    "type": "attack",
+    "description": "火龙的火焰吐息",
+    "faction": "monster",
+    "mpCost": 150,
+    "damage": [100, 150],
+    "burnDamage": 30,
+    "burnDuration": 3
+  },
+  {
+    "id": "skill_dragon_claw",
+    "name": "龙爪",
+    "type": "attack",
+    "description": "龙的爪击",
+    "faction": "monster",
+    "mpCost": 80,
+    "damage": [80, 120]
+  },
+  {
+    "id": "skill_meteor",
+    "name": "流星",
+    "type": "attack",
+    "description": "召唤流星攻击",
+    "faction": "monster",
+    "mpCost": 200,
+    "damage": [150, 200]
+  },
+  {
+    "id": "skill_dark_slash",
+    "name": "暗影斩",
+    "type": "attack",
+    "description": "魔族的黑暗斩击",
+    "faction": "monster",
+    "mpCost": 40,
+    "damage": [50, 80]
+  },
+  {
+    "id": "skill_shadow_step",
+    "name": "暗影步",
+    "type": "buff",
+    "description": "瞬移并提升闪避",
+    "faction": "monster",
+    "mpCost": 30,
+    "buff": { "dexterity": 30, "duration": 3 }
+  },
+  {
+    "id": "skill_darkness_wave",
+    "name": "黑暗波动",
+    "type": "attack",
+    "description": "魔王释放黑暗波动",
+    "faction": "monster",
+    "mpCost": 300,
+    "damage": [200, 300]
+  },
+  {
+    "id": "skill_demon_form",
+    "name": "魔化",
+    "type": "buff",
+    "description": "魔王魔化形态",
+    "faction": "monster",
+    "mpCost": 500,
+    "buff": { "attack": 100, "defense": 50, "duration": 10 }
+  },
+  {
+    "id": "skill_hell_fire",
+    "name": "地狱火",
+    "type": "attack",
+    "description": "召唤地狱火焰",
+    "faction": "monster",
+    "mpCost": 400,
+    "damage": [250, 350],
+    "burnDamage": 50,
+    "burnDuration": 5
+  },
+  {
+    "id": "skill_soul_reap",
+    "name": "收割灵魂",
+    "type": "attack",
+    "description": "收割目标的灵魂",
+    "faction": "monster",
+    "mpCost": 600,
+    "damage": [300, 500],
+    "healPercent": 0.3
+  },
+  {
+    "id": "skill_shaolin_fist",
+    "name": "罗汉拳",
+    "type": "attack",
+    "description": "少林罗汉拳，攻击+15%",
+    "faction": "shaolin",
+    "requireLevel": 5,
+    "mpCost": 15,
+    "damage": [20, 40],
+    "learnPrice": 500
+  },
+  {
+    "id": "skill_shaolin_palm",
+    "name": "金刚掌",
+    "type": "attack",
+    "description": "少林金刚掌，强力攻击",
+    "faction": "shaolin",
+    "requireLevel": 15,
+    "mpCost": 30,
+    "damage": [40, 70],
+    "learnPrice": 1500
+  },
+  {
+    "id": "skill_yijinjing",
+    "name": "易筋经",
+    "type": "passive",
+    "description": "少林易筋经，提升体质",
+    "faction": "shaolin",
+    "requireLevel": 30,
+    "mpCost": 0,
+    "buff": { "constitution": 10, "duration": 999 },
+    "learnPrice": 5000
+  },
+  {
+    "id": "skill_wudang_fist",
+    "name": "太极拳",
+    "type": "attack",
+    "description": "武当太极拳，以柔克刚",
+    "faction": "wudang",
+    "requireLevel": 5,
+    "mpCost": 20,
+    "damage": [25, 45],
+    "counterChance": 0.2,
+    "learnPrice": 500
+  },
+  {
+    "id": "skill_wudang_sword",
+    "name": "太极剑",
+    "type": "attack",
+    "description": "武当太极剑法",
+    "faction": "wudang",
+    "requireLevel": 15,
+    "mpCost": 35,
+    "damage": [45, 75],
+    "learnPrice": 1500
+  },
+  {
+    "id": "skill_tiyunzong",
+    "name": "梯云纵",
+    "type": "buff",
+    "description": "武当梯云纵，大幅提升敏捷",
+    "faction": "wudang",
+    "requireLevel": 25,
+    "mpCost": 50,
+    "buff": { "dexterity": 50, "duration": 5 },
+    "learnPrice": 3000
+  },
+  {
+    "id": "skill_emei_sword",
+    "name": "峨眉剑法",
+    "type": "attack",
+    "description": "峨眉派剑法",
+    "faction": "emei",
+    "requireLevel": 5,
+    "mpCost": 15,
+    "damage": [20, 40],
+    "learnPrice": 500
+  },
+  {
+    "id": "skill_jiuyang",
+    "name": "九阳功",
+    "type": "heal",
+    "description": "峨眉九阳功，强力治疗",
+    "faction": "emei",
+    "requireLevel": 20,
+    "mpCost": 50,
+    "heal": [100, 200],
+    "learnPrice": 2000
+  },
+  {
+    "id": "skill_gaibang_stick",
+    "name": "打狗棒法",
+    "type": "attack",
+    "description": "丐帮打狗棒法",
+    "faction": "gaibang",
+    "requireLevel": 10,
+    "mpCost": 25,
+    "damage": [35, 60],
+    "learnPrice": 1000
+  },
+  {
+    "id": "skill_xianglong",
+    "name": "降龙十八掌",
+    "type": "attack",
+    "description": "丐帮绝学降龙十八掌",
+    "faction": "gaibang",
+    "requireLevel": 40,
+    "mpCost": 100,
+    "damage": [100, 180],
+    "learnPrice": 10000
+  },
+  {
+    "id": "skill_mingjiao_qiankun",
+    "name": "乾坤大挪移",
+    "type": "buff",
+    "description": "明教乾坤大挪移，反弹伤害",
+    "faction": "mingjiao",
+    "requireLevel": 35,
+    "mpCost": 80,
+    "buff": { "reflectDamage": 15, "duration": 3 },
+    "learnPrice": 8000
+  },
+  {
+    "id": "skill_mingjiao_fire",
+    "name": "圣火功",
+    "type": "attack",
+    "description": "明教圣火功，火焰攻击",
+    "faction": "mingjiao",
+    "requireLevel": 20,
+    "mpCost": 40,
+    "damage": [50, 90],
+    "burnDamage": 20,
+    "burnDuration": 2,
+    "learnPrice": 2500
+  },
+  {
+    "id": "skill_bandit_blade",
+    "name": "山贼刀法",
+    "type": "attack",
+    "description": "山贼的刀法",
+    "faction": "bandit",
+    "mpCost": 10,
+    "damage": [15, 30]
+  },
+  {
+    "id": "skill_intimidate",
+    "name": "威吓",
+    "type": "debuff",
+    "description": "山贼头目的威吓",
+    "faction": "bandit",
+    "mpCost": 30,
+    "debuff": { "attack": -15, "duration": 3 }
+  },
+  {
+    "id": "skill_dark_strike",
+    "name": "黑暗打击",
+    "type": "attack",
+    "description": "魔教的黑暗打击",
+    "faction": "evil",
+    "mpCost": 30,
+    "damage": [40, 70]
+  },
+  {
+    "id": "skill_blood_sacrifice",
+    "name": "血祭",
+    "type": "attack",
+    "description": "牺牲HP换取攻击",
+    "faction": "evil",
+    "mpCost": 0,
+    "hpCost": 50,
+    "damage": [80, 120]
+  },
+  {
+    "id": "skill_guard_strike",
+    "name": "侍卫斩",
+    "type": "attack",
+    "description": "皇宫侍卫的剑法",
+    "faction": "guard",
+    "mpCost": 20,
+    "damage": [35, 55]
+  },
+  {
+    "id": "skill_shield_wall",
+    "name": "盾墙",
+    "type": "defense",
+    "description": "侍卫的防御技能",
+    "faction": "guard",
+    "mpCost": 40,
+    "buff": { "defense": 30, "duration": 4 }
+  },
+  {
+    "id": "skill_water_jet",
+    "name": "水流喷射",
+    "type": "attack",
+    "description": "海蛇的水流攻击",
+    "faction": "monster",
+    "mpCost": 30,
+    "damage": [40, 65]
+  },
+  {
+    "id": "skill_coil",
+    "name": "缠绕",
+    "type": "debuff",
+    "description": "蛇的缠绕",
+    "faction": "monster",
+    "mpCost": 20,
+    "stunChance": 0.4,
+    "stunDuration": 2
+  },
+  {
+    "id": "skill_holy_light",
+    "name": "圣光",
+    "type": "attack",
+    "description": "仙兽的圣光攻击",
+    "faction": "monster",
+    "mpCost": 60,
+    "damage": [60, 100]
+  },
+  {
+    "id": "skill_fireball",
+    "name": "火球",
+    "type": "attack",
+    "description": "火元素的火球",
+    "faction": "monster",
+    "mpCost": 40,
+    "damage": [50, 85],
+    "burnDamage": 15,
+    "burnDuration": 2
+  },
+  {
+    "id": "skill_flame_shield",
+    "name": "火焰护盾",
+    "type": "buff",
+    "description": "火焰护盾",
+    "faction": "monster",
+    "mpCost": 50,
+    "buff": { "defense": 20, "reflectDamage": 10, "duration": 3 }
+  }
+]

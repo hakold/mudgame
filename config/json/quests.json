@@ -1,0 +1,369 @@
+[
+  {
+    "id": "quest_talk_chief",
+    "name": "初入江湖",
+    "type": "main",
+    "description": "与村长对话，了解村庄情况",
+    "roomId": "village_center",
+    "npcId": "npc_village_chief",
+    "objectives": [
+      { "type": "talk", "npcId": "npc_village_chief" }
+    ],
+    "rewards": {
+      "exp": 100,
+      "gold": 50
+    },
+    "nextQuest": "quest_buy_weapon"
+  },
+  {
+    "id": "quest_buy_weapon",
+    "name": "装备自己",
+    "type": "main",
+    "description": "购买一把木剑",
+    "prerequisites": ["quest_talk_chief"],
+    "objectives": [
+      { "type": "buy", "itemId": "weapon_wooden_sword" }
+    ],
+    "rewards": {
+      "exp": 200,
+      "gold": 100
+    },
+    "nextQuest": "quest_kill_boars"
+  },
+  {
+    "id": "quest_kill_boars",
+    "name": "初试身手",
+    "type": "main",
+    "description": "击杀3只野猪",
+    "prerequisites": ["quest_buy_weapon"],
+    "objectives": [
+      { "type": "kill", "monsterId": "monster_wild_boar", "count": 3 }
+    ],
+    "rewards": {
+      "exp": 300,
+      "gold": 150,
+      "items": ["armor_leather"]
+    },
+    "nextQuest": "quest_join_faction"
+  },
+  {
+    "id": "quest_join_faction",
+    "name": "拜师学艺",
+    "type": "main",
+    "description": "加入一个门派",
+    "prerequisites": ["quest_kill_boars"],
+    "objectives": [
+      { "type": "join_faction" }
+    ],
+    "rewards": {
+      "exp": 500,
+      "gold": 200
+    },
+    "nextQuest": "quest_learn_skill"
+  },
+  {
+    "id": "quest_learn_skill",
+    "name": "技能初成",
+    "type": "main",
+    "description": "学习一个门派技能",
+    "prerequisites": ["quest_join_faction"],
+    "objectives": [
+      { "type": "learn_skill" }
+    ],
+    "rewards": {
+      "exp": 400,
+      "gold": 100
+    },
+    "nextQuest": "quest_explore_forest"
+  },
+  {
+    "id": "quest_explore_forest",
+    "name": "森林探险",
+    "type": "main",
+    "description": "探索迷雾森林深处",
+    "prerequisites": ["quest_learn_skill"],
+    "objectives": [
+      { "type": "visit", "roomId": "forest_deep" }
+    ],
+    "rewards": {
+      "exp": 600,
+      "gold": 300
+    },
+    "nextQuest": "quest_kill_wolf_king"
+  },
+  {
+    "id": "quest_kill_wolf_king",
+    "name": "挑战强敌",
+    "type": "main",
+    "description": "击杀森林狼王",
+    "prerequisites": ["quest_explore_forest"],
+    "objectives": [
+      { "type": "kill", "monsterId": "monster_wolf_king", "count": 1 }
+    ],
+    "rewards": {
+      "exp": 1000,
+      "gold": 500,
+      "items": ["item_wolf_king_fang"]
+    },
+    "nextQuest": "quest_enter_city"
+  },
+  {
+    "id": "quest_enter_city",
+    "name": "进城",
+    "type": "main",
+    "description": "前往洛阳城",
+    "prerequisites": ["quest_kill_wolf_king"],
+    "objectives": [
+      { "type": "visit", "roomId": "city_gate" }
+    ],
+    "rewards": {
+      "exp": 800,
+      "gold": 400
+    },
+    "nextQuest": "quest_city_guild"
+  },
+  {
+    "id": "quest_city_guild",
+    "name": "侠客公会",
+    "type": "main",
+    "description": "在侠客公会接取任务",
+    "prerequisites": ["quest_enter_city"],
+    "objectives": [
+      { "type": "talk", "npcId": "npc_quest_guild" }
+    ],
+    "rewards": {
+      "exp": 500,
+      "gold": 200
+    },
+    "nextQuest": "quest_bandit_bounty"
+  },
+  {
+    "id": "quest_bandit_bounty",
+    "name": "山贼悬赏",
+    "type": "main",
+    "description": "击杀山贼头目",
+    "prerequisites": ["quest_city_guild"],
+    "objectives": [
+      { "type": "kill", "monsterId": "monster_bandit_chief", "count": 1 }
+    ],
+    "rewards": {
+      "exp": 1500,
+      "gold": 800,
+      "items": ["weapon_iron_sword"]
+    },
+    "nextQuest": "quest_mountain_temple"
+  },
+  {
+    "id": "quest_mountain_temple",
+    "name": "青云问道",
+    "type": "main",
+    "description": "前往青云观学习高级技能",
+    "prerequisites": ["quest_bandit_bounty"],
+    "objectives": [
+      { "type": "visit", "roomId": "mountain_temple" },
+      { "type": "learn_skill", "minLevel": 15 }
+    ],
+    "rewards": {
+      "exp": 2000,
+      "gold": 1000
+    },
+    "nextQuest": "quest_desert_explore"
+  },
+  {
+    "id": "quest_desert_explore",
+    "name": "大漠探险",
+    "type": "main",
+    "description": "探索大漠荒原",
+    "prerequisites": ["quest_mountain_temple"],
+    "objectives": [
+      { "type": "visit", "roomId": "desert_oasis" },
+      { "type": "visit", "roomId": "desert_ruins" }
+    ],
+    "rewards": {
+      "exp": 1500,
+      "gold": 600
+    },
+    "nextQuest": "quest_tomb_secret"
+  },
+  {
+    "id": "quest_tomb_secret",
+    "name": "古墓秘宝",
+    "type": "main",
+    "description": "探索地下陵墓",
+    "prerequisites": ["quest_desert_explore"],
+    "objectives": [
+      { "type": "kill", "monsterId": "monster_mummy", "count": 5 },
+      { "type": "visit", "roomId": "desert_tomb" }
+    ],
+    "rewards": {
+      "exp": 3000,
+      "gold": 1500,
+      "items": ["item_cursed_gem"]
+    },
+    "nextQuest": "quest_poison_dragon"
+  },
+  {
+    "id": "quest_poison_dragon",
+    "name": "毒龙之祸",
+    "type": "main",
+    "description": "击杀毒龙",
+    "prerequisites": ["quest_tomb_secret"],
+    "objectives": [
+      { "type": "kill", "monsterId": "monster_poison_dragon", "count": 1 }
+    ],
+    "rewards": {
+      "exp": 5000,
+      "gold": 3000,
+      "items": ["item_dragon_scale", "weapon_steel_sword"]
+    },
+    "nextQuest": "quest_fire_dragon"
+  },
+  {
+    "id": "quest_fire_dragon",
+    "name": "火龙传说",
+    "type": "main",
+    "description": "击杀火龙",
+    "prerequisites": ["quest_poison_dragon"],
+    "objectives": [
+      { "type": "kill", "monsterId": "monster_fire_dragon", "count": 1 }
+    ],
+    "rewards": {
+      "exp": 10000,
+      "gold": 8000,
+      "items": ["item_fire_dragon_scale", "weapon_xuantie_sword"]
+    },
+    "nextQuest": "quest_demon_lord"
+  },
+  {
+    "id": "quest_demon_lord",
+    "name": "魔王降临",
+    "type": "main",
+    "description": "击败魔王，拯救世界",
+    "prerequisites": ["quest_fire_dragon"],
+    "objectives": [
+      { "type": "kill", "monsterId": "monster_demon_lord", "count": 1 }
+    ],
+    "rewards": {
+      "exp": 30000,
+      "gold": 20000,
+      "items": ["item_demon_lord_essence", "weapon_fire_dragon_sword"]
+    }
+  },
+  {
+    "id": "quest_daily_kill_monsters",
+    "name": "每日狩猎",
+    "type": "daily",
+    "description": "每日击杀10只怪物",
+    "objectives": [
+      { "type": "kill", "monsterId": "any", "count": 10 }
+    ],
+    "rewards": {
+      "exp": 500,
+      "gold": 200
+    },
+    "repeatable": true,
+    "cooldown": 86400
+  },
+  {
+    "id": "quest_daily_explore",
+    "name": "每日探索",
+    "type": "daily",
+    "description": "每日探索3个新房间",
+    "objectives": [
+      { "type": "visit", "roomId": "any", "count": 3 }
+    ],
+    "rewards": {
+      "exp": 300,
+      "gold": 100
+    },
+    "repeatable": true,
+    "cooldown": 86400
+  },
+  {
+    "id": "quest_daily_train",
+    "name": "每日修炼",
+    "type": "daily",
+    "description": "每日训练属性3次",
+    "objectives": [
+      { "type": "train", "count": 3 }
+    ],
+    "rewards": {
+      "exp": 400,
+      "gold": 150
+    },
+    "repeatable": true,
+    "cooldown": 86400
+  },
+  {
+    "id": "quest_side_herb_collection",
+    "name": "草药采集",
+    "type": "side",
+    "description": "收集10份草药",
+    "objectives": [
+      { "type": "collect", "itemId": "item_herb", "count": 10 }
+    ],
+    "rewards": {
+      "exp": 200,
+      "gold": 100,
+      "items": ["item_hp_potion_medium"]
+    }
+  },
+  {
+    "id": "quest_side_bandit_clear",
+    "name": "清理山贼",
+    "type": "side",
+    "description": "击杀20只山贼",
+    "objectives": [
+      { "type": "kill", "monsterId": "monster_bandit", "count": 20 }
+    ],
+    "rewards": {
+      "exp": 800,
+      "gold": 400,
+      "items": ["weapon_bandit_sword"]
+    }
+  },
+  {
+    "id": "quest_side_wolf_pack",
+    "name": "狼群威胁",
+    "type": "side",
+    "description": "击杀15只野狼",
+    "objectives": [
+      { "type": "kill", "monsterId": "monster_wild_wolf", "count": 15 }
+    ],
+    "rewards": {
+      "exp": 600,
+      "gold": 300,
+      "items": ["item_wolf_pelt"]
+    }
+  },
+  {
+    "id": "quest_side_ice_cave",
+    "name": "冰洞探险",
+    "type": "side",
+    "description": "探索冰洞并击杀冰魔",
+    "objectives": [
+      { "type": "visit", "roomId": "snow_cave" },
+      { "type": "kill", "monsterId": "monster_ice_golem", "count": 1 }
+    ],
+    "rewards": {
+      "exp": 1000,
+      "gold": 500,
+      "items": ["item_ice_core"]
+    }
+  },
+  {
+    "id": "quest_side_island_secret",
+    "name": "仙岛秘境",
+    "type": "side",
+    "description": "探索东海仙岛",
+    "objectives": [
+      { "type": "visit", "roomId": "island_cave" },
+      { "type": "talk", "npcId": "npc_immortal" }
+    ],
+    "rewards": {
+      "exp": 1500,
+      "gold": 800,
+      "items": ["item_immortal_pearl"]
+    }
+  }
+]

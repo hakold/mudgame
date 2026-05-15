@@ -1,0 +1,27 @@
+{
+  "name": "wuxia-mud-server",
+  "version": "1.0.0",
+  "description": "武侠MUD游戏服务器",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "init-db": "node src/scripts/initDatabase.js",
+    "import-config": "node src/scripts/importConfig.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2",
+    "mongoose": "^8.0.3",
+    "redis": "^4.6.12",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "xlsx": "^0.18.5",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
