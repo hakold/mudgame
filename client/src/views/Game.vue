@@ -350,9 +350,8 @@ const contextualActions = computed(() => {
   const services = currentRoomServices.value
   const actions = []
 
-  if (services.includes('rest')) {
-    actions.push({ label: '💤 休息', command: 'rest' })
-  }
+  // 休息按钮始终显示（任何地方都可以休息，客栈完全恢复，野外部分恢复）
+  actions.push({ label: '💤 休息', command: 'rest' })
 
   if (services.some(service => ['shop', 'buy_item', 'buy_weapon', 'buy_armor', 'sell_item'].includes(service))) {
     actions.push({ label: '🏪 商店', command: 'shop' })

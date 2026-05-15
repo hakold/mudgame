@@ -215,8 +215,19 @@ export const useGameStore = defineStore('game', () => {
     })
     
     socket.value.on('rest_complete', async (data) => {
-      addMessage('success', '休息完毕，精力充沛！')
+      if (data.fullRecovery) {
+        addMessage('success', '💤 休息完毕，生命和内力完全恢复！')
+      } else {
+        addMessage('success', '💤 野外休息，恢复了部分生命和内力。（客栈可完全恢复）')
+      }
       await refreshCurrentUser()
+    })
+    
+    socket.value.on('natural_regen', (data) => {
+      if (user.value) {
+        user.value.hp = data.hp
+        user.value.mp = data.mp
+      }
     })
     
     socket.value.on('npc_dialog', (data) => {

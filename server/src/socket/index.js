@@ -69,6 +69,43 @@ function socketHandler(io) {
       level: user.level
     });
     
+    // 自然恢复定时器 - 每60秒恢复少量HP/MP
+    const naturalRegenInterval = setInterval(async () => {
+      try {
+        // 重新读取用户数据
+        const freshUser = await User.findById(user._id);
+        if (!freshUser || freshUser.status === 'dead' || freshUser.status === 'battling') return;
+        
+        let changed = false;
+        const hpRegen = Math.max(1, Math.floor(freshUser.hp.max * 0.02)); // 每分钟恢复2% HP
+        const mpRegen = Math.max(1, Math.floor(freshUser.mp.max * 0.03)); // 每分钟恢复3% MP
+        
+        if (freshUser.hp.current < freshUser.hp.max) {
+          freshUser.hp.current = Math.min(freshUser.hp.current + hpRegen, freshUser.hp.max);
+          changed = true;
+        }
+        if (freshUser.mp.current < freshUser.mp.max) {
+          freshUser.mp.current = Math.min(freshUser.mp.current + mpRegen, freshUser.mp.max);
+          changed = true;
+        }
+        
+        if (changed) {
+          await freshUser.save();
+          socket.emit('natural_regen', {
+            hp: freshUser.hp,
+            mp: freshUser.mp
+          });
+        }
+      } catch (err) {
+        // 静默失败，不影响游戏
+      }
+    }, 60000); // 每60秒
+    
+    // 断开连接时清理
+    socket.on('disconnect', () => {
+      clearInterval(naturalRegenInterval);
+    });
+
     // ==================== 房间相关 ====================
     
     // 查看房间
@@ -748,22 +785,29 @@ function socketHandler(io) {
     
     socket.on('rest', async () => {
       const room = getRoom(user.location.roomId);
+      const isInn = room?.services?.includes('rest');
       
-      // 检查是否在客栈或有休息服务
-      if (!room?.services?.includes('rest')) {
-        return socket.emit('error', { message: '这里不能休息，请到客栈休息' });
+      if (isInn) {
+        // 客栈/酒馆：完全恢复
+        user.hp.current = user.hp.max;
+        user.mp.current = user.mp.max;
+        socket.emit('system_message', { content: '你休息了一会儿，体力完全恢复了。' });
+      } else {
+        // 其他地方：恢复50%
+        const hpRecover = Math.floor(user.hp.max * 0.5);
+        const mpRecover = Math.floor(user.mp.max * 0.5);
+        user.hp.current = Math.min(user.hp.current + hpRecover, user.hp.max);
+        user.mp.current = Math.min(user.mp.current + mpRecover, user.mp.max);
+        socket.emit('system_message', { content: `你在野外休息了一会儿，恢复了${hpRecover}点生命和${mpRecover}点内力。（客栈可完全恢复）` });
       }
       
-      // 恢复HP和MP
-      user.hp.current = user.hp.max;
-      user.mp.current = user.mp.max;
       await user.save();
       
       socket.emit('rest_complete', {
         hp: user.hp,
-        mp: user.mp
+        mp: user.mp,
+        fullRecovery: isInn
       });
-      socket.emit('system_message', { content: '你休息了一会儿，体力完全恢复了。' });
     });
     
     // ==================== 商店系统 ====================
