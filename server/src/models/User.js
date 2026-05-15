@@ -44,6 +44,24 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: null  // 门派ID
   },
+  // 门派声望
+  factionReputation: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
+  // 门派贡献
+  factionContribution: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
+  // 门派等级（弟子→执事→长老→掌门）
+  factionRank: {
+    type: String,
+    enum: ['disciple', 'deacon', 'elder', 'leader'],
+    default: 'disciple'
+  },
   
   // 属性
   level: {
@@ -193,6 +211,59 @@ UserSchema.methods.levelUp = function() {
   this.mp.max = this.calculateMaxMP();
   this.hp.current = this.hp.max;
   this.mp.current = this.mp.max;
+  
+  return true;
+};
+
+// 死亡惩罚
+UserSchema.methods.applyDeathPenalty = function() {
+  // 经验损失10%（不低于0）
+  const expLoss = Math.floor(this.exp * 0.1);
+  this.exp = Math.max(0, this.exp - expLoss);
+  
+  // 金币损失5%（不低于0）
+  const goldLoss = Math.floor(this.gold * 0.05);
+  this.gold = Math.max(0, this.gold - goldLoss);
+  
+  return { expLoss, goldLoss };
+};
+
+// 复活
+UserSchema.methods.revive = function() {
+  this.hp.current = Math.floor(this.hp.max * 0.3);  // 复活后30% HP
+  this.mp.current = Math.floor(this.mp.max * 0.3);  // 复活后30% MP
+  this.status = 'online';
+  // 复活后回到村庄
+  this.location.mapId = 'village';
+  this.location.roomId = 'village_center';
+  return true;
+};
+
+// 检查门派进阶条件
+UserSchema.methods.canFactionAdvance = function() {
+  const rankRequirements = {
+    disciple: { reputation: 100, level: 10 },  // 弟子→执事
+    deacon: { reputation: 500, level: 25 },     // 执事→长老
+    elder: { reputation: 2000, level: 50 },     // 长老→掌门
+    leader: null  // 掌门无法再进阶
+  };
+  
+  const req = rankRequirements[this.factionRank];
+  if (!req) return false;
+  
+  return this.factionReputation >= req.reputation && this.level >= req.level;
+};
+
+// 门派进阶
+UserSchema.methods.factionAdvance = function() {
+  if (!this.canFactionAdvance()) return false;
+  
+  const rankOrder = ['disciple', 'deacon', 'elder', 'leader'];
+  const currentIdx = rankOrder.indexOf(this.factionRank);
+  this.factionRank = rankOrder[currentIdx + 1];
+  
+  // 进阶奖励：额外属性点
+  this.freePoints += 5;
   
   return true;
 };

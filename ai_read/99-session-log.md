@@ -111,3 +111,23 @@ Suggested format:
 - Files: `client/src/views/Game.vue`.
 - Validation: `vite build` passed.
 - Remaining risks: `equipItem` reuses the `use` command which calls `use_item` — this works for consumables but the equip flow may need a dedicated `equip_item` socket event if equipment and consumable use diverge further.
+
+## 2026-05-15 Session 3 — Phase 4 Complete
+
+**Focus**: Complete all three batches of Phase 4 + env configuration
+
+**Changes**:
+- `server/src/game/battleService.js`: Added applyPassiveSkills (mpRegen, persistent buffs, counterChance from any skill type), processStartOfTurnEffects MP regen, applyCounterAttack, skill EXP on battle end, death penalty in endBattle, equipment durability consumption in battle
+- `server/src/game/roomDropsService.js`: NEW — Room ground item management (addDrop, getDrops, pickupItem, cleanupExpired)
+- `server/src/game/questProgressService.js`: Added `itemId === 'any'` wildcard for collect quests
+- `server/src/game/index.js`: Updated getLearnableSkills to accept factionRank parameter and check rankRequired
+- `server/src/models/User.js`: Added factionReputation, factionContribution, factionRank fields; added applyDeathPenalty, revive, canFactionAdvance, factionAdvance methods
+- `server/src/socket/index.js`: Added roomDropsService import, ground drops in look/room_info, pickup_item event, revive event, faction_advance/leave_faction/faction_task events, allocate_points event, repair_item/repair_all events, get_battle_logs/get_battle_detail events, battle end drop notifications
+- `config/json/skills.json`: Removed empty buff from skill_meditation
+- `config/json/npcs.json`: Fixed NPC trainer skill IDs (basic_attack → skill_basic_attack, etc.)
+- `server/.env.example`: NEW — All configurable fields documented
+- `client/.env.example`: NEW — VITE_API_URL and VITE_SOCKET_URL
+
+**Test Results**: 24/24 regression tests passed, content validation ALL OK, client build successful
+
+**Status**: Phase 4 complete. All three batches implemented, tested, and documented.

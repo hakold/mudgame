@@ -1,6 +1,7 @@
 const { User, CharacterSkill, Inventory, BattleLog } = require('../models');
-const { getMonstersInRoom, getSkill } = require('../game');
+const { getMonstersInRoom, getSkill, getItem } = require('../game');
 const { v4: uuidv4 } = require('uuid');
+const roomDropsService = require('./roomDropsService');
 
 class BattleService {
   constructor(io, redis) {
@@ -56,7 +57,9 @@ class BattleService {
       hpCost: config.hpCost || 0,
       reflectChance: config.reflectChance || 0,
       mpCost: config.mpCost || 0,
-      cooldown: config.cooldown || 0
+      cooldown: config.cooldown || 0,
+      counterChance: config.counterChance || 0,
+      mpRegen: config.mpRegen || 0
     };
   }
 
@@ -64,6 +67,47 @@ class BattleService {
     return skillIds
       .map(skillId => this.buildSkillPayload(skillId))
       .filter(Boolean);
+  }
+
+  // 应用被动技能（战斗开始时自动激活持久buff和mpRegen）
+  // 同时检查所有已学技能的counterChance
+  applyPassiveSkills(participant) {
+    for (const skill of participant.skills || []) {
+      if (!skill) continue;
+
+      // 被动技能：buff效果和mpRegen
+      if (skill.type === 'passive') {
+        // 被动buff效果（如易筋经提升体质）
+        if (skill.buff) {
+          const effect = this.createModifierEffect(skill.name, 'passive_buff', skill.buff, 999);
+          effect.tick = 'start';
+          effect.duration = 999;
+          // 如果有mpRegen，附加到效果上
+          if (skill.mpRegen) {
+            effect.mpRegen = skill.mpRegen;
+          }
+          participant.statusEffects.push(effect);
+          this.recalculateParticipantState(participant);
+        }
+
+        // 被动技能只有mpRegen没有buff（如冥想）
+        if (!skill.buff && skill.mpRegen) {
+          participant.statusEffects.push({
+            type: 'passive_mp_regen',
+            name: skill.name,
+            duration: 999,
+            tick: 'start',
+            mpRegen: skill.mpRegen,
+            modifiers: {}
+          });
+        }
+      }
+
+      // 反击概率（任何技能有counterChance都生效，如太极拳）
+      if (skill.counterChance) {
+        participant.counterChance = Math.max(participant.counterChance || 0, skill.counterChance);
+      }
+    }
   }
 
   initializeParticipantState(participant) {
@@ -75,7 +119,10 @@ class BattleService {
     participant.statusSummary = [];
     participant.reflectDamage = 0;
     participant.defending = false;
+    participant.counterChance = 0; // 反击概率
     this.recalculateParticipantState(participant);
+    // 战斗开始时激活被动技能
+    this.applyPassiveSkills(participant);
     return participant;
   }
 
@@ -165,13 +212,23 @@ class BattleService {
         result.effectMessages.push(`${participant.name} 受到「${effect.name}」影响，损失 ${effect.damagePerTurn} 点HP。`);
       }
 
+      // 被动技能：MP回复（如冥想）
+      if (effect.mpRegen > 0) {
+        participant.mp = Math.min((participant.maxMp || participant.mp || 0), (participant.mp || 0) + effect.mpRegen);
+        result.effectMessages = result.effectMessages || [];
+        result.effectMessages.push(`${participant.name} 的「${effect.name}」生效，恢复了 ${effect.mpRegen} 点MP。`);
+      }
+
       if (effect.skipTurn && !skipped) {
         skipped = true;
         result.effectMessages = result.effectMessages || [];
         result.effectMessages.push(`${participant.name} 因「${effect.name}」无法行动。`);
       }
 
-      effect.duration -= 1;
+      // 持久被动效果（duration=999）不减少持续时间
+      if (effect.duration !== 999) {
+        effect.duration -= 1;
+      }
     }
 
     this.removeExpiredEffects(participant);
@@ -181,7 +238,10 @@ class BattleService {
   processEndOfTurnEffects(participant) {
     for (const effect of participant.statusEffects || []) {
       if (effect.tick === 'end') {
-        effect.duration -= 1;
+        // 持久被动效果（duration=999）不减少持续时间
+        if (effect.duration !== 999) {
+          effect.duration -= 1;
+        }
       }
     }
 
@@ -197,6 +257,25 @@ class BattleService {
     result.effectMessages = result.effectMessages || [];
     result.effectMessages.push(`${defender.name} 的反伤生效，${attacker.name} 受到 ${defender.reflectDamage} 点反伤。`);
     return defender.reflectDamage;
+  }
+
+  // 反击机制：被攻击方有一定概率反击攻击者
+  applyCounterAttack(defender, attacker, originalDamage, result) {
+    const counterChance = defender.counterChance || 0;
+    if (counterChance <= 0 || defender.hp <= 0) {
+      return 0;
+    }
+
+    if (Math.random() >= counterChance) {
+      return 0;
+    }
+
+    // 反击伤害为原始伤害的30%
+    const counterDamage = Math.max(1, Math.floor(originalDamage * 0.3));
+    attacker.hp = Math.max(0, attacker.hp - counterDamage);
+    result.effectMessages = result.effectMessages || [];
+    result.effectMessages.push(`${defender.name} 发动反击！${attacker.name} 受到 ${counterDamage} 点反击伤害。`);
+    return counterDamage;
   }
 
   applyAttackSkillSideEffects(skill, attacker, defender, dealtDamage, result) {
@@ -555,6 +634,8 @@ class BattleService {
         result.damage = damage;
         result.remainingHp = Math.max(0, defender.hp);
         result.reflectedDamage = this.applyReflectDamage(defender, attacker, result);
+        // 反击判定
+        result.counterDamage = this.applyCounterAttack(defender, attacker, damage, result);
       }
     } else if (!startState.skipped && action === 'skill' && skillId) {
       // 使用技能
@@ -595,6 +676,8 @@ class BattleService {
         result.remainingHp = Math.max(0, defender.hp);
         this.applyAttackSkillSideEffects(skill, attacker, defender, damage, result);
         result.reflectedDamage = this.applyReflectDamage(defender, attacker, result);
+        // 反击判定
+        result.counterDamage = this.applyCounterAttack(defender, attacker, damage, result);
       } else if (skill.type === 'buff' || skill.type === 'debuff' || skill.type === 'defense') {
         this.applySupportSkillEffects(skill, attacker, defender, result);
         if (skill.type === 'defense' && !skill.buff) {
@@ -709,30 +792,82 @@ class BattleService {
         user.levelUp();
       }
       
+      // 技能经验获取 - 战斗中使用的技能获得经验
+      const usedSkillIds = [...new Set(
+        battle.rounds
+          .filter(r => r.action === 'skill' && r.skill)
+          .map(r => {
+            const skill = player.skills?.find(s => s.name === r.skill);
+            return skill?.id;
+          })
+          .filter(Boolean)
+      )];
+      
+      const skillExpResults = [];
+      for (const skillId of usedSkillIds) {
+        const charSkill = await CharacterSkill.findOne({ userId: user._id, skillId });
+        if (charSkill && charSkill.level < 10) {
+          const skillExp = Math.floor(10 + monster.level * 2 + Math.random() * 5);
+          charSkill.exp += skillExp;
+          charSkill.lastUsedAt = new Date();
+          
+          const leveledUp = charSkill.canLevelUp();
+          if (leveledUp) {
+            charSkill.levelUp();
+          }
+          await charSkill.save();
+          
+          skillExpResults.push({
+            skillId,
+            skillName: charSkill.getSkillConfig()?.name || skillId,
+            expGained: skillExp,
+            leveledUp,
+            newLevel: charSkill.level
+          });
+        }
+      }
+      battleLog.result.skillExp = skillExpResults;
+      
       battleLog.result.expGained = expGained;
       battleLog.result.goldGained = goldGained;
       
-      // 物品掉落
+      // 物品掉落 - 放到房间地面
       const droppedItems = (monster.drops || []).filter(drop => Math.random() < (drop.rate || 0));
+      const droppedItemNames = [];
       for (const drop of droppedItems) {
-        const item = new Inventory({
-          userId: user._id,
-          itemId: drop.itemId,
-          quantity: drop.quantity || 1
-        });
-        await item.save();
+        const itemConfig = getItem(drop.itemId);
+        const itemName = itemConfig ? itemConfig.name : drop.itemId;
+        roomDropsService.addDrop(user.location.roomId, drop.itemId, itemName, drop.quantity || 1, monster.name);
         battleLog.result.itemsDropped.push(drop.itemId);
+        droppedItemNames.push(`${itemName}×${drop.quantity || 1}`);
       }
+      battleLog.result.droppedItemNames = droppedItemNames;
+      battleLog.result.dropRoomId = user.location.roomId;
     }
     
     // 如果玩家死亡
     if (player.hp <= 0 || battle.loser?.userId === player.userId) {
       user.hp.current = 0;
       user.status = 'dead';
+      // 应用死亡惩罚
+      const penalty = user.applyDeathPenalty();
+      battleLog.result.deathPenalty = penalty;
+      // 死亡时装备耐久额外损失
+      const equippedItems = await Inventory.find({ userId: user._id, isEquipped: true });
+      for (const item of equippedItems) {
+        item.useDurability(10); // 死亡额外扣10点耐久
+        await item.save();
+      }
     } else {
       user.hp.current = player.hp;
       user.mp.current = player.mp;
       user.status = 'online';
+      // 战斗消耗装备耐久
+      const equippedItems = await Inventory.find({ userId: user._id, isEquipped: true });
+      for (const item of equippedItems) {
+        item.useDurability(Math.floor(Math.random() * 3) + 1); // 每场战斗1-3点磨损
+        await item.save();
+      }
     }
     
     await user.save();

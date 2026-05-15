@@ -163,14 +163,29 @@ function getAllSkills() {
   return Object.values(gameConfig.skills);
 }
 
-// 获取可学习的技能（根据门派）
-function getLearnableSkills(factionId, level = 1) {
+// 获取可学习的技能（根据门派和门派等级）
+function getLearnableSkills(factionId, level = 1, factionRank = 'disciple') {
+  const rankOrder = ['disciple', 'deacon', 'elder', 'leader'];
+  const rankIndex = rankOrder.indexOf(factionRank);
+
   return Object.values(gameConfig.skills).filter(skill => {
     const requiredFaction = skill.factionRequired || skill.faction;
 
     if (requiredFaction === 'monster') return false;
-    if (requiredFaction && requiredFaction !== 'general' && requiredFaction !== factionId) {
+    if (requiredFaction === 'bandit' || requiredFaction === 'evil' || requiredFaction === 'guard') return false;
+
+    // 通用技能
+    if (requiredFaction === 'general') return true;
+
+    // 门派专属技能
+    if (requiredFaction && requiredFaction !== factionId) {
       return false;
+    }
+
+    // 门派等级限制
+    if (skill.rankRequired) {
+      const skillRankIndex = rankOrder.indexOf(skill.rankRequired);
+      if (rankIndex < skillRankIndex) return false;
     }
 
     if (skill.requireLevel && skill.requireLevel > level) {

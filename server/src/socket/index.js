@@ -1,8 +1,9 @@
-const { User, CharacterSkill, Inventory, Quest, ChatMessage } = require('../models');
+const { User, CharacterSkill, Inventory, Quest, ChatMessage, BattleLog } = require('../models');
 const { socketAuthMiddleware } = require('../middleware/auth');
 const { getRoom, getRoomExits, getNpcsInRoom, getMonstersInRoom, getSkill, getQuest, getItem, getFaction, getAllFactions, getLearnableSkills } = require('../game');
 const BattleService = require('../game/battleService');
 const questProgressService = require('../game/questProgressService');
+const roomDropsService = require('../game/roomDropsService');
 
 // 在线玩家映射
 const onlinePlayers = new Map();
@@ -73,7 +74,9 @@ function socketHandler(io) {
     // 查看房间
     socket.on('look', async () => {
       const roomId = user.location.roomId;
-      socket.emit('room_info', getRoomDescription(roomId));
+      const roomDesc = getRoomDescription(roomId);
+      roomDesc.drops = roomDropsService.getDrops(roomId);
+      socket.emit('room_info', roomDesc);
     });
     
     // 移动
@@ -110,6 +113,12 @@ function socketHandler(io) {
       });
       
       socket.emit('room_info', getRoomDescription(exit.roomId));
+
+      // 通知新房间地面掉落
+      const newRoomDrops = roomDropsService.getDrops(exit.roomId);
+      if (newRoomDrops.length > 0) {
+        socket.emit('room_drops', { drops: newRoomDrops, roomId: exit.roomId });
+      }
 
       // 任务进度：到达房间
       questProgressService.checkProgress(user._id, { type: 'visit', target: exit.roomId });
@@ -184,6 +193,16 @@ function socketHandler(io) {
             }
           }
 
+          // 通知房间内玩家有新掉落
+          if (turnResult.rewards?.itemsDropped?.length > 0) {
+            const dropRoomId = turnResult.rewards.dropRoomId || user.location.roomId;
+            const dropNames = turnResult.rewards.droppedItemNames || turnResult.rewards.itemsDropped;
+            io.to(`room:${dropRoomId}`).emit('room_drops_updated', {
+              drops: roomDropsService.getDrops(dropRoomId),
+              message: `${user.characterName} 击败了 ${battle.monster?.name || '怪物'}，掉落了: ${dropNames.join(', ')}`
+            });
+          }
+
           io.in(roomName).socketsLeave(roomName);
         }
       } catch (error) {
@@ -191,7 +210,78 @@ function socketHandler(io) {
       }
     });
     
+    // 复活
+    socket.on('revive', async () => {
+      if (user.status !== 'dead') {
+        return socket.emit('error', { message: '你还没有死亡' });
+      }
+      
+      user.revive();
+      await user.save();
+      
+      // 离开当前房间，加入复活点
+      socket.leave(`room:${user.location.roomId}`);
+      socket.join(`room:village_center`);
+      
+      socket.emit('revived', {
+        hp: user.hp,
+        mp: user.mp,
+        location: user.location,
+        message: '你已复活，回到了村庄中心。生命和内力恢复了30%。'
+      });
+      socket.emit('room_info', getRoomDescription('village_center'));
+    });
+    
     // ==================== 物品相关 ====================
+    
+    // 查看地面掉落物品
+    socket.on('look_drops', async () => {
+      const roomId = user.location.roomId;
+      const drops = roomDropsService.getDrops(roomId);
+      socket.emit('room_drops', { drops, roomId });
+    });
+    
+    // 拾取地面物品
+    socket.on('pickup_item', async (data) => {
+      const { itemId, quantity = 1 } = data;
+      const roomId = user.location.roomId;
+      
+      const pickedUp = roomDropsService.pickupItem(roomId, itemId, quantity);
+      if (!pickedUp) {
+        return socket.emit('error', { message: '该物品不在地面上' });
+      }
+      
+      // 添加到背包
+      let inventoryItem = await Inventory.findOne({ userId: user._id, itemId: pickedUp.itemId });
+      if (inventoryItem) {
+        inventoryItem.quantity += pickedUp.quantity;
+        await inventoryItem.save();
+      } else {
+        await Inventory.create({
+          userId: user._id,
+          itemId: pickedUp.itemId,
+          quantity: pickedUp.quantity,
+          isEquipped: false
+        });
+      }
+      
+      socket.emit('item_picked_up', {
+        itemId: pickedUp.itemId,
+        name: pickedUp.name,
+        quantity: pickedUp.quantity
+      });
+      socket.emit('system_message', {
+        content: `你拾取了 ${pickedUp.name}×${pickedUp.quantity}`
+      });
+      
+      // 通知房间内其他玩家
+      io.to(`room:${roomId}`).emit('room_drops_updated', {
+        drops: roomDropsService.getDrops(roomId)
+      });
+      
+      // 任务进度：收集物品
+      questProgressService.checkProgress(user._id, { type: 'collect', target: pickedUp.itemId });
+    });
     
     // 使用物品
     socket.on('use_item', async (data) => {
@@ -361,6 +451,43 @@ function socketHandler(io) {
     
     // ==================== 聊天相关 ====================
     
+    // ==================== 战斗日志 ====================
+    
+    // 查询战斗历史
+    socket.on('get_battle_logs', async (data = {}) => {
+      const { limit = 10, offset = 0 } = data;
+      
+      const logs = await BattleLog.find({
+        'participants.userId': user._id
+      })
+      .sort({ endedAt: -1 })
+      .skip(offset)
+      .limit(limit)
+      .lean();
+      
+      const total = await BattleLog.countDocuments({
+        'participants.userId': user._id
+      });
+      
+      socket.emit('battle_logs', { logs, total, offset, limit });
+    });
+    
+    // 查询单场战斗详情
+    socket.on('get_battle_detail', async (data) => {
+      const { battleId } = data;
+      
+      const log = await BattleLog.findOne({
+        battleId,
+        'participants.userId': user._id
+      }).lean();
+      
+      if (!log) {
+        return socket.emit('error', { message: '战斗记录不存在' });
+      }
+      
+      socket.emit('battle_detail', log);
+    });
+    
     // 世界聊天
     socket.on('chat_world', async (data) => {
       const { content } = data;
@@ -471,16 +598,108 @@ function socketHandler(io) {
       }
       
       user.faction = factionId;
+      user.factionReputation = 0;
+      user.factionContribution = 0;
+      user.factionRank = 'disciple';
       await user.save();
       
       socket.emit('faction_joined', {
         faction,
-        learnableSkills: getLearnableSkills(factionId)
+        learnableSkills: getLearnableSkills(factionId, user.level, user.factionRank)
       });
       
       // 广播
       io.emit('system_message', {
         content: `${user.characterName} 加入了 ${faction.name}！`
+      });
+    });
+    
+    // 退出门派
+    socket.on('leave_faction', async () => {
+      if (!user.faction) {
+        return socket.emit('error', { message: '你还没有加入门派' });
+      }
+      
+      const faction = getFaction(user.faction);
+      const factionName = faction?.name || user.faction;
+      
+      user.faction = null;
+      user.factionReputation = 0;
+      user.factionContribution = 0;
+      user.factionRank = 'disciple';
+      await user.save();
+      
+      socket.emit('faction_left', {
+        factionName,
+        message: `你已退出 ${factionName}`
+      });
+    });
+    
+    // 门派进阶
+    socket.on('faction_advance', async () => {
+      if (!user.faction) {
+        return socket.emit('error', { message: '你还没有加入门派' });
+      }
+      
+      if (!user.canFactionAdvance()) {
+        return socket.emit('error', { message: '门派进阶条件未满足（需要足够的声望和等级）' });
+      }
+      
+      const oldRank = user.factionRank;
+      user.factionAdvance();
+      await user.save();
+      
+      const rankNames = {
+        disciple: '弟子',
+        deacon: '执事',
+        elder: '长老',
+        leader: '掌门'
+      };
+      
+      socket.emit('faction_advanced', {
+        oldRank,
+        newRank: user.factionRank,
+        oldRankName: rankNames[oldRank],
+        newRankName: rankNames[user.factionRank],
+        freePoints: user.freePoints
+      });
+      
+      io.emit('system_message', {
+        content: `${user.characterName} 在${getFaction(user.faction)?.name}中晋升为${rankNames[user.factionRank]}！`
+      });
+    });
+    
+    // 门派任务（贡献门派获取声望）
+    socket.on('faction_task', async () => {
+      if (!user.faction) {
+        return socket.emit('error', { message: '你还没有加入门派' });
+      }
+      
+      // 门派任务：捐献金币获取声望
+      const donation = 100; // 每次捐献100金币
+      if (user.gold < donation) {
+        return socket.emit('error', { message: '金币不足，需要100金币捐献' });
+      }
+      
+      user.gold -= donation;
+      user.factionContribution += donation;
+      user.factionReputation += 10; // 每次捐献获得10声望
+      
+      // 检查门派进阶
+      if (user.canFactionAdvance()) {
+        socket.emit('system_message', {
+          content: '你的门派声望已达到进阶条件！可以使用 faction_advance 进行进阶。'
+        });
+      }
+      
+      await user.save();
+      
+      socket.emit('faction_task_completed', {
+        goldDonated: donation,
+        reputationGained: 10,
+        totalReputation: user.factionReputation,
+        totalContribution: user.factionContribution,
+        factionRank: user.factionRank
       });
     });
     
@@ -656,6 +875,97 @@ function socketHandler(io) {
       });
     });
     
+    // 修复装备
+    socket.on('repair_item', async (data) => {
+      const { inventoryId } = data;
+      const room = getRoom(user.location.roomId);
+      
+      // 铁匠铺才能修复
+      if (!room?.services?.includes('blacksmith') && !room?.services?.includes('repair')) {
+        return socket.emit('error', { message: '这里没有铁匠铺，无法修复装备' });
+      }
+      
+      const inventoryItem = await Inventory.findOne({ _id: inventoryId, userId: user._id });
+      if (!inventoryItem) {
+        return socket.emit('error', { message: '物品不存在' });
+      }
+      
+      const itemConfig = inventoryItem.getItemConfig();
+      if (!itemConfig || (itemConfig.type !== 'weapon' && itemConfig.type !== 'armor')) {
+        return socket.emit('error', { message: '只能修复武器和防具' });
+      }
+      
+      if (inventoryItem.durability.current >= inventoryItem.durability.max) {
+        return socket.emit('error', { message: '该装备耐久已满，无需修复' });
+      }
+      
+      // 修复费用：每点耐久1金币
+      const durabilityLoss = inventoryItem.durability.max - inventoryItem.durability.current;
+      const repairCost = durabilityLoss;
+      
+      if (user.gold < repairCost) {
+        return socket.emit('error', { message: `金币不足，需要 ${repairCost} 金币修复` });
+      }
+      
+      user.gold -= repairCost;
+      inventoryItem.repair(durabilityLoss);
+      
+      await user.save();
+      await inventoryItem.save();
+      
+      socket.emit('item_repaired', {
+        inventoryId,
+        itemId: inventoryItem.itemId,
+        durability: inventoryItem.durability,
+        repairCost
+      });
+      socket.emit('system_message', {
+        content: `你修复了 ${itemConfig.name}，花费 ${repairCost} 金币，耐久恢复满`
+      });
+    });
+    
+    // 修复全部装备
+    socket.on('repair_all', async () => {
+      const room = getRoom(user.location.roomId);
+      
+      if (!room?.services?.includes('blacksmith') && !room?.services?.includes('repair')) {
+        return socket.emit('error', { message: '这里没有铁匠铺，无法修复装备' });
+      }
+      
+      const equippedItems = await Inventory.find({ userId: user._id, isEquipped: true });
+      let totalCost = 0;
+      const repairedItems = [];
+      
+      for (const item of equippedItems) {
+        const loss = item.durability.max - item.durability.current;
+        if (loss > 0) {
+          totalCost += loss;
+          item.repair(loss);
+          repairedItems.push({ itemId: item.itemId, durability: item.durability });
+          await item.save();
+        }
+      }
+      
+      if (totalCost === 0) {
+        return socket.emit('error', { message: '所有装备耐久已满' });
+      }
+      
+      if (user.gold < totalCost) {
+        return socket.emit('error', { message: `金币不足，需要 ${totalCost} 金币修复全部装备` });
+      }
+      
+      user.gold -= totalCost;
+      await user.save();
+      
+      socket.emit('items_repaired', {
+        repairedItems,
+        totalCost
+      });
+      socket.emit('system_message', {
+        content: `你修复了 ${repairedItems.length} 件装备，花费 ${totalCost} 金币`
+      });
+    });
+    
     // ==================== 技能系统 ====================
     
     // 学习技能
@@ -730,7 +1040,7 @@ function socketHandler(io) {
         return socket.emit('error', { message: '这里不能学习技能' });
       }
       
-      const skills = getLearnableSkills(user.faction, user.level);
+      const skills = getLearnableSkills(user.faction, user.level, user.factionRank);
       
       // 过滤已学习的
       const learnedSkills = await CharacterSkill.find({ userId: user._id });
@@ -796,6 +1106,39 @@ function socketHandler(io) {
 
       // 任务进度：训练属性
       questProgressService.checkProgress(user._id, { type: 'train' });
+    });
+    
+    // 分配自由属性点
+    socket.on('allocate_points', async (data) => {
+      const { stat, points = 1 } = data;
+      
+      const normalizedStat = normalizeStatName(stat);
+      if (!normalizedStat) {
+        return socket.emit('error', { message: '无效的属性，可用: 力量/strength, 敏捷/dexterity, 体质/constitution, 悟性/intelligence' });
+      }
+      
+      if (user.freePoints < points) {
+        return socket.emit('error', { message: `自由属性点不足，当前有 ${user.freePoints} 点` });
+      }
+      
+      user.attributes[normalizedStat] = (user.attributes[normalizedStat] || 10) + points;
+      user.freePoints -= points;
+      
+      recalculateStats(user);
+      await user.save();
+      
+      socket.emit('points_allocated', {
+        stat: normalizedStat,
+        statName: getStatName(normalizedStat),
+        pointsAllocated: points,
+        newValue: user.attributes[normalizedStat],
+        freePoints: user.freePoints,
+        hp: user.hp,
+        mp: user.mp
+      });
+      socket.emit('system_message', {
+        content: `分配了 ${points} 点到${getStatName(normalizedStat)}，现在是 ${user.attributes[normalizedStat]}（剩余 ${user.freePoints} 点）`
+      });
     });
     
     // ==================== 断开连接 ====================

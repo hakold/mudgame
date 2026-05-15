@@ -35,7 +35,7 @@ class QuestProgressService {
         const key = objectiveKey(objective);
         const eKey = eventKey(event);
 
-        if (key === eKey || (objective.monsterId === 'any' && event.type === 'kill') || (objective.roomId === 'any' && event.type === 'visit')) {
+        if (key === eKey || (objective.monsterId === 'any' && event.type === 'kill') || (objective.roomId === 'any' && event.type === 'visit') || (objective.itemId === 'any' && event.type === 'collect')) {
           // For learn_skill objectives with minLevel, check that the learned skill meets the level requirement
           if (objective.type === 'learn_skill' && objective.minLevel && event.skillRequireLevel && event.skillRequireLevel < objective.minLevel) {
             continue;

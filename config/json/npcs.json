@@ -60,7 +60,7 @@
     "description": "练武场的教头，可以指导新手。",
     "roomId": "village_training",
     "type": "trainer",
-    "skills": ["basic_attack", "heal_basic", "meditation"],
+    "skills": ["skill_basic_attack", "skill_heal_basic", "skill_meditation"],
     "dialogues": {
       "greeting": "年轻人，想学武功吗？",
       "learn": "我可以教你一些基础功夫。",
