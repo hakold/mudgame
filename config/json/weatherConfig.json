@@ -1,0 +1,30 @@
+{
+  "timeCycle": {
+    "periods": [
+      { "id": "dawn", "name": "清晨", "hours": [5, 6, 7], "description": "朝阳初升，万物苏醒", "effects": { "expBonus": 0.1 } },
+      { "id": "morning", "name": "上午", "hours": [8, 9, 10, 11], "description": "阳光明媚，适合出行", "effects": {} },
+      { "id": "noon", "name": "正午", "hours": [12, 13], "description": "日正当中，暑气渐升", "effects": { "hpRegenBonus": 0.05 } },
+      { "id": "afternoon", "name": "下午", "hours": [14, 15, 16, 17], "description": "午后时光，悠闲自在", "effects": {} },
+      { "id": "evening", "name": "傍晚", "hours": [18, 19], "description": "夕阳西下，暮色渐浓", "effects": {} },
+      { "id": "night", "name": "夜晚", "hours": [20, 21, 22, 23], "description": "月明星稀，夜色深沉", "effects": { "monsterSpawnBonus": 0.2 } },
+      { "id": "late_night", "name": "深夜", "hours": [0, 1, 2, 3, 4], "description": "万籁俱寂，危险暗藏", "effects": { "monsterSpawnBonus": 0.3, "pvpBonus": 0.1 } }
+    ],
+    "speedMultiplier": 6
+  },
+  "weatherTypes": [
+    { "id": "clear", "name": "晴朗", "description": "天气晴朗，万里无云", "effects": {}, "weight": 40 },
+    { "id": "cloudy", "name": "多云", "description": "云层密布，光线暗淡", "effects": {}, "weight": 25 },
+    { "id": "rain", "name": "雨天", "description": "细雨绵绵，道路泥泞", "effects": { "speedPenalty": 0.1, "mpRegenBonus": 0.05 }, "weight": 15 },
+    { "id": "storm", "name": "暴风雨", "description": "狂风暴雨，不宜外出", "effects": { "speedPenalty": 0.2, "battlePenalty": 0.1 }, "weight": 5 },
+    { "id": "snow", "name": "雪天", "description": "大雪纷飞，寒气逼人", "effects": { "speedPenalty": 0.15, "hpRegenPenalty": 0.1 }, "weight": 10 },
+    { "id": "fog", "name": "雾天", "description": "雾气弥漫，视野受限", "effects": { "visibilityPenalty": 0.3 }, "weight": 5 }
+  ],
+  "regionWeather": {
+    "village": { "default": "clear", "seasonal": true },
+    "city": { "default": "clear", "seasonal": true },
+    "mountain": { "default": "cloudy", "fogChance": 0.2 },
+    "desert": { "default": "clear", "stormChance": 0.05 },
+    "snow": { "default": "snow", "clearChance": 0.1 },
+    "forest": { "default": "cloudy", "rainChance": 0.15 }
+  }
+}

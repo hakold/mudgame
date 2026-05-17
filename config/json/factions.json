@@ -10,7 +10,11 @@
       "strength": 2,
       "constitution": 2
     },
-    "skills": ["shaolin_changquan", "shaolin_cudgel", "yijinjing"],
+    "skills": [
+      "skill_shaolin_fist",
+      "skill_shaolin_palm",
+      "skill_yijinjing"
+    ],
     "color": "#FFD700"
   },
   {
@@ -24,7 +28,11 @@
       "intelligence": 2,
       "dexterity": 2
     },
-    "skills": ["taiji_quan", "taiji_jian", "wudang_neigong"],
+    "skills": [
+      "skill_wudang_fist",
+      "skill_wudang_sword",
+      "skill_tiyunzong"
+    ],
     "color": "#4169E1"
   },
   {
@@ -38,7 +46,10 @@
       "dexterity": 3,
       "charisma": 1
     },
-    "skills": ["emei_jianfa", "emei_quanfa", "emei_xinfa"],
+    "skills": [
+      "skill_emei_sword",
+      "skill_jiuyang"
+    ],
     "color": "#FF69B4"
   },
   {
@@ -52,7 +63,10 @@
       "constitution": 2,
       "charisma": 2
     },
-    "skills": ["dagou_bangfa", "xianglong_shiba_zhang", "beggar_xinfa"],
+    "skills": [
+      "skill_gaibang_stick",
+      "skill_xianglong"
+    ],
     "color": "#8B4513"
   },
   {
@@ -67,7 +81,10 @@
       "intelligence": 2,
       "charisma": 1
     },
-    "skills": ["qiankun_danuoyi", "mingjiao_quanfa", "mingjiao_xinfa"],
+    "skills": [
+      "skill_mingjiao_qiankun",
+      "skill_mingjiao_fire"
+    ],
     "color": "#FF4500"
   },
   {
@@ -81,7 +98,9 @@
       "dexterity": 2,
       "intelligence": 2
     },
-    "skills": ["xiaoyao_quan", "lingbo_weibu", "beiming_shengong"],
+    "skills": [
+      "skill_basic_attack"
+    ],
     "color": "#9370DB"
   }
 ]

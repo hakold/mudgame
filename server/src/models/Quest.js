@@ -40,28 +40,36 @@ const QuestSchema = new mongoose.Schema({
 
 // 获取任务配置
 QuestSchema.methods.getQuestConfig = function() {
-  const questConfigs = require('../../config/json/quests.json');
+  const questConfigs = require('../../../config/json/quests.json');
   return questConfigs.find(q => q.id === this.questId);
+};
+
+// 获取目标的进度键（与 questProgressService 的 objectiveKey 保持一致）
+QuestSchema.methods._objectiveKey = function(objective) {
+  const targetId = objective.targetId || objective.monsterId || objective.npcId || objective.roomId || objective.itemId;
+  return targetId ? `${objective.type}:${targetId}` : objective.type;
 };
 
 // 检查任务条件是否满足
 QuestSchema.methods.checkCompletion = function() {
   const config = this.getQuestConfig();
   if (!config) return false;
-  
+
   for (const objective of config.objectives) {
-    const current = this.progress.get(objective.id) || 0;
-    if (current < objective.target) return false;
+    const key = this._objectiveKey(objective);
+    const current = this.progress.get(key) || 0;
+    const target = objective.count || objective.target || 1;
+    if (current < target) return false;
   }
-  
+
   return true;
 };
 
 // 更新进度
-QuestSchema.methods.updateProgress = function(objectiveId, amount) {
-  const current = this.progress.get(objectiveId) || 0;
-  this.progress.set(objectiveId, current + amount);
-  
+QuestSchema.methods.updateProgress = function(objectiveKey, amount) {
+  const current = this.progress.get(objectiveKey) || 0;
+  this.progress.set(objectiveKey, current + amount);
+
   if (this.checkCompletion()) {
     this.status = 'completed';
     this.completedAt = new Date();
@@ -74,5 +82,9 @@ QuestSchema.methods.complete = function() {
   this.rewardClaimed = true;
   return true;
 };
+
+QuestSchema.index({ userId: 1, questId: 1 });
+QuestSchema.index({ userId: 1, status: 1 });
+
 
 module.exports = mongoose.model('Quest', QuestSchema);

@@ -236,6 +236,13 @@ export const useGameStore = defineStore('game', () => {
         const p = data.rewards.deathPenalty
         addMessage('error', `💀 死亡惩罚: 经验 -${p.expLost || 0}, 金币 -${p.goldLost || 0}`)
       }
+      if (data.rewards?.skillExp?.length) {
+        for (const se of data.rewards.skillExp) {
+          if (se.leveledUp) {
+            addMessage('success', `🔺 ${se.skillName} 升级至 Lv${se.newLevel}！`)
+          }
+        }
+      }
       await Promise.all([refreshCurrentUser(), loadInventory(), loadQuests()])
     })
     
@@ -323,8 +330,45 @@ export const useGameStore = defineStore('game', () => {
     
     socket.value.on('pvp_challenge_received', (data) => {
       addMessage('system', `⚔️ ${data.challengerName}(Lv${data.challengerLevel}) 向你发起了PVP挑战！`)
-      // 存储挑战信息供UI显示
       pvpChallenge.value = data
+    })
+
+    socket.value.on('pvp_challenge_expired', (data) => {
+      addMessage('warning', `${data.challengerName} 的挑战已超时取消`)
+      pvpChallenge.value = null
+    })
+
+    socket.value.on('achievements', (data) => {
+      achievements.value = data
+    })
+    
+    socket.value.on('forge_recipes', (data) => {
+      forgeRecipes.value = data.recipes || []
+    })
+    
+    socket.value.on('forge_success', async (data) => {
+      addMessage('success', data.message || '锻造成功！')
+      await Promise.all([refreshCurrentUser(), loadInventory()])
+    })
+
+    socket.value.on('forge_failed', async (data) => {
+      addMessage('error', data.message || '锻造失败')
+      await Promise.all([refreshCurrentUser(), loadInventory()])
+    })
+    
+    socket.value.on('time_info', (data) => {
+      timeInfo.value = data
+    })
+
+    socket.value.on('achievement_unlocked', (data) => {
+      addMessage('achievement', `🏆 成就解锁: ${data.name} - ${data.description}`)
+      if (data.rewards) {
+        const rewardText = []
+        if (data.rewards.exp) rewardText.push(`经验+${data.rewards.exp}`)
+        if (data.rewards.gold) rewardText.push(`金币+${data.rewards.gold}`)
+        if (data.rewards.title) rewardText.push(`称号: ${data.rewards.title}`)
+        if (rewardText.length) addMessage('achievement', `奖励: ${rewardText.join('，')}`)
+      }
     })
     
     socket.value.on('faction_advanced', async (data) => {
@@ -352,8 +396,9 @@ export const useGameStore = defineStore('game', () => {
     socket.value.on('shop_items', (data) => {
       addMessage('shop', `【${data.roomName}商店】`)
       data.items.forEach(item => {
-        addMessage('shop', `  ${item.name} - ${item.price}金币 - ${item.description}`)
+        addMessage('shop', `  [${item.id}] ${item.name} - ${item.price}金币 - ${item.description}`)
       })
+      addMessage('shop', '输入 buy <物品ID或名称> 购买，例如: buy 木剑 或 buy item_hp_potion_small')
     })
     
     socket.value.on('item_bought', async (data) => {
@@ -375,7 +420,12 @@ export const useGameStore = defineStore('game', () => {
       addMessage('success', `${data.item.name} 已装备到 ${data.slot} 槽位`)
       await Promise.all([refreshCurrentUser(), loadInventory()])
     })
-    
+
+    socket.value.on('item_unequipped', async (data) => {
+      addMessage('info', `已卸下装备（${data.slot} 槽位）`)
+      await Promise.all([refreshCurrentUser(), loadInventory()])
+    })
+
     socket.value.on('skill_learned', async (data) => {
       addMessage('success', `学会了技能「${data.skill.name}」！`)
       await Promise.all([refreshCurrentUser(), loadSkills()])
@@ -428,6 +478,9 @@ export const useGameStore = defineStore('game', () => {
   const onlinePlayers = ref([])
   const activeTrade = ref(null)
   const pvpChallenge = ref(null)
+  const achievements = ref({ achieved: [], available: [] })
+  const forgeRecipes = ref([])
+  const timeInfo = ref(null)
 
   function addMessage(type, content) {
     messages.value.push({
@@ -521,7 +574,7 @@ export const useGameStore = defineStore('game', () => {
         addMessage('system', '【交互命令】')
         addMessage('system', '  talk <NPC> - 与NPC对话')
         addMessage('system', '  shop - 查看商店物品')
-        addMessage('system', '  buy <物品ID> - 购买物品')
+        addMessage('system', '  buy <物品ID或名称> - 购买物品')
         addMessage('system', '  sell <物品ID> - 出售物品')
         addMessage('system', '  rest - 在客栈休息恢复HP/MP')
         addMessage('system', '')
@@ -798,6 +851,30 @@ export const useGameStore = defineStore('game', () => {
     }
   }
   
+  function loadAchievements() {
+    if (socket.value) {
+      socket.value.emit('get_achievements')
+    }
+  }
+  
+  function loadForgeRecipes() {
+    if (socket.value) {
+      socket.value.emit('get_forge_recipes')
+    }
+  }
+  
+  function forge(recipeId) {
+    if (socket.value) {
+      socket.value.emit('forge', { recipeId })
+    }
+  }
+  
+  function getTimeInfo() {
+    if (socket.value) {
+      socket.value.emit('get_time')
+    }
+  }
+  
   return {
     // 状态
     token,
@@ -819,6 +896,9 @@ export const useGameStore = defineStore('game', () => {
     onlinePlayers,
     activeTrade,
     pvpChallenge,
+    achievements,
+    forgeRecipes,
+    timeInfo,
     // 计算属性
     isLoggedIn,
     isGM,
@@ -855,6 +935,10 @@ export const useGameStore = defineStore('game', () => {
     tradeRemoveItem,
     sendPvpChallenge,
     pvpAccept,
-    pvpDecline
+    pvpDecline,
+    loadAchievements,
+    loadForgeRecipes,
+    forge,
+    getTimeInfo
   }
 })

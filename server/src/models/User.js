@@ -75,7 +75,18 @@ const UserSchema = new mongoose.Schema({
     default: 0,
     min: 0
   },
-  
+
+  // 统计数据（成就系统用）
+  stats: {
+    battlesWon: { type: Number, default: 0 },
+    pvpBattles: { type: Number, default: 0 },
+    tradesCompleted: { type: Number, default: 0 },
+    goldEarned: { type: Number, default: 0 },
+    roomsVisited: [{ type: String }],
+    questsCompleted: { type: Number, default: 0 },
+    deaths: { type: Number, default: 0 }
+  },
+
   // 基础属性
   attributes: {
     strength: { type: Number, default: 10 },      // 力量

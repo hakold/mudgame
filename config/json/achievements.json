@@ -1,0 +1,146 @@
+[
+  {
+    "id": "ach_first_blood",
+    "name": "初出茅庐",
+    "description": "完成第一次战斗",
+    "category": "combat",
+    "condition": { "type": "battle_count", "value": 1 },
+    "rewards": { "exp": 50, "title": "初出茅庐" }
+  },
+  {
+    "id": "ach_warrior_10",
+    "name": "百战之师",
+    "description": "完成10次战斗",
+    "category": "combat",
+    "condition": { "type": "battle_count", "value": 10 },
+    "rewards": { "exp": 200, "gold": 100 }
+  },
+  {
+    "id": "ach_warrior_50",
+    "name": "身经百战",
+    "description": "完成50次战斗",
+    "category": "combat",
+    "condition": { "type": "battle_count", "value": 50 },
+    "rewards": { "exp": 500, "gold": 500 }
+  },
+  {
+    "id": "ach_level_10",
+    "name": "小有所成",
+    "description": "达到10级",
+    "category": "level",
+    "condition": { "type": "level", "value": 10 },
+    "rewards": { "exp": 200, "gold": 200 }
+  },
+  {
+    "id": "ach_level_30",
+    "name": "江湖新秀",
+    "description": "达到30级",
+    "category": "level",
+    "condition": { "type": "level", "value": 30 },
+    "rewards": { "exp": 1000, "gold": 1000 }
+  },
+  {
+    "id": "ach_level_50",
+    "name": "一代宗师",
+    "description": "达到50级",
+    "category": "level",
+    "condition": { "type": "level", "value": 50 },
+    "rewards": { "exp": 5000, "gold": 5000, "title": "一代宗师" }
+  },
+  {
+    "id": "ach_rich_1000",
+    "name": "小有积蓄",
+    "description": "累计获得1000金币",
+    "category": "wealth",
+    "condition": { "type": "gold_earned", "value": 1000 },
+    "rewards": { "exp": 100 }
+  },
+  {
+    "id": "ach_rich_10000",
+    "name": "富甲一方",
+    "description": "累计获得10000金币",
+    "category": "wealth",
+    "condition": { "type": "gold_earned", "value": 10000 },
+    "rewards": { "exp": 500, "title": "富甲一方" }
+  },
+  {
+    "id": "ach_explorer_10",
+    "name": "行脚商人",
+    "description": "探索10个不同房间",
+    "category": "exploration",
+    "condition": { "type": "rooms_visited", "value": 10 },
+    "rewards": { "exp": 200 }
+  },
+  {
+    "id": "ach_explorer_30",
+    "name": "踏遍江湖",
+    "description": "探索30个不同房间",
+    "category": "exploration",
+    "condition": { "type": "rooms_visited", "value": 30 },
+    "rewards": { "exp": 500, "title": "踏遍江湖" }
+  },
+  {
+    "id": "ach_quest_5",
+    "name": "任务达人",
+    "description": "完成5个任务",
+    "category": "quest",
+    "condition": { "type": "quests_completed", "value": 5 },
+    "rewards": { "exp": 300 }
+  },
+  {
+    "id": "ach_quest_20",
+    "name": "使命必达",
+    "description": "完成20个任务",
+    "category": "quest",
+    "condition": { "type": "quests_completed", "value": 20 },
+    "rewards": { "exp": 1000, "title": "使命必达" }
+  },
+  {
+    "id": "ach_faction_join",
+    "name": "拜入师门",
+    "description": "加入一个门派",
+    "category": "faction",
+    "condition": { "type": "faction_joined" },
+    "rewards": { "exp": 100 }
+  },
+  {
+    "id": "ach_faction_elder",
+    "name": "门派栋梁",
+    "description": "门派等级达到长老",
+    "category": "faction",
+    "condition": { "type": "faction_rank", "value": "elder" },
+    "rewards": { "exp": 2000, "title": "门派栋梁" }
+  },
+  {
+    "id": "ach_pvp_first",
+    "name": "初试锋芒",
+    "description": "完成第一次PVP战斗",
+    "category": "pvp",
+    "condition": { "type": "pvp_count", "value": 1 },
+    "rewards": { "exp": 200 }
+  },
+  {
+    "id": "ach_pvp_10",
+    "name": "竞技高手",
+    "description": "完成10次PVP战斗",
+    "category": "pvp",
+    "condition": { "type": "pvp_count", "value": 10 },
+    "rewards": { "exp": 1000, "title": "竞技高手" }
+  },
+  {
+    "id": "ach_death_1",
+    "name": "劫后余生",
+    "description": "第一次死亡后复活",
+    "category": "special",
+    "condition": { "type": "deaths", "value": 1 },
+    "rewards": { "exp": 50 }
+  },
+  {
+    "id": "ach_trade_1",
+    "name": "互通有无",
+    "description": "完成第一次玩家交易",
+    "category": "social",
+    "condition": { "type": "trades_completed", "value": 1 },
+    "rewards": { "exp": 100 }
+  }
+]

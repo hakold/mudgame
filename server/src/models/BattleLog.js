@@ -76,4 +76,7 @@ const BattleLogSchema = new mongoose.Schema({
   }
 });
 
+BattleLogSchema.index({ 'participants.userId': 1 });
+
+
 module.exports = mongoose.model('BattleLog', BattleLogSchema);

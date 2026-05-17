@@ -6,5 +6,6 @@ module.exports = {
   Quest: require('./Quest'),
   ChatMessage: require('./ChatMessage'),
   BattleLog: require('./BattleLog'),
-  Announcement: require('./Announcement')
+  Announcement: require('./Announcement'),
+  Achievement: require('./Achievement')
 };

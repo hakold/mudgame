@@ -51,7 +51,7 @@ const InventorySchema = new mongoose.Schema({
 
 // 获取物品配置
 InventorySchema.methods.getItemConfig = function() {
-  const itemConfigs = require('../../config/json/items.json');
+  const itemConfigs = require('../../../config/json/items.json');
   return itemConfigs.find(i => i.id === this.itemId);
 };
 
@@ -61,9 +61,12 @@ function isEquipmentType(type) {
 
 // 计算装备属性加成
 InventorySchema.methods.calculateAttributes = function() {
+  // 耐久归零则装备失效
+  if (this.durability?.current != null && this.durability.current <= 0) return {};
+
   const config = this.getItemConfig();
   if (!config) return {};
-  
+
   const result = { ...(config.attributes || config.stats || {}) };
   
   // 强化加成
@@ -122,5 +125,8 @@ InventorySchema.methods.useDurability = function(amount) {
   this.durability.current = Math.max(this.durability.current - amount, 0);
   return this.durability.current > 0;
 };
+
+InventorySchema.index({ userId: 1, itemId: 1 });
+InventorySchema.index({ userId: 1, isEquipped: 1 });
 
 module.exports = mongoose.model('Inventory', InventorySchema);

@@ -131,3 +131,22 @@ Suggested format:
 **Test Results**: 24/24 regression tests passed, content validation ALL OK, client build successful
 
 **Status**: Phase 4 complete. All three batches implemented, tested, and documented.
+
+## 2026-05-17 00:30
+- Goal: 审计项目进度，更新 ai_read 文档以反映实际状态。
+- Changes:
+  1. 审查 git log + working tree 变更，确认进度：
+     - Phase 5-6: 已提交 (bbfbb66, 354abc8)，全部12项完成 ✅
+     - Phase 7-8: 有未提交的工作区变更（部分实现）：
+       - 7.2 门派任务链: factionQuests.json (8个任务) 已就绪，缺少socket集成
+       - 7.5 生活技能: 锻造完成 (forgeRecipes.json + service + UI)；采集/炼药/烹饪未开始
+       - 7.6 成就系统: config (18个) + model + service + UI 已完成，但未接入玩法触发点 (checkAllAchievements)
+       - 8.5 天气与时间: config + service + UI 已完成
+     - Phase 9-10: 未开始
+  2. 更新了 docs/PHASE_5_8_PLAN.md 追踪表 (Phase 5-6 → ✅, Phase 7-8 → 🔶 部分)
+  3. 更新了 ai_read/04-roadmap.md (Phase 5-8 状态)
+  4. 更新了 ai_read/02-current-state.md (移除已完成项，补充新缺口)
+  5. 更新了本 session log
+- Files: `docs/PHASE_5_8_PLAN.md`, `ai_read/04-roadmap.md`, `ai_read/02-current-state.md`, `ai_read/99-session-log.md`
+- Validation: 所有文件写入成功，内容与工作区实际变更一致
+- Remaining risks: 工作区有未提交代码，需在继续开发前决定是否先提交当前进度

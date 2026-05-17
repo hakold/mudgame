@@ -52,9 +52,10 @@ Phase 4 — Expand Wuxia Gameplay Depth — is now substantially complete:
 ## What Is Not Yet Trustworthy
 
 - PVP fairness and disconnect edge cases not tested.
-- NPC-specific services not surfaced as room actions in UI (client-side).
-- Client UI does not yet show: ground drops panel, faction rank/reputation, durability bars, battle log viewer, attribute allocation UI, revive button on death, skill level-up notifications.
 - Faction-exclusive skill tree content (rankRequired skills in skills.json) not yet populated.
+- Achievement system not yet wired to gameplay triggers (checkAllAchievements not called on battle end, level up, etc.).
+- Faction quest socket integration missing (accept/complete/progress tracking).
+- 采集/炼药/烹饪生活技能未开始。
 
 ## Sources Of Truth
 
@@ -76,4 +77,8 @@ Preferred order:
 3. Make UI reflect actual server capabilities ✅
 4. Expand content only after systems are reliable ✅
 5. Keep `ai_read` updated so multi-AI work does not drift ✅
-6. **Next**: Update client UI to reflect all new server capabilities (drops panel, faction UI, durability, battle log, revive, attribute allocation, skill level-up)
+6. Update client UI to reflect all new server capabilities ✅ (Phase 5)
+7. Social & interaction systems ✅ (Phase 6)
+8. Content depth expansion 🔶 (Phase 7 - 部分在工作区)
+9. Economy & balance 🔶 (Phase 8 - 天气已完成，其余待开始)
+10. **Next**: 完成 Phase 7-8 剩余项 → Phase 9 (GM后台) → Phase 10 (安全)

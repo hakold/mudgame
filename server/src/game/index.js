@@ -11,7 +11,11 @@ let gameConfig = {
   items: {},
   skills: {},
   quests: {},
-  factions: {}
+  factions: {},
+  factionQuests: {},
+  achievements: {},
+  forgeRecipes: {},
+  weatherConfig: {}
 };
 
 // 加载JSON配置
@@ -84,6 +88,31 @@ async function initGameSystems() {
   });
   console.log(`[Game] 加载门派: ${Object.keys(gameConfig.factions).length} 个`);
   
+  // 加载门派任务配置
+  const factionQuests = loadJsonConfig('factionQuests');
+  factionQuests.forEach(quest => {
+    gameConfig.factionQuests[quest.id] = quest;
+  });
+  console.log(`[Game] 加载门派任务: ${Object.keys(gameConfig.factionQuests).length} 个`);
+  
+  // 加载成就配置
+  const achievements = loadJsonConfig('achievements');
+  achievements.forEach(ach => {
+    gameConfig.achievements[ach.id] = ach;
+  });
+  console.log(`[Game] 加载成就: ${Object.keys(gameConfig.achievements).length} 个`);
+  
+  // 加载锻造配方配置
+  const forgeRecipes = loadJsonConfig('forgeRecipes');
+  forgeRecipes.forEach(recipe => {
+    gameConfig.forgeRecipes[recipe.id] = recipe;
+  });
+  console.log(`[Game] 加载锻造配方: ${Object.keys(gameConfig.forgeRecipes).length} 个`);
+  
+  // 加载天气配置
+  gameConfig.weatherConfig = loadJsonConfig('weatherConfig');
+  console.log(`[Game] 加载天气配置`);
+  
   console.log('[Game] 游戏配置加载完成');
 
   // 给任务目标注入显示名称
@@ -138,6 +167,11 @@ function getItem(itemId) {
   return gameConfig.items[itemId] || null;
 }
 
+// 通过名称查找物品（支持中文/英文名称）
+function getItemByName(name) {
+  return Object.values(gameConfig.items).find(item => item.name === name || item.id === name) || null;
+}
+
 // 获取技能配置
 function getSkill(skillId) {
   return gameConfig.skills[skillId] || null;
@@ -171,23 +205,22 @@ function getLearnableSkills(factionId, level = 1, factionRank = 'disciple') {
   return Object.values(gameConfig.skills).filter(skill => {
     const requiredFaction = skill.factionRequired || skill.faction;
 
+    // 怪物/NPC专属技能，玩家不可学
     if (requiredFaction === 'monster') return false;
     if (requiredFaction === 'bandit' || requiredFaction === 'evil' || requiredFaction === 'guard') return false;
 
-    // 通用技能
-    if (requiredFaction === 'general') return true;
-
-    // 门派专属技能
-    if (requiredFaction && requiredFaction !== factionId) {
+    // 门派专属技能：检查门派归属
+    if (requiredFaction && requiredFaction !== 'general' && requiredFaction !== factionId) {
       return false;
     }
 
-    // 门派等级限制
-    if (skill.rankRequired) {
+    // 门派等级限制（仅对门派专属技能生效）
+    if (requiredFaction && requiredFaction !== 'general' && skill.rankRequired) {
       const skillRankIndex = rankOrder.indexOf(skill.rankRequired);
       if (rankIndex < skillRankIndex) return false;
     }
 
+    // 等级限制（所有技能都需要检查）
     if (skill.requireLevel && skill.requireLevel > level) {
       return false;
     }
@@ -204,12 +237,19 @@ module.exports = {
   getMonstersInRoom,
   getRoomExits,
   getItem,
+  getItemByName,
   getSkill,
   getQuest,
   getFaction,
   getAllFactions,
   getAllSkills,
   getLearnableSkills,
+  getFactionQuest: (questId) => gameConfig.factionQuests[questId] || null,
+  getFactionQuestsByFaction: (factionId) => Object.values(gameConfig.factionQuests).filter(q => q.factionId === factionId),
+  getAchievement: (achId) => gameConfig.achievements[achId] || null,
+  getAllAchievements: () => Object.values(gameConfig.achievements),
+  getForgeRecipe: (recipeId) => gameConfig.forgeRecipes[recipeId] || null,
+  getAllForgeRecipes: () => Object.values(gameConfig.forgeRecipes),
   items: () => Object.values(gameConfig.items),
   gameConfig
 };

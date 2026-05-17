@@ -1,0 +1,168 @@
+[
+  {
+    "id": "faction_shaolin_daily_1",
+    "factionId": "shaolin",
+    "name": "晨课修行",
+    "type": "faction_daily",
+    "description": "每日清晨在少林寺完成晨课修行，诵读经文",
+    "roomId": "shaolin_temple",
+    "objectives": [
+      {
+        "type": "talk",
+        "npcId": "npc_shaolin_abbot",
+        "dialog": "晨课"
+      }
+    ],
+    "rewards": {
+      "exp": 300,
+      "gold": 100,
+      "factionReputation": 20
+    },
+    "dailyReset": true,
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_shaolin_daily_2",
+    "factionId": "shaolin",
+    "name": "降妖除魔",
+    "type": "faction_daily",
+    "description": "前往山间降伏作乱的妖物，保护附近村民",
+    "objectives": [
+      {
+        "type": "kill",
+        "monsterId": "monster_wild_wolf",
+        "count": 3
+      }
+    ],
+    "rewards": {
+      "exp": 500,
+      "gold": 200,
+      "factionReputation": 30
+    },
+    "dailyReset": true,
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_wudang_daily_1",
+    "factionId": "wudang",
+    "name": "太极修行",
+    "type": "faction_daily",
+    "description": "在武当山修炼太极心法，感悟天地之道",
+    "roomId": "wudang_peak",
+    "objectives": [
+      {
+        "type": "talk",
+        "npcId": "npc_wudang_master",
+        "dialog": "太极"
+      }
+    ],
+    "rewards": {
+      "exp": 300,
+      "gold": 100,
+      "factionReputation": 20
+    },
+    "dailyReset": true,
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_wudang_daily_2",
+    "factionId": "wudang",
+    "name": "巡视山门",
+    "type": "faction_daily",
+    "description": "巡视武当山周边，驱除山匪",
+    "objectives": [
+      {
+        "type": "kill",
+        "monsterId": "monster_bandit",
+        "count": 3
+      }
+    ],
+    "rewards": {
+      "exp": 500,
+      "gold": 200,
+      "factionReputation": 30
+    },
+    "dailyReset": true,
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_emei_daily_1",
+    "factionId": "emei",
+    "name": "佛前诵经",
+    "type": "faction_daily",
+    "description": "在峨眉金顶佛前诵经修行",
+    "objectives": [
+      {
+        "type": "talk",
+        "npcId": "npc_emei_abbess",
+        "dialog": "诵经"
+      }
+    ],
+    "rewards": {
+      "exp": 300,
+      "gold": 100,
+      "factionReputation": 20
+    },
+    "dailyReset": true
+  },
+  {
+    "id": "faction_gaibang_daily_1",
+    "factionId": "beggar",
+    "name": "帮中事务",
+    "type": "faction_daily",
+    "description": "处理丐帮日常事务，收集情报",
+    "objectives": [
+      {
+        "type": "talk",
+        "npcId": "npc_gaibang_leader",
+        "dialog": "事务"
+      }
+    ],
+    "rewards": {
+      "exp": 300,
+      "gold": 150,
+      "factionReputation": 20
+    },
+    "dailyReset": true
+  },
+  {
+    "id": "faction_mingjiao_daily_1",
+    "factionId": "mingjiao",
+    "name": "圣火令任务",
+    "type": "faction_daily",
+    "description": "为明教收集圣火令碎片，壮大教派力量",
+    "objectives": [
+      {
+        "type": "kill",
+        "monsterId": "monster_desert_scorpion",
+        "count": 5
+      }
+    ],
+    "rewards": {
+      "exp": 600,
+      "gold": 300,
+      "factionReputation": 40
+    },
+    "dailyReset": true
+  },
+  {
+    "id": "faction_riyue_daily_1",
+    "factionId": "xiaoyao",
+    "name": "日月巡察",
+    "type": "faction_daily",
+    "description": "巡察日月神教领地，确保教规执行",
+    "objectives": [
+      {
+        "type": "kill",
+        "monsterId": "monster_dark_cultist",
+        "count": 3
+      }
+    ],
+    "rewards": {
+      "exp": 500,
+      "gold": 250,
+      "factionReputation": 35
+    },
+    "dailyReset": true
+  }
+]

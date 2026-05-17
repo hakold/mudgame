@@ -178,6 +178,12 @@
         <div class="room-name">{{ gameStore.currentRoom.name }}</div>
         <div class="room-description">{{ gameStore.currentRoom.description }}</div>
         
+        <!-- 天气/时间信息 -->
+        <div class="time-weather" v-if="gameStore.timeInfo">
+          <span class="time-display">🕐 {{ gameStore.timeInfo.timeStr }} {{ gameStore.timeInfo.periodName }}</span>
+          <span class="weather-display">{{ gameStore.timeInfo.weather?.name }} - {{ gameStore.timeInfo.weather?.description }}</span>
+        </div>
+        
         <!-- 地面掉落 -->
         <div class="room-drops" v-if="gameStore.roomDrops?.length">
           <div class="drops-title">📦 地面物品</div>
@@ -352,6 +358,9 @@
         <button class="menu-tab" :class="{ active: activeTab === 'quests' }" @click="activeTab = 'quests'">任务</button>
         <button class="menu-tab" :class="{ active: activeTab === 'battlelog' }" @click="activeTab = 'battlelog'">战报</button>
         <button class="menu-tab" :class="{ active: activeTab === 'online' }" @click="activeTab = 'online'; loadOnlinePlayers()">在线</button>
+        <button class="menu-tab" :class="{ active: activeTab === 'achievements' }" @click="activeTab = 'achievements'; loadAchievements()">成就</button>
+        <button class="menu-tab" :class="{ active: activeTab === 'forge' }" @click="activeTab = 'forge'; loadForgeRecipes()">锻造</button>
+        <button v-if="currentRoomServices.some(s => ['shop','buy_item','buy_weapon','buy_armor','sell_item'].includes(s))" class="menu-tab" :class="{ active: activeTab === 'shop' }" @click="activeTab = 'shop'; loadShopItems()">商店</button>
       </div>
       
       <div class="menu-content">
@@ -369,7 +378,7 @@
             <div class="item-actions">
               <button v-if="isConsumable(item.itemId)" class="item-btn" @click="useItem(item)">使用</button>
               <button v-if="isEquipment(item.itemId) && !item.isEquipped" class="item-btn" @click="equipItem(item)">装备</button>
-              <button v-if="isEquipment(item.itemId) && item.isEquipped" class="item-btn equipped-btn" disabled>已装备</button>
+              <button v-if="isEquipment(item.itemId) && item.isEquipped" class="item-btn unequip-btn" @click="unequipItem(item)">卸下</button>
               <button v-if="isEquipment(item.itemId) && (item.durability?.current || 0) < (item.durability?.max || 100)" class="item-btn repair-btn" @click="repairItem(item._id)">修复</button>
               <button class="item-btn sell-btn" @click="sellItem(item)">出售</button>
             </div>
@@ -453,8 +462,8 @@
             <div v-for="log in gameStore.battleLogList" :key="log._id" class="battle-log-item" @click="loadBattleLogDetail(log.battleId || log._id)">
               <div class="log-header">
                 <span class="log-monster">{{ log.monster?.name || '战斗' }}</span>
-                <span class="log-result" :class="log.result?.won ? 'victory' : 'defeat'">
-                  {{ log.result?.won ? '胜' : '败' }}
+                <span class="log-result" :class="battleLogWon(log) ? 'victory' : 'defeat'">
+                  {{ battleLogWon(log) ? '胜' : '败' }}
                 </span>
               </div>
               <div class="log-meta">
@@ -485,13 +494,65 @@
           </div>
           <div v-if="!gameStore.onlinePlayers.length" class="empty-hint">暂无其他玩家在线</div>
         </div>
+
+        <!-- 成就 -->
+        <div v-if="activeTab === 'achievements'">
+          <div v-for="ach in gameStore.achievements.available" :key="ach.id" class="achievement-item" :class="{ achieved: isAchieved(ach.id) }">
+            <div class="ach-header">
+              <span class="ach-icon">{{ isAchieved(ach.id) ? '🏆' : '🔒' }}</span>
+              <span class="ach-name">{{ ach.name }}</span>
+            </div>
+            <div class="ach-desc">{{ ach.description }}</div>
+            <div class="ach-rewards" v-if="ach.rewards">
+              <span v-if="ach.rewards.exp">经验+{{ ach.rewards.exp }}</span>
+              <span v-if="ach.rewards.gold">金币+{{ ach.rewards.gold }}</span>
+              <span v-if="ach.rewards.title" class="ach-title">称号: {{ ach.rewards.title }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 锻造 -->
+        <div v-if="activeTab === 'forge'">
+          <div v-for="recipe in gameStore.forgeRecipes" :key="recipe.id" class="forge-recipe-item">
+            <div class="forge-header">
+              <span class="forge-name">{{ recipe.name }}</span>
+              <span class="forge-rate">成功率 {{ Math.round((recipe.successRate || 1) * 100) }}%</span>
+            </div>
+            <div class="forge-desc">{{ recipe.description }}</div>
+            <div class="forge-cost">
+              <span v-if="recipe.cost?.gold">💰 {{ recipe.cost.gold }} 金币</span>
+              <span v-for="mat in (recipe.cost?.materials || [])" :key="mat.itemId">
+                {{ mat.itemId }} x{{ mat.quantity }}
+              </span>
+            </div>
+            <button class="forge-btn" @click="forge(recipe.id)">锻造</button>
+          </div>
+          <div v-if="!gameStore.forgeRecipes.length" class="empty-hint">暂无锻造配方</div>
+        </div>
+
+        <!-- 商店 -->
+        <div v-if="activeTab === 'shop'">
+          <button class="item-btn" @click="loadShopItems" style="margin-bottom:8px">刷新商品</button>
+          <div v-for="item in shopItems" :key="item.id" class="inventory-item">
+            <div class="item-header">
+              <span class="item-name">{{ item.name }}</span>
+              <span class="item-price">💰{{ item.price }}</span>
+            </div>
+            <div class="item-desc">{{ item.description }}</div>
+            <div class="item-stats" v-if="item.stats">
+              <span v-for="(val, key) in item.stats" :key="key">{{ statLabel(key) }}+{{ val }} </span>
+            </div>
+            <button class="forge-btn" @click="buyItem(item.id)">购买</button>
+          </div>
+          <div v-if="!shopItems.length" class="empty-hint">当前房间没有商店</div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch, nextTick } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { useGameStore } from '../stores/game'
 import axios from 'axios'
@@ -507,6 +568,7 @@ const chatTarget = ref('')
 const showChatMode = ref(false)
 const tradeGoldInput = ref(0)
 const tradeItemSelect = ref('')
+const shopItems = ref([])
 
 // 计算属性
 const isDead = computed(() => gameStore.isDead || (gameStore.user?.hp?.current <= 0 && !gameStore.battle))
@@ -520,11 +582,12 @@ const factionRankLabel = computed(() => {
 
 const canAdvanceFaction = computed(() => {
   const rep = gameStore.user?.factionReputation || 0
+  const lvl = gameStore.user?.level || 0
   const rank = gameStore.user?.factionRank
   if (rank === 'leader') return false
-  if (rank === 'elder') return rep >= 5000
-  if (rank === 'deacon') return rep >= 2000
-  return rep >= 500 // disciple needs 500 to advance
+  if (rank === 'elder') return rep >= 2000 && lvl >= 50
+  if (rank === 'deacon') return rep >= 500 && lvl >= 25
+  return rep >= 100 && lvl >= 10 // disciple needs 100 rep + lvl 10 to advance
 })
 
 const commandPlaceholder = computed(() => {
@@ -805,6 +868,12 @@ function equipItem(item) {
   }
 }
 
+function unequipItem(item) {
+  if (item && gameStore.socket) {
+    gameStore.socket.emit('unequip_item', { inventoryId: item._id })
+  }
+}
+
 function sellItem(item) {
   if (item) {
     gameStore.sendCommand(`sell ${item.itemId}`)
@@ -873,8 +942,7 @@ function getSkillTypeLabel(skillId) {
 function skillExpPercent(skill) {
   const exp = skill.exp || 0
   const level = skill.level || 1
-  // 经验公式：每级需要 level * 100 经验
-  const next = level * 100
+  const next = Math.floor(100 * Math.pow(level, 1.5))
   return Math.min(100, Math.floor((exp / next) * 100))
 }
 
@@ -995,6 +1063,30 @@ function pvpDecline(challengerName) {
   gameStore.pvpDecline(challengerName)
 }
 
+function isAchieved(achId) {
+  return gameStore.achievements.achieved?.some(a => a.achievementId === achId)
+}
+
+function loadAchievements() {
+  gameStore.loadAchievements()
+}
+
+function loadForgeRecipes() {
+  gameStore.loadForgeRecipes()
+}
+
+function forge(recipeId) {
+  gameStore.forge(recipeId)
+}
+
+function loadShopItems() {
+  gameStore.socket?.emit('shop_list')
+}
+
+function buyItem(itemId) {
+  gameStore.socket?.emit('buy_item', { itemId, quantity: 1 })
+}
+
 function questStatusClass(status) {
   const map = { accepted: 'status-accepted', in_progress: 'status-progress', completed: 'status-completed', failed: 'status-failed' }
   return map[status] || ''
@@ -1033,6 +1125,17 @@ onMounted(async () => {
   await gameStore.loadPlayerData()
   // 发送look命令获取当前房间信息（包含drops）
   gameStore.sendCommand('look')
+  // 加载时间信息
+  gameStore.getTimeInfo()
+
+  // 监听商店物品更新
+  gameStore.socket?.on('shop_items', (data) => {
+    shopItems.value = data.items || []
+  })
+})
+
+onUnmounted(() => {
+  gameStore.socket?.off('shop_items')
 })
 </script>
 
@@ -1747,4 +1850,78 @@ onMounted(async () => {
   font-size: 11px;
 }
 .pvp-btn:hover { background: #fca5a5; }
+
+/* 成就 */
+.achievement-item {
+  background: #16213e;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 6px;
+  opacity: 0.6;
+}
+.achievement-item.achieved {
+  opacity: 1;
+  border: 1px solid #ffd700;
+}
+.ach-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ach-icon { font-size: 16px; }
+.ach-name { color: #eee; font-size: 13px; font-weight: bold; }
+.ach-desc { color: #aaa; font-size: 12px; margin-top: 3px; }
+.ach-rewards {
+  display: flex;
+  gap: 8px;
+  font-size: 11px;
+  color: #fbbf24;
+  margin-top: 3px;
+}
+.ach-title { color: #c084fc; }
+
+/* 锻造 */
+.forge-recipe-item {
+  background: #16213e;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 6px;
+}
+.forge-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.forge-name { color: #eee; font-size: 13px; font-weight: bold; }
+.forge-rate { color: #4ade80; font-size: 12px; }
+.forge-desc { color: #aaa; font-size: 12px; margin-top: 3px; }
+.forge-cost {
+  display: flex;
+  gap: 8px;
+  font-size: 11px;
+  color: #fbbf24;
+  margin-top: 3px;
+}
+.forge-btn {
+  padding: 4px 12px;
+  background: #f97316;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  margin-top: 6px;
+}
+.forge-btn:hover { background: #fb923c; }
+
+/* 天气/时间 */
+.time-weather {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  color: #aaa;
+  margin: 4px 0;
+}
+.time-display { color: #4fc3f7; }
+.weather-display { color: #fbbf24; }
 </style>

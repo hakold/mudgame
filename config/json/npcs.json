@@ -11,7 +11,7 @@
       "quest_accepted": "太好了！去森林入口看看吧。",
       "quest_completed": "辛苦了！这是给你的报酬。"
     },
-    "quests": ["quest_clear_forest", "quest_help_villager"]
+    "quests": ["quest_talk_chief", "quest_kill_boars"]
   },
   {
     "id": "npc_innkeeper",
@@ -99,7 +99,7 @@
     "description": "侠客公会管理员，负责发布任务。",
     "roomId": "city_guild",
     "type": "quest_giver",
-    "quests": ["quest_city_guard", "quest_bounty_bandit", "quest_tournament"],
+    "quests": ["quest_city_guild", "quest_bandit_bounty", "quest_side_bandit_clear"],
     "dialogues": {
       "greeting": "欢迎来到侠客公会，有什么任务要接？",
       "quest_list": "这里有一些任务可以接取。",

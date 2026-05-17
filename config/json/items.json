@@ -6,7 +6,10 @@
     "description": "恢复50点HP",
     "price": 50,
     "effects": [
-      { "type": "heal_hp", "value": 50 }
+      {
+        "type": "heal_hp",
+        "value": 50
+      }
     ]
   },
   {
@@ -16,7 +19,10 @@
     "description": "恢复150点HP",
     "price": 150,
     "effects": [
-      { "type": "heal_hp", "value": 150 }
+      {
+        "type": "heal_hp",
+        "value": 150
+      }
     ]
   },
   {
@@ -26,7 +32,10 @@
     "description": "恢复500点HP",
     "price": 400,
     "effects": [
-      { "type": "heal_hp", "value": 500 }
+      {
+        "type": "heal_hp",
+        "value": 500
+      }
     ]
   },
   {
@@ -36,7 +45,10 @@
     "description": "恢复30点MP",
     "price": 40,
     "effects": [
-      { "type": "heal_mp", "value": 30 }
+      {
+        "type": "heal_mp",
+        "value": 30
+      }
     ]
   },
   {
@@ -46,7 +58,10 @@
     "description": "恢复100点MP",
     "price": 120,
     "effects": [
-      { "type": "heal_mp", "value": 100 }
+      {
+        "type": "heal_mp",
+        "value": 100
+      }
     ]
   },
   {
@@ -56,7 +71,10 @@
     "description": "恢复300点MP",
     "price": 300,
     "effects": [
-      { "type": "heal_mp", "value": 300 }
+      {
+        "type": "heal_mp",
+        "value": 300
+      }
     ]
   },
   {
@@ -67,7 +85,9 @@
     "description": "新手木剑，攻击+5",
     "price": 100,
     "requireLevel": 1,
-    "stats": { "attack": 5 }
+    "stats": {
+      "attack": 5
+    }
   },
   {
     "id": "weapon_iron_sword",
@@ -77,7 +97,9 @@
     "description": "铁制长剑，攻击+15",
     "price": 500,
     "requireLevel": 5,
-    "stats": { "attack": 15 }
+    "stats": {
+      "attack": 15
+    }
   },
   {
     "id": "weapon_steel_sword",
@@ -87,7 +109,9 @@
     "description": "精钢打造的长剑，攻击+30",
     "price": 1500,
     "requireLevel": 15,
-    "stats": { "attack": 30 }
+    "stats": {
+      "attack": 30
+    }
   },
   {
     "id": "weapon_xuantie_sword",
@@ -97,7 +121,9 @@
     "description": "玄铁打造的重剑，攻击+60",
     "price": 5000,
     "requireLevel": 30,
-    "stats": { "attack": 60 }
+    "stats": {
+      "attack": 60
+    }
   },
   {
     "id": "weapon_wolf_sword",
@@ -107,7 +133,9 @@
     "description": "狼王之牙制成的剑，攻击+25",
     "price": 800,
     "requireLevel": 10,
-    "stats": { "attack": 25 }
+    "stats": {
+      "attack": 25
+    }
   },
   {
     "id": "weapon_fire_dragon_sword",
@@ -117,7 +145,9 @@
     "description": "火龙之骨打造的绝世神剑，攻击+100",
     "price": 50000,
     "requireLevel": 50,
-    "stats": { "attack": 100 },
+    "stats": {
+      "attack": 100
+    },
     "special": "fire_damage"
   },
   {
@@ -128,7 +158,9 @@
     "description": "普通布衣，防御+3",
     "price": 50,
     "requireLevel": 1,
-    "stats": { "defense": 3 }
+    "stats": {
+      "defense": 3
+    }
   },
   {
     "id": "armor_leather",
@@ -138,7 +170,9 @@
     "description": "皮革制成的护甲，防御+10",
     "price": 300,
     "requireLevel": 5,
-    "stats": { "defense": 10 }
+    "stats": {
+      "defense": 10
+    }
   },
   {
     "id": "armor_iron",
@@ -148,7 +182,9 @@
     "description": "铁制护甲，防御+25",
     "price": 1000,
     "requireLevel": 15,
-    "stats": { "defense": 25 }
+    "stats": {
+      "defense": 25
+    }
   },
   {
     "id": "armor_gold_silk",
@@ -158,7 +194,9 @@
     "description": "金丝织成的软甲，防御+50",
     "price": 5000,
     "requireLevel": 30,
-    "stats": { "defense": 50 }
+    "stats": {
+      "defense": 50
+    }
   },
   {
     "id": "helmet_cloth",
@@ -168,7 +206,9 @@
     "description": "普通布帽，防御+2",
     "price": 30,
     "requireLevel": 1,
-    "stats": { "defense": 2 }
+    "stats": {
+      "defense": 2
+    }
   },
   {
     "id": "helmet_leather",
@@ -178,7 +218,9 @@
     "description": "皮革帽子，防御+5",
     "price": 150,
     "requireLevel": 5,
-    "stats": { "defense": 5 }
+    "stats": {
+      "defense": 5
+    }
   },
   {
     "id": "boots_cloth",
@@ -188,7 +230,10 @@
     "description": "普通布鞋，防御+1，敏捷+2",
     "price": 40,
     "requireLevel": 1,
-    "stats": { "defense": 1, "dexterity": 2 }
+    "stats": {
+      "defense": 1,
+      "dexterity": 2
+    }
   },
   {
     "id": "boots_leather",
@@ -198,7 +243,10 @@
     "description": "皮革靴子，防御+3，敏捷+5",
     "price": 200,
     "requireLevel": 5,
-    "stats": { "defense": 3, "dexterity": 5 }
+    "stats": {
+      "defense": 3,
+      "dexterity": 5
+    }
   },
   {
     "id": "item_rabbit_meat",
@@ -411,7 +459,9 @@
     "description": "山贼使用的弯刀，锋利但粗糙",
     "price": 80,
     "requireLevel": 1,
-    "stats": { "attack": 8 }
+    "stats": {
+      "attack": 8
+    }
   },
   {
     "id": "item_blood_stone",
@@ -463,7 +513,9 @@
     "description": "淬有剧毒的宝刀，刀身泛着绿光",
     "price": 800,
     "requireLevel": 45,
-    "stats": { "attack": 25 }
+    "stats": {
+      "attack": 25
+    }
   },
   {
     "id": "item_sea_serpent_scale",
@@ -508,7 +560,9 @@
     "description": "魔教打造的邪刀，煞气逼人",
     "price": 1000,
     "requireLevel": 55,
-    "stats": { "attack": 35 }
+    "stats": {
+      "attack": 35
+    }
   },
   {
     "id": "armor_demon_armor",
@@ -518,7 +572,9 @@
     "description": "魔教秘制的铠甲，坚不可摧",
     "price": 900,
     "requireLevel": 55,
-    "stats": { "defense": 30 }
+    "stats": {
+      "defense": 30
+    }
   },
   {
     "id": "item_scorpion_tail",
@@ -541,7 +597,68 @@
     "description": "常见的草药，可入药疗伤",
     "price": 15,
     "effects": [
-      { "type": "heal_hp", "value": 20 }
+      {
+        "type": "heal_hp",
+        "value": 20
+      }
     ]
+  },
+  {
+    "id": "item_iron_ore",
+    "name": "铁矿石",
+    "description": "常见的铁矿，可用于锻造武器和护甲",
+    "type": "material",
+    "price": 30,
+    "sellPrice": 10,
+    "stackable": true,
+    "maxStack": 99
+  },
+  {
+    "id": "item_refined_steel",
+    "name": "精钢",
+    "description": "经过提炼的优质钢材，锻造高级装备的必需品",
+    "type": "material",
+    "price": 200,
+    "sellPrice": 60,
+    "stackable": true,
+    "maxStack": 99
+  },
+  {
+    "id": "item_mystic_crystal",
+    "name": "玄晶",
+    "description": "蕴含神秘力量的晶体，用于顶级装备精炼",
+    "type": "material",
+    "price": 2000,
+    "sellPrice": 500,
+    "stackable": true,
+    "maxStack": 50
+  },
+  {
+    "id": "item_coal",
+    "name": "煤炭",
+    "description": "锻造所需的燃料",
+    "type": "material",
+    "price": 10,
+    "sellPrice": 3,
+    "stackable": true,
+    "maxStack": 99
+  },
+  {
+    "id": "armor_iron_plate",
+    "name": "铁甲",
+    "description": "基础护甲，提供可靠的防御力",
+    "type": "equipment",
+    "subtype": "armor",
+    "equipSlot": "armor",
+    "stats": {
+      "defense": 15
+    },
+    "requireLevel": 1,
+    "price": 300,
+    "sellPrice": 100,
+    "durability": {
+      "current": 80,
+      "max": 80
+    }
   }
 ]

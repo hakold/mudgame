@@ -475,6 +475,11 @@ class BattleService {
     } else if (type === 'pvp') {
       const opponent = await User.findById(targetId);
       if (!opponent) throw new Error('对手不存在');
+      if (opponent.status === 'fighting') throw new Error('对手正在战斗中');
+      if (opponent.status === 'dead') throw new Error('对手已死亡，无法应战');
+      if (opponent.hp.current <= 0) throw new Error('对手生命值不足，无法应战');
+      if (this.isInBattle(opponent._id)) throw new Error('对手已在另一场战斗中');
+
       const opponentStats = await this.getCombatStats(opponent);
       
       battle.participants.push(this.initializeParticipantState({
@@ -630,9 +635,9 @@ class BattleService {
         result.damage = 0;
       } else {
         damage = this.reduceDamageForDefense(defender, damage);
-        defender.hp -= damage;
+        defender.hp = Math.max(0, defender.hp - damage);
         result.damage = damage;
-        result.remainingHp = Math.max(0, defender.hp);
+        result.remainingHp = defender.hp;
         result.reflectedDamage = this.applyReflectDamage(defender, attacker, result);
         // 反击判定
         result.counterDamage = this.applyCounterAttack(defender, attacker, damage, result);
@@ -641,7 +646,15 @@ class BattleService {
       // 使用技能
       const skill = attacker.skills?.find(s => s.id === skillId);
       if (!skill) throw new Error('技能不存在');
-      
+
+      // 检查冷却
+      if (skill.cooldown > 0 && skill.lastUsedRound != null) {
+        const roundsSince = battle.currentRound - skill.lastUsedRound;
+        if (roundsSince < skill.cooldown) {
+          throw new Error(`${skill.name} 冷却中（剩余 ${skill.cooldown - roundsSince} 回合）`);
+        }
+      }
+
       const mpCost = skill.mpCost || 0;
       if ((attacker.mp || 0) < mpCost) {
         throw new Error('MP不足');
@@ -671,7 +684,7 @@ class BattleService {
       } else if (skill.type === 'attack') {
         let damage = this.rollRange(skill.damageRange, attacker.attack);
         damage = this.reduceDamageForDefense(defender, damage);
-        defender.hp -= damage;
+        defender.hp = Math.max(0, defender.hp - damage);
         result.damage = damage;
         result.remainingHp = Math.max(0, defender.hp);
         this.applyAttackSkillSideEffects(skill, attacker, defender, damage, result);
@@ -688,6 +701,8 @@ class BattleService {
       } else {
         throw new Error('该技能暂不支持战斗中使用');
       }
+      // 记录技能冷却
+      skill.lastUsedRound = battle.currentRound;
     } else if (!startState.skipped && action === 'defend') {
       // 防御（减少下一回合受到的伤害）
       attacker.defending = true;
@@ -849,6 +864,9 @@ class BattleService {
     if (player.hp <= 0 || battle.loser?.userId === player.userId) {
       user.hp.current = 0;
       user.status = 'dead';
+      // 死亡统计
+      if (!user.stats) user.stats = {};
+      user.stats.deaths = (user.stats.deaths || 0) + 1;
       // 应用死亡惩罚
       const penalty = user.applyDeathPenalty();
       battleLog.result.deathPenalty = penalty;
