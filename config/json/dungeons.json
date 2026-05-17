@@ -1,0 +1,203 @@
+[
+  {
+    "id": "dungeon_bandit_cave",
+    "name": "山贼洞窟",
+    "type": "trial",
+    "description": "山贼盘踞的洞窟，共5层，每层都有山贼把守",
+    "entryRoomId": "mountain_path",
+    "entryNpcId": "npc_guard_captain",
+    "requireLevel": 5,
+    "requireItem": null,
+    "dailyLimit": 3,
+    "waves": [
+      {
+        "wave": 1,
+        "monsterId": "monster_bandit",
+        "count": 2,
+        "description": "第一层：洞窟入口"
+      },
+      {
+        "wave": 2,
+        "monsterId": "monster_bandit",
+        "count": 3,
+        "description": "第二层：狭窄通道"
+      },
+      {
+        "wave": 3,
+        "monsterId": "monster_wild_wolf",
+        "count": 2,
+        "description": "第三层：狼穴"
+      },
+      {
+        "wave": 4,
+        "monsterId": "monster_bandit",
+        "count": 3,
+        "monsterId2": "monster_wild_wolf",
+        "count2": 1,
+        "description": "第四层：山贼大厅"
+      },
+      {
+        "wave": 5,
+        "monsterId": "monster_bandit_chief",
+        "count": 1,
+        "description": "第五层：山贼头目"
+      }
+    ],
+    "rewards": {
+      "exp": 500,
+      "gold": 300,
+      "items": [
+        "item_hp_potion_medium"
+      ]
+    }
+  },
+  {
+    "id": "dungeon_forest_maze",
+    "name": "迷途森林",
+    "type": "explore",
+    "description": "迷雾笼罩的森林，在30分钟内收集指定物品即可通关",
+    "entryRoomId": "deep_forest",
+    "entryNpcId": "npc_old_hermit",
+    "requireLevel": 10,
+    "requireItem": null,
+    "dailyLimit": 2,
+    "timeLimitMinutes": 30,
+    "collectTargets": [
+      {
+        "itemId": "item_herb",
+        "count": 5,
+        "description": "采集草药"
+      },
+      {
+        "itemId": "item_mushroom",
+        "count": 3,
+        "description": "采集蘑菇"
+      }
+    ],
+    "monsters": [
+      "monster_wild_wolf",
+      "monster_black_bear",
+      "monster_forest_snake"
+    ],
+    "rewards": {
+      "exp": 800,
+      "gold": 500,
+      "items": [
+        "item_hp_potion_large",
+        "item_mp_potion_medium"
+      ]
+    }
+  },
+  {
+    "id": "dungeon_tiger_den",
+    "name": "猛虎巢穴",
+    "type": "boss",
+    "description": "猛虎的巢穴，击败虎王获取稀有材料",
+    "entryRoomId": "deep_forest",
+    "entryNpcId": "npc_hunter",
+    "requireLevel": 15,
+    "requireItem": "item_boar_meat",
+    "dailyLimit": 1,
+    "bossMonsterId": "monster_tiger",
+    "bossLevel": 20,
+    "bossHpMultiplier": 2.5,
+    "rewards": {
+      "exp": 1000,
+      "gold": 800,
+      "items": [
+        "item_tiger_pelt",
+        "item_tiger_bone"
+      ]
+    }
+  },
+  {
+    "id": "dungeon_dragon_lair",
+    "name": "龙穴深渊",
+    "type": "boss",
+    "description": "传说中的龙穴，击败毒龙获取龙之宝藏",
+    "entryRoomId": "dark_cave",
+    "entryNpcId": "npc_old_hermit",
+    "requireLevel": 40,
+    "requireItem": "item_dragon_scale",
+    "dailyLimit": 1,
+    "bossMonsterId": "monster_poison_dragon",
+    "bossLevel": 55,
+    "bossHpMultiplier": 3,
+    "rewards": {
+      "exp": 5000,
+      "gold": 3000,
+      "items": [
+        "item_dragon_scale",
+        "item_dragon_venom",
+        "item_dragon_heart"
+      ]
+    }
+  },
+  {
+    "id": "dungeon_ice_cave",
+    "name": "冰晶洞窟",
+    "type": "trial",
+    "description": "极寒之地的冰晶洞窟，共7层，冰雪怪物横行",
+    "entryRoomId": "snow_field",
+    "entryNpcId": "npc_old_hermit",
+    "requireLevel": 25,
+    "requireItem": null,
+    "dailyLimit": 3,
+    "waves": [
+      {
+        "wave": 1,
+        "monsterId": "monster_snow_wolf",
+        "count": 2,
+        "description": "第一层：冰封入口"
+      },
+      {
+        "wave": 2,
+        "monsterId": "monster_snow_wolf",
+        "count": 3,
+        "description": "第二层：冰廊"
+      },
+      {
+        "wave": 3,
+        "monsterId": "monster_snow_wolf",
+        "count": 2,
+        "monsterId2": "monster_ice_golem",
+        "count2": 1,
+        "description": "第三层：冰晶大厅"
+      },
+      {
+        "wave": 4,
+        "monsterId": "monster_ice_golem",
+        "count": 2,
+        "description": "第四层：寒冰深渊"
+      },
+      {
+        "wave": 5,
+        "monsterId": "monster_ice_golem",
+        "count": 3,
+        "description": "第五层：极寒走廊"
+      },
+      {
+        "wave": 6,
+        "monsterId": "monster_snow_wolf",
+        "count": 2,
+        "monsterId2": "monster_ice_golem",
+        "count2": 2,
+        "description": "第六层：冰封王座"
+      },
+      {
+        "wave": 7,
+        "monsterId": "monster_ice_golem",
+        "count": 1,
+        "description": "第七层：冰魔"
+      }
+    ],
+    "rewards": {
+      "exp": 3000,
+      "gold": 2000,
+      "items": [
+        "item_ice_crystal",
+        "item_frozen_heart"
+      ]
+    }
+  }
+]

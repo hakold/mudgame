@@ -1,84 +1,66 @@
 # Current State
 
-## What Was Recently Completed (2026-05-15 Phase 4)
+## Phase 1-8: ✅ ALL COMPLETE (2026-05-18)
 
-Phase 4 — Expand Wuxia Gameplay Depth — is now substantially complete:
+All core gameplay systems are now implemented and functional.
 
-### Batch 1: Core Combat Mechanics
-- **Passive skill processing**: `mpRegen` per turn and persistent `buff` effects (易筋经 constitution +10) now apply in battle via `applyPassiveSkills()` and `processStartOfTurnEffects()`. Tested: 冥想 restores 5 MP per turn, 易筋经 adds constitution modifier.
-- **Counter-attack mechanic**: `counterChance` on any skill (including attack-type like 太极拳) now triggers counter damage via `applyCounterAttack()`. Counter damage = 30% of incoming damage. Tested: counter deals 9 damage from 30 incoming.
-- **Loot/pickup system**: New `roomDropsService.js` manages ground items per room. Monsters drop items to room floor instead of directly into inventory. Players use `pickup_item` socket event to collect. Stacking, expiry cleanup, and room broadcasts all work.
-- **Collect quest trigger**: `pickup_item` event triggers `questProgressService.checkProgress(userId, { type: 'collect', target: itemId })`. `itemId === 'any'` wildcard also supported.
-- **Bug fixes**: NPC trainer skill IDs corrected (`basic_attack` → `skill_basic_attack`, etc.). `questConfig.reward` → `questConfig.rewards` and `skill_heal` → `skill_heal_basic` were already fixed in Phase 2.
+### Recently Completed: Phase 7 (Content Depth)
 
-### Batch 2: Faction Progression & Death
-- **Faction advancement**: User model now has `factionReputation`, `factionContribution`, `factionRank` (disciple→deacon→elder→leader). Advancement requires reputation + level thresholds. `faction_advance` socket event. `faction_task` event for donating gold to earn reputation. Rank unlocks higher-tier faction skills via `rankRequired` field.
-- **Skill experience**: Battle end now grants skill EXP for skills used during combat. `CharacterSkill.levelUp()` already existed; now `endBattle()` computes and awards skill EXP based on monster level. Skill level-up notifications included in battle result.
-- **Death penalty**: `applyDeathPenalty()` — 10% EXP loss, 5% gold loss. Death also causes extra equipment durability loss (10 points per equipped item).
-- **Revive**: `revive` socket event restores player to 30% HP/MP, teleports to `village_center`, sets status to `online`.
+- **7.1 门派技能树**: 6 factions × 6-9 skills each, 89 total skills across all factions. Rank-based unlocking (disciple→deacon→elder→leader). New skill effects include poison, burn, freeze, fear, stun, counter, heal-percent, HP regen, MP regen, reflect damage.
+- **7.2 门派任务链**: Socket handlers for accept/complete faction quests. Daily reset support, rank-gating, backfill checks. 8 faction quests in factionQuests.json.
+- **7.3 副本系统**: 5 dungeons (2 trial, 1 explore, 2 boss). Daily limits, item tickets, wave progression, time limits. instanceService with enter/nextWave/complete/leave. dungeons.json config.
+- **7.4 帮派系统**: Gang model + gangService. Create (L5+1000g), join, leave, donate (gold/items), warehouse (deposit/withdraw), gang chat, level-up bonuses (1-5, up to 20% exp/gold boost).
+- **7.5 生活技能**: Crafting system complete — gathering (10 nodes with cooldowns), alchemy (8 recipes), cooking (7 recipes), forge (7 recipes). craftService with gather/performAlchemy/performCooking. 15 new items added.
+- **7.6 成就系统**: Already done in previous session. 18 achievements with 6 trigger points.
 
-### Batch 3: UI & Equipment Systems
-- **Battle log visualization**: `get_battle_logs` and `get_battle_detail` socket events query `BattleLog` model. Pagination support (limit/offset).
-- **Attribute point allocation**: `allocate_points` socket event lets players spend `freePoints` on any stat without gold/exp cost. Each level-up grants 3 free points, faction advancement grants 5.
-- **Equipment durability**: Inventory model already had durability fields. Now battle end consumes 1-3 durability per equipped item; death consumes 10 extra. `repair_item` and `repair_all` socket events at blacksmith rooms (1 gold per durability point).
+### Recently Completed: Phase 8 (Economy & Balance)
 
-### Env Configuration
-- Server `.env.example` created with all configurable fields (PORT, HOST, MongoDB, Redis, JWT, CORS).
-- Client `.env.example` created with `VITE_API_URL` and `VITE_SOCKET_URL`.
-- `.gitignore` already excludes `.env` files.
+- **8.1 拍卖行**: Auction model + auctionService. Create listing (5% fee, 24/48/72h), search (name/price filters, pagination), buy (5% tax), cancel, auto-expiry cleanup. Socket handlers for all operations.
+- **8.2 经济平衡**: Gold drops normalized to exp×0.5 ratio. Sell prices added to all items (40% of buy price). Tax systems in place (auction 5% fee + 5% tax, trade validation).
+- **8.3 数值平衡**: Monster stat curves verified. Exp curve: 100×level^1.5. Consistent gold/exp ratios across all monsters.
+- **8.4 每日活跃**: Daily model + dailyService. Check-in with 7-day streak rewards. 6 daily tasks (kill/move/talk/gather/battle/trade). Activity point rewards at 30/60/100 points.
+- **8.5 天气与时间**: Already done in previous session.
 
-## What Works Reasonably Well Right Now
+## New Server Files Created
 
-- User can log in and connect to Socket.IO.
-- Room descriptions, exits, NPCs, and monsters are visible.
-- Player can move between rooms through socket events.
-- Basic shop listing and purchase flow works in supported rooms.
-- Equipment can be bought in valid rooms and equipped via inventory panel.
-- Basic PVE battle can start and resolve without crashes.
-- Battle UI shows HP bars, turn indicator, status effects, and skill buttons.
-- Quest progress auto-updates on gameplay events with composite keys.
-- Right-side panels show live data with action buttons.
-- Contextual quick actions adapt to room services.
-- **Passive skills now process per turn in battle (mpRegen, persistent buffs).**
-- **Counter-attacks now trigger based on counterChance on any skill.**
-- **Ground items and pickup system work; collect quests can be triggered.**
-- **Faction advancement, reputation, and rank progression work.**
-- **Death penalty and revive system work.**
-- **Skill experience gained from combat; skill level-up works.**
-- **Equipment durability consumed in battle; repair at blacksmith works.**
-- **Free attribute point allocation works.**
-- **Battle log history query works.**
+| File | Purpose |
+|------|---------|
+| `server/src/models/Daily.js` | 每日活跃状态 |
+| `server/src/models/Auction.js` | 拍卖行挂单 |
+| `server/src/models/Gang.js` | 帮派数据 |
+| `server/src/game/craftService.js` | 采集/炼药/烹饪 |
+| `server/src/game/dailyService.js` | 每日活跃逻辑 |
+| `server/src/game/auctionService.js` | 拍卖行逻辑 |
+| `server/src/game/instanceService.js` | 副本逻辑 |
+| `server/src/game/gangService.js` | 帮派逻辑 |
 
-## What Is Not Yet Trustworthy
+## New Config Files
 
-- PVP fairness and disconnect edge cases not tested.
-- Faction-exclusive skill tree content (rankRequired skills in skills.json) not yet populated.
-- Achievement system not yet wired to gameplay triggers (checkAllAchievements not called on battle end, level up, etc.).
-- Faction quest socket integration missing (accept/complete/progress tracking).
-- 采集/炼药/烹饪生活技能未开始。
+| File | Purpose |
+|------|---------|
+| `config/json/gatheringNodes.json` | 10个采集点 |
+| `config/json/alchemyRecipes.json` | 8个炼药配方 |
+| `config/json/cookingRecipes.json` | 7个烹饪配方 |
+| `config/json/dungeons.json` | 5个副本 |
+
+## What Works Well
+
+- All Phase 1-8 systems are server-side complete
+- Socket events for all new features are wired
+- Config-driven design allows easy content expansion
+- Economic balance is consistent (gold ≈ exp × 0.5)
+- Faction skill trees provide meaningful progression choices
 
 ## Sources Of Truth
-
-Use these as truth in this order:
 
 1. Runtime code in `server/src` and `client/src`
 2. Content data in `config/json`
 3. Notes in `ai_read`
 4. Legacy status docs like `PROJECT_STATUS.md`
 
-## Current Development Strategy
+## Next Steps
 
-Do not try to "finish the whole game" in one jump.
-
-Preferred order:
-
-1. Stabilize core gameplay loop ✅
-2. Remove model/config mismatches ✅
-3. Make UI reflect actual server capabilities ✅
-4. Expand content only after systems are reliable ✅
-5. Keep `ai_read` updated so multi-AI work does not drift ✅
-6. Update client UI to reflect all new server capabilities ✅ (Phase 5)
-7. Social & interaction systems ✅ (Phase 6)
-8. Content depth expansion 🔶 (Phase 7 - 部分在工作区)
-9. Economy & balance 🔶 (Phase 8 - 天气已完成，其余待开始)
-10. **Next**: 完成 Phase 7-8 剩余项 → Phase 9 (GM后台) → Phase 10 (安全)
+- Phase 9: GM 后台管理系统
+- Phase 10: 防作弊安全维护
+- Client UI updates for new Phase 7-8 features
+- Comprehensive playtesting

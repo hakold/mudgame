@@ -10,8 +10,14 @@
     "exp": 10,
     "gold": 5,
     "drops": [
-      { "itemId": "item_rabbit_meat", "rate": 0.5 },
-      { "itemId": "item_rabbit_fur", "rate": 0.3 }
+      {
+        "itemId": "item_rabbit_meat",
+        "rate": 0.5
+      },
+      {
+        "itemId": "item_rabbit_fur",
+        "rate": 0.3
+      }
     ],
     "skills": [],
     "roomId": "forest_entrance",
@@ -28,10 +34,18 @@
     "exp": 30,
     "gold": 15,
     "drops": [
-      { "itemId": "item_boar_meat", "rate": 0.4 },
-      { "itemId": "item_boar_tusk", "rate": 0.2 }
+      {
+        "itemId": "item_boar_meat",
+        "rate": 0.4
+      },
+      {
+        "itemId": "item_boar_tusk",
+        "rate": 0.2
+      }
     ],
-    "skills": ["skill_charge"],
+    "skills": [
+      "skill_charge"
+    ],
     "roomId": "forest_entrance",
     "respawnTime": 120
   },
@@ -46,10 +60,18 @@
     "exp": 50,
     "gold": 25,
     "drops": [
-      { "itemId": "item_wolf_pelt", "rate": 0.3 },
-      { "itemId": "item_wolf_fang", "rate": 0.15 }
+      {
+        "itemId": "item_wolf_pelt",
+        "rate": 0.3
+      },
+      {
+        "itemId": "item_wolf_fang",
+        "rate": 0.15
+      }
     ],
-    "skills": ["skill_bite"],
+    "skills": [
+      "skill_bite"
+    ],
     "roomId": "forest_deep",
     "respawnTime": 180
   },
@@ -62,12 +84,20 @@
     "attack": 22,
     "defense": 4,
     "exp": 55,
-    "gold": 20,
+    "gold": 30,
     "drops": [
-      { "itemId": "item_snake_venom", "rate": 0.25 },
-      { "itemId": "item_snake_skin", "rate": 0.3 }
+      {
+        "itemId": "item_snake_venom",
+        "rate": 0.25
+      },
+      {
+        "itemId": "item_snake_skin",
+        "rate": 0.3
+      }
     ],
-    "skills": ["skill_poison_bite"],
+    "skills": [
+      "skill_poison_bite"
+    ],
     "roomId": "forest_deep",
     "respawnTime": 150
   },
@@ -82,10 +112,19 @@
     "exp": 200,
     "gold": 100,
     "drops": [
-      { "itemId": "item_wolf_king_fang", "rate": 0.5 },
-      { "itemId": "weapon_wolf_sword", "rate": 0.1 }
+      {
+        "itemId": "item_wolf_king_fang",
+        "rate": 0.5
+      },
+      {
+        "itemId": "weapon_wolf_sword",
+        "rate": 0.1
+      }
     ],
-    "skills": ["skill_bite", "skill_howl"],
+    "skills": [
+      "skill_bite",
+      "skill_howl"
+    ],
     "roomId": "forest_clearing",
     "respawnTime": 600,
     "isBoss": true
@@ -101,9 +140,14 @@
     "exp": 80,
     "gold": 40,
     "drops": [
-      { "itemId": "item_bandit_loot", "rate": 0.4 }
+      {
+        "itemId": "item_bandit_loot",
+        "rate": 0.4
+      }
     ],
-    "skills": ["skill_bandit_blade"],
+    "skills": [
+      "skill_bandit_blade"
+    ],
     "roomId": "mountain_path",
     "respawnTime": 240
   },
@@ -118,10 +162,19 @@
     "exp": 350,
     "gold": 200,
     "drops": [
-      { "itemId": "item_bandit_token", "rate": 0.6 },
-      { "itemId": "weapon_bandit_sword", "rate": 0.15 }
+      {
+        "itemId": "item_bandit_token",
+        "rate": 0.6
+      },
+      {
+        "itemId": "weapon_bandit_sword",
+        "rate": 0.15
+      }
     ],
-    "skills": ["skill_bandit_blade", "skill_intimidate"],
+    "skills": [
+      "skill_bandit_blade",
+      "skill_intimidate"
+    ],
     "roomId": "mountain_peak",
     "respawnTime": 900,
     "isBoss": true
@@ -137,10 +190,18 @@
     "exp": 150,
     "gold": 60,
     "drops": [
-      { "itemId": "item_bear_pelt", "rate": 0.3 },
-      { "itemId": "item_bear_gall", "rate": 0.15 }
+      {
+        "itemId": "item_bear_pelt",
+        "rate": 0.3
+      },
+      {
+        "itemId": "item_bear_gall",
+        "rate": 0.15
+      }
     ],
-    "skills": ["skill_bear_hug"],
+    "skills": [
+      "skill_bear_hug"
+    ],
     "roomId": "forest_cave",
     "respawnTime": 360
   },
@@ -155,10 +216,19 @@
     "exp": 250,
     "gold": 100,
     "drops": [
-      { "itemId": "item_tiger_pelt", "rate": 0.25 },
-      { "itemId": "item_tiger_bone", "rate": 0.2 }
+      {
+        "itemId": "item_tiger_pelt",
+        "rate": 0.25
+      },
+      {
+        "itemId": "item_tiger_bone",
+        "rate": 0.2
+      }
     ],
-    "skills": ["skill_tiger_roar", "skill_pounce"],
+    "skills": [
+      "skill_tiger_roar",
+      "skill_pounce"
+    ],
     "roomId": "mountain_path",
     "respawnTime": 480
   },
@@ -173,10 +243,19 @@
     "exp": 300,
     "gold": 150,
     "drops": [
-      { "itemId": "item_evil_manual", "rate": 0.2 },
-      { "itemId": "item_blood_stone", "rate": 0.15 }
+      {
+        "itemId": "item_evil_manual",
+        "rate": 0.2
+      },
+      {
+        "itemId": "item_blood_stone",
+        "rate": 0.15
+      }
     ],
-    "skills": ["skill_dark_strike", "skill_blood_sacrifice"],
+    "skills": [
+      "skill_dark_strike",
+      "skill_blood_sacrifice"
+    ],
     "roomId": "desert_ruins",
     "respawnTime": 420
   },
@@ -191,10 +270,18 @@
     "exp": 280,
     "gold": 120,
     "drops": [
-      { "itemId": "item_scorpion_tail", "rate": 0.3 },
-      { "itemId": "item_scorpion_venom", "rate": 0.2 }
+      {
+        "itemId": "item_scorpion_tail",
+        "rate": 0.3
+      },
+      {
+        "itemId": "item_scorpion_venom",
+        "rate": 0.2
+      }
     ],
-    "skills": ["skill_venom_sting"],
+    "skills": [
+      "skill_venom_sting"
+    ],
     "roomId": "desert_entrance",
     "respawnTime": 300
   },
@@ -209,10 +296,19 @@
     "exp": 400,
     "gold": 200,
     "drops": [
-      { "itemId": "item_ancient_bandage", "rate": 0.4 },
-      { "itemId": "item_cursed_gem", "rate": 0.1 }
+      {
+        "itemId": "item_ancient_bandage",
+        "rate": 0.4
+      },
+      {
+        "itemId": "item_cursed_gem",
+        "rate": 0.1
+      }
     ],
-    "skills": ["skill_curse", "skill_life_drain"],
+    "skills": [
+      "skill_curse",
+      "skill_life_drain"
+    ],
     "roomId": "desert_tomb",
     "respawnTime": 600
   },
@@ -227,10 +323,19 @@
     "exp": 380,
     "gold": 180,
     "drops": [
-      { "itemId": "item_snow_wolf_pelt", "rate": 0.3 },
-      { "itemId": "item_ice_crystal", "rate": 0.15 }
+      {
+        "itemId": "item_snow_wolf_pelt",
+        "rate": 0.3
+      },
+      {
+        "itemId": "item_ice_crystal",
+        "rate": 0.15
+      }
     ],
-    "skills": ["skill_ice_bite", "skill_frost_howl"],
+    "skills": [
+      "skill_ice_bite",
+      "skill_frost_howl"
+    ],
     "roomId": "snow_pass",
     "respawnTime": 360
   },
@@ -245,10 +350,19 @@
     "exp": 600,
     "gold": 300,
     "drops": [
-      { "itemId": "item_ice_core", "rate": 0.25 },
-      { "itemId": "item_frozen_heart", "rate": 0.1 }
+      {
+        "itemId": "item_ice_core",
+        "rate": 0.25
+      },
+      {
+        "itemId": "item_frozen_heart",
+        "rate": 0.1
+      }
     ],
-    "skills": ["skill_ice_strike", "skill_freeze"],
+    "skills": [
+      "skill_ice_strike",
+      "skill_freeze"
+    ],
     "roomId": "snow_cave",
     "respawnTime": 720
   },
@@ -263,10 +377,19 @@
     "exp": 450,
     "gold": 220,
     "drops": [
-      { "itemId": "item_toxic_gland", "rate": 0.3 },
-      { "itemId": "item_mutated_skin", "rate": 0.2 }
+      {
+        "itemId": "item_toxic_gland",
+        "rate": 0.3
+      },
+      {
+        "itemId": "item_mutated_skin",
+        "rate": 0.2
+      }
     ],
-    "skills": ["skill_poison_spit", "skill_acid_pool"],
+    "skills": [
+      "skill_poison_spit",
+      "skill_acid_pool"
+    ],
     "roomId": "swamp_deep",
     "respawnTime": 480
   },
@@ -281,11 +404,24 @@
     "exp": 1500,
     "gold": 800,
     "drops": [
-      { "itemId": "item_dragon_scale", "rate": 0.3 },
-      { "itemId": "item_dragon_venom", "rate": 0.2 },
-      { "itemId": "weapon_poison_dragon_blade", "rate": 0.05 }
+      {
+        "itemId": "item_dragon_scale",
+        "rate": 0.3
+      },
+      {
+        "itemId": "item_dragon_venom",
+        "rate": 0.2
+      },
+      {
+        "itemId": "weapon_poison_dragon_blade",
+        "rate": 0.05
+      }
     ],
-    "skills": ["skill_poison_breath", "skill_tail_sweep", "skill_dragon_roar"],
+    "skills": [
+      "skill_poison_breath",
+      "skill_tail_sweep",
+      "skill_dragon_roar"
+    ],
     "roomId": "swamp_lair",
     "respawnTime": 1800,
     "isBoss": true
@@ -301,10 +437,19 @@
     "exp": 550,
     "gold": 280,
     "drops": [
-      { "itemId": "item_sea_serpent_scale", "rate": 0.25 },
-      { "itemId": "item_coral_gem", "rate": 0.15 }
+      {
+        "itemId": "item_sea_serpent_scale",
+        "rate": 0.25
+      },
+      {
+        "itemId": "item_coral_gem",
+        "rate": 0.15
+      }
     ],
-    "skills": ["skill_water_jet", "skill_coil"],
+    "skills": [
+      "skill_water_jet",
+      "skill_coil"
+    ],
     "roomId": "island_beach",
     "respawnTime": 540
   },
@@ -319,10 +464,19 @@
     "exp": 1000,
     "gold": 500,
     "drops": [
-      { "itemId": "item_fairy_dust", "rate": 0.3 },
-      { "itemId": "item_immortal_pearl", "rate": 0.1 }
+      {
+        "itemId": "item_fairy_dust",
+        "rate": 0.3
+      },
+      {
+        "itemId": "item_immortal_pearl",
+        "rate": 0.1
+      }
     ],
-    "skills": ["skill_holy_light", "skill_heal_basic"],
+    "skills": [
+      "skill_holy_light",
+      "skill_heal_basic"
+    ],
     "roomId": "island_forest",
     "respawnTime": 900
   },
@@ -337,10 +491,19 @@
     "exp": 700,
     "gold": 350,
     "drops": [
-      { "itemId": "item_fire_essence", "rate": 0.25 },
-      { "itemId": "item_magma_core", "rate": 0.15 }
+      {
+        "itemId": "item_fire_essence",
+        "rate": 0.25
+      },
+      {
+        "itemId": "item_magma_core",
+        "rate": 0.15
+      }
     ],
-    "skills": ["skill_fireball", "skill_flame_shield"],
+    "skills": [
+      "skill_fireball",
+      "skill_flame_shield"
+    ],
     "roomId": "volcano_crater",
     "respawnTime": 600
   },
@@ -355,11 +518,24 @@
     "exp": 3000,
     "gold": 1500,
     "drops": [
-      { "itemId": "item_fire_dragon_scale", "rate": 0.3 },
-      { "itemId": "item_dragon_heart", "rate": 0.1 },
-      { "itemId": "weapon_fire_dragon_sword", "rate": 0.03 }
+      {
+        "itemId": "item_fire_dragon_scale",
+        "rate": 0.3
+      },
+      {
+        "itemId": "item_dragon_heart",
+        "rate": 0.1
+      },
+      {
+        "itemId": "weapon_fire_dragon_sword",
+        "rate": 0.03
+      }
     ],
-    "skills": ["skill_fire_breath", "skill_dragon_claw", "skill_meteor"],
+    "skills": [
+      "skill_fire_breath",
+      "skill_dragon_claw",
+      "skill_meteor"
+    ],
     "roomId": "volcano_lair",
     "respawnTime": 3600,
     "isBoss": true
@@ -375,10 +551,19 @@
     "exp": 800,
     "gold": 400,
     "drops": [
-      { "itemId": "item_guard_badge", "rate": 0.3 },
-      { "itemId": "item_royal_token", "rate": 0.1 }
+      {
+        "itemId": "item_guard_badge",
+        "rate": 0.3
+      },
+      {
+        "itemId": "item_royal_token",
+        "rate": 0.1
+      }
     ],
-    "skills": ["skill_guard_strike", "skill_shield_wall"],
+    "skills": [
+      "skill_guard_strike",
+      "skill_shield_wall"
+    ],
     "roomId": "palace_gate",
     "respawnTime": 720
   },
@@ -393,10 +578,19 @@
     "exp": 1000,
     "gold": 500,
     "drops": [
-      { "itemId": "item_demon_blood", "rate": 0.25 },
-      { "itemId": "item_dark_crystal", "rate": 0.15 }
+      {
+        "itemId": "item_demon_blood",
+        "rate": 0.25
+      },
+      {
+        "itemId": "item_dark_crystal",
+        "rate": 0.15
+      }
     ],
-    "skills": ["skill_dark_slash", "skill_shadow_step"],
+    "skills": [
+      "skill_dark_slash",
+      "skill_shadow_step"
+    ],
     "roomId": "demon_fortress",
     "respawnTime": 840
   },
@@ -409,13 +603,27 @@
     "attack": 180,
     "defense": 100,
     "exp": 8000,
-    "gold": 5000,
+    "gold": 4000,
     "drops": [
-      { "itemId": "item_demon_lord_essence", "rate": 0.2 },
-      { "itemId": "weapon_demon_blade", "rate": 0.05 },
-      { "itemId": "armor_demon_armor", "rate": 0.03 }
+      {
+        "itemId": "item_demon_lord_essence",
+        "rate": 0.2
+      },
+      {
+        "itemId": "weapon_demon_blade",
+        "rate": 0.05
+      },
+      {
+        "itemId": "armor_demon_armor",
+        "rate": 0.03
+      }
     ],
-    "skills": ["skill_darkness_wave", "skill_demon_form", "skill_hell_fire", "skill_soul_reap"],
+    "skills": [
+      "skill_darkness_wave",
+      "skill_demon_form",
+      "skill_hell_fire",
+      "skill_soul_reap"
+    ],
     "roomId": "demon_throne",
     "respawnTime": 7200,
     "isBoss": true

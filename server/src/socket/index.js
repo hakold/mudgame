@@ -1,12 +1,17 @@
-const { User, CharacterSkill, Inventory, Quest, ChatMessage, BattleLog, Achievement } = require('../models');
+const { User, CharacterSkill, Inventory, Quest, ChatMessage, BattleLog, Achievement, Gang } = require('../models');
 const { socketAuthMiddleware } = require('../middleware/auth');
-const { getRoom, getRoomExits, getNpcsInRoom, getMonstersInRoom, getSkill, getQuest, getItem, getItemByName, getFaction, getAllFactions, getLearnableSkills, getForgeRecipe, getAllForgeRecipes } = require('../game');
+const { getRoom, getRoomExits, getNpcsInRoom, getMonstersInRoom, getSkill, getQuest, getItem, getItemByName, getFaction, getAllFactions, getLearnableSkills, getForgeRecipe, getAllForgeRecipes, getFactionQuest, getFactionQuestsByFaction } = require('../game');
 const BattleService = require('../game/battleService');
 const questProgressService = require('../game/questProgressService');
 const roomDropsService = require('../game/roomDropsService');
 const tradeService = require('../game/tradeService');
 const achievementService = require('../game/achievementService');
 const weatherTimeService = require('../game/weatherTimeService');
+const craftService = require('../game/craftService');
+const dailyService = require('../game/dailyService');
+const auctionService = require('../game/auctionService');
+const instanceService = require('../game/instanceService');
+const gangService = require('../game/gangService');
 
 // 在线玩家映射
 const onlinePlayers = new Map();
@@ -187,6 +192,8 @@ function socketHandler(io) {
 
       // 任务进度：到达房间
       questProgressService.checkProgress(user._id, { type: 'visit', target: exit.roomId });
+      // 每日任务：移动
+      dailyService.updateDailyTaskProgress(user._id, 'move').catch(() => {});
 
       // 新房间记录
       if (!user.stats) user.stats = {};
@@ -290,6 +297,8 @@ function socketHandler(io) {
             user.stats.goldEarned = (user.stats.goldEarned || 0) + (turnResult.rewards?.goldGained || 0);
             await user.save();
             checkAndAwardAchievements(user._id);
+            dailyService.updateDailyTaskProgress(user._id, 'kill').catch(() => {});
+            dailyService.updateDailyTaskProgress(user._id, 'battle').catch(() => {});
           }
 
           // PVP 统计
@@ -905,6 +914,8 @@ function socketHandler(io) {
         await User.updateOne({ _id: tradeData.receiver.userId }, { $inc: { 'stats.tradesCompleted': 1 } });
         checkAndAwardAchievements(tradeData.initiator.userId);
         checkAndAwardAchievements(tradeData.receiver.userId);
+        dailyService.updateDailyTaskProgress(tradeData.initiator.userId, 'trade').catch(() => {});
+        dailyService.updateDailyTaskProgress(tradeData.receiver.userId, 'trade').catch(() => {});
       } else {
         // 通知双方更新
         const trade = tradeService.getTradeState(tradeId);
@@ -1173,6 +1184,91 @@ function socketHandler(io) {
       })()]);
     });
     
+    // ==================== 生活技能：采集/炼药/烹饪 ====================
+
+    // 查看可采集资源
+    socket.on('list_gathering_nodes', () => {
+      const roomId = user.location.roomId;
+      const now = Date.now();
+      const nodes = craftService.getGatheringNodes(roomId).map(n => ({
+        ...n,
+        available: !craftService.gatheringCooldowns.has(n.id) || (craftService.gatheringCooldowns.get(n.id) || 0) <= now,
+        cooldownSeconds: Math.max(0, Math.ceil(((craftService.gatheringCooldowns.get(n.id) || 0) - now) / 1000))
+      }));
+      socket.emit('gathering_nodes', { roomId, nodes });
+    });
+
+    // 采集
+    socket.on('gather', async (data) => {
+      const { nodeId } = data;
+      const result = await craftService.gather(user._id, nodeId);
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      socket.emit('gather_success', result);
+      socket.emit('system_message', { content: `采集成功！获得了 ${result.itemName}×${result.quantity}` });
+      // 每日任务：采集
+      dailyService.updateDailyTaskProgress(user._id, 'gather').catch(() => {});
+      const items = await Inventory.find({ userId: user._id });
+      socket.emit('inventory_updated', items);
+    });
+
+    // 查看炼药配方
+    socket.on('list_alchemy_recipes', () => {
+      const recipes = craftService.getAlchemyRecipes(99); // all recipes
+      socket.emit('alchemy_recipes', { recipes });
+    });
+
+    // 炼药
+    socket.on('alchemy', async (data) => {
+      const { recipeId } = data;
+      const result = await craftService.performAlchemy(user._id, recipeId, user.gold);
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      if (result.success) {
+        user.gold -= result.goldCost;
+        await user.save();
+        socket.emit('alchemy_success', result);
+        socket.emit('system_message', { content: `炼药成功！获得了 ${result.resultItemName}×${result.quantity}` });
+      } else {
+        user.gold -= result.goldCost;
+        await user.save();
+        socket.emit('alchemy_failed', result);
+        socket.emit('system_message', { content: result.message });
+      }
+      const items = await Inventory.find({ userId: user._id });
+      socket.emit('inventory_updated', items);
+    });
+
+    // 查看烹饪配方
+    socket.on('list_cooking_recipes', () => {
+      const recipes = craftService.getCookingRecipes(99);
+      socket.emit('cooking_recipes', { recipes });
+    });
+
+    // 烹饪
+    socket.on('cooking', async (data) => {
+      const { recipeId } = data;
+      const result = await craftService.performCooking(user._id, recipeId, user.gold);
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      if (result.success) {
+        user.gold -= result.goldCost;
+        await user.save();
+        socket.emit('cooking_success', result);
+        socket.emit('system_message', { content: `烹饪成功！获得了 ${result.resultItemName}×${result.quantity}` });
+      } else {
+        user.gold -= result.goldCost;
+        await user.save();
+        socket.emit('cooking_failed', result);
+        socket.emit('system_message', { content: result.message });
+      }
+      const items = await Inventory.find({ userId: user._id });
+      socket.emit('inventory_updated', items);
+    });
+
     // ==================== 天气/时间系统 ====================
     
     // 获取当前时间
@@ -1184,7 +1280,271 @@ function socketHandler(io) {
         weather: { name: weather.name, description: weather.description, effects: weather.effects }
       });
     });
-    
+
+    // ==================== 每日活跃系统 ====================
+
+    // 签到
+    socket.on('daily_checkin', async () => {
+      const result = await dailyService.checkIn(user._id);
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      socket.emit('daily_checkin_success', result);
+      socket.emit('system_message', { content: `签到成功！连续签到 ${result.streak} 天，获得经验 ${result.reward.exp}、金币 ${result.reward.gold}` });
+      const status = await dailyService.getDailyStatus(user._id);
+      socket.emit('daily_status', status);
+    });
+
+    // 获取每日状态
+    socket.on('get_daily_status', async () => {
+      const status = await dailyService.getDailyStatus(user._id);
+      socket.emit('daily_status', status);
+    });
+
+    // 领取每日任务奖励
+    socket.on('claim_daily_task', async (data) => {
+      const { taskId } = data;
+      const result = await dailyService.claimDailyTask(user._id, taskId);
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      socket.emit('daily_task_claimed', result);
+      socket.emit('system_message', { content: `每日任务完成！获得经验 ${result.reward.exp}、金币 ${result.reward.gold}、活跃度 ${result.reward.activityPoints}` });
+      const status = await dailyService.getDailyStatus(user._id);
+      socket.emit('daily_status', status);
+    });
+
+    // 领取活跃度奖励
+    socket.on('claim_activity_reward', async (data) => {
+      const { points } = data;
+      const result = await dailyService.claimActivityReward(user._id, points);
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      socket.emit('activity_reward_claimed', result);
+      socket.emit('system_message', { content: `活跃度奖励领取成功！获得经验 ${result.reward.exp}、金币 ${result.reward.gold}` });
+      const status = await dailyService.getDailyStatus(user._id);
+      socket.emit('daily_status', status);
+    });
+
+    // ==================== 拍卖行系统 ====================
+
+    // 搜索拍卖
+    socket.on('auction_search', async (data = {}) => {
+      const result = await auctionService.searchListings(data, data.page || 1, data.limit || 20);
+      socket.emit('auction_listings', result);
+    });
+
+    // 我的挂单
+    socket.on('auction_my_listings', async () => {
+      const listings = await auctionService.getMyListings(user._id);
+      socket.emit('auction_my_listings', { listings });
+    });
+
+    // 挂单
+    socket.on('auction_create', async (data) => {
+      const { itemId, quantity, unitPrice, duration } = data;
+      const result = await auctionService.createListing(user._id, user.characterName, itemId, quantity, unitPrice, duration);
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      socket.emit('auction_created', result);
+      socket.emit('system_message', { content: `已上架 ${result.listing.itemName}×${result.listing.quantity}，单价 ${result.listing.unitPrice} 金币，手续费 ${result.fee} 金币` });
+      const items = await Inventory.find({ userId: user._id });
+      socket.emit('inventory_updated', items);
+    });
+
+    // 购买拍卖物品
+    socket.on('auction_buy', async (data) => {
+      const { listingId } = data;
+      const result = await auctionService.buyListing(listingId, user._id, user.characterName);
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      socket.emit('auction_bought', result);
+      socket.emit('system_message', { content: `购买成功！获得 ${result.listing.itemName}×${result.listing.quantity}，花费 ${result.listing.totalPrice} 金币` });
+      const items = await Inventory.find({ userId: user._id });
+      socket.emit('inventory_updated', items);
+    });
+
+    // 取消挂单
+    socket.on('auction_cancel', async (data) => {
+      const { listingId } = data;
+      const result = await auctionService.cancelListing(listingId, user._id);
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      socket.emit('auction_cancelled', result);
+      socket.emit('system_message', { content: result.message });
+      const items = await Inventory.find({ userId: user._id });
+      socket.emit('inventory_updated', items);
+    });
+
+    // ==================== 副本系统 ====================
+
+    // 查看副本列表
+    socket.on('list_dungeons', () => {
+      const allDungeons = instanceService.getAllDungeons().map(d => ({
+        id: d.id,
+        name: d.name,
+        type: d.type,
+        description: d.description,
+        requireLevel: d.requireLevel,
+        requireItem: d.requireItem,
+        dailyLimit: d.dailyLimit,
+        entryRoomId: d.entryRoomId
+      }));
+      socket.emit('dungeons_list', { dungeons: allDungeons });
+    });
+
+    // 进入副本
+    socket.on('enter_dungeon', async (data) => {
+      const { dungeonId } = data;
+      const result = await instanceService.enterDungeon(user._id, dungeonId);
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      socket.emit('dungeon_entered', result);
+      socket.emit('system_message', { content: `进入副本：${result.dungeon.name}（今日剩余 ${result.dungeon.dailyLimit - result.dungeon.runsToday} 次）` });
+    });
+
+    // 获取下一波怪物
+    socket.on('dungeon_next_wave', async (data) => {
+      const { dungeonId } = data;
+      const result = await instanceService.getNextWave(user._id, dungeonId);
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      if (result.complete) {
+        const completeResult = await instanceService.completeDungeon(user._id, dungeonId);
+        socket.emit('dungeon_completed', completeResult);
+        socket.emit('system_message', { content: `副本通关！获得经验 ${completeResult.rewards.exp}、金币 ${completeResult.rewards.gold}` });
+        return;
+      }
+      socket.emit('dungeon_wave', result);
+    });
+
+    // 波次完成（玩家击败当前波次所有怪物后调用）
+    socket.on('dungeon_wave_complete', async (data) => {
+      const { dungeonId } = data;
+      await instanceService.completeWave(user._id, dungeonId);
+      socket.emit('system_message', { content: '击败了当前波次！准备下一波...' });
+    });
+
+    // 退出副本
+    socket.on('leave_dungeon', async (data) => {
+      const { dungeonId } = data;
+      const result = await instanceService.leaveDungeon(user._id, dungeonId);
+      socket.emit('dungeon_left', result);
+      socket.emit('system_message', { content: result.message });
+    });
+
+    // ==================== 帮派系统 ====================
+
+    // 创建帮派
+    socket.on('gang_create', async (data) => {
+      const { name, description } = data;
+      const result = await gangService.createGang(user._id, name, description);
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      socket.emit('gang_created', result);
+      io.emit('system_message', { content: `${user.characterName} 创建了帮派「${result.gang.name}」！` });
+    });
+
+    // 搜索帮派
+    socket.on('gang_search', async (data = {}) => {
+      const gangs = await gangService.searchGangs(data.query || '');
+      socket.emit('gang_search_result', { gangs });
+    });
+
+    // 加入帮派
+    socket.on('gang_join', async (data) => {
+      const { gangName } = data;
+      const result = await gangService.joinGang(user._id, gangName);
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      socket.emit('gang_joined', result);
+      socket.emit('system_message', { content: `加入了帮派「${gangName}」` });
+      const info = await gangService.getGangInfo(user._id);
+      if (info) socket.emit('gang_info', info);
+    });
+
+    // 退出帮派
+    socket.on('gang_leave', async () => {
+      const result = await gangService.leaveGang(user._id);
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      socket.emit('gang_left', result);
+      socket.emit('system_message', { content: result.message });
+    });
+
+    // 查看帮派信息
+    socket.on('gang_info', async () => {
+      const info = await gangService.getGangInfo(user._id);
+      if (!info) {
+        return socket.emit('error', { message: '你未加入任何帮派' });
+      }
+      socket.emit('gang_info', info);
+    });
+
+    // 帮派捐献
+    socket.on('gang_donate', async (data) => {
+      const { gold, itemId, itemQuantity } = data;
+      const result = await gangService.donateToGang(user._id, gold || 0, itemId, itemQuantity);
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      socket.emit('gang_donation_complete', result);
+      socket.emit('system_message', { content: `捐献成功！贡献 +${result.contributionGained}` });
+      const info = await gangService.getGangInfo(user._id);
+      if (info) socket.emit('gang_info', info);
+      const items = await Inventory.find({ userId: user._id });
+      socket.emit('inventory_updated', items);
+    });
+
+    // 从帮派仓库取物品
+    socket.on('gang_withdraw', async (data) => {
+      const { itemId, quantity } = data;
+      const result = await gangService.withdrawFromWarehouse(user._id, itemId, quantity);
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      socket.emit('gang_withdraw_complete', result);
+      socket.emit('system_message', { content: `从帮派仓库取出了 ${result.itemName}×${result.quantity}` });
+      const info = await gangService.getGangInfo(user._id);
+      if (info) socket.emit('gang_info', info);
+      const items = await Inventory.find({ userId: user._id });
+      socket.emit('inventory_updated', items);
+    });
+
+    // 帮派聊天
+    socket.on('chat_gang', async (data) => {
+      const { content } = data;
+      const result = await gangService.sendGangMessage(user._id, user.characterName, content);
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      // 广播给帮派所有在线成员
+      const gang = await Gang.findOne({ _id: result.gangId });
+      if (gang) {
+        for (const member of gang.members) {
+          const memberSocket = findSocketByUserId(member.userId);
+          if (memberSocket) {
+            memberSocket.emit('chat_message', {
+              channel: 'gang',
+              gangName: result.gangName,
+              sender: result.senderName,
+              content,
+              timestamp: new Date()
+            });
+          }
+        }
+      }
+    });
+
     // ==================== 门派相关 ====================
     
     // 查看门派列表
@@ -1319,7 +1679,112 @@ function socketHandler(io) {
         factionRank: user.factionRank
       });
     });
-    
+
+    // 查看门派任务列表
+    socket.on('list_faction_quests', async () => {
+      if (!user.faction) {
+        return socket.emit('error', { message: '你还没有加入门派' });
+      }
+      const quests = getFactionQuestsByFaction(user.faction);
+      // 检查哪些已接取/已完成
+      const questRecords = await Quest.find({ userId: user._id, questId: { $in: quests.map(q => q.id) } });
+      const questStatus = {};
+      for (const rec of questRecords) {
+        questStatus[rec.questId] = { status: rec.status, rewardClaimed: rec.rewardClaimed };
+      }
+      socket.emit('faction_quests_list', {
+        factionId: user.faction,
+        quests: quests.map(q => ({
+          ...q,
+          playerStatus: questStatus[q.id] || null
+        }))
+      });
+    });
+
+    // 接取门派任务
+    socket.on('accept_faction_quest', async (data) => {
+      const { questId } = data;
+      if (!user.faction) {
+        return socket.emit('error', { message: '你还没有加入门派' });
+      }
+      const questConfig = getFactionQuest(questId);
+      if (!questConfig || questConfig.factionId !== user.faction) {
+        return socket.emit('error', { message: '此门派任务不存在' });
+      }
+      // 检查门派等级
+      const rankOrder = ['disciple', 'deacon', 'elder', 'leader'];
+      if (questConfig.minFactionRank && rankOrder.indexOf(user.factionRank) < rankOrder.indexOf(questConfig.minFactionRank)) {
+        return socket.emit('error', { message: `门派等级不足，需要 ${questConfig.minFactionRank}` });
+      }
+      // 检查每日重置
+      const existing = await Quest.findOne({ userId: user._id, questId });
+      if (existing) {
+        if (questConfig.dailyReset) {
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          if (existing.completedAt && existing.completedAt >= today) {
+            return socket.emit('error', { message: '今日已完成此任务，明天再来吧' });
+          }
+          // 新的一天，删除旧记录
+          await Quest.deleteOne({ _id: existing._id });
+        } else if (existing.status === 'completed') {
+          return socket.emit('error', { message: '已完成此任务' });
+        } else {
+          return socket.emit('error', { message: '已接取此任务' });
+        }
+      }
+      const newQuest = new Quest({ userId: user._id, questId, status: 'accepted' });
+      await newQuest.save();
+      // 回溯检查
+      const backfillEvents = [];
+      for (const obj of questConfig.objectives || []) {
+        if (obj.type === 'talk' && obj.npcId) {
+          // NPC对话目标，需要玩家主动对话
+        } else if (obj.type === 'visit' && obj.roomId && user.location.roomId === obj.roomId) {
+          backfillEvents.push({ type: 'visit', target: obj.roomId });
+        }
+      }
+      for (const event of backfillEvents) {
+        await questProgressService.checkProgress(user._id, event);
+      }
+      socket.emit('faction_quest_accepted', { quest: questConfig });
+      socket.emit('system_message', { content: `接取门派任务：${questConfig.name}` });
+    });
+
+    // 完成门派任务（领取奖励）
+    socket.on('complete_faction_quest', async (data) => {
+      const { questId } = data;
+      const quest = await Quest.findOne({ userId: user._id, questId, status: 'completed', rewardClaimed: false });
+      if (!quest) {
+        return socket.emit('error', { message: '任务未完成或已领取奖励' });
+      }
+      const questConfig = getFactionQuest(questId);
+      if (!questConfig) {
+        return socket.emit('error', { message: '任务配置不存在' });
+      }
+      const rewards = questConfig.rewards;
+      if (rewards) {
+        if (rewards.exp) user.exp += rewards.exp;
+        if (rewards.gold) user.gold += rewards.gold;
+        if (rewards.factionReputation) user.factionReputation += rewards.factionReputation;
+        if (rewards.items) {
+          for (const itemId of rewards.items) {
+            await Inventory.create({ userId: user._id, itemId, quantity: 1 });
+          }
+        }
+        if (user.canLevelUp()) user.levelUp();
+        await user.save();
+      }
+      quest.rewardClaimed = true;
+      quest.completedAt = new Date();
+      await quest.save();
+      socket.emit('faction_quest_completed', { quest: questConfig, rewards: questConfig.rewards });
+      socket.emit('system_message', { content: `门派任务完成：${questConfig.name}！` });
+      user.stats.questsCompleted = (user.stats.questsCompleted || 0) + 1;
+      await user.save();
+      checkAndAwardAchievements(user._id);
+    });
+
     // ==================== NPC对话 ====================
     
     socket.on('talk_npc', async (data) => {
@@ -1359,6 +1824,8 @@ function socketHandler(io) {
 
       // 任务进度：与NPC对话
       questProgressService.checkProgress(user._id, { type: 'talk', target: npcId });
+      // 每日任务：对话
+      dailyService.updateDailyTaskProgress(user._id, 'talk').catch(() => {});
     });
     
     // ==================== 休息 ====================

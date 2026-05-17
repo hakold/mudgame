@@ -12,8 +12,14 @@
     },
     "skills": [
       "skill_shaolin_fist",
+      "skill_shaolin_staff",
       "skill_shaolin_palm",
-      "skill_yijinjing"
+      "skill_golden_bell",
+      "skill_lion_roar",
+      "skill_yijinjing",
+      "skill_damo_sword",
+      "skill_xisuijing",
+      "skill_shaolin_divine"
     ],
     "color": "#FFD700"
   },
@@ -29,9 +35,14 @@
       "dexterity": 2
     },
     "skills": [
+      "skill_wudang_xinfa",
       "skill_wudang_fist",
       "skill_wudang_sword",
-      "skill_tiyunzong"
+      "skill_liangyi_sword",
+      "skill_tiyunzong",
+      "skill_taiji_jin",
+      "skill_chunyang",
+      "skill_zhenwu_sword"
     ],
     "color": "#4169E1"
   },
@@ -47,8 +58,15 @@
       "charisma": 1
     },
     "skills": [
+      "skill_emei_xinfa",
       "skill_emei_sword",
-      "skill_jiuyang"
+      "skill_yunv_sword",
+      "skill_jiuyang",
+      "skill_jinding_light",
+      "skill_emei_thorn",
+      "skill_mercy_palm",
+      "skill_jiutian_xuangong",
+      "skill_emei_divine"
     ],
     "color": "#FF69B4"
   },
@@ -64,8 +82,14 @@
       "charisma": 2
     },
     "skills": [
+      "skill_gaibang_xinfa",
       "skill_gaibang_stick",
-      "skill_xianglong"
+      "skill_lotus_palm",
+      "skill_drunken_fist",
+      "skill_gaibang_formation",
+      "skill_kanglong",
+      "skill_xianglong",
+      "skill_dragon_subdue"
     ],
     "color": "#8B4513"
   },
@@ -82,8 +106,14 @@
       "charisma": 1
     },
     "skills": [
+      "skill_mingjiao_xinfa",
+      "skill_blazing_blade",
+      "skill_mingjiao_fire",
+      "skill_holy_flame_order",
+      "skill_fenyin_bu",
       "skill_mingjiao_qiankun",
-      "skill_mingjiao_fire"
+      "skill_light_fist",
+      "skill_burn_heaven"
     ],
     "color": "#FF4500"
   },
@@ -99,7 +129,12 @@
       "intelligence": 2
     },
     "skills": [
-      "skill_basic_attack"
+      "skill_xiaoyao_xinfa",
+      "skill_lingbo_weibu",
+      "skill_xiaoyao_sword",
+      "skill_beiming",
+      "skill_tianshan_liuyang",
+      "skill_bahuang"
     ],
     "color": "#9370DB"
   }

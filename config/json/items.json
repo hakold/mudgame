@@ -10,7 +10,8 @@
         "type": "heal_hp",
         "value": 50
       }
-    ]
+    ],
+    "sellPrice": 20
   },
   {
     "id": "item_hp_potion_medium",
@@ -23,7 +24,8 @@
         "type": "heal_hp",
         "value": 150
       }
-    ]
+    ],
+    "sellPrice": 60
   },
   {
     "id": "item_hp_potion_large",
@@ -36,7 +38,8 @@
         "type": "heal_hp",
         "value": 500
       }
-    ]
+    ],
+    "sellPrice": 160
   },
   {
     "id": "item_mp_potion_small",
@@ -49,7 +52,8 @@
         "type": "heal_mp",
         "value": 30
       }
-    ]
+    ],
+    "sellPrice": 16
   },
   {
     "id": "item_mp_potion_medium",
@@ -62,7 +66,8 @@
         "type": "heal_mp",
         "value": 100
       }
-    ]
+    ],
+    "sellPrice": 48
   },
   {
     "id": "item_mp_potion_large",
@@ -75,7 +80,8 @@
         "type": "heal_mp",
         "value": 300
       }
-    ]
+    ],
+    "sellPrice": 120
   },
   {
     "id": "weapon_wooden_sword",
@@ -87,7 +93,8 @@
     "requireLevel": 1,
     "stats": {
       "attack": 5
-    }
+    },
+    "sellPrice": 40
   },
   {
     "id": "weapon_iron_sword",
@@ -99,7 +106,8 @@
     "requireLevel": 5,
     "stats": {
       "attack": 15
-    }
+    },
+    "sellPrice": 200
   },
   {
     "id": "weapon_steel_sword",
@@ -111,7 +119,8 @@
     "requireLevel": 15,
     "stats": {
       "attack": 30
-    }
+    },
+    "sellPrice": 600
   },
   {
     "id": "weapon_xuantie_sword",
@@ -123,7 +132,8 @@
     "requireLevel": 30,
     "stats": {
       "attack": 60
-    }
+    },
+    "sellPrice": 2000
   },
   {
     "id": "weapon_wolf_sword",
@@ -135,7 +145,8 @@
     "requireLevel": 10,
     "stats": {
       "attack": 25
-    }
+    },
+    "sellPrice": 320
   },
   {
     "id": "weapon_fire_dragon_sword",
@@ -148,7 +159,8 @@
     "stats": {
       "attack": 100
     },
-    "special": "fire_damage"
+    "special": "fire_damage",
+    "sellPrice": 20000
   },
   {
     "id": "armor_cloth",
@@ -160,7 +172,8 @@
     "requireLevel": 1,
     "stats": {
       "defense": 3
-    }
+    },
+    "sellPrice": 20
   },
   {
     "id": "armor_leather",
@@ -172,7 +185,8 @@
     "requireLevel": 5,
     "stats": {
       "defense": 10
-    }
+    },
+    "sellPrice": 120
   },
   {
     "id": "armor_iron",
@@ -184,7 +198,8 @@
     "requireLevel": 15,
     "stats": {
       "defense": 25
-    }
+    },
+    "sellPrice": 400
   },
   {
     "id": "armor_gold_silk",
@@ -196,7 +211,8 @@
     "requireLevel": 30,
     "stats": {
       "defense": 50
-    }
+    },
+    "sellPrice": 2000
   },
   {
     "id": "helmet_cloth",
@@ -208,7 +224,8 @@
     "requireLevel": 1,
     "stats": {
       "defense": 2
-    }
+    },
+    "sellPrice": 12
   },
   {
     "id": "helmet_leather",
@@ -220,7 +237,8 @@
     "requireLevel": 5,
     "stats": {
       "defense": 5
-    }
+    },
+    "sellPrice": 60
   },
   {
     "id": "boots_cloth",
@@ -233,7 +251,8 @@
     "stats": {
       "defense": 1,
       "dexterity": 2
-    }
+    },
+    "sellPrice": 16
   },
   {
     "id": "boots_leather",
@@ -246,210 +265,240 @@
     "stats": {
       "defense": 3,
       "dexterity": 5
-    }
+    },
+    "sellPrice": 80
   },
   {
     "id": "item_rabbit_meat",
     "name": "兔肉",
     "type": "material",
     "description": "新鲜的兔肉，可以食用或出售",
-    "price": 10
+    "price": 10,
+    "sellPrice": 4
   },
   {
     "id": "item_rabbit_fur",
     "name": "兔皮",
     "type": "material",
     "description": "柔软的兔皮，可用于制作",
-    "price": 15
+    "price": 15,
+    "sellPrice": 6
   },
   {
     "id": "item_boar_meat",
     "name": "野猪肉",
     "type": "material",
     "description": "野猪肉，可以食用或出售",
-    "price": 20
+    "price": 20,
+    "sellPrice": 8
   },
   {
     "id": "item_boar_tusk",
     "name": "野猪獠牙",
     "type": "material",
     "description": "锋利的野猪獠牙",
-    "price": 30
+    "price": 30,
+    "sellPrice": 12
   },
   {
     "id": "item_wolf_pelt",
     "name": "狼皮",
     "type": "material",
     "description": "狼的毛皮",
-    "price": 40
+    "price": 40,
+    "sellPrice": 16
   },
   {
     "id": "item_wolf_fang",
     "name": "狼牙",
     "type": "material",
     "description": "锋利的狼牙",
-    "price": 50
+    "price": 50,
+    "sellPrice": 20
   },
   {
     "id": "item_wolf_king_fang",
     "name": "狼王之牙",
     "type": "material",
     "description": "狼王的獠牙，蕴含力量",
-    "price": 200
+    "price": 200,
+    "sellPrice": 80
   },
   {
     "id": "item_snake_venom",
     "name": "蛇毒",
     "type": "material",
     "description": "剧毒的蛇毒",
-    "price": 60
+    "price": 60,
+    "sellPrice": 24
   },
   {
     "id": "item_snake_skin",
     "name": "蛇皮",
     "type": "material",
     "description": "蛇的皮",
-    "price": 35
+    "price": 35,
+    "sellPrice": 14
   },
   {
     "id": "item_bear_pelt",
     "name": "熊皮",
     "type": "material",
     "description": "厚实的熊皮",
-    "price": 80
+    "price": 80,
+    "sellPrice": 32
   },
   {
     "id": "item_bear_gall",
     "name": "熊胆",
     "type": "material",
     "description": "珍贵的熊胆，可入药",
-    "price": 150
+    "price": 150,
+    "sellPrice": 60
   },
   {
     "id": "item_tiger_pelt",
     "name": "虎皮",
     "type": "material",
     "description": "虎皮，价值不菲",
-    "price": 200
+    "price": 200,
+    "sellPrice": 80
   },
   {
     "id": "item_tiger_bone",
     "name": "虎骨",
     "type": "material",
     "description": "虎骨，珍贵药材",
-    "price": 250
+    "price": 250,
+    "sellPrice": 100
   },
   {
     "id": "item_dragon_scale",
     "name": "龙鳞",
     "type": "material",
     "description": "龙的鳞片，极其珍贵",
-    "price": 1000
+    "price": 1000,
+    "sellPrice": 400
   },
   {
     "id": "item_dragon_venom",
     "name": "龙毒",
     "type": "material",
     "description": "毒龙的剧毒",
-    "price": 800
+    "price": 800,
+    "sellPrice": 320
   },
   {
     "id": "item_fire_dragon_scale",
     "name": "火龙鳞",
     "type": "material",
     "description": "火龙的鳞片，蕴含火焰之力",
-    "price": 2000
+    "price": 2000,
+    "sellPrice": 800
   },
   {
     "id": "item_dragon_heart",
     "name": "龙心",
     "type": "material",
     "description": "龙的心脏，传说中的神物",
-    "price": 5000
+    "price": 5000,
+    "sellPrice": 2000
   },
   {
     "id": "item_ice_crystal",
     "name": "冰晶",
     "type": "material",
     "description": "凝结的冰晶",
-    "price": 100
+    "price": 100,
+    "sellPrice": 40
   },
   {
     "id": "item_fire_essence",
     "name": "火精",
     "type": "material",
     "description": "火焰精华",
-    "price": 150
+    "price": 150,
+    "sellPrice": 60
   },
   {
     "id": "item_fairy_dust",
     "name": "仙尘",
     "type": "material",
     "description": "仙兽身上的尘埃",
-    "price": 300
+    "price": 300,
+    "sellPrice": 120
   },
   {
     "id": "item_immortal_pearl",
     "name": "仙珠",
     "type": "material",
     "description": "仙兽内丹",
-    "price": 1000
+    "price": 1000,
+    "sellPrice": 400
   },
   {
     "id": "item_demon_blood",
     "name": "魔血",
     "type": "material",
     "description": "魔族的血液",
-    "price": 200
+    "price": 200,
+    "sellPrice": 80
   },
   {
     "id": "item_dark_crystal",
     "name": "暗晶",
     "type": "material",
     "description": "黑暗力量凝结的晶体",
-    "price": 250
+    "price": 250,
+    "sellPrice": 100
   },
   {
     "id": "item_demon_lord_essence",
     "name": "魔王精华",
     "type": "material",
     "description": "魔王的力量精华",
-    "price": 10000
+    "price": 10000,
+    "sellPrice": 4000
   },
   {
     "id": "item_bandit_loot",
     "name": "山贼赃物",
     "type": "material",
     "description": "山贼抢来的物品",
-    "price": 30
+    "price": 30,
+    "sellPrice": 12
   },
   {
     "id": "item_bandit_token",
     "name": "山贼令牌",
     "type": "material",
     "description": "山贼头目的令牌",
-    "price": 100
+    "price": 100,
+    "sellPrice": 40
   },
   {
     "id": "item_evil_manual",
     "name": "魔教秘籍残页",
     "type": "material",
     "description": "魔教武功秘籍的残页",
-    "price": 150
+    "price": 150,
+    "sellPrice": 60
   },
   {
     "id": "item_ancient_bandage",
     "name": "古老绷带",
     "type": "material",
     "description": "古墓中的绷带",
-    "price": 50
+    "price": 50,
+    "sellPrice": 20
   },
   {
     "id": "item_cursed_gem",
     "name": "诅咒宝石",
     "type": "material",
     "description": "带有诅咒的宝石",
-    "price": 200
+    "price": 200,
+    "sellPrice": 80
   },
   {
     "id": "weapon_bandit_sword",
@@ -461,49 +510,56 @@
     "requireLevel": 1,
     "stats": {
       "attack": 8
-    }
+    },
+    "sellPrice": 32
   },
   {
     "id": "item_blood_stone",
     "name": "血石",
     "type": "material",
     "description": "蕴含血气的奇异石头",
-    "price": 120
+    "price": 120,
+    "sellPrice": 48
   },
   {
     "id": "item_snow_wolf_pelt",
     "name": "雪狼皮",
     "type": "material",
     "description": "雪狼的毛皮，保暖且坚韧",
-    "price": 90
+    "price": 90,
+    "sellPrice": 36
   },
   {
     "id": "item_ice_core",
     "name": "冰晶核心",
     "type": "material",
     "description": "极寒之地的冰晶核心，寒气逼人",
-    "price": 200
+    "price": 200,
+    "sellPrice": 80
   },
   {
     "id": "item_frozen_heart",
     "name": "冰封之心",
     "type": "material",
     "description": "传说中被冰封的远古之心",
-    "price": 500
+    "price": 500,
+    "sellPrice": 200
   },
   {
     "id": "item_toxic_gland",
     "name": "毒腺",
     "type": "material",
     "description": "毒虫的毒腺，含有剧毒",
-    "price": 60
+    "price": 60,
+    "sellPrice": 24
   },
   {
     "id": "item_mutated_skin",
     "name": "变异兽皮",
     "type": "material",
     "description": "变异野兽的皮，异常坚韧",
-    "price": 150
+    "price": 150,
+    "sellPrice": 60
   },
   {
     "id": "weapon_poison_dragon_blade",
@@ -515,42 +571,48 @@
     "requireLevel": 45,
     "stats": {
       "attack": 25
-    }
+    },
+    "sellPrice": 320
   },
   {
     "id": "item_sea_serpent_scale",
     "name": "海蛇鳞片",
     "type": "material",
     "description": "海蛇的鳞片，光滑坚硬",
-    "price": 100
+    "price": 100,
+    "sellPrice": 40
   },
   {
     "id": "item_coral_gem",
     "name": "珊瑚宝石",
     "type": "material",
     "description": "海底珊瑚凝结的宝石，色彩斑斓",
-    "price": 180
+    "price": 180,
+    "sellPrice": 72
   },
   {
     "id": "item_magma_core",
     "name": "熔岩核心",
     "type": "material",
     "description": "从熔岩中提取的核心，灼热无比",
-    "price": 250
+    "price": 250,
+    "sellPrice": 100
   },
   {
     "id": "item_guard_badge",
     "name": "守卫徽章",
     "type": "material",
     "description": "城池守卫的身份徽章",
-    "price": 50
+    "price": 50,
+    "sellPrice": 20
   },
   {
     "id": "item_royal_token",
     "name": "皇家令牌",
     "type": "material",
     "description": "皇家颁发的令牌，见令如见君",
-    "price": 300
+    "price": 300,
+    "sellPrice": 120
   },
   {
     "id": "weapon_demon_blade",
@@ -562,7 +624,8 @@
     "requireLevel": 55,
     "stats": {
       "attack": 35
-    }
+    },
+    "sellPrice": 400
   },
   {
     "id": "armor_demon_armor",
@@ -574,21 +637,24 @@
     "requireLevel": 55,
     "stats": {
       "defense": 30
-    }
+    },
+    "sellPrice": 360
   },
   {
     "id": "item_scorpion_tail",
     "name": "蝎尾针",
     "type": "material",
     "description": "沙漠毒蝎的尾针，含有剧毒",
-    "price": 70
+    "price": 70,
+    "sellPrice": 28
   },
   {
     "id": "item_scorpion_venom",
     "name": "蝎毒",
     "type": "material",
     "description": "提炼自蝎尾的剧毒，可入药亦可制毒",
-    "price": 100
+    "price": 100,
+    "sellPrice": 40
   },
   {
     "id": "item_herb",
@@ -601,7 +667,8 @@
         "type": "heal_hp",
         "value": 20
       }
-    ]
+    ],
+    "sellPrice": 6
   },
   {
     "id": "item_iron_ore",
@@ -660,5 +727,225 @@
       "current": 80,
       "max": 80
     }
+  },
+  {
+    "id": "item_mushroom",
+    "name": "蘑菇",
+    "type": "material",
+    "description": "野生蘑菇，可用于烹饪和炼药",
+    "price": 8,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 3
+  },
+  {
+    "id": "item_ginseng",
+    "name": "山参",
+    "type": "material",
+    "description": "珍贵的野生人参，大补之物",
+    "price": 80,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 32
+  },
+  {
+    "id": "item_fish",
+    "name": "鲜鱼",
+    "type": "material",
+    "description": "新鲜的河鱼，可用于烹饪",
+    "price": 12,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 4
+  },
+  {
+    "id": "item_desert_herb",
+    "name": "沙漠药草",
+    "type": "material",
+    "description": "沙漠中生长的稀有药草",
+    "price": 60,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 24
+  },
+  {
+    "id": "item_snow_lotus",
+    "name": "雪莲",
+    "type": "material",
+    "description": "雪山之巅的雪莲，极珍贵药材",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_bamboo",
+    "name": "竹子",
+    "type": "material",
+    "description": "青竹，可用于制作各种器物",
+    "price": 5,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 2
+  },
+  {
+    "id": "item_antidote",
+    "name": "解毒丹",
+    "type": "consumable",
+    "description": "解除中毒状态",
+    "price": 100,
+    "effects": [
+      {
+        "type": "cure_poison",
+        "value": 1
+      }
+    ],
+    "sellPrice": 40
+  },
+  {
+    "id": "item_strength_pill",
+    "name": "力量丹",
+    "type": "consumable",
+    "description": "临时提升力量10点，持续10回合",
+    "price": 300,
+    "effects": [
+      {
+        "type": "buff",
+        "stat": "strength",
+        "value": 10,
+        "duration": 10
+      }
+    ],
+    "sellPrice": 120
+  },
+  {
+    "id": "item_grilled_fish",
+    "name": "烤鱼",
+    "type": "consumable",
+    "description": "香喷喷的烤鱼，恢复HP 30",
+    "price": 20,
+    "effects": [
+      {
+        "type": "heal_hp",
+        "value": 30
+      }
+    ],
+    "sellPrice": 8
+  },
+  {
+    "id": "item_roast_meat",
+    "name": "烤肉",
+    "type": "consumable",
+    "description": "烤制的新鲜肉块，恢复HP 50",
+    "price": 35,
+    "effects": [
+      {
+        "type": "heal_hp",
+        "value": 50
+      }
+    ],
+    "sellPrice": 14
+  },
+  {
+    "id": "item_meat_stew",
+    "name": "肉汤",
+    "type": "consumable",
+    "description": "滋补肉汤，恢复HP 80和MP 30",
+    "price": 60,
+    "effects": [
+      {
+        "type": "heal_hp",
+        "value": 80
+      },
+      {
+        "type": "heal_mp",
+        "value": 30
+      }
+    ],
+    "sellPrice": 24
+  },
+  {
+    "id": "item_herb_soup",
+    "name": "药膳汤",
+    "type": "consumable",
+    "description": "药膳滋补汤，恢复HP 200",
+    "price": 120,
+    "effects": [
+      {
+        "type": "heal_hp",
+        "value": 200
+      }
+    ],
+    "sellPrice": 48
+  },
+  {
+    "id": "item_bear_paw_feast",
+    "name": "红烧熊掌",
+    "type": "consumable",
+    "description": "珍馐熊掌，恢复HP 150并临时提升力量5点",
+    "price": 250,
+    "effects": [
+      {
+        "type": "heal_hp",
+        "value": 150
+      },
+      {
+        "type": "buff",
+        "stat": "strength",
+        "value": 5,
+        "duration": 10
+      }
+    ],
+    "sellPrice": 100
+  },
+  {
+    "id": "item_tiger_bone_soup",
+    "name": "虎骨汤",
+    "type": "consumable",
+    "description": "虎骨熬制的强身汤，恢复HP 200并临时提升体质10点",
+    "price": 350,
+    "effects": [
+      {
+        "type": "heal_hp",
+        "value": 200
+      },
+      {
+        "type": "buff",
+        "stat": "constitution",
+        "value": 10,
+        "duration": 10
+      }
+    ],
+    "sellPrice": 140
+  },
+  {
+    "id": "item_dragon_feast",
+    "name": "龙肉盛宴",
+    "type": "consumable",
+    "description": "绝世珍馐，恢复HP 500、MP 300，全面提升属性",
+    "price": 1000,
+    "effects": [
+      {
+        "type": "heal_hp",
+        "value": 500
+      },
+      {
+        "type": "heal_mp",
+        "value": 300
+      },
+      {
+        "type": "buff",
+        "stat": "strength",
+        "value": 15,
+        "duration": 15
+      },
+      {
+        "type": "buff",
+        "stat": "constitution",
+        "value": 10,
+        "duration": 15
+      }
+    ],
+    "sellPrice": 400
   }
 ]

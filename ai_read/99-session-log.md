@@ -13,6 +13,22 @@ Suggested format:
 - Remaining risks:
 ```
 
+## 2026-05-18 (Phase 7-8 Completion)
+- Goal: Complete all remaining Phase 7-8 features, fix bugs, record progress.
+- Changes:
+  - 7.1 门派技能树: Added 35 new faction skills (89 total), updated factions.json skill lists. Skills have rank requirements and diverse effects.
+  - 7.2 门派任务链: Socket handlers for accept_faction_quest, complete_faction_quest, list_faction_quests. Daily reset + rank gating.
+  - 7.3 副本系统: instanceService with 5 dungeons (trial/explore/boss), dungeon config, socket handlers for enter/nextWave/complete/leave.
+  - 7.4 帮派系统: Gang model + gangService. Create/join/leave/donate/warehouse/chat. Socket handlers for all operations.
+  - 7.5 生活技能: craftService (gathering 10 nodes, alchemy 8 recipes, cooking 7 recipes). 15 new items. Socket handlers for gather/alchemy/cooking.
+  - 8.1 拍卖行: Auction model + auctionService. List (5% fee), search, buy (5% tax), cancel. Auto-expiry cleanup every 5 min.
+  - 8.2/8.3 经济/数值平衡: Gold normalized to exp×0.5, sell prices added to all items, monster stat curves verified.
+  - 8.4 每日活跃: Daily model + dailyService. Check-in streak (7 days), 6 daily tasks, activity rewards at 30/60/100 points. Progress triggers wired at 5 gameplay points.
+  - Bug fixes: Dungeon monster ID references fixed, gathering socket handler availability check fixed, Gang model duplicate index removed.
+- Files: 4 new models (Daily, Auction, Gang + Gang update), 5 new services, 4 new configs, socket/index.js heavily extended (~400 lines added), skills.json (+35 skills), factions.json (updated), items.json (+15 items), monsters.json (balance), roadmap/current-state updated.
+- Validation: All server modules load without errors. Socket module loads. Dungeon monster references verified.
+- Remaining risks: Client UI not yet updated for new Phase 7-8 features. New skill effects (hpRegen, healBonus, attackBonus, dodgeChance, mpSteal) not implemented in battle service yet (skills still functional at basic level).
+
 ## 2026-05-14 12:10
 - Goal: establish a reliable AI collaboration reading area in the repository root.
 - Changes: created `ai_read` folder with overview, current-state, known-issues, roadmap, and this session log.

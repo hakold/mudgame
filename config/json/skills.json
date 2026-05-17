@@ -701,5 +701,582 @@
       "reflectDamage": 10,
       "duration": 3
     }
+  },
+  {
+    "id": "skill_shaolin_staff",
+    "name": "少林棍法",
+    "type": "attack",
+    "description": "少林七十二绝技之棍法，刚猛有力",
+    "faction": "shaolin",
+    "requireLevel": 10,
+    "rankRequired": "disciple",
+    "mpCost": 20,
+    "cooldown": 2,
+    "damage": [
+      30,
+      50
+    ],
+    "learnPrice": 800
+  },
+  {
+    "id": "skill_golden_bell",
+    "name": "金钟罩",
+    "type": "buff",
+    "description": "少林护体神功，大幅提升防御",
+    "faction": "shaolin",
+    "requireLevel": 20,
+    "rankRequired": "disciple",
+    "mpCost": 40,
+    "cooldown": 8,
+    "buff": {
+      "defense": 40,
+      "duration": 4
+    },
+    "learnPrice": 2000
+  },
+  {
+    "id": "skill_lion_roar",
+    "name": "狮子吼",
+    "type": "debuff",
+    "description": "佛门狮子吼，震慑敌人降低攻击",
+    "faction": "shaolin",
+    "requireLevel": 25,
+    "rankRequired": "deacon",
+    "mpCost": 50,
+    "cooldown": 6,
+    "debuff": {
+      "attack": -25,
+      "duration": 3
+    },
+    "fearChance": 0.3,
+    "learnPrice": 3000
+  },
+  {
+    "id": "skill_damo_sword",
+    "name": "达摩剑法",
+    "type": "attack",
+    "description": "少林达摩祖师所创剑法，威力无穷",
+    "faction": "shaolin",
+    "requireLevel": 35,
+    "rankRequired": "elder",
+    "mpCost": 60,
+    "cooldown": 3,
+    "damage": [
+      80,
+      130
+    ],
+    "learnPrice": 6000
+  },
+  {
+    "id": "skill_xisuijing",
+    "name": "洗髓经",
+    "type": "passive",
+    "description": "少林无上内功，战斗中持续恢复生命",
+    "faction": "shaolin",
+    "requireLevel": 40,
+    "rankRequired": "elder",
+    "hpRegen": 30,
+    "learnPrice": 8000
+  },
+  {
+    "id": "skill_shaolin_divine",
+    "name": "如来神掌",
+    "type": "attack",
+    "description": "少林镇派绝学，惊天动地的一掌",
+    "faction": "shaolin",
+    "requireLevel": 50,
+    "rankRequired": "leader",
+    "mpCost": 120,
+    "cooldown": 5,
+    "damage": [
+      150,
+      250
+    ],
+    "stunChance": 0.3,
+    "learnPrice": 15000
+  },
+  {
+    "id": "skill_wudang_xinfa",
+    "name": "武当心法",
+    "type": "passive",
+    "description": "武当内功心法，战斗中持续恢复内力",
+    "faction": "wudang",
+    "requireLevel": 10,
+    "rankRequired": "disciple",
+    "mpRegen": 8,
+    "learnPrice": 800
+  },
+  {
+    "id": "skill_liangyi_sword",
+    "name": "两仪剑法",
+    "type": "attack",
+    "description": "武当两仪剑法，阴阳相济",
+    "faction": "wudang",
+    "requireLevel": 20,
+    "rankRequired": "disciple",
+    "mpCost": 35,
+    "cooldown": 2,
+    "damage": [
+      50,
+      80
+    ],
+    "learnPrice": 2000
+  },
+  {
+    "id": "skill_taiji_jin",
+    "name": "太极劲",
+    "type": "buff",
+    "description": "太极内劲运转全身，攻防一体",
+    "faction": "wudang",
+    "requireLevel": 30,
+    "rankRequired": "deacon",
+    "mpCost": 60,
+    "cooldown": 8,
+    "buff": {
+      "attack": 30,
+      "defense": 30,
+      "duration": 5
+    },
+    "learnPrice": 4000
+  },
+  {
+    "id": "skill_chunyang",
+    "name": "纯阳功",
+    "type": "heal",
+    "description": "武当纯阳无极功，治疗内伤",
+    "faction": "wudang",
+    "requireLevel": 35,
+    "rankRequired": "elder",
+    "mpCost": 70,
+    "cooldown": 6,
+    "heal": [
+      150,
+      300
+    ],
+    "learnPrice": 5000
+  },
+  {
+    "id": "skill_zhenwu_sword",
+    "name": "真武七截剑",
+    "type": "attack",
+    "description": "武当镇派剑法，真武大帝所传",
+    "faction": "wudang",
+    "requireLevel": 45,
+    "rankRequired": "leader",
+    "mpCost": 100,
+    "cooldown": 4,
+    "damage": [
+      130,
+      220
+    ],
+    "counterChance": 0.25,
+    "learnPrice": 12000
+  },
+  {
+    "id": "skill_emei_xinfa",
+    "name": "峨眉心法",
+    "type": "passive",
+    "description": "峨眉内功心法，提升治疗效果",
+    "faction": "emei",
+    "requireLevel": 8,
+    "rankRequired": "disciple",
+    "healBonus": 0.2,
+    "learnPrice": 500
+  },
+  {
+    "id": "skill_yunv_sword",
+    "name": "玉女剑法",
+    "type": "attack",
+    "description": "峨眉玉女剑法，轻盈灵动",
+    "faction": "emei",
+    "requireLevel": 15,
+    "rankRequired": "disciple",
+    "mpCost": 25,
+    "cooldown": 2,
+    "damage": [
+      35,
+      60
+    ],
+    "learnPrice": 1500
+  },
+  {
+    "id": "skill_jinding_light",
+    "name": "金顶佛光",
+    "type": "buff",
+    "description": "峨眉绝学，佛光护体提升防御与闪避",
+    "faction": "emei",
+    "requireLevel": 25,
+    "rankRequired": "deacon",
+    "mpCost": 50,
+    "cooldown": 8,
+    "buff": {
+      "defense": 30,
+      "dexterity": 30,
+      "duration": 4
+    },
+    "learnPrice": 3000
+  },
+  {
+    "id": "skill_emei_thorn",
+    "name": "峨眉刺",
+    "type": "attack",
+    "description": "峨眉独门兵器，造成流血伤害",
+    "faction": "emei",
+    "requireLevel": 30,
+    "rankRequired": "deacon",
+    "mpCost": 45,
+    "cooldown": 3,
+    "damage": [
+      60,
+      100
+    ],
+    "dotDamage": 20,
+    "dotDuration": 3,
+    "learnPrice": 4000
+  },
+  {
+    "id": "skill_mercy_palm",
+    "name": "大慈大悲掌",
+    "type": "attack",
+    "description": "峨眉掌法，攻中带疗",
+    "faction": "emei",
+    "requireLevel": 35,
+    "rankRequired": "elder",
+    "mpCost": 60,
+    "cooldown": 4,
+    "damage": [
+      70,
+      120
+    ],
+    "healPercent": 0.3,
+    "learnPrice": 5000
+  },
+  {
+    "id": "skill_jiutian_xuangong",
+    "name": "九天玄功",
+    "type": "heal",
+    "description": "峨眉至高心法，起死回生",
+    "faction": "emei",
+    "requireLevel": 40,
+    "rankRequired": "elder",
+    "mpCost": 100,
+    "cooldown": 5,
+    "heal": [
+      300,
+      500
+    ],
+    "learnPrice": 8000
+  },
+  {
+    "id": "skill_emei_divine",
+    "name": "天罗地网式",
+    "type": "attack",
+    "description": "峨眉镇派绝学，剑气如网",
+    "faction": "emei",
+    "requireLevel": 50,
+    "rankRequired": "leader",
+    "mpCost": 130,
+    "cooldown": 4,
+    "damage": [
+      140,
+      240
+    ],
+    "stunChance": 0.2,
+    "dotDamage": 30,
+    "dotDuration": 3,
+    "learnPrice": 15000
+  },
+  {
+    "id": "skill_gaibang_xinfa",
+    "name": "丐帮心法",
+    "type": "passive",
+    "description": "丐帮独门心法，战斗中提升攻击",
+    "faction": "gaibang",
+    "requireLevel": 8,
+    "rankRequired": "disciple",
+    "attackBonus": 10,
+    "learnPrice": 500
+  },
+  {
+    "id": "skill_lotus_palm",
+    "name": "莲花掌",
+    "type": "attack",
+    "description": "丐帮莲花掌法，招式精妙",
+    "faction": "gaibang",
+    "requireLevel": 15,
+    "rankRequired": "disciple",
+    "mpCost": 30,
+    "cooldown": 2,
+    "damage": [
+      40,
+      70
+    ],
+    "learnPrice": 1500
+  },
+  {
+    "id": "skill_drunken_fist",
+    "name": "醉拳",
+    "type": "attack",
+    "description": "丐帮醉拳，身形飘忽闪避提升",
+    "faction": "gaibang",
+    "requireLevel": 20,
+    "rankRequired": "disciple",
+    "mpCost": 35,
+    "cooldown": 3,
+    "damage": [
+      45,
+      80
+    ],
+    "dodgeChance": 0.25,
+    "learnPrice": 2500
+  },
+  {
+    "id": "skill_gaibang_formation",
+    "name": "打狗阵法",
+    "type": "buff",
+    "description": "丐帮打狗阵法，大幅提升攻击力",
+    "faction": "gaibang",
+    "requireLevel": 30,
+    "rankRequired": "deacon",
+    "mpCost": 60,
+    "cooldown": 8,
+    "buff": {
+      "attack": 50,
+      "duration": 4
+    },
+    "learnPrice": 4000
+  },
+  {
+    "id": "skill_kanglong",
+    "name": "亢龙有悔",
+    "type": "attack",
+    "description": "降龙十八掌最强一式，毁天灭地",
+    "faction": "gaibang",
+    "requireLevel": 45,
+    "rankRequired": "elder",
+    "mpCost": 120,
+    "cooldown": 4,
+    "damage": [
+      160,
+      260
+    ],
+    "stunChance": 0.3,
+    "learnPrice": 12000
+  },
+  {
+    "id": "skill_dragon_subdue",
+    "name": "降龙伏虎",
+    "type": "attack",
+    "description": "丐帮镇派绝学，龙虎之力合一",
+    "faction": "gaibang",
+    "requireLevel": 55,
+    "rankRequired": "leader",
+    "mpCost": 150,
+    "cooldown": 5,
+    "damage": [
+      200,
+      350
+    ],
+    "fearChance": 0.2,
+    "stunChance": 0.2,
+    "learnPrice": 18000
+  },
+  {
+    "id": "skill_mingjiao_xinfa",
+    "name": "明教心法",
+    "type": "passive",
+    "description": "明教内功心法，提升攻击力",
+    "faction": "mingjiao",
+    "requireLevel": 10,
+    "rankRequired": "disciple",
+    "attackBonus": 12,
+    "learnPrice": 800
+  },
+  {
+    "id": "skill_blazing_blade",
+    "name": "烈焰刀",
+    "type": "attack",
+    "description": "明教烈焰刀法，焚尽万物",
+    "faction": "mingjiao",
+    "requireLevel": 15,
+    "rankRequired": "disciple",
+    "mpCost": 30,
+    "cooldown": 2,
+    "damage": [
+      35,
+      60
+    ],
+    "burnDamage": 15,
+    "burnDuration": 2,
+    "learnPrice": 1500
+  },
+  {
+    "id": "skill_holy_flame_order",
+    "name": "圣火令",
+    "type": "buff",
+    "description": "明教圣火令，提升攻击与速度",
+    "faction": "mingjiao",
+    "requireLevel": 25,
+    "rankRequired": "deacon",
+    "mpCost": 50,
+    "cooldown": 7,
+    "buff": {
+      "attack": 35,
+      "dexterity": 25,
+      "duration": 4
+    },
+    "learnPrice": 3000
+  },
+  {
+    "id": "skill_light_fist",
+    "name": "光明拳",
+    "type": "attack",
+    "description": "明教光明拳法，刚猛无匹",
+    "faction": "mingjiao",
+    "requireLevel": 40,
+    "rankRequired": "elder",
+    "mpCost": 80,
+    "cooldown": 3,
+    "damage": [
+      100,
+      170
+    ],
+    "stunChance": 0.15,
+    "learnPrice": 7000
+  },
+  {
+    "id": "skill_burn_heaven",
+    "name": "焚天诀",
+    "type": "attack",
+    "description": "明教至高武学，烈焰焚天",
+    "faction": "mingjiao",
+    "requireLevel": 50,
+    "rankRequired": "leader",
+    "mpCost": 150,
+    "cooldown": 4,
+    "damage": [
+      180,
+      300
+    ],
+    "burnDamage": 50,
+    "burnDuration": 4,
+    "learnPrice": 16000
+  },
+  {
+    "id": "skill_xiaoyao_xinfa",
+    "name": "逍遥心法",
+    "type": "passive",
+    "description": "逍遥派内功心法，提升悟性与敏捷",
+    "faction": "xiaoyao",
+    "requireLevel": 15,
+    "rankRequired": "disciple",
+    "buff": {
+      "intelligence": 10,
+      "dexterity": 10,
+      "duration": 999
+    },
+    "learnPrice": 2000
+  },
+  {
+    "id": "skill_lingbo_weibu",
+    "name": "凌波微步",
+    "type": "buff",
+    "description": "逍遥派绝世轻功，闪避大幅提升",
+    "faction": "xiaoyao",
+    "requireLevel": 20,
+    "rankRequired": "disciple",
+    "mpCost": 50,
+    "cooldown": 6,
+    "buff": {
+      "dexterity": 60,
+      "duration": 4
+    },
+    "learnPrice": 3000
+  },
+  {
+    "id": "skill_beiming",
+    "name": "北冥神功",
+    "type": "attack",
+    "description": "逍遥派北冥神功，吸取敌人内力",
+    "faction": "xiaoyao",
+    "requireLevel": 30,
+    "rankRequired": "deacon",
+    "mpCost": 60,
+    "cooldown": 4,
+    "damage": [
+      60,
+      110
+    ],
+    "mpSteal": 30,
+    "learnPrice": 5000
+  },
+  {
+    "id": "skill_xiaoyao_sword",
+    "name": "逍遥剑法",
+    "type": "attack",
+    "description": "逍遥派剑法，潇洒飘逸",
+    "faction": "xiaoyao",
+    "requireLevel": 25,
+    "rankRequired": "deacon",
+    "mpCost": 40,
+    "cooldown": 2,
+    "damage": [
+      55,
+      95
+    ],
+    "learnPrice": 3500
+  },
+  {
+    "id": "skill_tianshan_liuyang",
+    "name": "天山六阳掌",
+    "type": "attack",
+    "description": "逍遥派至高掌法，变化无穷",
+    "faction": "xiaoyao",
+    "requireLevel": 40,
+    "rankRequired": "elder",
+    "mpCost": 90,
+    "cooldown": 3,
+    "damage": [
+      120,
+      200
+    ],
+    "burnDamage": 25,
+    "burnDuration": 3,
+    "learnPrice": 8000
+  },
+  {
+    "id": "skill_bahuang",
+    "name": "八荒六合唯我独尊功",
+    "type": "buff",
+    "description": "逍遥派镇派绝学，全方位提升",
+    "faction": "xiaoyao",
+    "requireLevel": 50,
+    "rankRequired": "leader",
+    "mpCost": 150,
+    "cooldown": 10,
+    "buff": {
+      "attack": 60,
+      "defense": 40,
+      "dexterity": 40,
+      "constitution": 30,
+      "duration": 5
+    },
+    "learnPrice": 20000
+  },
+  {
+    "id": "skill_fenyin_bu",
+    "name": "焚影步",
+    "type": "buff",
+    "description": "明教独门身法，如影随形",
+    "faction": "mingjiao",
+    "requireLevel": 30,
+    "rankRequired": "deacon",
+    "mpCost": 45,
+    "cooldown": 6,
+    "buff": {
+      "dexterity": 50,
+      "duration": 3
+    },
+    "learnPrice": 4000
   }
 ]
