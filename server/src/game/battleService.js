@@ -59,7 +59,12 @@ class BattleService {
       mpCost: config.mpCost || 0,
       cooldown: config.cooldown || 0,
       counterChance: config.counterChance || 0,
-      mpRegen: config.mpRegen || 0
+      mpRegen: config.mpRegen || 0,
+      hpRegen: config.hpRegen || 0,
+      dodgeChance: config.dodgeChance || 0,
+      mpSteal: config.mpSteal || 0,
+      healBonus: config.healBonus || 0,
+      attackBonus: config.attackBonus || 0
     };
   }
 
@@ -72,34 +77,52 @@ class BattleService {
   // 应用被动技能（战斗开始时自动激活持久buff和mpRegen）
   // 同时检查所有已学技能的counterChance
   applyPassiveSkills(participant) {
+    participant._passiveHealBonus = 0;
+
     for (const skill of participant.skills || []) {
       if (!skill) continue;
 
-      // 被动技能：buff效果和mpRegen
+      // 被动技能：buff效果、mpRegen、hpRegen、attackBonus
       if (skill.type === 'passive') {
         // 被动buff效果（如易筋经提升体质）
         if (skill.buff) {
           const effect = this.createModifierEffect(skill.name, 'passive_buff', skill.buff, 999);
           effect.tick = 'start';
           effect.duration = 999;
-          // 如果有mpRegen，附加到效果上
-          if (skill.mpRegen) {
-            effect.mpRegen = skill.mpRegen;
-          }
+          if (skill.mpRegen) effect.mpRegen = skill.mpRegen;
+          if (skill.hpRegen) effect.hpRegen = skill.hpRegen;
           participant.statusEffects.push(effect);
           this.recalculateParticipantState(participant);
         }
 
-        // 被动技能只有mpRegen没有buff（如冥想）
-        if (!skill.buff && skill.mpRegen) {
+        // 被动技能只有再生没有buff（如冥想、洗髓经）
+        if (!skill.buff && (skill.mpRegen || skill.hpRegen)) {
           participant.statusEffects.push({
-            type: 'passive_mp_regen',
+            type: 'passive_regen',
             name: skill.name,
             duration: 999,
             tick: 'start',
-            mpRegen: skill.mpRegen,
+            mpRegen: skill.mpRegen || 0,
+            hpRegen: skill.hpRegen || 0,
             modifiers: {}
           });
+        }
+
+        // 被动攻击加成（如丐帮心法）
+        if (skill.attackBonus && !skill.buff) {
+          participant.statusEffects.push({
+            type: 'passive_attack',
+            name: skill.name,
+            duration: 999,
+            tick: 'start',
+            modifiers: { attack: skill.attackBonus }
+          });
+          this.recalculateParticipantState(participant);
+        }
+
+        // 被动治疗加成（如峨眉心法）
+        if (skill.healBonus) {
+          participant._passiveHealBonus = (participant._passiveHealBonus || 0) + skill.healBonus;
         }
       }
 
@@ -219,6 +242,13 @@ class BattleService {
         result.effectMessages.push(`${participant.name} 的「${effect.name}」生效，恢复了 ${effect.mpRegen} 点MP。`);
       }
 
+      // 被动技能：HP回复（如洗髓经）
+      if (effect.hpRegen > 0) {
+        participant.hp = Math.min((participant.maxHp || participant.hp || 0), (participant.hp || 0) + effect.hpRegen);
+        result.effectMessages = result.effectMessages || [];
+        result.effectMessages.push(`${participant.name} 的「${effect.name}」生效，恢复了 ${effect.hpRegen} 点HP。`);
+      }
+
       if (effect.skipTurn && !skipped) {
         skipped = true;
         result.effectMessages = result.effectMessages || [];
@@ -284,6 +314,24 @@ class BattleService {
       attacker.hp = this.clamp(attacker.hp + healed, 0, attacker.maxHp);
       result.effectMessages = result.effectMessages || [];
       result.effectMessages.push(`${attacker.name} 从 ${skill.name} 中吸取了 ${healed} 点HP。`);
+    }
+
+    // MP吸取（如北冥神功）
+    if (skill.mpSteal > 0 && dealtDamage > 0) {
+      const stolen = Math.min(defender.mp || 0, skill.mpSteal);
+      if (stolen > 0) {
+        defender.mp = Math.max(0, (defender.mp || 0) - stolen);
+        attacker.mp = Math.min((attacker.maxMp || attacker.mp || 0), (attacker.mp || 0) + stolen);
+        result.effectMessages = result.effectMessages || [];
+        result.effectMessages.push(`${attacker.name} 从 ${skill.name} 中吸取了 ${stolen} 点MP。`);
+      }
+    }
+
+    // 闪避提升buff（如醉拳的dodgeChance会临时提升闪避）
+    if (skill.dodgeChance > 0) {
+      attacker.dodge = (attacker.dodge || 0) + Math.floor(skill.dodgeChance * 100);
+      result.effectMessages = result.effectMessages || [];
+      result.effectMessages.push(`${attacker.name} 身形飘忽，闪避提升！`);
     }
 
     if (skill.poisonDamage > 0 && skill.poisonDuration > 0) {
@@ -676,7 +724,11 @@ class BattleService {
       result.remainingMp = attacker.mp;
 
       if (skill.type === 'heal') {
-        const healAmount = this.rollRange(skill.healRange, Math.max(10, Math.floor(attacker.attack * 0.5)));
+        let healAmount = this.rollRange(skill.healRange, Math.max(10, Math.floor(attacker.attack * 0.5)));
+        // 被动治疗加成（如峨眉心法）
+        if (attacker._passiveHealBonus > 0) {
+          healAmount = Math.floor(healAmount * (1 + attacker._passiveHealBonus));
+        }
         attacker.hp = this.clamp(attacker.hp + healAmount, 0, attacker.maxHp);
         result.healed = healAmount;
         result.defender = attacker.name;
