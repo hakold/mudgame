@@ -11,7 +11,10 @@
       "quest_accepted": "太好了！去森林入口看看吧。",
       "quest_completed": "辛苦了！这是给你的报酬。"
     },
-    "quests": ["quest_talk_chief", "quest_kill_boars"]
+    "quests": [
+      "quest_talk_chief",
+      "quest_kill_boars"
+    ]
   },
   {
     "id": "npc_innkeeper",
@@ -19,7 +22,10 @@
     "description": "客栈的老板，热情好客。",
     "roomId": "village_inn",
     "type": "service",
-    "services": ["rest", "rumor"],
+    "services": [
+      "rest",
+      "rumor"
+    ],
     "dialogues": {
       "greeting": "欢迎光临！要住店还是打听消息？",
       "rest": "一间房50金币，可以恢复全部HP和MP。",
@@ -33,7 +39,10 @@
     "roomId": "village_blacksmith",
     "type": "shop",
     "shopType": "weapon",
-    "items": ["weapon_wooden_sword", "weapon_iron_sword"],
+    "items": [
+      "weapon_wooden_sword",
+      "weapon_iron_sword"
+    ],
     "dialogues": {
       "greeting": "要打造武器还是修理装备？",
       "buy": "看看这些武器，都是我亲手打造的。",
@@ -47,7 +56,13 @@
     "roomId": "village_shop",
     "type": "shop",
     "shopType": "general",
-    "items": ["item_hp_potion_small", "item_mp_potion_small", "armor_cloth", "helmet_cloth", "boots_cloth"],
+    "items": [
+      "item_hp_potion_small",
+      "item_mp_potion_small",
+      "armor_cloth",
+      "helmet_cloth",
+      "boots_cloth"
+    ],
     "dialogues": {
       "greeting": "要买点什么？",
       "buy": "这里都是日常用品，价格实惠。",
@@ -60,7 +75,11 @@
     "description": "练武场的教头，可以指导新手。",
     "roomId": "village_training",
     "type": "trainer",
-    "skills": ["skill_basic_attack", "skill_heal_basic", "skill_meditation"],
+    "skills": [
+      "skill_basic_attack",
+      "skill_heal_basic",
+      "skill_meditation"
+    ],
     "dialogues": {
       "greeting": "年轻人，想学武功吗？",
       "learn": "我可以教你一些基础功夫。",
@@ -99,7 +118,11 @@
     "description": "侠客公会管理员，负责发布任务。",
     "roomId": "city_guild",
     "type": "quest_giver",
-    "quests": ["quest_city_guild", "quest_bandit_bounty", "quest_side_bandit_clear"],
+    "quests": [
+      "quest_city_guild",
+      "quest_bandit_bounty",
+      "quest_side_bandit_clear"
+    ],
     "dialogues": {
       "greeting": "欢迎来到侠客公会，有什么任务要接？",
       "quest_list": "这里有一些任务可以接取。",
@@ -129,5 +152,100 @@
       "greeting": "有缘人，你终于来了。",
       "default": "世间万物，皆有定数。"
     }
+  },
+  {
+    "id": "npc_shaolin_abbot",
+    "name": "方证大师",
+    "description": "少林寺方丈，佛法精深",
+    "type": "trainer",
+    "roomId": "shaolin_temple",
+    "services": [
+      "train",
+      "learn_skill"
+    ],
+    "skills": [
+      "skill_shaolin_fist",
+      "skill_shaolin_palm"
+    ]
+  },
+  {
+    "id": "npc_wudang_master",
+    "name": "张三丰",
+    "description": "武当派创始人，仙风道骨",
+    "type": "trainer",
+    "roomId": "wudang_peak",
+    "services": [
+      "train",
+      "learn_skill"
+    ],
+    "skills": [
+      "skill_wudang_fist",
+      "skill_wudang_sword"
+    ]
+  },
+  {
+    "id": "npc_emei_abbess",
+    "name": "灭绝师太",
+    "description": "峨眉派掌门，性格刚烈",
+    "type": "trainer",
+    "roomId": "emei_temple",
+    "services": [
+      "train",
+      "learn_skill"
+    ],
+    "skills": [
+      "skill_emei_sword",
+      "skill_jiuyang"
+    ]
+  },
+  {
+    "id": "npc_gaibang_leader",
+    "name": "洪七公",
+    "description": "丐帮帮主，武功盖世",
+    "type": "trainer",
+    "roomId": "city_tavern",
+    "services": [
+      "train",
+      "learn_skill"
+    ],
+    "skills": [
+      "skill_gaibang_stick",
+      "skill_xianglong"
+    ]
+  },
+  {
+    "id": "npc_guard_captain",
+    "name": "守卫队长",
+    "description": "守卫边疆的将军",
+    "type": "quest_giver",
+    "roomId": "mountain_path",
+    "services": [],
+    "quests": [
+      "dungeon_bandit_cave"
+    ]
+  },
+  {
+    "id": "npc_old_hermit",
+    "name": "隐士老者",
+    "description": "隐居山林的神秘老者",
+    "type": "quest_giver",
+    "roomId": "deep_forest",
+    "services": [],
+    "quests": [
+      "dungeon_forest_maze",
+      "dungeon_dragon_lair",
+      "dungeon_ice_cave"
+    ]
+  },
+  {
+    "id": "npc_hunter",
+    "name": "猎户",
+    "description": "山林中的猎户，熟悉猛兽习性",
+    "type": "quest_giver",
+    "roomId": "deep_forest",
+    "services": [],
+    "quests": [
+      "dungeon_tiger_den"
+    ]
   }
 ]

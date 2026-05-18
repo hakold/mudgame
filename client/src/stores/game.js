@@ -19,6 +19,14 @@ export const useGameStore = defineStore('game', () => {
   const gameConfig = ref(null)
   const isDead = ref(false)
   const roomDrops = ref([])
+  const battleLogList = ref([])
+  const battleLogDetail = ref(null)
+  const onlinePlayers = ref([])
+  const activeTrade = ref(null)
+  const pvpChallenge = ref(null)
+  const achievements = ref({ achieved: [], available: [] })
+  const forgeRecipes = ref([])
+  const timeInfo = ref(null)
   
   // 计算属性
   const isLoggedIn = computed(() => !!token.value && !!user.value)
@@ -472,15 +480,6 @@ export const useGameStore = defineStore('game', () => {
       await refreshCurrentUser()
     })
   }
-  
-  const battleLogList = ref([])
-  const battleLogDetail = ref(null)
-  const onlinePlayers = ref([])
-  const activeTrade = ref(null)
-  const pvpChallenge = ref(null)
-  const achievements = ref({ achieved: [], available: [] })
-  const forgeRecipes = ref([])
-  const timeInfo = ref(null)
 
   function addMessage(type, content) {
     messages.value.push({

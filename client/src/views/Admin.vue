@@ -8,7 +8,7 @@
       <div class="admin-menu-item" :class="{ active: activeMenu === 'questConfig' }" @click="activeMenu = 'questConfig'; loadQuestConfigs()">📜 任务配置</div>
       <div class="admin-menu-item" :class="{ active: activeMenu === 'itemConfig' }" @click="activeMenu = 'itemConfig'; loadItemConfigs()">🎒 道具配置</div>
       <div class="admin-menu-item" :class="{ active: activeMenu === 'maps' }" @click="activeMenu = 'maps'; loadMaps()">🗺️ 地图管理</div>
-      <div class="admin-menu-item" :class="{ active: activeMenu === 'announcements' }" @click="loadAnnouncements()">📢 公告管理</div>
+      <div class="admin-menu-item" :class="{ active: activeMenu === 'announcements' }" @click="activeMenu = 'announcements'; loadAnnouncements()">📢 公告管理</div>
       <div class="admin-menu-item" :class="{ active: activeMenu === 'logs' }" @click="activeMenu = 'logs'; loadBattleLogs()">⚔️ 战斗日志</div>
       <div style="margin-top: 20px;"><button class="btn btn-secondary" @click="goBack">返回游戏</button></div>
     </div>
@@ -104,7 +104,7 @@
             <option value="chat">聊天</option><option value="system">系统</option><option value="gm_action">GM操作</option>
           </select>
           <input v-model="logFilter.keyword" placeholder="关键词" style="padding:6px; width:120px;" />
-          <button class="btn" style="width:auto; padding:6px 12px;" @click="loadActionLogs()">查询</button>
+          <button class="btn" style="width:auto; padding:6px 12px;" @click="logFilter.page = 1; loadActionLogs()">查询</button>
         </div>
         <table class="data-table">
           <thead><tr><th>时间</th><th>角色</th><th>分类</th><th>动作</th><th>详情</th><th>位置</th></tr></thead>
@@ -127,7 +127,7 @@
       <!-- ====== 任务配置 ====== -->
       <div v-if="activeMenu === 'questConfig'">
         <h2 class="admin-title">任务配置管理</h2>
-        <button class="btn" style="width:auto; padding:8px 15px; margin-bottom:10px;" @click="editingQuest = {}; showQuestEditor = true;">+ 新建任务</button>
+        <button class="btn" style="width:auto; padding:8px 15px; margin-bottom:10px;" @click="editingQuest = {}; originalQuestId = null; showQuestEditor = true;">+ 新建任务</button>
         <table class="data-table">
           <thead><tr><th>ID</th><th>名称</th><th>类型</th><th>目标</th><th>奖励</th><th>操作</th></tr></thead>
           <tbody>
@@ -136,7 +136,7 @@
               <td style="font-size:12px;">{{ q.objectives?.map(o => o.type + ':' + (o.npcId || o.monsterId || '')).join(', ') }}</td>
               <td style="font-size:12px;">exp:{{ q.rewards?.exp }} gold:{{ q.rewards?.gold }}</td>
               <td>
-                <button @click="editingQuest = JSON.parse(JSON.stringify(q)); showQuestEditor = true;" style="margin-right:3px;">编辑</button>
+                <button @click="editingQuest = JSON.parse(JSON.stringify(q)); originalQuestId = q.id; showQuestEditor = true;" style="margin-right:3px;">编辑</button>
                 <button @click="deleteQuestConfig(q.id)">删除</button>
               </td>
             </tr>
@@ -146,7 +146,7 @@
         <div v-if="showQuestEditor" class="modal-overlay" @click.self="showQuestEditor = false">
           <div class="modal-content" style="max-width:600px;">
             <h3>{{ editingQuest.id ? '编辑任务' : '新建任务' }}</h3>
-            <div class="form-group"><label>ID</label><input v-model="editingQuest.id" :disabled="!!questConfigs.find(q=>q.id===editingQuest.id && editingQuest._editing)" /></div>
+            <div class="form-group"><label>ID</label><input v-model="editingQuest.id" :disabled="!!originalQuestId" /></div>
             <div class="form-group"><label>名称</label><input v-model="editingQuest.name" /></div>
             <div class="form-group"><label>描述</label><textarea v-model="editingQuest.description" rows="2"></textarea></div>
             <div class="form-group"><label>类型</label><input v-model="editingQuest.type" /></div>
@@ -302,7 +302,7 @@ async function gmAction(id, action) {
     case 'level': { const v = prompt('设置等级 (1-100):', ''); if (v == null) return; body.level = parseInt(v); break }
     case 'teleport': { const v = prompt('传送到房间ID:', 'village_center'); if (!v) return; body.teleportTo = v; break }
     case 'giveItem': { const itemId = prompt('物品ID:'); if (!itemId) return; const qty = prompt('数量:', '1'); body.giveItemId = itemId; body.giveItemQty = parseInt(qty) || 1; break }
-    case 'reset': if (!confirm('确定重置该玩家？(回村/满血/状态online)')) return; break
+    case 'reset': if (!confirm('确定重置该玩家？(回村/满血/状态online)')) return; try { await axios.post(`/gm/players/${id}/reset`); alert('重置成功'); viewPlayerDetail(id) } catch(e) { alert(e.response?.data?.message) } return
   }
   try { await axios.put(`/gm/players/${id}/attributes`, body); alert('操作成功'); viewPlayerDetail(id) } catch(e) { alert(e.response?.data?.message) }
 }
@@ -315,7 +315,7 @@ async function loadActionLogs() {
 }
 
 // 任务配置
-const questConfigs = ref([]), showQuestEditor = ref(false), editingQuest = ref({})
+const questConfigs = ref([]), showQuestEditor = ref(false), editingQuest = ref({}), originalQuestId = ref(null)
 async function loadQuestConfigs() { try { questConfigs.value = (await axios.get('/gm/config/quests')).data.data } catch(e) {} }
 async function saveQuestConfig() {
   const q = editingQuest.value
@@ -324,7 +324,7 @@ async function saveQuestConfig() {
     if (q.rewardsStr) q.rewards = JSON.parse(q.rewardsStr)
     if (questConfigs.value.find(x => x.id === q.id)) { await axios.put(`/gm/config/quests/${q.id}`, q) }
     else { await axios.post('/gm/config/quests', q) }
-    showQuestEditor.value = false; loadQuestConfigs()
+    showQuestEditor.value = false; originalQuestId.value = null; loadQuestConfigs()
   } catch(e) { alert('保存失败: ' + (e.response?.data?.message || e.message)) }
 }
 async function deleteQuestConfig(id) { if (!confirm('删除任务 ' + id + '?')) return; try { await axios.delete(`/gm/config/quests/${id}`); loadQuestConfigs() } catch(e) { alert('删除失败') } }

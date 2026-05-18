@@ -5,13 +5,35 @@
     "description": "村庄的中心广场，村民们在此聚集聊天。广场中央有一座古老的石碑，记载着村庄的历史。",
     "mapId": "village",
     "exits": [
-      { "direction": "north", "roomId": "village_inn" },
-      { "direction": "east", "roomId": "village_shop" },
-      { "direction": "south", "roomId": "village_training" },
-      { "direction": "west", "roomId": "village_blacksmith" },
-      { "direction": "out", "roomId": "forest_entrance" }
+      {
+        "direction": "north",
+        "roomId": "village_inn"
+      },
+      {
+        "direction": "east",
+        "roomId": "village_shop"
+      },
+      {
+        "direction": "south",
+        "roomId": "village_training"
+      },
+      {
+        "direction": "west",
+        "roomId": "village_blacksmith"
+      },
+      {
+        "direction": "out",
+        "roomId": "forest_entrance"
+      },
+      {
+        "direction": "south_east",
+        "roomId": "village_field"
+      }
     ],
-    "features": ["石碑", "公告栏"]
+    "features": [
+      "石碑",
+      "公告栏"
+    ]
   },
   {
     "id": "village_inn",
@@ -19,10 +41,19 @@
     "description": "一间朴素的客栈，老板热情好客。这里可以休息恢复体力，也可以打听消息。",
     "mapId": "village",
     "exits": [
-      { "direction": "south", "roomId": "village_center" }
+      {
+        "direction": "south",
+        "roomId": "village_center"
+      }
     ],
-    "features": ["柜台", "休息室"],
-    "services": ["rest", "rumor"]
+    "features": [
+      "柜台",
+      "休息室"
+    ],
+    "services": [
+      "rest",
+      "rumor"
+    ]
   },
   {
     "id": "village_blacksmith",
@@ -30,10 +61,19 @@
     "description": "铁匠老张的店铺，炉火熊熊，叮叮当当的打铁声不绝于耳。",
     "mapId": "village",
     "exits": [
-      { "direction": "east", "roomId": "village_center" }
+      {
+        "direction": "east",
+        "roomId": "village_center"
+      }
     ],
-    "features": ["锻造台", "武器架"],
-    "services": ["repair", "buy_weapon"]
+    "features": [
+      "锻造台",
+      "武器架"
+    ],
+    "services": [
+      "repair",
+      "buy_weapon"
+    ]
   },
   {
     "id": "village_shop",
@@ -41,10 +81,20 @@
     "description": "一间小杂货铺，出售各种日常用品和简单的装备。",
     "mapId": "village",
     "exits": [
-      { "direction": "west", "roomId": "village_center" }
+      {
+        "direction": "west",
+        "roomId": "village_center"
+      }
     ],
-    "features": ["货架", "柜台"],
-    "services": ["shop", "buy_item", "sell_item"],
+    "features": [
+      "货架",
+      "柜台"
+    ],
+    "services": [
+      "shop",
+      "buy_item",
+      "sell_item"
+    ],
     "shopType": "general"
   },
   {
@@ -53,10 +103,18 @@
     "description": "村庄的练武场，有几个木桩和靶子，适合新手练习。",
     "mapId": "village",
     "exits": [
-      { "direction": "north", "roomId": "village_center" }
+      {
+        "direction": "north",
+        "roomId": "village_center"
+      }
     ],
-    "features": ["木桩", "靶子"],
-    "services": ["train"]
+    "features": [
+      "木桩",
+      "靶子"
+    ],
+    "services": [
+      "train"
+    ]
   },
   {
     "id": "forest_entrance",
@@ -64,10 +122,19 @@
     "description": "迷雾森林的入口，树木渐渐变得茂密，远处传来野兽的吼声。",
     "mapId": "forest",
     "exits": [
-      { "direction": "in", "roomId": "forest_deep" },
-      { "direction": "back", "roomId": "village_center" }
+      {
+        "direction": "in",
+        "roomId": "forest_deep"
+      },
+      {
+        "direction": "back",
+        "roomId": "village_center"
+      }
     ],
-    "features": ["路标", "枯树"]
+    "features": [
+      "路标",
+      "枯树"
+    ]
   },
   {
     "id": "forest_deep",
@@ -75,11 +142,23 @@
     "description": "森林深处，光线昏暗，不时传来野兽的嚎叫。",
     "mapId": "forest",
     "exits": [
-      { "direction": "north", "roomId": "forest_clearing" },
-      { "direction": "south", "roomId": "forest_cave" },
-      { "direction": "out", "roomId": "forest_entrance" }
+      {
+        "direction": "north",
+        "roomId": "forest_clearing"
+      },
+      {
+        "direction": "south",
+        "roomId": "forest_cave"
+      },
+      {
+        "direction": "out",
+        "roomId": "forest_entrance"
+      }
     ],
-    "features": ["大树", "灌木丛"]
+    "features": [
+      "大树",
+      "灌木丛"
+    ]
   },
   {
     "id": "forest_clearing",
@@ -87,9 +166,15 @@
     "description": "一片开阔的空地，阳光透过树叶洒下斑驳的光影。",
     "mapId": "forest",
     "exits": [
-      { "direction": "south", "roomId": "forest_deep" }
+      {
+        "direction": "south",
+        "roomId": "forest_deep"
+      }
     ],
-    "features": ["草地", "小溪"]
+    "features": [
+      "草地",
+      "小溪"
+    ]
   },
   {
     "id": "forest_cave",
@@ -97,9 +182,19 @@
     "description": "一个阴暗的洞穴，据说里面藏着宝藏，但也有危险的怪物。",
     "mapId": "forest",
     "exits": [
-      { "direction": "out", "roomId": "forest_deep" }
+      {
+        "direction": "out",
+        "roomId": "forest_deep"
+      },
+      {
+        "direction": "west",
+        "roomId": "deep_forest"
+      }
     ],
-    "features": ["石壁", "火把"]
+    "features": [
+      "石壁",
+      "火把"
+    ]
   },
   {
     "id": "city_gate",
@@ -107,10 +202,19 @@
     "description": "洛阳城的城门，守卫森严，来往行人络绎不绝。",
     "mapId": "city",
     "exits": [
-      { "direction": "in", "roomId": "city_square" },
-      { "direction": "out", "roomId": "mountain_path" }
+      {
+        "direction": "in",
+        "roomId": "city_square"
+      },
+      {
+        "direction": "out",
+        "roomId": "mountain_path"
+      }
     ],
-    "features": ["城楼", "守卫"]
+    "features": [
+      "城楼",
+      "守卫"
+    ]
   },
   {
     "id": "city_square",
@@ -118,13 +222,31 @@
     "description": "洛阳城的中心广场，繁华热闹，各色人物在此聚集。",
     "mapId": "city",
     "exits": [
-      { "direction": "north", "roomId": "city_tavern" },
-      { "direction": "east", "roomId": "city_market" },
-      { "direction": "south", "roomId": "city_arena" },
-      { "direction": "west", "roomId": "city_guild" },
-      { "direction": "out", "roomId": "city_gate" }
+      {
+        "direction": "north",
+        "roomId": "city_tavern"
+      },
+      {
+        "direction": "east",
+        "roomId": "city_market"
+      },
+      {
+        "direction": "south",
+        "roomId": "city_arena"
+      },
+      {
+        "direction": "west",
+        "roomId": "city_guild"
+      },
+      {
+        "direction": "out",
+        "roomId": "city_gate"
+      }
     ],
-    "features": ["喷泉", "公告板"]
+    "features": [
+      "喷泉",
+      "公告板"
+    ]
   },
   {
     "id": "city_tavern",
@@ -132,10 +254,20 @@
     "description": "洛阳城最大的酒楼，各路英雄在此饮酒论剑。",
     "mapId": "city",
     "exits": [
-      { "direction": "south", "roomId": "city_square" }
+      {
+        "direction": "south",
+        "roomId": "city_square"
+      }
     ],
-    "features": ["柜台", "酒桌"],
-    "services": ["rest", "drink", "rumor"]
+    "features": [
+      "柜台",
+      "酒桌"
+    ],
+    "services": [
+      "rest",
+      "drink",
+      "rumor"
+    ]
   },
   {
     "id": "city_market",
@@ -143,10 +275,20 @@
     "description": "热闹的集市，各种商品琳琅满目。",
     "mapId": "city",
     "exits": [
-      { "direction": "west", "roomId": "city_square" }
+      {
+        "direction": "west",
+        "roomId": "city_square"
+      }
     ],
-    "features": ["摊位", "商铺"],
-    "services": ["shop", "buy_item", "sell_item"],
+    "features": [
+      "摊位",
+      "商铺"
+    ],
+    "services": [
+      "shop",
+      "buy_item",
+      "sell_item"
+    ],
     "shopType": "general"
   },
   {
@@ -155,10 +297,18 @@
     "description": "洛阳城的竞技场，可以在此与其他侠客切磋武艺。",
     "mapId": "city",
     "exits": [
-      { "direction": "north", "roomId": "city_square" }
+      {
+        "direction": "north",
+        "roomId": "city_square"
+      }
     ],
-    "features": ["擂台", "看台"],
-    "services": ["pvp"]
+    "features": [
+      "擂台",
+      "看台"
+    ],
+    "services": [
+      "pvp"
+    ]
   },
   {
     "id": "city_guild",
@@ -166,10 +316,19 @@
     "description": "侠客公会总部，可以在此接取任务、查看排行榜。",
     "mapId": "city",
     "exits": [
-      { "direction": "east", "roomId": "city_square" }
+      {
+        "direction": "east",
+        "roomId": "city_square"
+      }
     ],
-    "features": ["柜台", "任务板"],
-    "services": ["quest", "ranking"]
+    "features": [
+      "柜台",
+      "任务板"
+    ],
+    "services": [
+      "quest",
+      "ranking"
+    ]
   },
   {
     "id": "mountain_path",
@@ -177,10 +336,23 @@
     "description": "通往青云山的山道，崎岖险峻。",
     "mapId": "mountain",
     "exits": [
-      { "direction": "up", "roomId": "mountain_peak" },
-      { "direction": "down", "roomId": "city_gate" }
+      {
+        "direction": "up",
+        "roomId": "mountain_peak"
+      },
+      {
+        "direction": "down",
+        "roomId": "city_gate"
+      },
+      {
+        "direction": "west",
+        "roomId": "bamboo_grove"
+      }
     ],
-    "features": ["石阶", "凉亭"]
+    "features": [
+      "石阶",
+      "凉亭"
+    ]
   },
   {
     "id": "mountain_peak",
@@ -188,10 +360,19 @@
     "description": "青云山山顶，云雾缭绕，视野开阔。",
     "mapId": "mountain",
     "exits": [
-      { "direction": "temple", "roomId": "mountain_temple" },
-      { "direction": "down", "roomId": "mountain_path" }
+      {
+        "direction": "temple",
+        "roomId": "mountain_temple"
+      },
+      {
+        "direction": "down",
+        "roomId": "mountain_path"
+      }
     ],
-    "features": ["观景台", "石碑"]
+    "features": [
+      "观景台",
+      "石碑"
+    ]
   },
   {
     "id": "mountain_temple",
@@ -199,10 +380,19 @@
     "description": "山顶的道观，据说有高人在此修行。",
     "mapId": "mountain",
     "exits": [
-      { "direction": "out", "roomId": "mountain_peak" }
+      {
+        "direction": "out",
+        "roomId": "mountain_peak"
+      }
     ],
-    "features": ["殿堂", "练功房"],
-    "services": ["learn_skill", "meditate"]
+    "features": [
+      "殿堂",
+      "练功房"
+    ],
+    "services": [
+      "learn_skill",
+      "meditate"
+    ]
   },
   {
     "id": "desert_entrance",
@@ -210,10 +400,19 @@
     "description": "大漠的边缘，黄沙漫天，热浪滚滚。",
     "mapId": "desert",
     "exits": [
-      { "direction": "in", "roomId": "desert_oasis" },
-      { "direction": "back", "roomId": "city_gate" }
+      {
+        "direction": "in",
+        "roomId": "desert_oasis"
+      },
+      {
+        "direction": "back",
+        "roomId": "city_gate"
+      }
     ],
-    "features": ["路碑", "枯骨"]
+    "features": [
+      "路碑",
+      "枯骨"
+    ]
   },
   {
     "id": "desert_oasis",
@@ -221,11 +420,23 @@
     "description": "荒漠中难得的绿洲，有清澈的泉水和几棵椰枣树。",
     "mapId": "desert",
     "exits": [
-      { "direction": "north", "roomId": "desert_ruins" },
-      { "direction": "out", "roomId": "desert_entrance" }
+      {
+        "direction": "north",
+        "roomId": "desert_ruins"
+      },
+      {
+        "direction": "out",
+        "roomId": "desert_entrance"
+      }
     ],
-    "features": ["泉水", "椰枣树"],
-    "services": ["rest", "water"]
+    "features": [
+      "泉水",
+      "椰枣树"
+    ],
+    "services": [
+      "rest",
+      "water"
+    ]
   },
   {
     "id": "desert_ruins",
@@ -233,10 +444,19 @@
     "description": "一座被黄沙掩埋的古城遗址，断壁残垣诉说着昔日的辉煌。",
     "mapId": "desert",
     "exits": [
-      { "direction": "down", "roomId": "desert_tomb" },
-      { "direction": "south", "roomId": "desert_oasis" }
+      {
+        "direction": "down",
+        "roomId": "desert_tomb"
+      },
+      {
+        "direction": "south",
+        "roomId": "desert_oasis"
+      }
     ],
-    "features": ["断墙", "石柱"]
+    "features": [
+      "断墙",
+      "石柱"
+    ]
   },
   {
     "id": "desert_tomb",
@@ -244,9 +464,15 @@
     "description": "古城地下的陵墓，阴森恐怖，传说有大量宝藏。",
     "mapId": "desert",
     "exits": [
-      { "direction": "up", "roomId": "desert_ruins" }
+      {
+        "direction": "up",
+        "roomId": "desert_ruins"
+      }
     ],
-    "features": ["棺椁", "壁画"]
+    "features": [
+      "棺椁",
+      "壁画"
+    ]
   },
   {
     "id": "snow_pass",
@@ -254,10 +480,23 @@
     "description": "通往雪域高原的关隘，寒风凛冽，白雪皑皑。",
     "mapId": "snow",
     "exits": [
-      { "direction": "up", "roomId": "snow_village" },
-      { "direction": "down", "roomId": "mountain_path" }
+      {
+        "direction": "up",
+        "roomId": "snow_village"
+      },
+      {
+        "direction": "down",
+        "roomId": "mountain_path"
+      },
+      {
+        "direction": "north",
+        "roomId": "snow_field"
+      }
     ],
-    "features": ["关楼", "烽火台"]
+    "features": [
+      "关楼",
+      "烽火台"
+    ]
   },
   {
     "id": "snow_village",
@@ -265,12 +504,27 @@
     "description": "高原上的小村庄，居民以放牧为生。",
     "mapId": "snow",
     "exits": [
-      { "direction": "north", "roomId": "snow_cave" },
-      { "direction": "east", "roomId": "snow_palace" },
-      { "direction": "down", "roomId": "snow_pass" }
+      {
+        "direction": "north",
+        "roomId": "snow_cave"
+      },
+      {
+        "direction": "east",
+        "roomId": "snow_palace"
+      },
+      {
+        "direction": "down",
+        "roomId": "snow_pass"
+      }
     ],
-    "features": ["帐篷", "篝火"],
-    "services": ["rest", "trade"]
+    "features": [
+      "帐篷",
+      "篝火"
+    ],
+    "services": [
+      "rest",
+      "trade"
+    ]
   },
   {
     "id": "snow_cave",
@@ -278,9 +532,19 @@
     "description": "一个巨大的冰洞，洞壁晶莹剔透，寒气逼人。",
     "mapId": "snow",
     "exits": [
-      { "direction": "south", "roomId": "snow_village" }
+      {
+        "direction": "south",
+        "roomId": "snow_village"
+      },
+      {
+        "direction": "west",
+        "roomId": "snow_field"
+      }
     ],
-    "features": ["冰柱", "冰湖"]
+    "features": [
+      "冰柱",
+      "冰湖"
+    ]
   },
   {
     "id": "snow_palace",
@@ -288,10 +552,18 @@
     "description": "传说中的冰宫，有高人隐居于此。",
     "mapId": "snow",
     "exits": [
-      { "direction": "west", "roomId": "snow_village" }
+      {
+        "direction": "west",
+        "roomId": "snow_village"
+      }
     ],
-    "features": ["冰雕", "宝座"],
-    "services": ["learn_skill"]
+    "features": [
+      "冰雕",
+      "宝座"
+    ],
+    "services": [
+      "learn_skill"
+    ]
   },
   {
     "id": "swamp_entrance",
@@ -299,10 +571,19 @@
     "description": "瘴气弥漫的沼泽边缘，毒虫出没，危机四伏。",
     "mapId": "swamp",
     "exits": [
-      { "direction": "in", "roomId": "swamp_deep" },
-      { "direction": "back", "roomId": "forest_deep" }
+      {
+        "direction": "in",
+        "roomId": "swamp_deep"
+      },
+      {
+        "direction": "back",
+        "roomId": "forest_deep"
+      }
     ],
-    "features": ["枯树", "毒藤"]
+    "features": [
+      "枯树",
+      "毒藤"
+    ]
   },
   {
     "id": "swamp_deep",
@@ -310,10 +591,19 @@
     "description": "沼泽深处，泥潭遍布，每一步都要小心。",
     "mapId": "swamp",
     "exits": [
-      { "direction": "north", "roomId": "swamp_island" },
-      { "direction": "out", "roomId": "swamp_entrance" }
+      {
+        "direction": "north",
+        "roomId": "swamp_island"
+      },
+      {
+        "direction": "out",
+        "roomId": "swamp_entrance"
+      }
     ],
-    "features": ["泥潭", "毒雾"]
+    "features": [
+      "泥潭",
+      "毒雾"
+    ]
   },
   {
     "id": "swamp_island",
@@ -321,10 +611,19 @@
     "description": "沼泽中的一座小岛，上面有一间破旧的茅屋。",
     "mapId": "swamp",
     "exits": [
-      { "direction": "north", "roomId": "swamp_lair" },
-      { "direction": "south", "roomId": "swamp_deep" }
+      {
+        "direction": "north",
+        "roomId": "swamp_lair"
+      },
+      {
+        "direction": "south",
+        "roomId": "swamp_deep"
+      }
     ],
-    "features": ["茅屋", "草药"]
+    "features": [
+      "茅屋",
+      "草药"
+    ]
   },
   {
     "id": "swamp_lair",
@@ -332,9 +631,15 @@
     "description": "传说中毒龙的巢穴，危险重重。",
     "mapId": "swamp",
     "exits": [
-      { "direction": "south", "roomId": "swamp_island" }
+      {
+        "direction": "south",
+        "roomId": "swamp_island"
+      }
     ],
-    "features": ["龙骨", "宝箱"]
+    "features": [
+      "龙骨",
+      "宝箱"
+    ]
   },
   {
     "id": "island_beach",
@@ -342,9 +647,15 @@
     "description": "东海仙岛的海滩，白沙细腻，海水清澈。",
     "mapId": "island",
     "exits": [
-      { "direction": "in", "roomId": "island_forest" }
+      {
+        "direction": "in",
+        "roomId": "island_forest"
+      }
     ],
-    "features": ["沙滩", "椰树"]
+    "features": [
+      "沙滩",
+      "椰树"
+    ]
   },
   {
     "id": "island_forest",
@@ -352,10 +663,19 @@
     "description": "岛上的密林，奇花异草遍布。",
     "mapId": "island",
     "exits": [
-      { "direction": "up", "roomId": "island_peak" },
-      { "direction": "out", "roomId": "island_beach" }
+      {
+        "direction": "up",
+        "roomId": "island_peak"
+      },
+      {
+        "direction": "out",
+        "roomId": "island_beach"
+      }
     ],
-    "features": ["奇花", "灵草"]
+    "features": [
+      "奇花",
+      "灵草"
+    ]
   },
   {
     "id": "island_peak",
@@ -363,10 +683,19 @@
     "description": "岛上的最高峰，云雾缭绕，仙气飘飘。",
     "mapId": "island",
     "exits": [
-      { "direction": "cave", "roomId": "island_cave" },
-      { "direction": "down", "roomId": "island_forest" }
+      {
+        "direction": "cave",
+        "roomId": "island_cave"
+      },
+      {
+        "direction": "down",
+        "roomId": "island_forest"
+      }
     ],
-    "features": ["观景台", "仙鹤"]
+    "features": [
+      "观景台",
+      "仙鹤"
+    ]
   },
   {
     "id": "island_cave",
@@ -374,10 +703,19 @@
     "description": "传说中仙人修炼的洞府，藏有无上秘籍。",
     "mapId": "island",
     "exits": [
-      { "direction": "out", "roomId": "island_peak" }
+      {
+        "direction": "out",
+        "roomId": "island_peak"
+      }
     ],
-    "features": ["石床", "经书"],
-    "services": ["learn_skill", "meditate"]
+    "features": [
+      "石床",
+      "经书"
+    ],
+    "services": [
+      "learn_skill",
+      "meditate"
+    ]
   },
   {
     "id": "underground_entrance",
@@ -385,10 +723,19 @@
     "description": "地下迷宫的入口，石壁上刻着古老的符文。",
     "mapId": "underground",
     "exits": [
-      { "direction": "down", "roomId": "underground_hall" },
-      { "direction": "up", "roomId": "mountain_temple" }
+      {
+        "direction": "down",
+        "roomId": "underground_hall"
+      },
+      {
+        "direction": "up",
+        "roomId": "mountain_temple"
+      }
     ],
-    "features": ["石门", "符文"]
+    "features": [
+      "石门",
+      "符文"
+    ]
   },
   {
     "id": "underground_hall",
@@ -396,11 +743,23 @@
     "description": "迷宫的中央大厅，四周有多个通道，中央有一座巨大的石像。",
     "mapId": "underground",
     "exits": [
-      { "direction": "north", "roomId": "underground_prison" },
-      { "direction": "east", "roomId": "underground_treasure" },
-      { "direction": "up", "roomId": "underground_entrance" }
+      {
+        "direction": "north",
+        "roomId": "underground_prison"
+      },
+      {
+        "direction": "east",
+        "roomId": "underground_treasure"
+      },
+      {
+        "direction": "up",
+        "roomId": "underground_entrance"
+      }
     ],
-    "features": ["石像", "火把"]
+    "features": [
+      "石像",
+      "火把"
+    ]
   },
   {
     "id": "underground_prison",
@@ -408,9 +767,15 @@
     "description": "曾经的囚牢，现在只剩下锈迹斑斑的铁栅栏和散落的骨架。",
     "mapId": "underground",
     "exits": [
-      { "direction": "south", "roomId": "underground_hall" }
+      {
+        "direction": "south",
+        "roomId": "underground_hall"
+      }
     ],
-    "features": ["铁栅栏", "骨架"]
+    "features": [
+      "铁栅栏",
+      "骨架"
+    ]
   },
   {
     "id": "underground_treasure",
@@ -418,9 +783,15 @@
     "description": "藏有大量宝藏的密室，但也有机关陷阱。",
     "mapId": "underground",
     "exits": [
-      { "direction": "west", "roomId": "underground_hall" }
+      {
+        "direction": "west",
+        "roomId": "underground_hall"
+      }
     ],
-    "features": ["宝箱", "机关"]
+    "features": [
+      "宝箱",
+      "机关"
+    ]
   },
   {
     "id": "volcano_base",
@@ -428,10 +799,19 @@
     "description": "炽热的火山脚下，空气中弥漫着硫磺的味道。",
     "mapId": "volcano",
     "exits": [
-      { "direction": "up", "roomId": "volcano_crater" },
-      { "direction": "back", "roomId": "desert_ruins" }
+      {
+        "direction": "up",
+        "roomId": "volcano_crater"
+      },
+      {
+        "direction": "back",
+        "roomId": "desert_ruins"
+      }
     ],
-    "features": ["熔岩", "硫磺"]
+    "features": [
+      "熔岩",
+      "硫磺"
+    ]
   },
   {
     "id": "volcano_crater",
@@ -439,11 +819,23 @@
     "description": "火山口边缘，岩浆在下方翻涌，热浪滚滚。",
     "mapId": "volcano",
     "exits": [
-      { "direction": "in", "roomId": "volcano_lair" },
-      { "direction": "forge", "roomId": "volcano_forge" },
-      { "direction": "down", "roomId": "volcano_base" }
+      {
+        "direction": "in",
+        "roomId": "volcano_lair"
+      },
+      {
+        "direction": "forge",
+        "roomId": "volcano_forge"
+      },
+      {
+        "direction": "down",
+        "roomId": "volcano_base"
+      }
     ],
-    "features": ["岩浆", "黑曜石"]
+    "features": [
+      "岩浆",
+      "黑曜石"
+    ]
   },
   {
     "id": "volcano_lair",
@@ -451,9 +843,15 @@
     "description": "火龙的巢穴，洞穴深处传来低沉的咆哮声。",
     "mapId": "volcano",
     "exits": [
-      { "direction": "out", "roomId": "volcano_crater" }
+      {
+        "direction": "out",
+        "roomId": "volcano_crater"
+      }
     ],
-    "features": ["龙鳞", "火焰"]
+    "features": [
+      "龙鳞",
+      "火焰"
+    ]
   },
   {
     "id": "volcano_forge",
@@ -461,10 +859,18 @@
     "description": "利用火山熔岩锻造的神匠工坊。",
     "mapId": "volcano",
     "exits": [
-      { "direction": "out", "roomId": "volcano_crater" }
+      {
+        "direction": "out",
+        "roomId": "volcano_crater"
+      }
     ],
-    "features": ["锻造台", "神器"],
-    "services": ["forge_weapon"]
+    "features": [
+      "锻造台",
+      "神器"
+    ],
+    "services": [
+      "forge_weapon"
+    ]
   },
   {
     "id": "palace_gate",
@@ -472,10 +878,19 @@
     "description": "皇宫的大门，金碧辉煌，守卫森严。",
     "mapId": "palace",
     "exits": [
-      { "direction": "in", "roomId": "palace_courtyard" },
-      { "direction": "out", "roomId": "city_square" }
+      {
+        "direction": "in",
+        "roomId": "palace_courtyard"
+      },
+      {
+        "direction": "out",
+        "roomId": "city_square"
+      }
     ],
-    "features": ["金门", "守卫"]
+    "features": [
+      "金门",
+      "守卫"
+    ]
   },
   {
     "id": "palace_courtyard",
@@ -483,12 +898,27 @@
     "description": "皇宫的御花园，奇花异草，亭台楼阁。",
     "mapId": "palace",
     "exits": [
-      { "direction": "north", "roomId": "palace_hall" },
-      { "direction": "east", "roomId": "palace_garden" },
-      { "direction": "west", "roomId": "palace_library" },
-      { "direction": "out", "roomId": "palace_gate" }
+      {
+        "direction": "north",
+        "roomId": "palace_hall"
+      },
+      {
+        "direction": "east",
+        "roomId": "palace_garden"
+      },
+      {
+        "direction": "west",
+        "roomId": "palace_library"
+      },
+      {
+        "direction": "out",
+        "roomId": "palace_gate"
+      }
     ],
-    "features": ["花坛", "亭子"]
+    "features": [
+      "花坛",
+      "亭子"
+    ]
   },
   {
     "id": "palace_hall",
@@ -496,9 +926,15 @@
     "description": "皇帝议事的大殿，气势恢宏。",
     "mapId": "palace",
     "exits": [
-      { "direction": "south", "roomId": "palace_courtyard" }
+      {
+        "direction": "south",
+        "roomId": "palace_courtyard"
+      }
     ],
-    "features": ["龙椅", "金柱"]
+    "features": [
+      "龙椅",
+      "金柱"
+    ]
   },
   {
     "id": "palace_garden",
@@ -506,10 +942,18 @@
     "description": "皇帝的后花园，有珍贵的药材和灵兽。",
     "mapId": "palace",
     "exits": [
-      { "direction": "west", "roomId": "palace_courtyard" }
+      {
+        "direction": "west",
+        "roomId": "palace_courtyard"
+      }
     ],
-    "features": ["灵兽", "药材"],
-    "services": ["buy_item"]
+    "features": [
+      "灵兽",
+      "药材"
+    ],
+    "services": [
+      "buy_item"
+    ]
   },
   {
     "id": "palace_library",
@@ -517,10 +961,18 @@
     "description": "藏有天下奇书的皇家藏书阁。",
     "mapId": "palace",
     "exits": [
-      { "direction": "east", "roomId": "palace_courtyard" }
+      {
+        "direction": "east",
+        "roomId": "palace_courtyard"
+      }
     ],
-    "features": ["书架", "秘籍"],
-    "services": ["learn_skill"]
+    "features": [
+      "书架",
+      "秘籍"
+    ],
+    "services": [
+      "learn_skill"
+    ]
   },
   {
     "id": "demon_portal",
@@ -528,10 +980,19 @@
     "description": "通往魔域的黑暗门户，空气中弥漫着邪恶的气息。",
     "mapId": "demon",
     "exits": [
-      { "direction": "in", "roomId": "demon_fortress" },
-      { "direction": "back", "roomId": "volcano_lair" }
+      {
+        "direction": "in",
+        "roomId": "demon_fortress"
+      },
+      {
+        "direction": "back",
+        "roomId": "volcano_lair"
+      }
     ],
-    "features": ["黑门", "魔印"]
+    "features": [
+      "黑门",
+      "魔印"
+    ]
   },
   {
     "id": "demon_fortress",
@@ -539,11 +1000,23 @@
     "description": "魔族的堡垒，黑暗力量笼罩一切。",
     "mapId": "demon",
     "exits": [
-      { "direction": "north", "roomId": "demon_arena" },
-      { "direction": "east", "roomId": "demon_throne" },
-      { "direction": "out", "roomId": "demon_portal" }
+      {
+        "direction": "north",
+        "roomId": "demon_arena"
+      },
+      {
+        "direction": "east",
+        "roomId": "demon_throne"
+      },
+      {
+        "direction": "out",
+        "roomId": "demon_portal"
+      }
     ],
-    "features": ["魔塔", "黑曜石"]
+    "features": [
+      "魔塔",
+      "黑曜石"
+    ]
   },
   {
     "id": "demon_arena",
@@ -551,10 +1024,18 @@
     "description": "魔族的竞技场，强者在此决斗。",
     "mapId": "demon",
     "exits": [
-      { "direction": "south", "roomId": "demon_fortress" }
+      {
+        "direction": "south",
+        "roomId": "demon_fortress"
+      }
     ],
-    "features": ["擂台", "血池"],
-    "services": ["pvp"]
+    "features": [
+      "擂台",
+      "血池"
+    ],
+    "services": [
+      "pvp"
+    ]
   },
   {
     "id": "demon_throne",
@@ -562,8 +1043,121 @@
     "description": "魔王的宫殿，黑暗力量的源头。",
     "mapId": "demon",
     "exits": [
-      { "direction": "west", "roomId": "demon_fortress" }
+      {
+        "direction": "west",
+        "roomId": "demon_fortress"
+      }
     ],
-    "features": ["魔座", "黑暗"]
+    "features": [
+      "魔座",
+      "黑暗"
+    ]
+  },
+  {
+    "id": "forest_path",
+    "mapId": "forest",
+    "name": "林间小径",
+    "description": "一条蜿蜒的林间小径，两旁长满了野花和草药",
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "village_center"
+      },
+      {
+        "direction": "south",
+        "roomId": "deep_forest"
+      }
+    ],
+    "services": []
+  },
+  {
+    "id": "deep_forest",
+    "mapId": "forest",
+    "name": "密林深处",
+    "description": "古木参天的密林，光线幽暗，偶尔传来野兽的嚎叫",
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "forest_path"
+      },
+      {
+        "direction": "east",
+        "roomId": "forest_cave"
+      }
+    ],
+    "services": []
+  },
+  {
+    "id": "village_field",
+    "mapId": "village",
+    "name": "村外田野",
+    "description": "村庄外的田野，田边长满了各种草药",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "village_center"
+      }
+    ],
+    "services": []
+  },
+  {
+    "id": "river_bank",
+    "mapId": "village",
+    "name": "河边",
+    "description": "清澈的河水流淌而过，鱼儿在水中游弋",
+    "exits": [
+      {
+        "direction": "east",
+        "roomId": "village_center"
+      }
+    ],
+    "services": []
+  },
+  {
+    "id": "dark_cave",
+    "mapId": "forest",
+    "name": "黑暗洞窟",
+    "description": "深邃的洞窟，黑暗中发出幽光",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "deep_forest"
+      }
+    ],
+    "services": []
+  },
+  {
+    "id": "snow_field",
+    "mapId": "mountain",
+    "name": "雪原",
+    "description": "一望无际的雪原，寒风凛冽",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "snow_pass"
+      },
+      {
+        "direction": "east",
+        "roomId": "snow_cave"
+      }
+    ],
+    "services": []
+  },
+  {
+    "id": "bamboo_grove",
+    "mapId": "forest",
+    "name": "竹林",
+    "description": "青翠的竹林，风吹过时沙沙作响",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "forest_path"
+      },
+      {
+        "direction": "east",
+        "roomId": "mountain_path"
+      }
+    ],
+    "services": []
   }
 ]

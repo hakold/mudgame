@@ -192,7 +192,7 @@ function socketHandler(io) {
       }
 
       // 任务进度：到达房间
-      questProgressService.checkProgress(user._id, { type: 'visit', target: exit.roomId });
+      questProgressService.checkProgress(user._id, { type: 'visit', target: exit.roomId }).catch(() => {});
       // 每日任务：移动
       dailyService.updateDailyTaskProgress(user._id, 'move').catch(() => {});
       actionLogService.log(user._id, user.characterName, 'movement', 'move', { from: currentRoom?.id, to: exit.roomId }, exit.roomId);
@@ -292,7 +292,7 @@ function socketHandler(io) {
           if (turnResult.battle.status === 'ended' && turnResult.battle.winner?.userId) {
             const monsterId = battle.monster?.id;
             if (monsterId) {
-              questProgressService.checkProgress(user._id, { type: 'kill', target: monsterId });
+              questProgressService.checkProgress(user._id, { type: 'kill', target: monsterId }).catch(() => {});
             }
             // 更新统计并检查成就
             user.stats.battlesWon = (user.stats.battlesWon || 0) + 1;
@@ -398,7 +398,7 @@ function socketHandler(io) {
       });
       
       // 任务进度：收集物品
-      questProgressService.checkProgress(user._id, { type: 'collect', target: pickedUp.itemId });
+      questProgressService.checkProgress(user._id, { type: 'collect', target: pickedUp.itemId }).catch(() => {});
     });
     
     // 使用物品
@@ -727,7 +727,7 @@ function socketHandler(io) {
         channel: 'private',
         senderId: user._id,
         senderName: user.characterName,
-        receiverId: targetId,
+        receiverId: target._id,
         receiverName: target.characterName,
         content,
         type: 'text'
@@ -743,7 +743,7 @@ function socketHandler(io) {
       });
       
       // 发送给目标
-      const targetSocket = findSocketByUserId(targetId);
+      const targetSocket = findSocketByUserId(target._id);
       if (targetSocket) {
         targetSocket.emit('chat_message', {
           channel: 'private',
@@ -1141,8 +1141,6 @@ function socketHandler(io) {
           await Inventory.create({
             userId: user._id,
             itemId: recipe.resultItemId,
-            name: resultItem?.name || recipe.resultItemId,
-            type: resultItem?.type || 'weapon',
             quantity: 1,
             durability: resultItem?.durability ? { current: resultItem.durability, max: resultItem.durability } : undefined
           });
@@ -1830,7 +1828,7 @@ function socketHandler(io) {
       });
 
       // 任务进度：与NPC对话
-      questProgressService.checkProgress(user._id, { type: 'talk', target: npcId });
+      questProgressService.checkProgress(user._id, { type: 'talk', target: npcId }).catch(() => {});
       // 每日任务：对话
       dailyService.updateDailyTaskProgress(user._id, 'talk').catch(() => {});
     });
@@ -1946,7 +1944,7 @@ function socketHandler(io) {
       actionLogService.log(user._id, user.characterName, 'economy', 'buy', { itemId, itemName: item.name, quantity, totalPrice }, user.location.roomId);
 
       // 任务进度：购买物品
-      questProgressService.checkProgress(user._id, { type: 'buy', target: itemId });
+      questProgressService.checkProgress(user._id, { type: 'buy', target: itemId }).catch(() => {});
     });
     
     // 出售物品
@@ -2163,7 +2161,7 @@ function socketHandler(io) {
       actionLogService.log(user._id, user.characterName, 'skill', 'learn', { skillId, skillName: skill.name, goldCost: learnPrice }, user.location.roomId);
 
       // 任务进度：学习技能
-      questProgressService.checkProgress(user._id, { type: 'learn_skill', target: skillId, skillRequireLevel: skill.requireLevel || 1 });
+      questProgressService.checkProgress(user._id, { type: 'learn_skill', target: skillId, skillRequireLevel: skill.requireLevel || 1 }).catch(() => {});
     });
     
     // 查看可学习技能
@@ -2239,7 +2237,7 @@ function socketHandler(io) {
       });
 
       // 任务进度：训练属性
-      questProgressService.checkProgress(user._id, { type: 'train' });
+      questProgressService.checkProgress(user._id, { type: 'train' }).catch(() => {});
     });
     
     // 分配自由属性点
