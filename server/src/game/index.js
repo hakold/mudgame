@@ -115,6 +115,9 @@ async function initGameSystems() {
   
   console.log('[Game] 游戏配置加载完成');
 
+  // 启动配置热重载
+  startConfigWatcher();
+
   // 给任务目标注入显示名称
   for (const quest of Object.values(gameConfig.quests)) {
     for (const obj of quest.objectives) {
@@ -253,3 +256,60 @@ module.exports = {
   items: () => Object.values(gameConfig.items),
   gameConfig
 };
+
+// 配置热重载
+const configFileMap = {
+  maps: 'maps', rooms: 'rooms', npcs: 'npcs', monsters: 'monsters',
+  items: 'items', skills: 'skills', quests: 'quests', factions: 'factions',
+  factionQuests: 'factionQuests', achievements: 'achievements',
+  forgeRecipes: 'forgeRecipes', weatherConfig: 'weatherConfig'
+};
+
+let configVersion = 0;
+function startConfigWatcher() {
+  const configDir = path.join(__dirname, '../../../config/json');
+  try {
+    fs.watch(configDir, { recursive: false }, (eventType, filename) => {
+      if (!filename || !filename.endsWith('.json')) return;
+      const baseName = filename.replace('.json', '');
+      const configKey = configFileMap[baseName];
+      if (!configKey) return;
+
+      // 防抖：延迟200ms，避免编辑器多次保存
+      clearTimeout(startConfigWatcher._timeout);
+      startConfigWatcher._timeout = setTimeout(() => {
+        try {
+          const filePath = path.join(configDir, filename);
+          if (!fs.existsSync(filePath)) return;
+
+          const content = fs.readFileSync(filePath, 'utf-8');
+          const data = JSON.parse(content);
+
+          if (Array.isArray(data)) {
+            gameConfig[configKey] = {};
+            for (const item of data) {
+              gameConfig[configKey][item.id] = item;
+            }
+          } else {
+            gameConfig[configKey] = data;
+          }
+
+          configVersion++;
+          console.log(`[Game] 配置热重载: ${filename} (v${configVersion})`);
+        } catch (err) {
+          console.error(`[Game] 配置热重载失败 ${filename}:`, err.message);
+        }
+      }, 200);
+    });
+    console.log('[Game] 配置热重载监控已启动');
+  } catch (err) {
+    console.warn('[Game] 配置热重载监控启动失败:', err.message);
+  }
+}
+
+function getConfigVersion() {
+  return configVersion;
+}
+
+module.exports.startConfigWatcher = startConfigWatcher;
+module.exports.getConfigVersion = getConfigVersion;

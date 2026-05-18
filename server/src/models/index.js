@@ -10,5 +10,6 @@ module.exports = {
   Achievement: require('./Achievement'),
   Daily: require('./Daily'),
   Auction: require('./Auction'),
-  Gang: require('./Gang')
+  Gang: require('./Gang'),
+  ActionLog: require('./ActionLog')
 };

@@ -61,6 +61,32 @@ router.delete('/gm/announcements/:announcementId', gmController.deleteAnnounceme
 
 // 统计
 router.get('/gm/statistics', gmController.getStatistics);
+router.get('/gm/statistics/full', gmController.getFullStatistics);
 router.get('/gm/battle-logs', gmController.getBattleLogs);
+
+// 行为日志
+router.get('/gm/action-logs', gmController.getActionLogs);
+router.get('/gm/action-logs/stats', gmController.getActionLogStats);
+
+// 配置管理
+router.get('/gm/config/quests', gmController.getQuestConfigs);
+router.post('/gm/config/quests', gmController.createQuestConfig);
+router.put('/gm/config/quests/:questId', gmController.updateQuestConfig);
+router.delete('/gm/config/quests/:questId', gmController.deleteQuestConfig);
+router.get('/gm/config/items', gmController.getItemConfigs);
+router.post('/gm/config/items', gmController.createItemConfig);
+router.put('/gm/config/items/:itemId', gmController.updateItemConfig);
+router.delete('/gm/config/items/:itemId', gmController.deleteItemConfig);
+router.get('/gm/config/maps', gmController.getMapConfigs);
+router.get('/gm/config/rooms', gmController.getRoomConfigs);
+router.put('/gm/config/rooms/:roomId', gmController.updateRoomConfig);
+
+// 玩家详情
+router.get('/gm/players/:playerId/full', gmController.getPlayerFullInfo);
+router.get('/gm/players/:playerId/equipment', gmController.getPlayerEquipment);
+router.get('/gm/players/:playerId/skills', gmController.getPlayerSkills);
+router.get('/gm/players/:playerId/inventory', gmController.getPlayerInventory);
+router.put('/gm/players/:playerId/attributes', gmController.modifyPlayerAttributes);
+router.post('/gm/players/:playerId/reset', gmController.resetPlayer);
 
 module.exports = router;

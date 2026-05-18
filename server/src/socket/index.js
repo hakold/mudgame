@@ -12,6 +12,7 @@ const dailyService = require('../game/dailyService');
 const auctionService = require('../game/auctionService');
 const instanceService = require('../game/instanceService');
 const gangService = require('../game/gangService');
+const actionLogService = require('../game/actionLogService');
 
 // 在线玩家映射
 const onlinePlayers = new Map();
@@ -194,6 +195,7 @@ function socketHandler(io) {
       questProgressService.checkProgress(user._id, { type: 'visit', target: exit.roomId });
       // 每日任务：移动
       dailyService.updateDailyTaskProgress(user._id, 'move').catch(() => {});
+      actionLogService.log(user._id, user.characterName, 'movement', 'move', { from: currentRoom?.id, to: exit.roomId }, exit.roomId);
 
       // 新房间记录
       if (!user.stats) user.stats = {};
@@ -298,6 +300,7 @@ function socketHandler(io) {
             await user.save();
             checkAndAwardAchievements(user._id);
             dailyService.updateDailyTaskProgress(user._id, 'kill').catch(() => {});
+            actionLogService.log(user._id, user.characterName, 'combat', 'kill', { monsterId: battle.monster?.id, exp: turnResult.rewards?.expGained, gold: turnResult.rewards?.goldGained }, user.location.roomId);
             dailyService.updateDailyTaskProgress(user._id, 'battle').catch(() => {});
           }
 
@@ -916,6 +919,8 @@ function socketHandler(io) {
         checkAndAwardAchievements(tradeData.receiver.userId);
         dailyService.updateDailyTaskProgress(tradeData.initiator.userId, 'trade').catch(() => {});
         dailyService.updateDailyTaskProgress(tradeData.receiver.userId, 'trade').catch(() => {});
+        actionLogService.log(tradeData.initiator.userId, tradeData.initiator.name, 'economy', 'trade', { with: tradeData.receiver.name, items: trade.initiator.offer.items, gold: trade.initiator.offer.gold }, user.location.roomId);
+        actionLogService.log(tradeData.receiver.userId, tradeData.receiver.name, 'economy', 'trade', { with: tradeData.initiator.name, items: trade.receiver.offer.items, gold: trade.receiver.offer.gold }, user.location.roomId);
       } else {
         // 通知双方更新
         const trade = tradeService.getTradeState(tradeId);
@@ -1580,6 +1585,7 @@ function socketHandler(io) {
         faction,
         learnableSkills: getLearnableSkills(factionId, user.level, user.factionRank)
       });
+      actionLogService.log(user._id, user.characterName, 'faction', 'join', { factionId, factionName: faction.name }, user.location.roomId);
       
       // 广播
       io.emit('system_message', {
@@ -1644,8 +1650,9 @@ function socketHandler(io) {
       });
 
       checkAndAwardAchievements(user._id);
+      actionLogService.log(user._id, user.characterName, 'faction', 'advance', { factionId: user.faction, oldRank, newRank: user.factionRank }, user.location.roomId);
     });
-    
+
     // 门派任务（贡献门派获取声望）
     socket.on('faction_task', async () => {
       if (!user.faction) {
@@ -1936,6 +1943,7 @@ function socketHandler(io) {
       socket.emit('system_message', {
         content: `你购买了 ${quantity} 个 ${item.name}，花费 ${totalPrice} 金币`
       });
+      actionLogService.log(user._id, user.characterName, 'economy', 'buy', { itemId, itemName: item.name, quantity, totalPrice }, user.location.roomId);
 
       // 任务进度：购买物品
       questProgressService.checkProgress(user._id, { type: 'buy', target: itemId });
@@ -1994,9 +2002,10 @@ function socketHandler(io) {
         quantity,
         totalGold: user.gold
       });
-      socket.emit('system_message', { 
-        content: `你出售了 ${quantity} 个 ${item.name}，获得 ${sellPrice} 金币` 
+      socket.emit('system_message', {
+        content: `你出售了 ${quantity} 个 ${item.name}，获得 ${sellPrice} 金币`
       });
+      actionLogService.log(user._id, user.characterName, 'economy', 'sell', { itemId, itemName: item.name, quantity, sellPrice }, user.location.roomId);
     });
     
     // 修复装备
@@ -2151,6 +2160,7 @@ function socketHandler(io) {
       socket.emit('system_message', {
         content: `你学会了「${skill.name}」！`
       });
+      actionLogService.log(user._id, user.characterName, 'skill', 'learn', { skillId, skillName: skill.name, goldCost: learnPrice }, user.location.roomId);
 
       // 任务进度：学习技能
       questProgressService.checkProgress(user._id, { type: 'learn_skill', target: skillId, skillRequireLevel: skill.requireLevel || 1 });
