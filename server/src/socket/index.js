@@ -36,9 +36,16 @@ function getShopStock(roomId, itemId) {
   }
   return stock[itemId];
 }
-function decrShopStock(roomId, itemId, qty) {
+// 原子库存扣减：检查库存足够才扣减，返回是否成功
+function tryDecrShopStock(roomId, itemId, qty) {
   const s = shopStocks.get(roomId);
-  if (s && s[itemId] != null) s[itemId] = Math.max(0, s[itemId] - qty);
+  if (!s) return false;
+  if (s[itemId] == null) {
+    getShopStock(roomId, itemId); // 初始化默认库存
+  }
+  if (s[itemId] < qty) return false;
+  s[itemId] -= qty;
+  return true;
 }
 // 每10分钟重置库存
 setInterval(() => shopStocks.clear(), 600000);
@@ -1899,10 +1906,14 @@ function socketHandler(io) {
         return socket.emit('error', { message: '这个商店不出售该物品，可用 shop 查看商品列表' });
       }
       
-      // 检查库存
-      const currentStock = getShopStock(room.id, item.id);
-      if (currentStock < quantity) {
-        return socket.emit('error', { message: `库存不足，仅剩 ${currentStock} 件` });
+      // 检查物品是否可售
+      if (!item.price) {
+        return socket.emit('error', { message: '此物品暂不出售' });
+      }
+
+      // 原子库存扣减（防止并发超卖）
+      if (!tryDecrShopStock(room.id, item.id, quantity)) {
+        return socket.emit('error', { message: `库存不足，仅剩 ${getShopStock(room.id, item.id)} 件` });
       }
 
       const totalPrice = (item.price || 0) * quantity;
@@ -1914,10 +1925,11 @@ function socketHandler(io) {
         { new: true }
       );
       if (!updatedUser) {
+        // 金币不足，退回库存
+        shopStocks.get(room.id)[item.id] += quantity;
         return socket.emit('error', { message: `金币不足，需要 ${totalPrice} 金币` });
       }
       user.gold = updatedUser.gold;
-      decrShopStock(room.id, item.id, quantity);
 
       // 添加到背包
       let inventoryItem = await Inventory.findOne({ userId: user._id, itemId });
