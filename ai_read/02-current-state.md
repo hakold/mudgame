@@ -1,66 +1,59 @@
 # Current State
 
-## Phase 1-8: ✅ ALL COMPLETE (2026-05-18)
+## Phase 1-10: ✅ ALL COMPLETE (2026-05-19)
 
-All core gameplay systems are now implemented and functional.
+All core gameplay, GM management, and security systems are implemented and functional.
 
-### Recently Completed: Phase 7 (Content Depth)
+### Phase 10 — Anti-Cheat & Security (New)
 
-- **7.1 门派技能树**: 6 factions × 6-9 skills each, 89 total skills across all factions. Rank-based unlocking (disciple→deacon→elder→leader). New skill effects include poison, burn, freeze, fear, stun, counter, heal-percent, HP regen, MP regen, reflect damage.
-- **7.2 门派任务链**: Socket handlers for accept/complete faction quests. Daily reset support, rank-gating, backfill checks. 8 faction quests in factionQuests.json.
-- **7.3 副本系统**: 5 dungeons (2 trial, 1 explore, 2 boss). Daily limits, item tickets, wave progression, time limits. instanceService with enter/nextWave/complete/leave. dungeons.json config.
-- **7.4 帮派系统**: Gang model + gangService. Create (L5+1000g), join, leave, donate (gold/items), warehouse (deposit/withdraw), gang chat, level-up bonuses (1-5, up to 20% exp/gold boost).
-- **7.5 生活技能**: Crafting system complete — gathering (10 nodes with cooldowns), alchemy (8 recipes), cooking (7 recipes), forge (7 recipes). craftService with gather/performAlchemy/performCooking. 15 new items added.
-- **7.6 成就系统**: Already done in previous session. 18 achievements with 6 trigger points.
+**Anti-Script Protection (防脚本):**
+- Socket event rate limiter: per-user per-event limits (window + min interval), 3-tier penalty (warn → mute → kick)
+- HTTP API rate limiter: login 10/min, register 3/hr per IP
+- Unified guard: every socket event goes through `guardSocket()` → rate check → mute check → input validation → anti-cheat recording
+- Behavioral analysis: detects mechanically-precise action intervals, repetitive single-action patterns, superhuman speed, and excessive daily volume
+- 5 suspicion levels with automatic escalation: level 1-2 (log), level 3 (mute 30min), level 4 (auto-kick), level 5 (temp-ban 1hr)
+- GM can view suspicious players via `/gm/anti-cheat/suspicious` and reset suspicion
 
-### Recently Completed: Phase 8 (Economy & Balance)
+**Input Validation:**
+- `validatorService.js` with schema validation for 30+ socket events
+- Strict type checking: safeString (XSS/injection prevention), safeId (alphanumeric only), safeInt (range-bounded)
+- All inputs validated server-side — client is untrusted
 
-- **8.1 拍卖行**: Auction model + auctionService. Create listing (5% fee, 24/48/72h), search (name/price filters, pagination), buy (5% tax), cancel, auto-expiry cleanup. Socket handlers for all operations.
-- **8.2 经济平衡**: Gold drops normalized to exp×0.5 ratio. Sell prices added to all items (40% of buy price). Tax systems in place (auction 5% fee + 5% tax, trade validation).
-- **8.3 数值平衡**: Monster stat curves verified. Exp curve: 100×level^1.5. Consistent gold/exp ratios across all monsters.
-- **8.4 每日活跃**: Daily model + dailyService. Check-in with 7-day streak rewards. 6 daily tasks (kill/move/talk/gather/battle/trade). Activity point rewards at 30/60/100 points.
-- **8.5 天气与时间**: Already done in previous session.
+**Session Security:**
+- JWT token bound to device fingerprint (User-Agent hash) in production
+- Single-device enforcement: new connection kicks old socket
+- Login failure tracking: 5 failures locks account+IP for 15 minutes
+- Password complexity: 8+ chars, must contain letter + number
+- bcrypt saltRounds upgraded from 10 → 12
 
-## New Server Files Created
+**Communication Security:**
+- Security headers: X-Content-Type-Options, X-Frame-Options, X-XSS-Protection, CSP, HSTS
+- CORS strict mode in production
+- HTTP request body limit: 1MB
+- Production error handler: no stack traces exposed to client
+- Socket.IO: 30s connect timeout, 25s ping interval, 60s timeout
 
-| File | Purpose |
-|------|---------|
-| `server/src/models/Daily.js` | 每日活跃状态 |
-| `server/src/models/Auction.js` | 拍卖行挂单 |
-| `server/src/models/Gang.js` | 帮派数据 |
-| `server/src/game/craftService.js` | 采集/炼药/烹饪 |
-| `server/src/game/dailyService.js` | 每日活跃逻辑 |
-| `server/src/game/auctionService.js` | 拍卖行逻辑 |
-| `server/src/game/instanceService.js` | 副本逻辑 |
-| `server/src/game/gangService.js` | 帮派逻辑 |
+**GM Permission Matrix:**
+- 3-tier system: `gm` (view only), `senior_gm` (player modification), `admin` (config + GM management)
+- Config mutations require admin-level permission
+- Route-level permission checks on all GM endpoints
 
-## New Config Files
+### Project File Count
 
-| File | Purpose |
-|------|---------|
-| `config/json/gatheringNodes.json` | 10个采集点 |
-| `config/json/alchemyRecipes.json` | 8个炼药配方 |
-| `config/json/cookingRecipes.json` | 7个烹饪配方 |
-| `config/json/dungeons.json` | 5个副本 |
+| Category | Count | Details |
+|----------|-------|---------|
+| Models | 13 | User, CharacterSkill, Inventory, Quest, ChatMessage, BattleLog, Announcement, Achievement, Daily, Auction, Gang, ActionLog + index |
+| Services | 14 | battle, questProgress, roomDrops, trade, achievement, weatherTime, craft, daily, auction, instance, gang, actionLog, validator, antiCheat |
+| Middleware | 2 | auth (JWT+roles+login-tracking), rateLimiter (socket+HTTP) |
+| Controllers | 3 | authController, playerController, gmController |
+| Configs | 13 | maps, rooms, npcs, monsters, items, skills, quests, factions, factionQuests, achievements, forgeRecipes, gatheringNodes, alchemyRecipes, cookingRecipes, dungeons, weatherConfig |
+| Client Views | 4 | Login, Register, Game, Admin |
+| Client Stores | 1 | game.js (Pinia) |
 
-## What Works Well
+### Deployment
 
-- All Phase 1-8 systems are server-side complete
-- Socket events for all new features are wired
-- Config-driven design allows easy content expansion
-- Economic balance is consistent (gold ≈ exp × 0.5)
-- Faction skill trees provide meaningful progression choices
+See `docs/DEPLOYMENT.md` for complete deployment and operations manual.
 
-## Sources Of Truth
+---
 
-1. Runtime code in `server/src` and `client/src`
-2. Content data in `config/json`
-3. Notes in `ai_read`
-4. Legacy status docs like `PROJECT_STATUS.md`
-
-## Next Steps
-
-- Phase 9: GM 后台管理系统
-- Phase 10: 防作弊安全维护
-- Client UI updates for new Phase 7-8 features
-- Comprehensive playtesting
+*Last updated: 2026-05-19*

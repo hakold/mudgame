@@ -1,5 +1,5 @@
 const { User, CharacterSkill, Inventory, Quest, ChatMessage, BattleLog, Achievement, Gang } = require('../models');
-const { socketAuthMiddleware } = require('../middleware/auth');
+const { socketAuthMiddleware, registerSocket: authRegisterSocket, unregisterSocket: authUnregisterSocket, findSocketByUserId: authFindSocket } = require('../middleware/auth');
 const { getRoom, getRoomExits, getNpcsInRoom, getMonstersInRoom, getSkill, getQuest, getItem, getItemByName, getFaction, getAllFactions, getLearnableSkills, getForgeRecipe, getAllForgeRecipes, getFactionQuest, getFactionQuestsByFaction } = require('../game');
 const BattleService = require('../game/battleService');
 const questProgressService = require('../game/questProgressService');
@@ -13,6 +13,9 @@ const auctionService = require('../game/auctionService');
 const instanceService = require('../game/instanceService');
 const gangService = require('../game/gangService');
 const actionLogService = require('../game/actionLogService');
+const { checkSocketRate } = require('../middleware/rateLimiter');
+const { validateEvent } = require('../game/validatorService');
+const antiCheatService = require('../game/antiCheatService');
 
 // 在线玩家映射
 const onlinePlayers = new Map();
@@ -52,6 +55,45 @@ setInterval(() => shopStocks.clear(), 600000);
 
 let socketServer = null;
 
+// 统一的Socket事件守卫：限频 → 输入验证 → 反作弊记录
+function guardSocket(socket, user, eventName, data) {
+  // 1. 频率检查
+  const rateCheck = checkSocketRate(user._id, eventName);
+  if (!rateCheck.allowed) {
+    if (rateCheck.penalty === 'kick') {
+      socket.emit('error', { message: '操作过于频繁，连接已断开' });
+      socket.disconnect(true);
+    } else if (rateCheck.penalty === 'mute') {
+      socket.emit('system_message', { content: '⚠️ 操作过于频繁，你已被暂时禁言' });
+    }
+    return false;
+  }
+
+  // 2. 禁言检查
+  if (antiCheatService.isMuted(user._id)) {
+    const muteEvents = ['chat_world', 'chat_room', 'chat_private', 'chat_gang', 'trade_request', 'trade_add_item', 'auction_create'];
+    if (muteEvents.includes(eventName)) {
+      socket.emit('system_message', { content: '⚠️ 你已被禁言，无法进行此操作' });
+      return false;
+    }
+  }
+
+  // 3. 输入验证
+  const validationError = validateEvent(eventName, data);
+  if (validationError) {
+    actionLogService.log(user._id, user.characterName, 'system', 'invalid_input', { event: eventName, error: validationError });
+    socket.emit('error', { message: validationError });
+    return false;
+  }
+
+  // 4. 反作弊记录
+  if (!['look', 'who', 'get_time', 'list_factions', 'list_learnable_skills', 'list_faction_quests', 'list_gathering_nodes', 'list_alchemy_recipes', 'list_cooking_recipes', 'get_forge_recipes', 'get_achievements', 'get_daily_status', 'shop_list', 'get_battle_logs', 'get_battle_detail', 'auction_search', 'auction_my_listings', 'list_dungeons', 'gang_search', 'gang_info'].includes(eventName)) {
+    antiCheatService.recordAction(user._id, eventName);
+  }
+
+  return true;
+}
+
 function socketHandler(io) {
   socketServer = io;
 
@@ -67,8 +109,28 @@ function socketHandler(io) {
   io.on('connection', async (socket) => {
     const user = socket.user;
     console.log(`[Socket] 用户连接: ${user.characterName} (${socket.id})`);
+
+    // 全局包装 socket.on，自动注入限频+校验+反作弊
+    const _on = socket.on.bind(socket);
+    const readOnlyEvents = new Set(['look', 'who', 'get_time', 'list_factions', 'list_learnable_skills',
+      'list_faction_quests', 'list_gathering_nodes', 'list_alchemy_recipes', 'list_cooking_recipes',
+      'get_forge_recipes', 'get_achievements', 'get_daily_status', 'shop_list', 'get_battle_logs',
+      'get_battle_detail', 'auction_search', 'auction_my_listings', 'list_dungeons', 'gang_search', 'gang_info']);
+    socket.on = (eventName, handler) => {
+      _on(eventName, async (data) => {
+        if (!readOnlyEvents.has(eventName)) {
+          if (!guardSocket(socket, user, eventName, data)) return;
+        }
+        try {
+          await handler(data);
+        } catch (err) {
+          console.error(`[Socket] ${eventName} error:`, err.message);
+          socket.emit('error', { message: '服务器内部错误' });
+        }
+      });
+    };
     
-    // 加入在线列表
+    // 加入在线列表 + 单设备登录
     onlinePlayers.set(socket.id, {
       userId: user._id,
       name: user.characterName,
@@ -77,6 +139,7 @@ function socketHandler(io) {
       faction: user.faction,
       socketId: socket.id
     });
+    authRegisterSocket(user._id, socket.id);
     
     // 加入房间频道
     const roomId = user.location.roomId;
@@ -2294,6 +2357,7 @@ function socketHandler(io) {
 
       // 从在线列表移除
       onlinePlayers.delete(socket.id);
+      authUnregisterSocket(user._id, socket.id);
       
       // 从房间移除
       const roomId = user.location.roomId;
@@ -2421,11 +2485,17 @@ function getPlayersInRoom(roomId) {
   return Array.from(roomPlayers.get(roomId).values());
 }
 
-// 根据用户ID查找Socket
+// 根据用户ID查找Socket（使用auth模块追踪）
 function findSocketByUserId(userId) {
-  for (const [socketId, player] of onlinePlayers) {
+  const socketId = authFindSocket(userId);
+  if (socketId) {
+    const sock = socketServer?.sockets?.sockets?.get(socketId);
+    if (sock) return sock;
+  }
+  // 回退：遍历查找
+  for (const [sid, player] of onlinePlayers) {
     if (player.userId.toString() === userId.toString()) {
-      return socketServer?.sockets?.sockets?.get(socketId);
+      return socketServer?.sockets?.sockets?.get(sid);
     }
   }
   return null;

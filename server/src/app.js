@@ -11,28 +11,59 @@ const routes = require('./routes');
 const socketHandler = require('./socket');
 const { initGameSystems } = require('./game');
 
+const { httpRateLimiter } = require('./middleware/rateLimiter');
+
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: config.corsOrigins,
+    origin: config.corsOrigins === true ? '*' : config.corsOrigins,
     methods: ['GET', 'POST']
-  }
+  },
+  pingTimeout: 60000,
+  pingInterval: 25000,
+  connectTimeout: 30000
 });
 
-// 中间件
+// 安全头中间件
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  if (config.env === 'production') {
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+    res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'");
+  }
+  next();
+});
+
+// 常规中间件
 app.use(cors({
-  origin: config.corsOrigins,
+  origin: config.corsOrigins === true ? '*' : config.corsOrigins,
   credentials: true
 }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ extended: true, limit: '1mb' }));
+
+// HTTP频率限制
+app.use('/api', httpRateLimiter);
 
 // 静态文件
 app.use('/static', express.static('public'));
 
 // API路由
 app.use('/api', routes);
+
+// 生产环境错误处理：不暴露堆栈
+app.use((err, req, res, next) => {
+  console.error('[Error]', err.message);
+  res.status(err.status || 500).json({
+    success: false,
+    message: config.env === 'production' ? '服务器内部错误' : err.message,
+    ...(config.env !== 'production' && { stack: err.stack })
+  });
+});
 
 // 健康检查
 app.get('/health', (req, res) => {

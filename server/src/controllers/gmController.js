@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const { User, Announcement, ChatMessage, BattleLog, ActionLog, Inventory, CharacterSkill, Quest } = require('../models');
 const actionLogService = require('../game/actionLogService');
+const antiCheatService = require('../game/antiCheatService');
 const { getItem } = require('../game');
 
 // 读写 JSON 配置的辅助函数
@@ -367,6 +368,23 @@ class GMController {
       rooms[idx] = { ...rooms[idx], ...req.body, id: rooms[idx].id };
       writeConfig('rooms', rooms);
       res.json({ success: true, message: '房间更新成功', data: rooms[idx] });
+    } catch (error) { res.status(500).json({ success: false, message: error.message }); }
+  }
+
+  // 可疑玩家列表
+  async getSuspiciousPlayers(req, res) {
+    try {
+      const { minLevel = 2 } = req.query;
+      const players = await antiCheatService.getSuspiciousPlayers(parseInt(minLevel));
+      res.json({ success: true, data: players });
+    } catch (error) { res.status(500).json({ success: false, message: error.message }); }
+  }
+
+  // 重置玩家可疑状态
+  async resetSuspicion(req, res) {
+    try {
+      antiCheatService.resetSuspicion(req.params.playerId);
+      res.json({ success: true, message: '可疑状态已重置' });
     } catch (error) { res.status(500).json({ success: false, message: error.message }); }
   }
 }

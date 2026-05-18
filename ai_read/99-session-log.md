@@ -29,6 +29,20 @@ Suggested format:
 - Validation: All server modules load without errors. Socket module loads. Dungeon monster references verified.
 - Remaining risks: Client UI not yet updated for new Phase 7-8 features. New skill effects (hpRegen, healBonus, attackBonus, dodgeChance, mpSteal) not implemented in battle service yet (skills still functional at basic level).
 
+## 2026-05-19 (Phase 10 — Anti-Cheat & Security)
+- Goal: Implement anti-script/bot protection and complete security hardening.
+- Changes:
+  - 10.1 Rate limiter: socket event limits (window+minInterval) + HTTP API limits. 3-tier penalty (warn→mute→kick). rateLimiter.js middleware.
+  - 10.2 Input validation: validatorService.js with strict schema for 30+ events. safeString/safeId/safeInt guards. guardSocket() wrapper on ALL socket events.
+  - 10.3 Anti-script detection: antiCheatService.js — interval regularity analysis, repetitive action detection, speed detection, 5-level suspicion with auto-escalation (log→mute→kick→ban).
+  - 10.4 Session security: JWT device fingerprint binding, single-device enforcement (kick old), login failure lockout (5/15min), password complexity (8+ alphanumeric), bcrypt salt 10→12.
+  - 10.5 Communication security: HTTP security headers (CSP/HSTS/X-Frame/nosniff), CORS strict mode, 1MB body limit, production error handler, Socket.IO timeout config.
+  - 10.6 GM permissions: 3-tier matrix (gm/senior_gm/admin), route-level permission checks, anti-cheat suspicious player API.
+  - Deployment manual: docs/DEPLOYMENT.md with setup, production config, nginx, PM2, GM setup, security checklist, daily ops.
+- Files: 4 new (rateLimiter.js, validatorService.js, antiCheatService.js, DEPLOYMENT.md), 6 modified (auth.js, authService.js, authController.js, gmController.js, routes/index.js, socket/index.js, app.js, config/index.js, User.js), roadmap/current-state/session-log updated.
+- Validation: All 17 server modules load without errors. guardSocket wrapper covers all non-readonly socket events.
+- Remaining: Client-side UI for Phase 10 features (anti-cheat dashboard, suspicious player list in Admin.vue).
+
 ## 2026-05-14 12:10
 - Goal: establish a reliable AI collaboration reading area in the repository root.
 - Changes: created `ai_read` folder with overview, current-state, known-issues, roadmap, and this session log.

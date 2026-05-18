@@ -46,14 +46,23 @@ router.get('/players/:playerId', playerController.viewPlayer);
 
 // ==================== GM路由 ====================
 
-router.use(gmMiddleware);
+// 基础GM权限（查看玩家/公告/统计/日志）
+router.use(gmMiddleware('canViewPlayers'));
 
-// 玩家管理
+// 玩家管理（查看）
 router.get('/gm/players', gmController.getAllPlayers);
-router.put('/gm/players/:playerId', gmController.modifyPlayer);
-router.post('/gm/players/:playerId/ban', gmController.banPlayer);
-router.post('/gm/players/:playerId/item', gmController.giveItem);
-router.post('/gm/players/:playerId/gold', gmController.giveGold);
+router.get('/gm/players/:playerId/full', gmController.getPlayerFullInfo);
+router.get('/gm/players/:playerId/equipment', gmController.getPlayerEquipment);
+router.get('/gm/players/:playerId/skills', gmController.getPlayerSkills);
+router.get('/gm/players/:playerId/inventory', gmController.getPlayerInventory);
+
+// 玩家管理（修改 — 需要高级GM）
+router.put('/gm/players/:playerId', gmMiddleware('canModifyPlayer'), gmController.modifyPlayer);
+router.put('/gm/players/:playerId/attributes', gmMiddleware('canModifyPlayer'), gmController.modifyPlayerAttributes);
+router.post('/gm/players/:playerId/ban', gmMiddleware('canModifyPlayer'), gmController.banPlayer);
+router.post('/gm/players/:playerId/item', gmMiddleware('canModifyPlayer'), gmController.giveItem);
+router.post('/gm/players/:playerId/gold', gmMiddleware('canModifyPlayer'), gmController.giveGold);
+router.post('/gm/players/:playerId/reset', gmMiddleware('canModifyPlayer'), gmController.resetPlayer);
 
 // 公告管理
 router.post('/gm/announcements', gmController.createAnnouncement);
@@ -68,25 +77,21 @@ router.get('/gm/battle-logs', gmController.getBattleLogs);
 router.get('/gm/action-logs', gmController.getActionLogs);
 router.get('/gm/action-logs/stats', gmController.getActionLogStats);
 
-// 配置管理
+// 反作弊 — 可疑玩家列表
+router.get('/gm/anti-cheat/suspicious', gmController.getSuspiciousPlayers);
+router.post('/gm/anti-cheat/reset/:playerId', gmMiddleware('canModifyPlayer'), gmController.resetSuspicion);
+
+// 配置管理（需要管理员）
 router.get('/gm/config/quests', gmController.getQuestConfigs);
-router.post('/gm/config/quests', gmController.createQuestConfig);
-router.put('/gm/config/quests/:questId', gmController.updateQuestConfig);
-router.delete('/gm/config/quests/:questId', gmController.deleteQuestConfig);
+router.post('/gm/config/quests', gmMiddleware('canModifyConfig'), gmController.createQuestConfig);
+router.put('/gm/config/quests/:questId', gmMiddleware('canModifyConfig'), gmController.updateQuestConfig);
+router.delete('/gm/config/quests/:questId', gmMiddleware('canModifyConfig'), gmController.deleteQuestConfig);
 router.get('/gm/config/items', gmController.getItemConfigs);
-router.post('/gm/config/items', gmController.createItemConfig);
-router.put('/gm/config/items/:itemId', gmController.updateItemConfig);
-router.delete('/gm/config/items/:itemId', gmController.deleteItemConfig);
+router.post('/gm/config/items', gmMiddleware('canModifyConfig'), gmController.createItemConfig);
+router.put('/gm/config/items/:itemId', gmMiddleware('canModifyConfig'), gmController.updateItemConfig);
+router.delete('/gm/config/items/:itemId', gmMiddleware('canModifyConfig'), gmController.deleteItemConfig);
 router.get('/gm/config/maps', gmController.getMapConfigs);
 router.get('/gm/config/rooms', gmController.getRoomConfigs);
-router.put('/gm/config/rooms/:roomId', gmController.updateRoomConfig);
-
-// 玩家详情
-router.get('/gm/players/:playerId/full', gmController.getPlayerFullInfo);
-router.get('/gm/players/:playerId/equipment', gmController.getPlayerEquipment);
-router.get('/gm/players/:playerId/skills', gmController.getPlayerSkills);
-router.get('/gm/players/:playerId/inventory', gmController.getPlayerInventory);
-router.put('/gm/players/:playerId/attributes', gmController.modifyPlayerAttributes);
-router.post('/gm/players/:playerId/reset', gmController.resetPlayer);
+router.put('/gm/config/rooms/:roomId', gmMiddleware('canModifyConfig'), gmController.updateRoomConfig);
 
 module.exports = router;

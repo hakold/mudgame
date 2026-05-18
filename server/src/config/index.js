@@ -1,6 +1,9 @@
 require('dotenv').config();
 
 module.exports = {
+  // 环境
+  env: process.env.NODE_ENV || 'development',
+
   // 服务器配置
   port: parseInt(process.env.PORT) || 3000,
   host: process.env.HOST || '0.0.0.0',
