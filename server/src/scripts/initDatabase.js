@@ -1,13 +1,16 @@
-require('dotenv').config({ path: require('path').join(__dirname, '../.env') });
+require('dotenv').config({ path: require('path').join(__dirname, '../../.env') });
 const mongoose = require('mongoose');
+const config = require('../config');
 const { User } = require('../models');
 
 async function initDatabase() {
   console.log('[Init] 开始初始化数据库...');
-  
+
   try {
-    // 连接数据库
-    await mongoose.connect(process.env.MONGODB_URI || `mongodb://${process.env.MONGODB_HOST}:${process.env.MONGODB_PORT}/${process.env.MONGODB_DATABASE}`);
+    // 连接数据库（使用config的uri getter，自动处理用户名密码）
+    const mongoUri = config.mongodb.uri;
+    console.log(`[Init] 连接数据库: ${mongoUri.replace(/\/\/.*@/, '//***:***@')}`);
+    await mongoose.connect(mongoUri);
     console.log('[Init] 数据库连接成功');
     
     // 创建管理员账号

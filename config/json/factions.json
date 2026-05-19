@@ -21,7 +21,8 @@
       "skill_xisuijing",
       "skill_shaolin_divine"
     ],
-    "color": "#FFD700"
+    "color": "#FFD700",
+    "entryExamId": "faction_exam_shaolin"
   },
   {
     "id": "wudang",
@@ -44,7 +45,8 @@
       "skill_chunyang",
       "skill_zhenwu_sword"
     ],
-    "color": "#4169E1"
+    "color": "#4169E1",
+    "entryExamId": "faction_exam_wudang"
   },
   {
     "id": "emei",
@@ -68,7 +70,8 @@
       "skill_jiutian_xuangong",
       "skill_emei_divine"
     ],
-    "color": "#FF69B4"
+    "color": "#FF69B4",
+    "entryExamId": "faction_exam_emei"
   },
   {
     "id": "beggar",
@@ -91,7 +94,8 @@
       "skill_xianglong",
       "skill_dragon_subdue"
     ],
-    "color": "#8B4513"
+    "color": "#8B4513",
+    "entryExamId": "faction_exam_beggar"
   },
   {
     "id": "mingjiao",
@@ -115,7 +119,8 @@
       "skill_light_fist",
       "skill_burn_heaven"
     ],
-    "color": "#FF4500"
+    "color": "#FF4500",
+    "entryExamId": "faction_exam_mingjiao"
   },
   {
     "id": "xiaoyao",
@@ -136,6 +141,7 @@
       "skill_tianshan_liuyang",
       "skill_bahuang"
     ],
-    "color": "#9370DB"
+    "color": "#9370DB",
+    "entryExamId": "faction_exam_xiaoyao"
   }
 ]

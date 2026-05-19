@@ -947,5 +947,2279 @@
       }
     ],
     "sellPrice": 400
+  },
+  {
+    "id": "weapon_oak_staff",
+    "name": "木杖",
+    "type": "weapon",
+    "subtype": "staff",
+    "description": "橡木制成的短杖，攻击+4",
+    "price": 80,
+    "requireLevel": 1,
+    "stats": {
+      "attack": 4
+    },
+    "sellPrice": 32
+  },
+  {
+    "id": "weapon_iron_staff",
+    "name": "铁杖",
+    "type": "weapon",
+    "subtype": "staff",
+    "description": "铁制长杖，攻击+18",
+    "price": 600,
+    "requireLevel": 10,
+    "stats": {
+      "attack": 18
+    },
+    "sellPrice": 240
+  },
+  {
+    "id": "weapon_buddha_staff",
+    "name": "佛门禅杖",
+    "type": "weapon",
+    "subtype": "staff",
+    "description": "少林高僧所用禅杖，攻击+35，智力+5",
+    "price": 3000,
+    "requireLevel": 25,
+    "stats": {
+      "attack": 35,
+      "intelligence": 5
+    },
+    "sellPrice": 1200
+  },
+  {
+    "id": "weapon_jade_staff",
+    "name": "玉龙杖",
+    "type": "weapon",
+    "subtype": "staff",
+    "description": "镶嵌玉石的龙纹法杖，攻击+55，智力+15",
+    "price": 8000,
+    "requireLevel": 40,
+    "stats": {
+      "attack": 55,
+      "intelligence": 15
+    },
+    "sellPrice": 3200
+  },
+  {
+    "id": "weapon_iron_dagger",
+    "name": "铁匕首",
+    "type": "weapon",
+    "subtype": "dagger",
+    "description": "短小精悍的铁匕首，攻击+8",
+    "price": 120,
+    "requireLevel": 3,
+    "stats": {
+      "attack": 8
+    },
+    "sellPrice": 48
+  },
+  {
+    "id": "weapon_shadow_dagger",
+    "name": "暗影匕首",
+    "type": "weapon",
+    "subtype": "dagger",
+    "description": "来去无踪的暗杀利器，攻击+22，敏捷+5",
+    "price": 1200,
+    "requireLevel": 12,
+    "stats": {
+      "attack": 22,
+      "dexterity": 5
+    },
+    "sellPrice": 480
+  },
+  {
+    "id": "weapon_poison_dagger",
+    "name": "淬毒匕首",
+    "type": "weapon",
+    "subtype": "dagger",
+    "description": "淬有剧毒的匕首，攻击+30，中毒效果",
+    "price": 2500,
+    "requireLevel": 20,
+    "stats": {
+      "attack": 30
+    },
+    "special": "poison_damage",
+    "sellPrice": 1000
+  },
+  {
+    "id": "weapon_dragon_fang_dagger",
+    "name": "龙牙匕",
+    "type": "weapon",
+    "subtype": "dagger",
+    "description": "以龙牙锻造的神兵，攻击+50，敏捷+10",
+    "price": 8000,
+    "requireLevel": 35,
+    "stats": {
+      "attack": 50,
+      "dexterity": 10
+    },
+    "sellPrice": 3200
+  },
+  {
+    "id": "weapon_hunting_bow",
+    "name": "猎弓",
+    "type": "weapon",
+    "subtype": "bow",
+    "description": "猎户常用的弓，攻击+12",
+    "price": 150,
+    "requireLevel": 5,
+    "stats": {
+      "attack": 12
+    },
+    "sellPrice": 60
+  },
+  {
+    "id": "weapon_longbow",
+    "name": "长弓",
+    "type": "weapon",
+    "subtype": "bow",
+    "description": "精制长弓，攻击+28",
+    "price": 1200,
+    "requireLevel": 15,
+    "stats": {
+      "attack": 28
+    },
+    "sellPrice": 480
+  },
+  {
+    "id": "weapon_eagle_bow",
+    "name": "鹰角弓",
+    "type": "weapon",
+    "subtype": "bow",
+    "description": "以鹰角装饰的强弓，攻击+48，敏捷+10",
+    "price": 4000,
+    "requireLevel": 30,
+    "stats": {
+      "attack": 48,
+      "dexterity": 10
+    },
+    "sellPrice": 1600
+  },
+  {
+    "id": "weapon_phoenix_bow",
+    "name": "凤凰弓",
+    "type": "weapon",
+    "subtype": "bow",
+    "description": "传说中后羿所用神弓，攻击+75，敏捷+20",
+    "price": 12000,
+    "requireLevel": 45,
+    "stats": {
+      "attack": 75,
+      "dexterity": 20
+    },
+    "sellPrice": 4800
+  },
+  {
+    "id": "weapon_iron_knuckles",
+    "name": "铁拳套",
+    "type": "weapon",
+    "subtype": "fist",
+    "description": "铁制拳套，攻击+14",
+    "price": 200,
+    "requireLevel": 8,
+    "stats": {
+      "attack": 14
+    },
+    "sellPrice": 80
+  },
+  {
+    "id": "weapon_tiger_claws",
+    "name": "虎爪",
+    "type": "weapon",
+    "subtype": "fist",
+    "description": "虎爪拳套，攻击+35，力量+5",
+    "price": 2500,
+    "requireLevel": 20,
+    "stats": {
+      "attack": 35,
+      "strength": 5
+    },
+    "sellPrice": 1000
+  },
+  {
+    "id": "weapon_dragon_gloves",
+    "name": "龙拳套",
+    "type": "weapon",
+    "subtype": "fist",
+    "description": "龙皮制成的拳套，攻击+65，力量+15",
+    "price": 10000,
+    "requireLevel": 40,
+    "stats": {
+      "attack": 65,
+      "strength": 15
+    },
+    "sellPrice": 4000
+  },
+  {
+    "id": "helmet_iron",
+    "name": "铁盔",
+    "type": "armor",
+    "subtype": "helmet",
+    "description": "铁制头盔，防御+8",
+    "price": 250,
+    "requireLevel": 10,
+    "stats": {
+      "defense": 8
+    },
+    "sellPrice": 100
+  },
+  {
+    "id": "helmet_steel",
+    "name": "钢盔",
+    "type": "armor",
+    "subtype": "helmet",
+    "description": "精钢打造的头盔，防御+15",
+    "price": 800,
+    "requireLevel": 20,
+    "stats": {
+      "defense": 15
+    },
+    "sellPrice": 320
+  },
+  {
+    "id": "helmet_gold",
+    "name": "金盔",
+    "type": "armor",
+    "subtype": "helmet",
+    "description": "金丝编织的头盔，防御+25，力量+5",
+    "price": 3000,
+    "requireLevel": 35,
+    "stats": {
+      "defense": 25,
+      "strength": 5
+    },
+    "sellPrice": 1200
+  },
+  {
+    "id": "helmet_dragon",
+    "name": "龙盔",
+    "type": "armor",
+    "subtype": "helmet",
+    "description": "龙鳞打造的头盔，防御+35，力量+10",
+    "price": 8000,
+    "requireLevel": 50,
+    "stats": {
+      "defense": 35,
+      "strength": 10
+    },
+    "sellPrice": 3200
+  },
+  {
+    "id": "boots_iron",
+    "name": "铁靴",
+    "type": "armor",
+    "subtype": "boots",
+    "description": "铁制长靴，防御+5，敏捷+4",
+    "price": 300,
+    "requireLevel": 10,
+    "stats": {
+      "defense": 5,
+      "dexterity": 4
+    },
+    "sellPrice": 120
+  },
+  {
+    "id": "boots_steel",
+    "name": "钢靴",
+    "type": "armor",
+    "subtype": "boots",
+    "description": "精钢长靴，防御+8，敏捷+8",
+    "price": 900,
+    "requireLevel": 20,
+    "stats": {
+      "defense": 8,
+      "dexterity": 8
+    },
+    "sellPrice": 360
+  },
+  {
+    "id": "boots_wind",
+    "name": "疾风靴",
+    "type": "armor",
+    "subtype": "boots",
+    "description": "附有风之力的轻靴，防御+12，敏捷+18",
+    "price": 3000,
+    "requireLevel": 35,
+    "stats": {
+      "defense": 12,
+      "dexterity": 18
+    },
+    "sellPrice": 1200
+  },
+  {
+    "id": "boots_cloud",
+    "name": "踏云靴",
+    "type": "armor",
+    "subtype": "boots",
+    "description": "传说可踏云而行的神靴，防御+18，敏捷+30",
+    "price": 8000,
+    "requireLevel": 50,
+    "stats": {
+      "defense": 18,
+      "dexterity": 30
+    },
+    "sellPrice": 3200
+  },
+  {
+    "id": "armor_steel_plate",
+    "name": "钢甲",
+    "type": "armor",
+    "subtype": "body",
+    "description": "精钢打造的全身铠甲，防御+35",
+    "price": 2000,
+    "requireLevel": 20,
+    "stats": {
+      "defense": 35
+    },
+    "sellPrice": 800
+  },
+  {
+    "id": "armor_dragon_scale",
+    "name": "龙鳞甲",
+    "type": "armor",
+    "subtype": "body",
+    "description": "以龙鳞打造的宝甲，防御+60",
+    "price": 8000,
+    "requireLevel": 40,
+    "stats": {
+      "defense": 60
+    },
+    "sellPrice": 3200
+  },
+  {
+    "id": "armor_celestial_robe",
+    "name": "天仙道袍",
+    "type": "armor",
+    "subtype": "body",
+    "description": "仙家道袍，防御+45，智力+20",
+    "price": 12000,
+    "requireLevel": 55,
+    "stats": {
+      "defense": 45,
+      "intelligence": 20
+    },
+    "sellPrice": 4800
+  },
+  {
+    "id": "item_speed_pill",
+    "name": "疾风丹",
+    "type": "consumable",
+    "description": "临时提升敏捷15点，持续10回合",
+    "price": 200,
+    "effects": [
+      {
+        "type": "buff",
+        "stat": "dexterity",
+        "value": 15,
+        "duration": 10
+      }
+    ],
+    "sellPrice": 80
+  },
+  {
+    "id": "item_defense_pill",
+    "name": "铁壁丹",
+    "type": "consumable",
+    "description": "临时提升防御20点，持续10回合",
+    "price": 200,
+    "effects": [
+      {
+        "type": "buff",
+        "stat": "defense",
+        "value": 20,
+        "duration": 10
+      }
+    ],
+    "sellPrice": 80
+  },
+  {
+    "id": "item_intelligence_pill",
+    "name": "聪慧丹",
+    "type": "consumable",
+    "description": "临时提升智力15点，持续10回合",
+    "price": 200,
+    "effects": [
+      {
+        "type": "buff",
+        "stat": "intelligence",
+        "value": 15,
+        "duration": 10
+      }
+    ],
+    "sellPrice": 80
+  },
+  {
+    "id": "item_full_recovery_pill",
+    "name": "九转还魂丹",
+    "type": "consumable",
+    "description": "恢复全部HP和MP",
+    "price": 1000,
+    "effects": [
+      {
+        "type": "heal_hp",
+        "value": 9999
+      },
+      {
+        "type": "heal_mp",
+        "value": 9999
+      }
+    ],
+    "sellPrice": 400
+  },
+  {
+    "id": "item_exp_boost_pill",
+    "name": "悟道丹",
+    "type": "consumable",
+    "description": "使用后10回合内获得双倍经验",
+    "price": 500,
+    "effects": [
+      {
+        "type": "exp_boost",
+        "value": 2,
+        "duration": 10
+      }
+    ],
+    "sellPrice": 200
+  },
+  {
+    "id": "item_revive_pill",
+    "name": "续命丹",
+    "type": "consumable",
+    "description": "死亡后可自动复活，恢复50%HP",
+    "price": 2000,
+    "effects": [
+      {
+        "type": "auto_revive",
+        "value": 50
+      }
+    ],
+    "sellPrice": 800
+  },
+  {
+    "id": "item_phoenix_feather",
+    "name": "凤凰羽毛",
+    "type": "material",
+    "description": "传说中凤凰的羽毛，蕴含火之精华",
+    "price": 2000,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 800
+  },
+  {
+    "id": "item_celestial_silk",
+    "name": "天蚕丝",
+    "type": "material",
+    "description": "天山冰蚕所吐的丝，坚韧无比",
+    "price": 800,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 320
+  },
+  {
+    "id": "item_dragon_bone",
+    "name": "龙骨",
+    "type": "material",
+    "description": "远古巨龙的遗骨，打造神兵利器",
+    "price": 1500,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 600
+  },
+  {
+    "id": "item_spirit_stone",
+    "name": "灵石",
+    "type": "material",
+    "description": "蕴含天地灵气的石头，用于装备强化",
+    "price": 500,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 200
+  },
+  {
+    "id": "item_gold_ore",
+    "name": "金矿石",
+    "type": "material",
+    "description": "含金的矿石，可提炼黄金",
+    "price": 100,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 40
+  },
+  {
+    "id": "item_silver_ore",
+    "name": "银矿石",
+    "type": "material",
+    "description": "含银的矿石，可提炼白银",
+    "price": 60,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 24
+  },
+  {
+    "id": "item_jade_piece",
+    "name": "玉石",
+    "type": "material",
+    "description": "精美的玉石，价值不菲",
+    "price": 300,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 120
+  },
+  {
+    "id": "item_amber",
+    "name": "琥珀",
+    "type": "material",
+    "description": "晶莹剔透的琥珀，封印着远古的气息",
+    "price": 400,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 160
+  },
+  {
+    "id": "item_pearl",
+    "name": "珍珠",
+    "type": "material",
+    "description": "海中采得的珍珠，圆润光泽",
+    "price": 250,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 100
+  },
+  {
+    "id": "item_obsidian",
+    "name": "黑曜石",
+    "type": "material",
+    "description": "火山喷发形成的黑曜石，暗藏力量",
+    "price": 350,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 140
+  },
+  {
+    "id": "item_meteorite",
+    "name": "陨铁",
+    "type": "material",
+    "description": "天外陨铁，打造绝世神兵的必备材料",
+    "price": 3000,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 1200
+  },
+  {
+    "id": "item_demon_horn",
+    "name": "魔角",
+    "type": "material",
+    "description": "恶魔的角，蕴含黑暗魔力",
+    "price": 350,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 140
+  },
+  {
+    "id": "item_ghost_essence",
+    "name": "幽灵精华",
+    "type": "material",
+    "description": "幽灵消散后留下的精华",
+    "price": 180,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 72
+  },
+  {
+    "id": "item_toad_venom",
+    "name": "蟾酥",
+    "type": "material",
+    "description": "剧毒蟾蜍的毒液结晶",
+    "price": 90,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 36
+  },
+  {
+    "id": "item_fox_fur",
+    "name": "狐皮",
+    "type": "material",
+    "description": "火红狐狸的毛皮，柔软保暖",
+    "price": 45,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 18
+  },
+  {
+    "id": "item_rat_tail",
+    "name": "鼠尾",
+    "type": "material",
+    "description": "巨鼠的尾巴，可用于炼药",
+    "price": 5,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 2
+  },
+  {
+    "id": "item_eagle_feather",
+    "name": "鹰羽",
+    "type": "material",
+    "description": "雄鹰的羽毛，轻盈坚韧",
+    "price": 70,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 28
+  },
+  {
+    "id": "item_lava_rock",
+    "name": "熔岩石",
+    "type": "material",
+    "description": "火山熔岩冷却后形成的石头",
+    "price": 120,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 48
+  },
+  {
+    "id": "item_sand_crystal",
+    "name": "沙晶",
+    "type": "material",
+    "description": "沙漠中凝结的晶体",
+    "price": 80,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 32
+  },
+  {
+    "id": "item_ancient_coin",
+    "name": "古钱币",
+    "type": "material",
+    "description": "古代王朝的钱币，收藏家喜爱",
+    "price": 150,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 60
+  },
+  {
+    "id": "armor_phoenix_robe",
+    "name": "凤凰羽衣",
+    "type": "armor",
+    "subtype": "body",
+    "description": "以凤凰羽织成的羽衣，防御+55，附带火焰抗性",
+    "price": 15000,
+    "requireLevel": 55,
+    "stats": {
+      "defense": 55,
+      "intelligence": 15,
+      "charisma": 10
+    },
+    "sellPrice": 6000
+  },
+  {
+    "id": "weapon_dragon_bone_blade",
+    "name": "龙骨刀",
+    "type": "weapon",
+    "subtype": "sword",
+    "description": "以龙骨锻造的神兵，攻击+85，龙魂附体",
+    "price": 20000,
+    "requireLevel": 50,
+    "stats": {
+      "attack": 85,
+      "strength": 10
+    },
+    "special": "dragon_power",
+    "sellPrice": 8000
+  },
+  {
+    "id": "item_shadow_cloak",
+    "name": "暗影斗篷",
+    "type": "equipment",
+    "equipSlot": "accessory",
+    "description": "暗影界的产物，穿戴后闪避大幅提升",
+    "price": 8000,
+    "requireLevel": 45,
+    "stats": {
+      "dexterity": 30
+    },
+    "durability": {
+      "current": 100,
+      "max": 100
+    },
+    "sellPrice": 3200
+  },
+  {
+    "id": "item_time_sand",
+    "name": "时光沙",
+    "type": "material",
+    "description": "时光塔中收集的时光之沙，蕴含时间的力量",
+    "price": 1500,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 600
+  },
+  {
+    "id": "item_nirvana_ash",
+    "name": "涅槃灰",
+    "type": "material",
+    "description": "凤凰涅槃后留下的灰烬，蕴含重生之力",
+    "price": 2500,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 1000
+  },
+  {
+    "id": "item_mirror_shard",
+    "name": "镜湖碎片",
+    "type": "material",
+    "description": "镜湖水面凝结的碎片，可以映照真实",
+    "price": 800,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 320
+  },
+  {
+    "id": "item_rainbow_essence",
+    "name": "彩虹精华",
+    "type": "material",
+    "description": "彩虹桥上凝结的精华，七色光芒流转",
+    "price": 1200,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 480
+  },
+  {
+    "id": "item_dragon_soul_crystal",
+    "name": "龙魂晶",
+    "type": "material",
+    "description": "龙神殿中凝结的龙魂精华，蕴含神龙之力",
+    "price": 3500,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 1400
+  },
+  {
+    "id": "item_diamond",
+    "name": "钻石",
+    "type": "material",
+    "description": "地底深处采得的钻石，璀璨夺目",
+    "price": 800,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 320
+  },
+  {
+    "id": "armor_coral_armor",
+    "name": "珊瑚铠甲",
+    "type": "armor",
+    "subtype": "body",
+    "description": "以深海珊瑚打造的神铠，防御+65，水下呼吸",
+    "price": 18000,
+    "requireLevel": 55,
+    "stats": {
+      "defense": 65,
+      "constitution": 15
+    },
+    "sellPrice": 7200
+  },
+  {
+    "id": "weapon_trident",
+    "name": "三叉戟",
+    "type": "weapon",
+    "subtype": "staff",
+    "description": "东海龙宫的神兵，攻击+90，附带水流之力",
+    "price": 25000,
+    "requireLevel": 55,
+    "stats": {
+      "attack": 90,
+      "intelligence": 15
+    },
+    "special": "water_power",
+    "sellPrice": 10000
+  },
+  {
+    "id": "item_sky_pearl",
+    "name": "天穹珠",
+    "type": "material",
+    "description": "云中集市独有的宝珠，蕴含天空之力",
+    "price": 2500,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 1000
+  },
+  {
+    "id": "weapon_qingfeng_sword",
+    "name": "青锋剑",
+    "type": "weapon",
+    "subtype": "sword",
+    "description": "精钢淬炼的宝剑，剑身泛着青光。攻击+40",
+    "price": 3000,
+    "requireLevel": 25,
+    "stats": {
+      "attack": 40
+    },
+    "sellPrice": 1200
+  },
+  {
+    "id": "weapon_ice_sword",
+    "name": "寒冰剑",
+    "type": "weapon",
+    "subtype": "sword",
+    "description": "以千年寒铁铸造的宝剑，攻击+55，附带冰冻效果",
+    "price": 5500,
+    "requireLevel": 35,
+    "stats": {
+      "attack": 55
+    },
+    "special": "freeze_damage",
+    "sellPrice": 2200
+  },
+  {
+    "id": "weapon_pojun_sword",
+    "name": "破军剑",
+    "type": "weapon",
+    "subtype": "sword",
+    "description": "沙场名将所用之剑，攻击+72，气势如虹",
+    "price": 9000,
+    "requireLevel": 45,
+    "stats": {
+      "attack": 72,
+      "strength": 8
+    },
+    "sellPrice": 3600
+  },
+  {
+    "id": "weapon_tiangang_sword",
+    "name": "天罡剑",
+    "type": "weapon",
+    "subtype": "sword",
+    "description": "天罡三十六星之力铸造的神剑，攻击+115",
+    "price": 25000,
+    "requireLevel": 60,
+    "stats": {
+      "attack": 115,
+      "strength": 15
+    },
+    "sellPrice": 10000
+  },
+  {
+    "id": "weapon_zhuxian_sword",
+    "name": "诛仙剑",
+    "type": "weapon",
+    "subtype": "sword",
+    "description": "传说中可诛仙灭神的神剑，攻击+150",
+    "price": 50000,
+    "requireLevel": 70,
+    "stats": {
+      "attack": 150,
+      "strength": 20,
+      "intelligence": 10
+    },
+    "special": "divine_power",
+    "sellPrice": 20000
+  },
+  {
+    "id": "weapon_chaos_sword",
+    "name": "混沌剑",
+    "type": "weapon",
+    "subtype": "sword",
+    "description": "混沌初开时诞生的原始神兵，攻击+200",
+    "price": 100000,
+    "requireLevel": 80,
+    "stats": {
+      "attack": 200,
+      "strength": 30,
+      "intelligence": 15
+    },
+    "special": "chaos_power",
+    "sellPrice": 40000
+  },
+  {
+    "id": "weapon_storm_bow",
+    "name": "裂风弓",
+    "type": "weapon",
+    "subtype": "bow",
+    "description": "弓弦如风，箭出裂空。攻击+42，敏捷+8",
+    "price": 3500,
+    "requireLevel": 30,
+    "stats": {
+      "attack": 42,
+      "dexterity": 8
+    },
+    "sellPrice": 1400
+  },
+  {
+    "id": "weapon_sunset_bow",
+    "name": "落日弓",
+    "type": "weapon",
+    "subtype": "bow",
+    "description": "传说后羿射日所用神弓的仿制品，攻击+85，敏捷+15",
+    "price": 15000,
+    "requireLevel": 55,
+    "stats": {
+      "attack": 85,
+      "dexterity": 15
+    },
+    "sellPrice": 6000
+  },
+  {
+    "id": "weapon_vajra_staff",
+    "name": "金刚杵",
+    "type": "weapon",
+    "subtype": "staff",
+    "description": "密宗金刚法器，攻击+48，智力+8",
+    "price": 4000,
+    "requireLevel": 30,
+    "stats": {
+      "attack": 48,
+      "intelligence": 8
+    },
+    "sellPrice": 1600
+  },
+  {
+    "id": "weapon_exorcist_staff",
+    "name": "降魔杵",
+    "type": "weapon",
+    "subtype": "staff",
+    "description": "高僧加持的降魔法器，攻击+82，智力+18",
+    "price": 16000,
+    "requireLevel": 55,
+    "stats": {
+      "attack": 82,
+      "intelligence": 18
+    },
+    "sellPrice": 6400
+  },
+  {
+    "id": "weapon_blood_fang",
+    "name": "血牙拳套",
+    "type": "weapon",
+    "subtype": "fist",
+    "description": "以猛兽獠牙制成的拳套，攻击+72，力量+12",
+    "price": 10000,
+    "requireLevel": 45,
+    "stats": {
+      "attack": 72,
+      "strength": 12
+    },
+    "sellPrice": 4000
+  },
+  {
+    "id": "weapon_sky_breaker",
+    "name": "破天拳套",
+    "type": "weapon",
+    "subtype": "fist",
+    "description": "可开天辟地的拳套，攻击+120，力量+20",
+    "price": 30000,
+    "requireLevel": 60,
+    "stats": {
+      "attack": 120,
+      "strength": 20
+    },
+    "sellPrice": 12000
+  },
+  {
+    "id": "weapon_shadow_dagger_supreme",
+    "name": "无影刃",
+    "type": "weapon",
+    "subtype": "dagger",
+    "description": "来去无影的终极暗杀之刃，攻击+80，敏捷+18",
+    "price": 20000,
+    "requireLevel": 50,
+    "stats": {
+      "attack": 80,
+      "dexterity": 18
+    },
+    "sellPrice": 8000
+  },
+  {
+    "id": "armor_iron_scale",
+    "name": "铁鳞甲",
+    "type": "armor",
+    "subtype": "body",
+    "description": "以铁片编织的鳞甲，防御+18",
+    "price": 600,
+    "requireLevel": 10,
+    "stats": {
+      "defense": 18
+    },
+    "sellPrice": 240
+  },
+  {
+    "id": "armor_silver_scale",
+    "name": "银鳞甲",
+    "type": "armor",
+    "subtype": "body",
+    "description": "以银丝编织的鳞甲，防御+42",
+    "price": 3500,
+    "requireLevel": 25,
+    "stats": {
+      "defense": 42
+    },
+    "sellPrice": 1400
+  },
+  {
+    "id": "armor_turtle",
+    "name": "玄龟甲",
+    "type": "armor",
+    "subtype": "body",
+    "description": "以玄龟壳制成的宝甲，防御+55",
+    "price": 6000,
+    "requireLevel": 35,
+    "stats": {
+      "defense": 55,
+      "constitution": 5
+    },
+    "sellPrice": 2400
+  },
+  {
+    "id": "armor_tiangang",
+    "name": "天罡甲",
+    "type": "armor",
+    "subtype": "body",
+    "description": "天罡星力护体的宝甲，防御+68",
+    "price": 10000,
+    "requireLevel": 45,
+    "stats": {
+      "defense": 68,
+      "constitution": 8
+    },
+    "sellPrice": 4000
+  },
+  {
+    "id": "armor_holy",
+    "name": "圣战铠",
+    "type": "armor",
+    "subtype": "body",
+    "description": "圣光加持的战铠，防御+78，体质+10",
+    "price": 18000,
+    "requireLevel": 50,
+    "stats": {
+      "defense": 78,
+      "constitution": 10
+    },
+    "sellPrice": 7200
+  },
+  {
+    "id": "armor_immortal",
+    "name": "不灭战甲",
+    "type": "armor",
+    "subtype": "body",
+    "description": "传闻穿此甲者不死不灭，防御+90，体质+15",
+    "price": 30000,
+    "requireLevel": 60,
+    "stats": {
+      "defense": 90,
+      "constitution": 15
+    },
+    "sellPrice": 12000
+  },
+  {
+    "id": "armor_divine",
+    "name": "神佑铠",
+    "type": "armor",
+    "subtype": "body",
+    "description": "神赐的护甲，防御+110，全属性+8",
+    "price": 50000,
+    "requireLevel": 70,
+    "stats": {
+      "defense": 110,
+      "strength": 8,
+      "constitution": 8,
+      "dexterity": 8,
+      "intelligence": 8
+    },
+    "sellPrice": 20000
+  },
+  {
+    "id": "armor_chaos",
+    "name": "混沌战甲",
+    "type": "armor",
+    "subtype": "body",
+    "description": "混沌中诞生的终极护甲，防御+130，全属性+15",
+    "price": 100000,
+    "requireLevel": 80,
+    "stats": {
+      "defense": 130,
+      "strength": 15,
+      "constitution": 15,
+      "dexterity": 15,
+      "intelligence": 15
+    },
+    "sellPrice": 40000
+  },
+  {
+    "id": "helmet_bronze",
+    "name": "青铜盔",
+    "type": "armor",
+    "subtype": "helmet",
+    "description": "青铜打造的头盔，防御+12",
+    "price": 400,
+    "requireLevel": 15,
+    "stats": {
+      "defense": 12
+    },
+    "sellPrice": 160
+  },
+  {
+    "id": "helmet_xuantie",
+    "name": "玄铁盔",
+    "type": "armor",
+    "subtype": "helmet",
+    "description": "玄铁打造的头盔，防御+20",
+    "price": 1500,
+    "requireLevel": 25,
+    "stats": {
+      "defense": 20
+    },
+    "sellPrice": 600
+  },
+  {
+    "id": "helmet_silver",
+    "name": "银盔",
+    "type": "armor",
+    "subtype": "helmet",
+    "description": "纯银打造的头盔，防御+22，智力+3",
+    "price": 2200,
+    "requireLevel": 30,
+    "stats": {
+      "defense": 22,
+      "intelligence": 3
+    },
+    "sellPrice": 880
+  },
+  {
+    "id": "helmet_mithril",
+    "name": "秘银盔",
+    "type": "armor",
+    "subtype": "helmet",
+    "description": "秘银打造的头盔，防御+28，智力+5",
+    "price": 4000,
+    "requireLevel": 40,
+    "stats": {
+      "defense": 28,
+      "intelligence": 5
+    },
+    "sellPrice": 1600
+  },
+  {
+    "id": "helmet_dark_gold",
+    "name": "暗金盔",
+    "type": "armor",
+    "subtype": "helmet",
+    "description": "暗金铸造的头盔，防御+32，力量+8",
+    "price": 6000,
+    "requireLevel": 45,
+    "stats": {
+      "defense": 32,
+      "strength": 8
+    },
+    "sellPrice": 2400
+  },
+  {
+    "id": "helmet_holy",
+    "name": "圣盔",
+    "type": "armor",
+    "subtype": "helmet",
+    "description": "圣光祝福的头盔，防御+40，力量+12",
+    "price": 12000,
+    "requireLevel": 55,
+    "stats": {
+      "defense": 40,
+      "strength": 12
+    },
+    "sellPrice": 4800
+  },
+  {
+    "id": "helmet_oracle",
+    "name": "神谕之冠",
+    "type": "armor",
+    "subtype": "helmet",
+    "description": "神谕所授的冠冕，防御+48，智力+20",
+    "price": 25000,
+    "requireLevel": 65,
+    "stats": {
+      "defense": 48,
+      "intelligence": 20
+    },
+    "sellPrice": 10000
+  },
+  {
+    "id": "boots_bronze",
+    "name": "青铜靴",
+    "type": "armor",
+    "subtype": "boots",
+    "description": "青铜打造的靴子，防御+6，敏捷+6",
+    "price": 500,
+    "requireLevel": 15,
+    "stats": {
+      "defense": 6,
+      "dexterity": 6
+    },
+    "sellPrice": 200
+  },
+  {
+    "id": "boots_xuantie",
+    "name": "玄铁靴",
+    "type": "armor",
+    "subtype": "boots",
+    "description": "玄铁打造的靴子，防御+10，敏捷+12",
+    "price": 1800,
+    "requireLevel": 25,
+    "stats": {
+      "defense": 10,
+      "dexterity": 12
+    },
+    "sellPrice": 720
+  },
+  {
+    "id": "boots_silver",
+    "name": "银靴",
+    "type": "armor",
+    "subtype": "boots",
+    "description": "纯银打造的靴子，防御+12，敏捷+14",
+    "price": 2500,
+    "requireLevel": 30,
+    "stats": {
+      "defense": 12,
+      "dexterity": 14
+    },
+    "sellPrice": 1000
+  },
+  {
+    "id": "boots_mithril",
+    "name": "秘银靴",
+    "type": "armor",
+    "subtype": "boots",
+    "description": "秘银打造的靴子，防御+15，敏捷+20",
+    "price": 4500,
+    "requireLevel": 40,
+    "stats": {
+      "defense": 15,
+      "dexterity": 20
+    },
+    "sellPrice": 1800
+  },
+  {
+    "id": "boots_dark_gold",
+    "name": "暗金靴",
+    "type": "armor",
+    "subtype": "boots",
+    "description": "暗金铸造的靴子，防御+17，敏捷+24",
+    "price": 6500,
+    "requireLevel": 45,
+    "stats": {
+      "defense": 17,
+      "dexterity": 24
+    },
+    "sellPrice": 2600
+  },
+  {
+    "id": "boots_holy",
+    "name": "圣靴",
+    "type": "armor",
+    "subtype": "boots",
+    "description": "圣光祝福的靴子，防御+22，敏捷+32",
+    "price": 13000,
+    "requireLevel": 55,
+    "stats": {
+      "defense": 22,
+      "dexterity": 32
+    },
+    "sellPrice": 5200
+  },
+  {
+    "id": "boots_god_speed",
+    "name": "神行靴",
+    "type": "armor",
+    "subtype": "boots",
+    "description": "日行千里的神靴，防御+28，敏捷+45",
+    "price": 28000,
+    "requireLevel": 65,
+    "stats": {
+      "defense": 28,
+      "dexterity": 45
+    },
+    "sellPrice": 11200
+  },
+  {
+    "id": "ring_bronze",
+    "name": "青铜戒",
+    "type": "armor",
+    "subtype": "ring",
+    "description": "朴素的青铜戒指，攻击+5",
+    "price": 200,
+    "requireLevel": 10,
+    "stats": {
+      "attack": 5
+    },
+    "sellPrice": 80
+  },
+  {
+    "id": "ring_jade",
+    "name": "翡翠戒",
+    "type": "armor",
+    "subtype": "ring",
+    "description": "翡翠戒指，防御+8，生命+50",
+    "price": 1200,
+    "requireLevel": 20,
+    "stats": {
+      "defense": 8,
+      "constitution": 3
+    },
+    "sellPrice": 480
+  },
+  {
+    "id": "ring_sapphire",
+    "name": "蓝宝石戒",
+    "type": "armor",
+    "subtype": "ring",
+    "description": "蓝宝石戒指，智力+12，内力+80",
+    "price": 3000,
+    "requireLevel": 30,
+    "stats": {
+      "intelligence": 12
+    },
+    "sellPrice": 1200
+  },
+  {
+    "id": "ring_ruby",
+    "name": "红宝石戒",
+    "type": "armor",
+    "subtype": "ring",
+    "description": "红宝石戒指，攻击+15，力量+10",
+    "price": 6000,
+    "requireLevel": 40,
+    "stats": {
+      "attack": 15,
+      "strength": 10
+    },
+    "sellPrice": 2400
+  },
+  {
+    "id": "ring_diamond",
+    "name": "钻石戒",
+    "type": "armor",
+    "subtype": "ring",
+    "description": "钻石戒指，全属性+10",
+    "price": 15000,
+    "requireLevel": 50,
+    "stats": {
+      "strength": 10,
+      "constitution": 10,
+      "dexterity": 10,
+      "intelligence": 10
+    },
+    "sellPrice": 6000
+  },
+  {
+    "id": "ring_dragon",
+    "name": "龙戒",
+    "type": "armor",
+    "subtype": "ring",
+    "description": "以龙晶打造的戒指，攻击+25，防御+15",
+    "price": 30000,
+    "requireLevel": 60,
+    "stats": {
+      "attack": 25,
+      "defense": 15
+    },
+    "sellPrice": 12000
+  },
+  {
+    "id": "ring_phoenix",
+    "name": "凤凰戒",
+    "type": "armor",
+    "subtype": "ring",
+    "description": "凤凰涅槃之戒，全属性+18",
+    "price": 50000,
+    "requireLevel": 70,
+    "stats": {
+      "strength": 18,
+      "constitution": 18,
+      "dexterity": 18,
+      "intelligence": 18
+    },
+    "sellPrice": 20000
+  },
+  {
+    "id": "ring_void",
+    "name": "虚空戒",
+    "type": "armor",
+    "subtype": "ring",
+    "description": "虚空之力凝结的戒指，全属性+30",
+    "price": 100000,
+    "requireLevel": 80,
+    "stats": {
+      "strength": 30,
+      "constitution": 30,
+      "dexterity": 30,
+      "intelligence": 30
+    },
+    "sellPrice": 40000
+  },
+  {
+    "id": "accessory_protection_necklace",
+    "name": "守护项链",
+    "type": "armor",
+    "subtype": "accessory",
+    "description": "祝福过的守护项链，防御+10，生命+100",
+    "price": 1500,
+    "requireLevel": 15,
+    "stats": {
+      "defense": 10,
+      "constitution": 5
+    },
+    "sellPrice": 600
+  },
+  {
+    "id": "accessory_wisdom_necklace",
+    "name": "智慧项链",
+    "type": "armor",
+    "subtype": "accessory",
+    "description": "蕴含智慧的项链，智力+18，内力+150",
+    "price": 4000,
+    "requireLevel": 30,
+    "stats": {
+      "intelligence": 18
+    },
+    "sellPrice": 1600
+  },
+  {
+    "id": "accessory_strength_necklace",
+    "name": "力量项链",
+    "type": "armor",
+    "subtype": "accessory",
+    "description": "增强力量的项链，力量+18，攻击+15",
+    "price": 8000,
+    "requireLevel": 45,
+    "stats": {
+      "strength": 18,
+      "attack": 15
+    },
+    "sellPrice": 3200
+  },
+  {
+    "id": "accessory_celestial_necklace",
+    "name": "天仙项链",
+    "type": "armor",
+    "subtype": "accessory",
+    "description": "天仙佩戴的项链，全属性+12",
+    "price": 20000,
+    "requireLevel": 60,
+    "stats": {
+      "strength": 12,
+      "constitution": 12,
+      "dexterity": 12,
+      "intelligence": 12
+    },
+    "sellPrice": 8000
+  },
+  {
+    "id": "accessory_dragon_heart_necklace",
+    "name": "龙心项链",
+    "type": "armor",
+    "subtype": "accessory",
+    "description": "以龙心打造的项链，生命+500，力量+20",
+    "price": 40000,
+    "requireLevel": 70,
+    "stats": {
+      "strength": 20,
+      "constitution": 15,
+      "dexterity": 10
+    },
+    "sellPrice": 16000
+  },
+  {
+    "id": "accessory_eternal_necklace",
+    "name": "永恒项链",
+    "type": "armor",
+    "subtype": "accessory",
+    "description": "永恒之石打造的项链，全属性+20，生命+500",
+    "price": 100000,
+    "requireLevel": 80,
+    "stats": {
+      "strength": 20,
+      "constitution": 20,
+      "dexterity": 20,
+      "intelligence": 20
+    },
+    "sellPrice": 40000
+  },
+  {
+    "id": "item_constitution_pill",
+    "name": "金刚丹",
+    "type": "consumable",
+    "description": "临时提升体质20点，持续10回合",
+    "price": 200,
+    "effects": [
+      {
+        "type": "buff",
+        "stat": "constitution",
+        "value": 20,
+        "duration": 10
+      }
+    ],
+    "sellPrice": 80
+  },
+  {
+    "id": "item_charisma_pill",
+    "name": "魅力丹",
+    "type": "consumable",
+    "description": "临时提升根骨15点，持续10回合（物品售价提升）",
+    "price": 200,
+    "effects": [
+      {
+        "type": "buff",
+        "stat": "charisma",
+        "value": 15,
+        "duration": 10
+      }
+    ],
+    "sellPrice": 80
+  },
+  {
+    "id": "item_elixir_of_fortitude",
+    "name": "铁骨丹",
+    "type": "consumable",
+    "description": "临时提升最大生命值200点，持续10回合",
+    "price": 350,
+    "effects": [
+      {
+        "type": "buff",
+        "stat": "maxHp",
+        "value": 200,
+        "duration": 10
+      }
+    ],
+    "sellPrice": 140
+  },
+  {
+    "id": "item_reflect_potion",
+    "name": "反伤药水",
+    "type": "consumable",
+    "description": "反弹20%受到的伤害，持续5回合",
+    "price": 400,
+    "effects": [
+      {
+        "type": "buff",
+        "stat": "reflectDamage",
+        "value": 20,
+        "duration": 5
+      }
+    ],
+    "sellPrice": 160
+  },
+  {
+    "id": "item_double_damage_pill",
+    "name": "舍命丹",
+    "type": "consumable",
+    "description": "攻击力翻倍但防御减半，持续5回合（慎用！）",
+    "price": 500,
+    "effects": [
+      {
+        "type": "buff",
+        "stat": "attack",
+        "value": 100,
+        "duration": 5
+      },
+      {
+        "type": "buff",
+        "stat": "defense",
+        "value": -50,
+        "duration": 5
+      }
+    ],
+    "sellPrice": 200
+  },
+  {
+    "id": "item_escape_scroll",
+    "name": "遁地符",
+    "type": "consumable",
+    "description": "使用后必定从战斗中逃脱",
+    "price": 300,
+    "effects": [
+      {
+        "type": "escape_battle",
+        "value": 1
+      }
+    ],
+    "sellPrice": 120
+  },
+  {
+    "id": "item_repair_kit",
+    "name": "修理工具包",
+    "type": "consumable",
+    "description": "修复当前穿戴的所有装备耐久度50点",
+    "price": 500,
+    "effects": [
+      {
+        "type": "repair_all",
+        "value": 50
+      }
+    ],
+    "sellPrice": 200
+  },
+  {
+    "id": "item_luck_pill",
+    "name": "幸运丹",
+    "type": "consumable",
+    "description": "使用后10回合内怪物掉落率翻倍",
+    "price": 600,
+    "effects": [
+      {
+        "type": "buff",
+        "stat": "luck",
+        "value": 100,
+        "duration": 10
+      }
+    ],
+    "sellPrice": 240
+  },
+  {
+    "id": "item_rage_pill",
+    "name": "暴怒丹",
+    "type": "consumable",
+    "description": "临时提升暴击率30%，持续8回合",
+    "price": 450,
+    "effects": [
+      {
+        "type": "buff",
+        "stat": "critChance",
+        "value": 30,
+        "duration": 8
+      }
+    ],
+    "sellPrice": 180
+  },
+  {
+    "id": "item_cleanse_pill",
+    "name": "清心丹",
+    "type": "consumable",
+    "description": "解除所有负面状态（诅咒、中毒、冰冻、威吓）",
+    "price": 250,
+    "effects": [
+      {
+        "type": "cleanse_all",
+        "value": 1
+      }
+    ],
+    "sellPrice": 100
+  },
+  {
+    "id": "item_blood_essence",
+    "name": "血精",
+    "type": "material",
+    "description": "从高手血液中提炼的精华，用于装备强化",
+    "price": 400,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 160
+  },
+  {
+    "id": "item_moonstone",
+    "name": "月光石",
+    "type": "material",
+    "description": "吸收月华而成的宝石，夜晚散发柔和光芒",
+    "price": 500,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 200
+  },
+  {
+    "id": "item_sunstone",
+    "name": "日光石",
+    "type": "material",
+    "description": "吸收日精而成的宝石，白昼散发温暖光芒",
+    "price": 500,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 200
+  },
+  {
+    "id": "item_thunder_crystal",
+    "name": "雷晶",
+    "type": "material",
+    "description": "雷霆峰采集的雷光结晶，蕴含雷电之力",
+    "price": 700,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 280
+  },
+  {
+    "id": "item_void_essence",
+    "name": "虚空精华",
+    "type": "material",
+    "description": "虚空边缘凝结的虚空精华，超越凡间的力量",
+    "price": 3000,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 1200
+  },
+  {
+    "id": "item_scale_of_reverse_dragon",
+    "name": "逆鳞",
+    "type": "material",
+    "description": "神龙颌下的逆鳞，传说得到它的人能获得龙神庇佑",
+    "price": 5000,
+    "stackable": true,
+    "maxStack": 5,
+    "sellPrice": 2000
+  },
+  {
+    "id": "skill_book_basic_attack",
+    "name": "基础拳法入门",
+    "type": "skill_book",
+    "description": "一本泛黄的拳法入门手册。使用后有80%概率学会基础攻击。",
+    "skillId": "skill_basic_attack",
+    "successRate": 0.8,
+    "price": 50,
+    "sellPrice": 20
+  },
+  {
+    "id": "skill_book_heal_basic",
+    "name": "回春术残卷",
+    "type": "skill_book",
+    "description": "记载了基础治疗之术的残卷。使用后有70%概率学会基础治疗。",
+    "skillId": "skill_heal_basic",
+    "successRate": 0.7,
+    "price": 100,
+    "sellPrice": 40
+  },
+  {
+    "id": "skill_book_meditation",
+    "name": "冥想心法",
+    "type": "skill_book",
+    "description": "一本薄薄的冥想入门书。使用后有65%概率学会冥想。",
+    "skillId": "skill_meditation",
+    "successRate": 0.65,
+    "price": 150,
+    "sellPrice": 60
+  },
+  {
+    "id": "skill_book_shaolin_fist",
+    "name": "罗汉拳谱",
+    "type": "skill_book",
+    "description": "少林罗汉拳的拳谱。使用后有60%概率学会罗汉拳。",
+    "skillId": "skill_shaolin_fist",
+    "successRate": 0.6,
+    "price": 800,
+    "sellPrice": 320
+  },
+  {
+    "id": "skill_book_shaolin_staff",
+    "name": "少林棍法图谱",
+    "type": "skill_book",
+    "description": "详细描绘了少林棍法的每一招。使用后有55%概率学会少林棍法。",
+    "skillId": "skill_shaolin_staff",
+    "successRate": 0.55,
+    "price": 1200,
+    "sellPrice": 480
+  },
+  {
+    "id": "skill_book_shaolin_palm",
+    "name": "金刚掌秘籍",
+    "type": "skill_book",
+    "description": "记载少林金刚掌的秘籍。使用后有50%概率学会金刚掌。",
+    "skillId": "skill_shaolin_palm",
+    "successRate": 0.5,
+    "price": 2000,
+    "sellPrice": 800
+  },
+  {
+    "id": "skill_book_golden_bell",
+    "name": "金钟罩真解",
+    "type": "skill_book",
+    "description": "少林护体神功金钟罩的真解。使用后有45%概率学会金钟罩。",
+    "skillId": "skill_golden_bell",
+    "successRate": 0.45,
+    "price": 3000,
+    "sellPrice": 1200
+  },
+  {
+    "id": "skill_book_lion_roar",
+    "name": "狮子吼秘本",
+    "type": "skill_book",
+    "description": "佛门狮子吼的修炼秘本。使用后有40%概率学会狮子吼。",
+    "skillId": "skill_lion_roar",
+    "successRate": 0.4,
+    "price": 4000,
+    "sellPrice": 1600
+  },
+  {
+    "id": "skill_book_yijinjing",
+    "name": "易筋经抄本",
+    "type": "skill_book",
+    "description": "少林无上内功易筋经的手抄本。使用后有30%概率学会易筋经。",
+    "skillId": "skill_yijinjing",
+    "successRate": 0.3,
+    "price": 8000,
+    "sellPrice": 3200
+  },
+  {
+    "id": "skill_book_damo_sword",
+    "name": "达摩剑谱",
+    "type": "skill_book",
+    "description": "达摩祖师亲传的剑谱。使用后有35%概率学会达摩剑法。",
+    "skillId": "skill_damo_sword",
+    "successRate": 0.35,
+    "price": 8000,
+    "sellPrice": 3200
+  },
+  {
+    "id": "skill_book_xisuijing",
+    "name": "洗髓经秘本",
+    "type": "skill_book",
+    "description": "少林至高心法洗髓经的秘本。使用后有25%概率学会洗髓经。",
+    "skillId": "skill_xisuijing",
+    "successRate": 0.25,
+    "price": 12000,
+    "sellPrice": 4800
+  },
+  {
+    "id": "skill_book_shaolin_divine",
+    "name": "如来神掌真经",
+    "type": "skill_book",
+    "description": "少林镇派绝学的真经！使用后有15%概率学会如来神掌。",
+    "skillId": "skill_shaolin_divine",
+    "successRate": 0.15,
+    "price": 30000,
+    "sellPrice": 12000
+  },
+  {
+    "id": "skill_book_wudang_xinfa",
+    "name": "武当心法口诀",
+    "type": "skill_book",
+    "description": "武当内功心法的口诀。使用后有60%概率学会武当心法。",
+    "skillId": "skill_wudang_xinfa",
+    "successRate": 0.6,
+    "price": 800,
+    "sellPrice": 320
+  },
+  {
+    "id": "skill_book_wudang_fist",
+    "name": "太极拳经",
+    "type": "skill_book",
+    "description": "武当太极拳的拳经。使用后有55%概率学会太极拳。",
+    "skillId": "skill_wudang_fist",
+    "successRate": 0.55,
+    "price": 1200,
+    "sellPrice": 480
+  },
+  {
+    "id": "skill_book_wudang_sword",
+    "name": "太极剑谱",
+    "type": "skill_book",
+    "description": "武当太极剑法的剑谱。使用后有50%概率学会太极剑。",
+    "skillId": "skill_wudang_sword",
+    "successRate": 0.5,
+    "price": 2000,
+    "sellPrice": 800
+  },
+  {
+    "id": "skill_book_liangyi_sword",
+    "name": "两仪剑法图解",
+    "type": "skill_book",
+    "description": "武当两仪剑法的图解。使用后有45%概率学会两仪剑法。",
+    "skillId": "skill_liangyi_sword",
+    "successRate": 0.45,
+    "price": 3500,
+    "sellPrice": 1400
+  },
+  {
+    "id": "skill_book_tiyunzong",
+    "name": "梯云纵轻功诀",
+    "type": "skill_book",
+    "description": "武当绝世轻功梯云纵的口诀。使用后有40%概率学会梯云纵。",
+    "skillId": "skill_tiyunzong",
+    "successRate": 0.4,
+    "price": 5000,
+    "sellPrice": 2000
+  },
+  {
+    "id": "skill_book_taiji_jin",
+    "name": "太极劲心法",
+    "type": "skill_book",
+    "description": "太极内劲运转全身的心法。使用后有35%概率学会太极劲。",
+    "skillId": "skill_taiji_jin",
+    "successRate": 0.35,
+    "price": 6000,
+    "sellPrice": 2400
+  },
+  {
+    "id": "skill_book_chunyang",
+    "name": "纯阳功真解",
+    "type": "skill_book",
+    "description": "武当纯阳无极功的真解。使用后有30%概率学会纯阳功。",
+    "skillId": "skill_chunyang",
+    "successRate": 0.3,
+    "price": 8000,
+    "sellPrice": 3200
+  },
+  {
+    "id": "skill_book_zhenwu_sword",
+    "name": "真武七截剑秘籍",
+    "type": "skill_book",
+    "description": "武当镇派剑法的秘籍！使用后有15%概率学会真武七截剑。",
+    "skillId": "skill_zhenwu_sword",
+    "successRate": 0.15,
+    "price": 30000,
+    "sellPrice": 12000
+  },
+  {
+    "id": "skill_book_emei_xinfa",
+    "name": "峨眉心法",
+    "type": "skill_book",
+    "description": "峨眉内功心法。使用后有60%概率学会峨眉心法。",
+    "skillId": "skill_emei_xinfa",
+    "successRate": 0.6,
+    "price": 800,
+    "sellPrice": 320
+  },
+  {
+    "id": "skill_book_emei_sword",
+    "name": "峨眉剑谱",
+    "type": "skill_book",
+    "description": "峨眉派剑法的剑谱。使用后有55%概率学会峨眉剑法。",
+    "skillId": "skill_emei_sword",
+    "successRate": 0.55,
+    "price": 1200,
+    "sellPrice": 480
+  },
+  {
+    "id": "skill_book_jiuyang",
+    "name": "九阳功秘笈",
+    "type": "skill_book",
+    "description": "峨眉九阳功的秘笈。使用后有45%概率学会九阳功。",
+    "skillId": "skill_jiuyang",
+    "successRate": 0.45,
+    "price": 3000,
+    "sellPrice": 1200
+  },
+  {
+    "id": "skill_book_yunv_sword",
+    "name": "玉女剑法图谱",
+    "type": "skill_book",
+    "description": "峨眉玉女剑法的图谱。使用后有45%概率学会玉女剑法。",
+    "skillId": "skill_yunv_sword",
+    "successRate": 0.45,
+    "price": 2500,
+    "sellPrice": 1000
+  },
+  {
+    "id": "skill_book_jinding_light",
+    "name": "金顶佛光心经",
+    "type": "skill_book",
+    "description": "峨眉绝学金顶佛光的心经。使用后有35%概率学会金顶佛光。",
+    "skillId": "skill_jinding_light",
+    "successRate": 0.35,
+    "price": 5000,
+    "sellPrice": 2000
+  },
+  {
+    "id": "skill_book_emei_thorn",
+    "name": "峨眉刺秘法",
+    "type": "skill_book",
+    "description": "峨眉独门兵器的使用秘法。使用后有40%概率学会峨眉刺。",
+    "skillId": "skill_emei_thorn",
+    "successRate": 0.4,
+    "price": 5000,
+    "sellPrice": 2000
+  },
+  {
+    "id": "skill_book_mercy_palm",
+    "name": "大慈大悲掌法",
+    "type": "skill_book",
+    "description": "峨眉掌法，攻中带疗。使用后有35%概率学会大慈大悲掌。",
+    "skillId": "skill_mercy_palm",
+    "successRate": 0.35,
+    "price": 6000,
+    "sellPrice": 2400
+  },
+  {
+    "id": "skill_book_jiutian_xuangong",
+    "name": "九天玄功宝典",
+    "type": "skill_book",
+    "description": "峨眉至高心法的宝典。使用后有25%概率学会九天玄功。",
+    "skillId": "skill_jiutian_xuangong",
+    "successRate": 0.25,
+    "price": 12000,
+    "sellPrice": 4800
+  },
+  {
+    "id": "skill_book_emei_divine",
+    "name": "天罗地网式真传",
+    "type": "skill_book",
+    "description": "峨眉镇派绝学的真传！使用后有15%概率学会天罗地网式。",
+    "skillId": "skill_emei_divine",
+    "successRate": 0.15,
+    "price": 30000,
+    "sellPrice": 12000
+  },
+  {
+    "id": "skill_book_gaibang_xinfa",
+    "name": "丐帮心法口诀",
+    "type": "skill_book",
+    "description": "丐帮独门心法的口诀。使用后有60%概率学会丐帮心法。",
+    "skillId": "skill_gaibang_xinfa",
+    "successRate": 0.6,
+    "price": 800,
+    "sellPrice": 320
+  },
+  {
+    "id": "skill_book_gaibang_stick",
+    "name": "打狗棒法图解",
+    "type": "skill_book",
+    "description": "丐帮打狗棒法的图解。使用后有55%概率学会打狗棒法。",
+    "skillId": "skill_gaibang_stick",
+    "successRate": 0.55,
+    "price": 1500,
+    "sellPrice": 600
+  },
+  {
+    "id": "skill_book_lotus_palm",
+    "name": "莲花掌秘籍",
+    "type": "skill_book",
+    "description": "丐帮莲花掌法的秘籍。使用后有50%概率学会莲花掌。",
+    "skillId": "skill_lotus_palm",
+    "successRate": 0.5,
+    "price": 2000,
+    "sellPrice": 800
+  },
+  {
+    "id": "skill_book_drunken_fist",
+    "name": "醉拳秘谱",
+    "type": "skill_book",
+    "description": "丐帮醉拳的秘谱。使用后有45%概率学会醉拳。",
+    "skillId": "skill_drunken_fist",
+    "successRate": 0.45,
+    "price": 3500,
+    "sellPrice": 1400
+  },
+  {
+    "id": "skill_book_gaibang_formation",
+    "name": "打狗阵法图解",
+    "type": "skill_book",
+    "description": "丐帮打狗阵法的图解。使用后有40%概率学会打狗阵法。",
+    "skillId": "skill_gaibang_formation",
+    "successRate": 0.4,
+    "price": 5000,
+    "sellPrice": 2000
+  },
+  {
+    "id": "skill_book_xianglong",
+    "name": "降龙十八掌残谱",
+    "type": "skill_book",
+    "description": "丐帮绝学的残谱。使用后有35%概率学会降龙十八掌。",
+    "skillId": "skill_xianglong",
+    "successRate": 0.35,
+    "price": 12000,
+    "sellPrice": 4800
+  },
+  {
+    "id": "skill_book_kanglong",
+    "name": "亢龙有悔真诀",
+    "type": "skill_book",
+    "description": "降龙十八掌最强一式的真诀。使用后有25%概率学会亢龙有悔。",
+    "skillId": "skill_kanglong",
+    "successRate": 0.25,
+    "price": 18000,
+    "sellPrice": 7200
+  },
+  {
+    "id": "skill_book_dragon_subdue",
+    "name": "降龙伏虎神功",
+    "type": "skill_book",
+    "description": "丐帮镇派绝学的真传！使用后有15%概率学会降龙伏虎。",
+    "skillId": "skill_dragon_subdue",
+    "successRate": 0.15,
+    "price": 35000,
+    "sellPrice": 14000
+  },
+  {
+    "id": "skill_book_mingjiao_xinfa",
+    "name": "明教心法",
+    "type": "skill_book",
+    "description": "明教内功心法。使用后有60%概率学会明教心法。",
+    "skillId": "skill_mingjiao_xinfa",
+    "successRate": 0.6,
+    "price": 1000,
+    "sellPrice": 400
+  },
+  {
+    "id": "skill_book_blazing_blade",
+    "name": "烈焰刀谱",
+    "type": "skill_book",
+    "description": "明教烈焰刀法的刀谱。使用后有55%概率学会烈焰刀。",
+    "skillId": "skill_blazing_blade",
+    "successRate": 0.55,
+    "price": 2000,
+    "sellPrice": 800
+  },
+  {
+    "id": "skill_book_mingjiao_fire",
+    "name": "圣火功心法",
+    "type": "skill_book",
+    "description": "明教圣火功的心法。使用后有50%概率学会圣火功。",
+    "skillId": "skill_mingjiao_fire",
+    "successRate": 0.5,
+    "price": 3500,
+    "sellPrice": 1400
+  },
+  {
+    "id": "skill_book_holy_flame_order",
+    "name": "圣火令秘文",
+    "type": "skill_book",
+    "description": "明教圣火令上的秘文。使用后有40%概率学会圣火令。",
+    "skillId": "skill_holy_flame_order",
+    "successRate": 0.4,
+    "price": 5000,
+    "sellPrice": 2000
+  },
+  {
+    "id": "skill_book_fenyin_bu",
+    "name": "焚影步轻功",
+    "type": "skill_book",
+    "description": "明教独门身法焚影步。使用后有45%概率学会焚影步。",
+    "skillId": "skill_fenyin_bu",
+    "successRate": 0.45,
+    "price": 5000,
+    "sellPrice": 2000
+  },
+  {
+    "id": "skill_book_mingjiao_qiankun",
+    "name": "乾坤大挪移心法",
+    "type": "skill_book",
+    "description": "明教镇教神功的心法。使用后有30%概率学会乾坤大挪移。",
+    "skillId": "skill_mingjiao_qiankun",
+    "successRate": 0.3,
+    "price": 12000,
+    "sellPrice": 4800
+  },
+  {
+    "id": "skill_book_light_fist",
+    "name": "光明拳真解",
+    "type": "skill_book",
+    "description": "明教光明拳法的真解。使用后有35%概率学会光明拳。",
+    "skillId": "skill_light_fist",
+    "successRate": 0.35,
+    "price": 8000,
+    "sellPrice": 3200
+  },
+  {
+    "id": "skill_book_burn_heaven",
+    "name": "焚天诀残卷",
+    "type": "skill_book",
+    "description": "明教至高武学的残卷！使用后有15%概率学会焚天诀。",
+    "skillId": "skill_burn_heaven",
+    "successRate": 0.15,
+    "price": 35000,
+    "sellPrice": 14000
+  },
+  {
+    "id": "skill_book_xiaoyao_xinfa",
+    "name": "逍遥心法",
+    "type": "skill_book",
+    "description": "逍遥派内功心法。使用后有60%概率学会逍遥心法。",
+    "skillId": "skill_xiaoyao_xinfa",
+    "successRate": 0.6,
+    "price": 2000,
+    "sellPrice": 800
+  },
+  {
+    "id": "skill_book_lingbo_weibu",
+    "name": "凌波微步图解",
+    "type": "skill_book",
+    "description": "逍遥派绝世轻功凌波微步的图解。使用后有40%概率学会凌波微步。",
+    "skillId": "skill_lingbo_weibu",
+    "successRate": 0.4,
+    "price": 5000,
+    "sellPrice": 2000
+  },
+  {
+    "id": "skill_book_xiaoyao_sword",
+    "name": "逍遥剑谱",
+    "type": "skill_book",
+    "description": "逍遥派剑法的剑谱。使用后有50%概率学会逍遥剑法。",
+    "skillId": "skill_xiaoyao_sword",
+    "successRate": 0.5,
+    "price": 4000,
+    "sellPrice": 1600
+  },
+  {
+    "id": "skill_book_beiming",
+    "name": "北冥神功残篇",
+    "type": "skill_book",
+    "description": "逍遥派北冥神功的残篇。使用后有30%概率学会北冥神功。",
+    "skillId": "skill_beiming",
+    "successRate": 0.3,
+    "price": 8000,
+    "sellPrice": 3200
+  },
+  {
+    "id": "skill_book_tianshan_liuyang",
+    "name": "天山六阳掌谱",
+    "type": "skill_book",
+    "description": "逍遥派至高掌法的掌谱。使用后有25%概率学会天山六阳掌。",
+    "skillId": "skill_tianshan_liuyang",
+    "successRate": 0.25,
+    "price": 12000,
+    "sellPrice": 4800
+  },
+  {
+    "id": "skill_book_bahuang",
+    "name": "八荒六合唯我独尊功",
+    "type": "skill_book",
+    "description": "逍遥派镇派绝学的真经！使用后有10%概率学会此神功。",
+    "skillId": "skill_bahuang",
+    "successRate": 0.1,
+    "price": 50000,
+    "sellPrice": 20000
+  },
+  {
+    "id": "skill_book_rare_xianglong",
+    "name": "降龙十八掌真本",
+    "type": "skill_book",
+    "description": "传说中的降龙十八掌完整真本！使用后有20%概率直接学会降龙十八掌（无门派要求）。",
+    "skillId": "skill_xianglong",
+    "successRate": 0.2,
+    "price": 50000,
+    "sellPrice": 20000
+  },
+  {
+    "id": "skill_book_rare_qiankun",
+    "name": "乾坤大挪移真本",
+    "type": "skill_book",
+    "description": "明教失传的乾坤大挪移完整真本！使用后有20%概率直接学会（无门派要求）。",
+    "skillId": "skill_mingjiao_qiankun",
+    "successRate": 0.2,
+    "price": 50000,
+    "sellPrice": 20000
+  },
+  {
+    "id": "skill_book_rare_bahuang",
+    "name": "八荒六合真解",
+    "type": "skill_book",
+    "description": "逍遥派失传的八荒六合唯我独尊功真解！使用后有15%概率直接学会（无门派要求）。",
+    "skillId": "skill_bahuang",
+    "successRate": 0.15,
+    "price": 80000,
+    "sellPrice": 32000
+  },
+  {
+    "id": "skill_book_rare_damo",
+    "name": "达摩祖师手书",
+    "type": "skill_book",
+    "description": "达摩祖师亲笔手书的武学真迹！使用后有25%概率学会达摩剑法（无门派要求）。",
+    "skillId": "skill_damo_sword",
+    "successRate": 0.25,
+    "price": 40000,
+    "sellPrice": 16000
+  },
+  {
+    "id": "skill_book_rare_zhenwu",
+    "name": "真武大帝剑诀",
+    "type": "skill_book",
+    "description": "真武大帝遗留的剑诀！使用后有20%概率学会真武七截剑（无门派要求）。",
+    "skillId": "skill_zhenwu_sword",
+    "successRate": 0.2,
+    "price": 50000,
+    "sellPrice": 20000
   }
 ]

@@ -22,7 +22,7 @@ class QuestProgressService {
   async checkProgress(userId, event) {
     const activeQuests = await Quest.find({
       userId,
-      status: { $in: ['active', 'accepted'] }
+      status: { $in: ['accepted', 'in_progress'] }
     });
 
     for (const quest of activeQuests) {

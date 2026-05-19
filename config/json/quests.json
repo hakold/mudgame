@@ -7,7 +7,10 @@
     "roomId": "village_center",
     "npcId": "npc_village_chief",
     "objectives": [
-      { "type": "talk", "npcId": "npc_village_chief" }
+      {
+        "type": "talk",
+        "npcId": "npc_village_chief"
+      }
     ],
     "rewards": {
       "exp": 100,
@@ -20,9 +23,14 @@
     "name": "装备自己",
     "type": "main",
     "description": "购买一把木剑",
-    "prerequisites": ["quest_talk_chief"],
+    "prerequisites": [
+      "quest_talk_chief"
+    ],
     "objectives": [
-      { "type": "buy", "itemId": "weapon_wooden_sword" }
+      {
+        "type": "buy",
+        "itemId": "weapon_wooden_sword"
+      }
     ],
     "rewards": {
       "exp": 200,
@@ -35,14 +43,22 @@
     "name": "初试身手",
     "type": "main",
     "description": "击杀3只野猪",
-    "prerequisites": ["quest_buy_weapon"],
+    "prerequisites": [
+      "quest_buy_weapon"
+    ],
     "objectives": [
-      { "type": "kill", "monsterId": "monster_wild_boar", "count": 3 }
+      {
+        "type": "kill",
+        "monsterId": "monster_wild_boar",
+        "count": 3
+      }
     ],
     "rewards": {
       "exp": 300,
       "gold": 150,
-      "items": ["armor_leather"]
+      "items": [
+        "armor_leather"
+      ]
     },
     "nextQuest": "quest_join_faction"
   },
@@ -51,9 +67,13 @@
     "name": "拜师学艺",
     "type": "main",
     "description": "加入一个门派",
-    "prerequisites": ["quest_kill_boars"],
+    "prerequisites": [
+      "quest_kill_boars"
+    ],
     "objectives": [
-      { "type": "join_faction" }
+      {
+        "type": "join_faction"
+      }
     ],
     "rewards": {
       "exp": 500,
@@ -66,9 +86,13 @@
     "name": "技能初成",
     "type": "main",
     "description": "学习一个门派技能",
-    "prerequisites": ["quest_join_faction"],
+    "prerequisites": [
+      "quest_join_faction"
+    ],
     "objectives": [
-      { "type": "learn_skill" }
+      {
+        "type": "learn_skill"
+      }
     ],
     "rewards": {
       "exp": 400,
@@ -81,9 +105,14 @@
     "name": "森林探险",
     "type": "main",
     "description": "探索迷雾森林深处",
-    "prerequisites": ["quest_learn_skill"],
+    "prerequisites": [
+      "quest_learn_skill"
+    ],
     "objectives": [
-      { "type": "visit", "roomId": "forest_deep" }
+      {
+        "type": "visit",
+        "roomId": "forest_deep"
+      }
     ],
     "rewards": {
       "exp": 600,
@@ -96,14 +125,22 @@
     "name": "挑战强敌",
     "type": "main",
     "description": "击杀森林狼王",
-    "prerequisites": ["quest_explore_forest"],
+    "prerequisites": [
+      "quest_explore_forest"
+    ],
     "objectives": [
-      { "type": "kill", "monsterId": "monster_wolf_king", "count": 1 }
+      {
+        "type": "kill",
+        "monsterId": "monster_wolf_king",
+        "count": 1
+      }
     ],
     "rewards": {
       "exp": 1000,
       "gold": 500,
-      "items": ["item_wolf_king_fang"]
+      "items": [
+        "item_wolf_king_fang"
+      ]
     },
     "nextQuest": "quest_enter_city"
   },
@@ -112,9 +149,14 @@
     "name": "进城",
     "type": "main",
     "description": "前往洛阳城",
-    "prerequisites": ["quest_kill_wolf_king"],
+    "prerequisites": [
+      "quest_kill_wolf_king"
+    ],
     "objectives": [
-      { "type": "visit", "roomId": "city_gate" }
+      {
+        "type": "visit",
+        "roomId": "city_gate"
+      }
     ],
     "rewards": {
       "exp": 800,
@@ -127,9 +169,14 @@
     "name": "侠客公会",
     "type": "main",
     "description": "在侠客公会接取任务",
-    "prerequisites": ["quest_enter_city"],
+    "prerequisites": [
+      "quest_enter_city"
+    ],
     "objectives": [
-      { "type": "talk", "npcId": "npc_quest_guild" }
+      {
+        "type": "talk",
+        "npcId": "npc_quest_guild"
+      }
     ],
     "rewards": {
       "exp": 500,
@@ -142,14 +189,22 @@
     "name": "山贼悬赏",
     "type": "main",
     "description": "击杀山贼头目",
-    "prerequisites": ["quest_city_guild"],
+    "prerequisites": [
+      "quest_city_guild"
+    ],
     "objectives": [
-      { "type": "kill", "monsterId": "monster_bandit_chief", "count": 1 }
+      {
+        "type": "kill",
+        "monsterId": "monster_bandit_chief",
+        "count": 1
+      }
     ],
     "rewards": {
       "exp": 1500,
       "gold": 800,
-      "items": ["weapon_iron_sword"]
+      "items": [
+        "weapon_iron_sword"
+      ]
     },
     "nextQuest": "quest_mountain_temple"
   },
@@ -158,10 +213,18 @@
     "name": "青云问道",
     "type": "main",
     "description": "前往青云观学习高级技能",
-    "prerequisites": ["quest_bandit_bounty"],
+    "prerequisites": [
+      "quest_bandit_bounty"
+    ],
     "objectives": [
-      { "type": "visit", "roomId": "mountain_temple" },
-      { "type": "learn_skill", "minLevel": 15 }
+      {
+        "type": "visit",
+        "roomId": "mountain_temple"
+      },
+      {
+        "type": "learn_skill",
+        "minLevel": 15
+      }
     ],
     "rewards": {
       "exp": 2000,
@@ -174,10 +237,18 @@
     "name": "大漠探险",
     "type": "main",
     "description": "探索大漠荒原",
-    "prerequisites": ["quest_mountain_temple"],
+    "prerequisites": [
+      "quest_mountain_temple"
+    ],
     "objectives": [
-      { "type": "visit", "roomId": "desert_oasis" },
-      { "type": "visit", "roomId": "desert_ruins" }
+      {
+        "type": "visit",
+        "roomId": "desert_oasis"
+      },
+      {
+        "type": "visit",
+        "roomId": "desert_ruins"
+      }
     ],
     "rewards": {
       "exp": 1500,
@@ -190,15 +261,26 @@
     "name": "古墓秘宝",
     "type": "main",
     "description": "探索地下陵墓",
-    "prerequisites": ["quest_desert_explore"],
+    "prerequisites": [
+      "quest_desert_explore"
+    ],
     "objectives": [
-      { "type": "kill", "monsterId": "monster_mummy", "count": 5 },
-      { "type": "visit", "roomId": "desert_tomb" }
+      {
+        "type": "kill",
+        "monsterId": "monster_mummy",
+        "count": 5
+      },
+      {
+        "type": "visit",
+        "roomId": "desert_tomb"
+      }
     ],
     "rewards": {
       "exp": 3000,
       "gold": 1500,
-      "items": ["item_cursed_gem"]
+      "items": [
+        "item_cursed_gem"
+      ]
     },
     "nextQuest": "quest_poison_dragon"
   },
@@ -207,14 +289,23 @@
     "name": "毒龙之祸",
     "type": "main",
     "description": "击杀毒龙",
-    "prerequisites": ["quest_tomb_secret"],
+    "prerequisites": [
+      "quest_tomb_secret"
+    ],
     "objectives": [
-      { "type": "kill", "monsterId": "monster_poison_dragon", "count": 1 }
+      {
+        "type": "kill",
+        "monsterId": "monster_poison_dragon",
+        "count": 1
+      }
     ],
     "rewards": {
       "exp": 5000,
       "gold": 3000,
-      "items": ["item_dragon_scale", "weapon_steel_sword"]
+      "items": [
+        "item_dragon_scale",
+        "weapon_steel_sword"
+      ]
     },
     "nextQuest": "quest_fire_dragon"
   },
@@ -223,14 +314,23 @@
     "name": "火龙传说",
     "type": "main",
     "description": "击杀火龙",
-    "prerequisites": ["quest_poison_dragon"],
+    "prerequisites": [
+      "quest_poison_dragon"
+    ],
     "objectives": [
-      { "type": "kill", "monsterId": "monster_fire_dragon", "count": 1 }
+      {
+        "type": "kill",
+        "monsterId": "monster_fire_dragon",
+        "count": 1
+      }
     ],
     "rewards": {
       "exp": 10000,
       "gold": 8000,
-      "items": ["item_fire_dragon_scale", "weapon_xuantie_sword"]
+      "items": [
+        "item_fire_dragon_scale",
+        "weapon_xuantie_sword"
+      ]
     },
     "nextQuest": "quest_demon_lord"
   },
@@ -239,14 +339,23 @@
     "name": "魔王降临",
     "type": "main",
     "description": "击败魔王，拯救世界",
-    "prerequisites": ["quest_fire_dragon"],
+    "prerequisites": [
+      "quest_fire_dragon"
+    ],
     "objectives": [
-      { "type": "kill", "monsterId": "monster_demon_lord", "count": 1 }
+      {
+        "type": "kill",
+        "monsterId": "monster_demon_lord",
+        "count": 1
+      }
     ],
     "rewards": {
       "exp": 30000,
       "gold": 20000,
-      "items": ["item_demon_lord_essence", "weapon_fire_dragon_sword"]
+      "items": [
+        "item_demon_lord_essence",
+        "weapon_fire_dragon_sword"
+      ]
     }
   },
   {
@@ -255,7 +364,11 @@
     "type": "daily",
     "description": "每日击杀10只怪物",
     "objectives": [
-      { "type": "kill", "monsterId": "any", "count": 10 }
+      {
+        "type": "kill",
+        "monsterId": "any",
+        "count": 10
+      }
     ],
     "rewards": {
       "exp": 500,
@@ -270,7 +383,11 @@
     "type": "daily",
     "description": "每日探索3个新房间",
     "objectives": [
-      { "type": "visit", "roomId": "any", "count": 3 }
+      {
+        "type": "visit",
+        "roomId": "any",
+        "count": 3
+      }
     ],
     "rewards": {
       "exp": 300,
@@ -285,7 +402,10 @@
     "type": "daily",
     "description": "每日训练属性3次",
     "objectives": [
-      { "type": "train", "count": 3 }
+      {
+        "type": "train",
+        "count": 3
+      }
     ],
     "rewards": {
       "exp": 400,
@@ -300,12 +420,18 @@
     "type": "side",
     "description": "收集10份草药",
     "objectives": [
-      { "type": "collect", "itemId": "item_herb", "count": 10 }
+      {
+        "type": "collect",
+        "itemId": "item_herb",
+        "count": 10
+      }
     ],
     "rewards": {
       "exp": 200,
       "gold": 100,
-      "items": ["item_hp_potion_medium"]
+      "items": [
+        "item_hp_potion_medium"
+      ]
     }
   },
   {
@@ -314,12 +440,18 @@
     "type": "side",
     "description": "击杀20只山贼",
     "objectives": [
-      { "type": "kill", "monsterId": "monster_bandit", "count": 20 }
+      {
+        "type": "kill",
+        "monsterId": "monster_bandit",
+        "count": 20
+      }
     ],
     "rewards": {
       "exp": 800,
       "gold": 400,
-      "items": ["weapon_bandit_sword"]
+      "items": [
+        "weapon_bandit_sword"
+      ]
     }
   },
   {
@@ -328,12 +460,18 @@
     "type": "side",
     "description": "击杀15只野狼",
     "objectives": [
-      { "type": "kill", "monsterId": "monster_wild_wolf", "count": 15 }
+      {
+        "type": "kill",
+        "monsterId": "monster_wild_wolf",
+        "count": 15
+      }
     ],
     "rewards": {
       "exp": 600,
       "gold": 300,
-      "items": ["item_wolf_pelt"]
+      "items": [
+        "item_wolf_pelt"
+      ]
     }
   },
   {
@@ -342,13 +480,22 @@
     "type": "side",
     "description": "探索冰洞并击杀冰魔",
     "objectives": [
-      { "type": "visit", "roomId": "snow_cave" },
-      { "type": "kill", "monsterId": "monster_ice_golem", "count": 1 }
+      {
+        "type": "visit",
+        "roomId": "snow_cave"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_ice_golem",
+        "count": 1
+      }
     ],
     "rewards": {
       "exp": 1000,
       "gold": 500,
-      "items": ["item_ice_core"]
+      "items": [
+        "item_ice_core"
+      ]
     }
   },
   {
@@ -357,13 +504,918 @@
     "type": "side",
     "description": "探索东海仙岛",
     "objectives": [
-      { "type": "visit", "roomId": "island_cave" },
-      { "type": "talk", "npcId": "npc_immortal" }
+      {
+        "type": "visit",
+        "roomId": "island_cave"
+      },
+      {
+        "type": "talk",
+        "npcId": "npc_immortal"
+      }
     ],
     "rewards": {
       "exp": 1500,
       "gold": 800,
-      "items": ["item_immortal_pearl"]
+      "items": [
+        "item_immortal_pearl"
+      ]
+    }
+  },
+  {
+    "id": "quest_canyon_explore",
+    "name": "峡谷探险",
+    "type": "side",
+    "description": "探索峡谷区域，找到深渊谷底的远古生物。",
+    "prerequisites": [
+      "quest_explore_forest"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "canyon_deep"
+      },
+      {
+        "type": "visit",
+        "roomId": "canyon_abyss"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_rock_golem",
+        "count": 2
+      }
+    ],
+    "rewards": {
+      "exp": 800,
+      "gold": 400,
+      "items": [
+        "item_obsidian"
+      ]
+    }
+  },
+  {
+    "id": "quest_ancient_tree",
+    "name": "参天古树",
+    "type": "side",
+    "description": "找到传说中的万年古树，登上树冠之顶。",
+    "prerequisites": [
+      "quest_explore_forest"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "ancient_tree"
+      },
+      {
+        "type": "visit",
+        "roomId": "tree_canopy"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_eagle",
+        "count": 2
+      }
+    ],
+    "rewards": {
+      "exp": 600,
+      "gold": 300,
+      "items": [
+        "item_eagle_feather"
+      ]
+    }
+  },
+  {
+    "id": "quest_pirate_treasure",
+    "name": "海盗王的宝藏",
+    "type": "side",
+    "description": "探索幽灵海盗船，寻找海盗王留下的宝藏。",
+    "prerequisites": [
+      "quest_enter_city"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "pirate_cove"
+      },
+      {
+        "type": "visit",
+        "roomId": "captain_cabin"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_sea_serpent",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 1000,
+      "gold": 800,
+      "items": [
+        "item_coral_gem"
+      ]
+    }
+  },
+  {
+    "id": "quest_crystal_depths",
+    "name": "水晶深处",
+    "type": "side",
+    "description": "探索美丽的水晶洞，找到水晶之灵。",
+    "prerequisites": [
+      "quest_mountain_temple"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "crystal_cave"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_ice_golem",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 900,
+      "gold": 500,
+      "items": [
+        "item_spirit_stone"
+      ]
+    }
+  },
+  {
+    "id": "quest_battlefield_spirits",
+    "name": "战场安魂",
+    "type": "side",
+    "description": "前往古战场，安抚千年前战死的亡灵。",
+    "prerequisites": [
+      "quest_desert_explore"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "ancient_battlefield"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_skeleton_warrior",
+        "count": 3
+      }
+    ],
+    "rewards": {
+      "exp": 1200,
+      "gold": 600,
+      "items": [
+        "item_ancient_coin"
+      ]
+    }
+  },
+  {
+    "id": "quest_hot_springs",
+    "name": "温泉疗养",
+    "type": "side",
+    "description": "找到山中的温泉，享受一次难得的放松。",
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "hot_springs"
+      },
+      {
+        "type": "visit",
+        "roomId": "mountain_spring"
+      }
+    ],
+    "rewards": {
+      "exp": 300,
+      "gold": 100
+    }
+  },
+  {
+    "id": "quest_secret_garden",
+    "name": "秘境花园",
+    "type": "side",
+    "description": "找到隐藏在竹林深处的秘境花园。",
+    "prerequisites": [
+      "quest_explore_forest"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "secret_garden"
+      },
+      {
+        "type": "talk",
+        "npcId": "npc_garden_spirit"
+      }
+    ],
+    "rewards": {
+      "exp": 500,
+      "gold": 300,
+      "items": [
+        "item_mushroom"
+      ]
+    }
+  },
+  {
+    "id": "quest_cloud_sea",
+    "name": "云海日出",
+    "type": "side",
+    "description": "登上云海之巅，观赏壮丽的日出。",
+    "prerequisites": [
+      "quest_mountain_temple"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "cloud_sea"
+      },
+      {
+        "type": "visit",
+        "roomId": "tree_canopy"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_eagle",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 700,
+      "gold": 400
+    }
+  },
+  {
+    "id": "quest_plains_explore",
+    "name": "草原之旅",
+    "type": "side",
+    "description": "探索广袤的草原，拜访游牧营地，找到草原遗迹。",
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "plains"
+      },
+      {
+        "type": "visit",
+        "roomId": "plains_camp"
+      },
+      {
+        "type": "visit",
+        "roomId": "plains_ruins"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_plains_raider",
+        "count": 3
+      }
+    ],
+    "rewards": {
+      "exp": 700,
+      "gold": 350
+    }
+  },
+  {
+    "id": "quest_graveyard_mystery",
+    "name": "墓地之谜",
+    "type": "side",
+    "description": "探索阴森的墓地，揭开地下墓穴的秘密。",
+    "prerequisites": [
+      "quest_explore_forest"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "graveyard_entrance"
+      },
+      {
+        "type": "visit",
+        "roomId": "crypt"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_zombie",
+        "count": 3
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_wraith",
+        "count": 2
+      }
+    ],
+    "rewards": {
+      "exp": 900,
+      "gold": 500,
+      "items": [
+        "item_cursed_gem"
+      ]
+    }
+  },
+  {
+    "id": "quest_bandit_suppression",
+    "name": "剿灭山寨",
+    "type": "side",
+    "description": "前往山贼营地和山寨，彻底剿灭山贼势力。",
+    "prerequisites": [
+      "quest_bandit_bounty"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "bandit_camp"
+      },
+      {
+        "type": "visit",
+        "roomId": "bandit_stronghold"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_bandit_elite",
+        "count": 3
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_bandit_boss",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 1500,
+      "gold": 800,
+      "items": [
+        "weapon_bandit_sword"
+      ]
+    }
+  },
+  {
+    "id": "quest_wind_valley",
+    "name": "风之谷修行",
+    "type": "side",
+    "description": "前往风之谷聆听风声，净化心灵。",
+    "prerequisites": [
+      "quest_mountain_temple"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "wind_valley"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_wind_elemental",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 600,
+      "gold": 300
+    }
+  },
+  {
+    "id": "quest_mushroom_forest",
+    "name": "蘑菇林探秘",
+    "type": "side",
+    "description": "探索神奇的蘑菇林，击败蘑菇王获取珍稀药材。",
+    "prerequisites": [
+      "quest_explore_forest"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "mushroom_forest"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_toxic_spore",
+        "count": 4
+      },
+      {
+        "type": "collect",
+        "itemId": "item_mushroom",
+        "count": 10
+      }
+    ],
+    "rewards": {
+      "exp": 800,
+      "gold": 400,
+      "items": [
+        "item_ginseng"
+      ]
+    }
+  },
+  {
+    "id": "quest_snow_monastery",
+    "name": "雪寺朝圣",
+    "type": "side",
+    "description": "前往雪山顶的雪寺朝圣，接受苦寒修行。",
+    "prerequisites": [
+      "quest_side_ice_cave"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "snow_monastery"
+      },
+      {
+        "type": "visit",
+        "roomId": "snow_peak"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_yeti",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 1000,
+      "gold": 500
+    }
+  },
+  {
+    "id": "quest_bamboo_temple",
+    "name": "竹林禅院",
+    "type": "side",
+    "description": "找到隐藏在竹林中的禅院，向住持学习禅武之道。",
+    "prerequisites": [
+      "quest_mountain_temple"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "bamboo_temple"
+      },
+      {
+        "type": "visit",
+        "roomId": "mirror_lake"
+      },
+      {
+        "type": "talk",
+        "npcId": "npc_bamboo_abbot"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_bamboo_spirit",
+        "count": 3
+      }
+    ],
+    "rewards": {
+      "exp": 700,
+      "gold": 350
+    }
+  },
+  {
+    "id": "quest_dragon_graveyard",
+    "name": "龙墓探险",
+    "type": "side",
+    "description": "探索远古龙墓，击败神龙之魂取得龙骨。",
+    "prerequisites": [
+      "quest_fire_dragon"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "dragon_graveyard"
+      },
+      {
+        "type": "visit",
+        "roomId": "dragon_shrine"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_bone_dragon",
+        "count": 2
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_dragon_spirit",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 3000,
+      "gold": 2000,
+      "items": [
+        "item_dragon_bone"
+      ]
+    }
+  },
+  {
+    "id": "quest_phoenix_feather",
+    "name": "凤凰之羽",
+    "type": "side",
+    "description": "前往凤凰台，击败凤凰获得涅槃之羽。",
+    "prerequisites": [
+      "quest_fire_dragon"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "phoenix_peak"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_phoenix",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 2500,
+      "gold": 1500,
+      "items": [
+        "item_phoenix_feather"
+      ]
+    }
+  },
+  {
+    "id": "quest_time_tower",
+    "name": "时光之塔",
+    "type": "side",
+    "description": "探索神秘的时光塔，在时间洪流中修炼。",
+    "prerequisites": [
+      "quest_tomb_secret"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "time_tower"
+      },
+      {
+        "type": "visit",
+        "roomId": "time_tower_top"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_time_lord",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 3500,
+      "gold": 2500
+    }
+  },
+  {
+    "id": "quest_shadow_realm",
+    "name": "暗影之王",
+    "type": "side",
+    "description": "进入暗影界，击败影王残魂。",
+    "prerequisites": [
+      "quest_demon_lord"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "shadow_realm"
+      },
+      {
+        "type": "visit",
+        "roomId": "shadow_throne"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_shadow_beast",
+        "count": 3
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_shadow_lord",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 6000,
+      "gold": 4000,
+      "items": [
+        "item_meteorite"
+      ]
+    }
+  },
+  {
+    "id": "quest_elemental_shrines",
+    "name": "元素试炼",
+    "type": "side",
+    "description": "依次拜访炎之神殿和水之神殿，击败元素守护者。",
+    "prerequisites": [
+      "quest_mountain_temple"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "fire_shrine"
+      },
+      {
+        "type": "visit",
+        "roomId": "water_shrine"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_fire_lord",
+        "count": 1
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_water_lord",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 2000,
+      "gold": 1000,
+      "items": [
+        "item_fire_essence"
+      ]
+    }
+  },
+  {
+    "id": "quest_xuankong_temple",
+    "name": "悬空寺朝拜",
+    "type": "side",
+    "description": "前往悬崖上的悬空寺，接受高空修行。",
+    "prerequisites": [
+      "quest_mountain_temple"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "xuankong_temple"
+      },
+      {
+        "type": "visit",
+        "roomId": "xuankong_hall"
+      },
+      {
+        "type": "talk",
+        "npcId": "npc_xuankong_abbot"
+      }
+    ],
+    "rewards": {
+      "exp": 800,
+      "gold": 400
+    }
+  },
+  {
+    "id": "quest_thunder_trial",
+    "name": "雷霆试炼",
+    "type": "side",
+    "description": "前往雷霆峰接受雷神的考验，击败雷神化身。",
+    "prerequisites": [
+      "quest_mountain_temple"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "thunder_peak"
+      },
+      {
+        "type": "visit",
+        "roomId": "thunder_shrine"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_thunder_god",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 4000,
+      "gold": 2500,
+      "items": [
+        "item_meteorite"
+      ]
+    }
+  },
+  {
+    "id": "quest_void_edge",
+    "name": "虚空尽头",
+    "type": "side",
+    "description": "前往世界的尽头——虚空边缘，直面虚空龙。",
+    "prerequisites": [
+      "quest_demon_lord"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "void_edge"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_void_dragon",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 10000,
+      "gold": 6000,
+      "items": [
+        "item_meteorite",
+        "item_mystic_crystal"
+      ]
+    }
+  },
+  {
+    "id": "quest_jade_palace",
+    "name": "玉虚问道",
+    "type": "side",
+    "description": "前往传说中的玉虚宫，向真人请教飞升之道。",
+    "prerequisites": [
+      "quest_fire_dragon"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "jade_palace"
+      },
+      {
+        "type": "visit",
+        "roomId": "starlit_bridge"
+      },
+      {
+        "type": "talk",
+        "npcId": "npc_jade_immortal"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_jade_guardian",
+        "count": 2
+      }
+    ],
+    "rewards": {
+      "exp": 5000,
+      "gold": 3000
+    }
+  },
+  {
+    "id": "quest_underground_river",
+    "name": "暗河探险",
+    "type": "side",
+    "description": "探索地下暗河，找到深渊瀑布。",
+    "prerequisites": [
+      "quest_crystal_depths"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "underground_river"
+      },
+      {
+        "type": "visit",
+        "roomId": "abyss_waterfall"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_river_guardian",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 3000,
+      "gold": 1500,
+      "items": [
+        "item_pearl"
+      ]
+    }
+  },
+  {
+    "id": "quest_dragon_palace",
+    "name": "龙宫探秘",
+    "type": "side",
+    "description": "探索深海中的龙宫，击败东海龙王。",
+    "prerequisites": [
+      "quest_pirate_treasure"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "dragon_palace"
+      },
+      {
+        "type": "visit",
+        "roomId": "dragon_throne_room"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_shark_guard",
+        "count": 3
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_dragon_king",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 5000,
+      "gold": 3000,
+      "items": [
+        "item_dragon_heart"
+      ]
+    }
+  },
+  {
+    "id": "quest_volcano_core",
+    "name": "地核之心",
+    "type": "side",
+    "description": "深入火山核心，击败地核火灵获取熔岩精华。",
+    "prerequisites": [
+      "quest_fire_dragon"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "lava_tubes"
+      },
+      {
+        "type": "visit",
+        "roomId": "volcano_core"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_volcano_heart",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 6000,
+      "gold": 4000,
+      "items": [
+        "item_magma_core",
+        "item_mystic_crystal"
+      ]
+    }
+  },
+  {
+    "id": "quest_underground_city",
+    "name": "地下文明",
+    "type": "side",
+    "description": "探索地下城，了解地底文明。",
+    "prerequisites": [
+      "quest_crystal_depths"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "underground_city"
+      },
+      {
+        "type": "visit",
+        "roomId": "underground_market"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_underground_merchant_guard",
+        "count": 2
+      }
+    ],
+    "rewards": {
+      "exp": 2500,
+      "gold": 1500
+    }
+  },
+  {
+    "id": "quest_warrior_tombs",
+    "name": "侠客之魂",
+    "type": "side",
+    "description": "前往侠客陵瞻仰英雄，击败守护英魂。",
+    "prerequisites": [
+      "quest_mountain_temple"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "warrior_tombs"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_tomb_guardian_spirit",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 3500,
+      "gold": 2000
+    }
+  },
+  {
+    "id": "quest_sky_bazaar",
+    "name": "云中寻宝",
+    "type": "side",
+    "description": "前往云中集市，收集灵石兑换天穹珠。",
+    "prerequisites": [
+      "quest_cloud_sea"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "sky_bazaar"
+      },
+      {
+        "type": "collect",
+        "itemId": "item_spirit_stone",
+        "count": 10
+      }
+    ],
+    "rewards": {
+      "exp": 1500,
+      "gold": 800,
+      "items": [
+        "item_sky_pearl"
+      ]
     }
   }
 ]

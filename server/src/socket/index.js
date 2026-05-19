@@ -105,6 +105,22 @@ function socketHandler(io) {
 
   // 初始化任务进度服务
   questProgressService.init(io);
+
+  // 随机宝箱刷新（每3分钟在随机房间投放物品）
+  const CHEST_ROOMS = ['village_center', 'village_field', 'village_inn', 'forest_entrance', 'forest_path', 'deep_forest', 'river_bank', 'bamboo_grove', 'snow_field', 'market_street'];
+  const CHEST_ITEMS = ['item_hp_pill', 'item_mp_pill', 'item_hp_pill_medium', 'item_mp_pill_medium', 'item_bandage', 'item_rabbit_meat', 'item_rabbit_fur', 'item_iron_ore', 'item_herb', 'item_mushroom', 'item_ginseng', 'item_fish', 'item_antidote', 'item_strength_pill'];
+  setInterval(() => {
+    try {
+      const roomId = CHEST_ROOMS[Math.floor(Math.random() * CHEST_ROOMS.length)];
+      const itemId = CHEST_ITEMS[Math.floor(Math.random() * CHEST_ITEMS.length)];
+      const itemConfig = getItem(itemId);
+      if (itemConfig && roomDropsService.getDrops(roomId).length < 5) {
+        roomDropsService.addDrop(roomId, itemId, itemConfig.name, 1, '神秘宝箱');
+        io.to(`room:${roomId}`).emit('system_message', { content: '📦 一个神秘宝箱出现在附近...' });
+        io.to(`room:${roomId}`).emit('room_drops_updated', { drops: roomDropsService.getDrops(roomId) });
+      }
+    } catch (e) { /* ignore spawn errors */ }
+  }, 180000);
   
   io.on('connection', async (socket) => {
     const user = socket.user;
@@ -153,6 +169,9 @@ function socketHandler(io) {
     // 发送欢迎消息
     socket.emit('welcome', {
       message: `欢迎来到侠客行，${user.characterName}！`,
+      tip: user.level <= 1 && !(await Quest.countDocuments({ userId: user._id }))
+        ? '💡 新手提示: 输入 talk npc_village_chief 与村长对话，接取第一个任务'
+        : null,
       player: {
         name: user.characterName,
         level: user.level,
@@ -400,17 +419,27 @@ function socketHandler(io) {
     
     // 复活
     socket.on('revive', async () => {
-      if (user.status !== 'dead') {
+      // 重新加载用户状态（战斗结束后可能已变更）
+      const freshUser = await User.findById(user._id);
+      if (!freshUser || freshUser.status !== 'dead') {
         return socket.emit('error', { message: '你还没有死亡' });
       }
-      
-      user.revive();
-      await user.save();
-      
+
+      freshUser.revive();
+      await freshUser.save();
+
+      // 同步socket user引用
+      user.status = freshUser.status;
+      user.hp = freshUser.hp;
+      user.mp = freshUser.mp;
+      user.location = freshUser.location;
+      user.exp = freshUser.exp;
+      user.gold = freshUser.gold;
+
       // 离开当前房间，加入复活点
       socket.leave(`room:${user.location.roomId}`);
       socket.join(`room:village_center`);
-      
+
       socket.emit('revived', {
         hp: user.hp,
         mp: user.mp,
@@ -470,14 +499,60 @@ function socketHandler(io) {
       // 任务进度：收集物品
       questProgressService.checkProgress(user._id, { type: 'collect', target: pickedUp.itemId }).catch(() => {});
     });
+
+    // GM投放物品到当前房间
+    socket.on('gm_drop_item', async (data) => {
+      if (user.role !== 'gm' && user.role !== 'admin') {
+        return socket.emit('error', { message: '权限不足' });
+      }
+      const { itemId, quantity = 1 } = data;
+      const itemConfig = getItem(itemId);
+      if (!itemConfig) {
+        return socket.emit('error', { message: '物品不存在' });
+      }
+      const roomId = user.location.roomId;
+      roomDropsService.addDrop(roomId, itemId, itemConfig.name, quantity, user.characterName);
+      io.to(`room:${roomId}`).emit('room_drops_updated', {
+        drops: roomDropsService.getDrops(roomId)
+      });
+      socket.emit('system_message', {
+        content: `[GM] 在房间投放了 ${itemConfig.name}×${quantity}`
+      });
+      actionLogService.log(user._id, user.characterName, 'gm_action', 'drop_item',
+        { itemId, itemName: itemConfig.name, quantity, roomId }, roomId);
+    });
     
     // 使用物品
     socket.on('use_item', async (data) => {
-      const { inventoryId } = data;
-      
-      const item = await Inventory.findOne({ _id: inventoryId, userId: user._id });
+      const { inventoryId, itemId, itemName } = data;
+
+      // 支持三种查找方式：inventoryId、itemId、itemName
+      let item;
+      if (inventoryId) {
+        item = await Inventory.findOne({ _id: inventoryId, userId: user._id, isEquipped: false });
+      } else if (itemId || itemName) {
+        const query = { userId: user._id, isEquipped: false };
+        if (itemId) {
+          query.itemId = itemId;
+        } else if (itemName) {
+          // 按名称模糊匹配
+          const allItems = items();
+          const matched = allItems.filter(i => i.name.includes(itemName) || i.id.includes(itemName));
+          if (matched.length > 0) {
+            query.itemId = { $in: matched.map(i => i.id) };
+          } else {
+            return socket.emit('error', { message: `未找到匹配「${itemName}」的物品` });
+          }
+        }
+        // 取第一个匹配的非装备物品
+        const items_ = await Inventory.find(query).sort({ isEquipped: 1 });
+        if (items_.length > 0) {
+          item = items_.find(i => !i.isEquipped) || items_[0];
+        }
+      }
+
       if (!item) {
-        return socket.emit('error', { message: '物品不存在' });
+        return socket.emit('error', { message: '物品不存在或已装备' });
       }
       
       const itemConfig = getItem(item.itemId);
@@ -512,6 +587,53 @@ function socketHandler(io) {
           hp: user.hp,
           mp: user.mp
         });
+      } else if (itemConfig.type === 'skill_book') {
+        // 功法书：概率学会技能
+        const skillId = itemConfig.skillId;
+        const skill = getSkill(skillId);
+        if (!skill) {
+          return socket.emit('error', { message: '此秘籍记载的功法已失传' });
+        }
+
+        if (user.skills.includes(skillId)) {
+          return socket.emit('error', { message: `你已经学会了「${skill.name}」` });
+        }
+
+        if (skill.requireLevel && user.level < skill.requireLevel) {
+          return socket.emit('error', { message: `等级不足，学习「${skill.name}」需要Lv${skill.requireLevel}` });
+        }
+
+        // 概率判定
+        const successRate = itemConfig.successRate || 0.5;
+        const success = Math.random() < successRate;
+
+        // 消耗秘籍
+        item.quantity -= 1;
+        if (item.quantity <= 0) {
+          await Inventory.deleteOne({ _id: item._id });
+        } else {
+          await item.save();
+        }
+
+        if (success) {
+          user.skills.push(skillId);
+          await user.save();
+          socket.emit('item_used', {
+            item: itemConfig,
+            success: true,
+            skillLearned: skill.name,
+            message: `✨ 研读《${itemConfig.name}》，灵光一闪，成功领悟了「${skill.name}」！`
+          });
+          actionLogService.log(user._id, user.characterName, 'skill', 'learn_from_book',
+            { skillId, skillName: skill.name, bookName: itemConfig.name }, user.location.roomId);
+          questProgressService.checkProgress(user._id, { type: 'learn_skill', target: skillId, skillRequireLevel: skill.requireLevel || 1 }).catch(() => {});
+        } else {
+          socket.emit('item_used', {
+            item: itemConfig,
+            success: false,
+            message: `📖 研读《${itemConfig.name}》，但文字深奥，未能领悟……`
+          });
+        }
       } else if (isEquipmentItem(itemConfig)) {
         // 装备
         const equipSlot = getEquipmentSlot(itemConfig);
@@ -562,16 +684,50 @@ function socketHandler(io) {
     // 接取任务
     socket.on('accept_quest', async (data) => {
       const { questId } = data;
-      const questConfig = getQuest(questId);
-      
+      let questConfig = getQuest(questId);
+      let isFactionQuest = false;
+
+      // 如果不是普通任务，尝试查找门派任务
+      if (!questConfig) {
+        questConfig = getFactionQuest(questId);
+        isFactionQuest = true;
+      }
+
       if (!questConfig) {
         return socket.emit('error', { message: '任务不存在' });
       }
+
+      // 门派任务：检查门派归属
+      if (isFactionQuest) {
+        if (!user.faction && questConfig.type !== 'faction_entry') {
+          return socket.emit('error', { message: '你需要先加入门派才能接取此任务' });
+        }
+        if (user.faction && questConfig.factionId !== user.faction && questConfig.type !== 'faction_entry') {
+          return socket.emit('error', { message: '此任务不属于你的门派' });
+        }
+        // 门派等级检查
+        const rankOrder = ['disciple', 'deacon', 'elder', 'leader'];
+        if (questConfig.minFactionRank) {
+          const requiredRank = rankOrder.indexOf(questConfig.minFactionRank);
+          const playerRank = rankOrder.indexOf(user.factionRank || 'disciple');
+          if (playerRank < requiredRank) {
+            return socket.emit('error', { message: `门派等级不足，需要 ${questConfig.minFactionRank}` });
+          }
+        }
+      }
       
-      // 检查是否已接取（重复任务检查冷却时间）
+      // 检查是否已接取（重复任务检查冷却时间 / 每日重置）
       const existing = await Quest.findOne({ userId: user._id, questId });
       if (existing) {
-        if (questConfig.repeatable && questConfig.cooldown) {
+        if (questConfig.dailyReset) {
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          if (existing.completedAt && existing.completedAt >= today) {
+            return socket.emit('error', { message: '今日已完成此任务，明天再来吧' });
+          }
+          // 新的一天，删除旧记录
+          await Quest.deleteOne({ _id: existing._id });
+        } else if (questConfig.repeatable && questConfig.cooldown) {
           const cooldownMs = questConfig.cooldown * 1000;
           const lastCompleted = existing.completedAt;
           if (lastCompleted && Date.now() - lastCompleted.getTime() > cooldownMs) {
@@ -609,13 +765,24 @@ function socketHandler(io) {
       });
       await newQuest.save();
 
-      // 回溯检查：玩家可能已满足某些目标（如已在目标房间）
+      // 回溯检查：玩家可能已满足某些目标（如已在目标房间或刚与目标NPC对话）
       const backfillEvents = [];
       for (const obj of questConfig.objectives || []) {
         if (obj.type === 'visit') {
           const targetRoom = obj.roomId || obj.targetId;
           if (targetRoom && user.location.roomId === targetRoom) {
             backfillEvents.push({ type: 'visit', target: targetRoom });
+          }
+        } else if (obj.type === 'talk') {
+          const targetNpcId = obj.npcId || obj.targetId;
+          if (targetNpcId) {
+            const room = getRoom(user.location.roomId);
+            if (room) {
+              const npcsInRoom = getNpcsInRoom(room.id);
+              if (npcsInRoom.some(n => n.id === targetNpcId)) {
+                backfillEvents.push({ type: 'talk', target: targetNpcId });
+              }
+            }
           }
         }
       }
@@ -643,13 +810,18 @@ function socketHandler(io) {
         return socket.emit('error', { message: '任务未完成或已领取奖励' });
       }
       
-      const questConfig = getQuest(questId);
-      
+      let questConfig = getQuest(questId);
+      if (!questConfig) questConfig = getFactionQuest(questId);
+      if (!questConfig) {
+        return socket.emit('error', { message: '任务配置不存在' });
+      }
+
       // 发放奖励
       const rewards = questConfig.rewards;
       if (rewards) {
         if (rewards.exp) user.exp += rewards.exp;
         if (rewards.gold) user.gold += rewards.gold;
+        if (rewards.factionReputation) user.factionReputation += rewards.factionReputation;
         if (rewards.items) {
           for (const itemId of rewards.items) {
             const newItem = new Inventory({
@@ -1629,20 +1801,34 @@ function socketHandler(io) {
     socket.on('join_faction', async (data) => {
       const { factionId } = data;
       const faction = getFaction(factionId);
-      
+
       if (!faction) {
         return socket.emit('error', { message: '门派不存在' });
       }
-      
+
       if (user.faction) {
         return socket.emit('error', { message: '已加入门派，需先退出当前门派' });
       }
-      
+
       // 检查等级要求
       if (faction.requireLevel && user.level < faction.requireLevel) {
         return socket.emit('error', { message: `需要等级 ${faction.requireLevel}` });
       }
-      
+
+      // 检查入门考核是否完成
+      if (faction.entryExamId) {
+        const examCompleted = await Quest.findOne({
+          userId: user._id,
+          questId: faction.entryExamId,
+          status: 'completed'
+        });
+        if (!examCompleted) {
+          return socket.emit('error', {
+            message: `你需要先完成「${faction.name}入门考核」才能加入。请找门派招募NPC接取考核任务。`
+          });
+        }
+      }
+
       user.faction = factionId;
       user.factionReputation = 0;
       user.factionContribution = 0;
@@ -1654,7 +1840,10 @@ function socketHandler(io) {
         learnableSkills: getLearnableSkills(factionId, user.level, user.factionRank)
       });
       actionLogService.log(user._id, user.characterName, 'faction', 'join', { factionId, factionName: faction.name }, user.location.roomId);
-      
+
+      // 任务进度
+      questProgressService.checkProgress(user._id, { type: 'join_faction' }).catch(() => {});
+
       // 广播
       io.emit('system_message', {
         content: `${user.characterName} 加入了 ${faction.name}！`
@@ -1860,27 +2049,177 @@ function socketHandler(io) {
       checkAndAwardAchievements(user._id);
     });
 
+    // ==================== 门派贡献兑换 ====================
+
+    // 查看可兑换列表
+    socket.on('faction_exchange_list', async () => {
+      if (!user.faction) {
+        return socket.emit('error', { message: '你还没有加入门派' });
+      }
+      const faction = getFaction(user.faction);
+      if (!faction) return socket.emit('error', { message: '门派不存在' });
+
+      // 列出可用贡献兑换的技能（按当前等级和门派等级过滤）
+      const allSkills = getLearnableSkills(user.faction, user.level, user.factionRank);
+      const exchangeList = allSkills.map(skill => ({
+        ...skill,
+        contributionCost: (skill.learnPrice || 100) // 贡献值兑换：与原价1:1但不消耗金币
+      }));
+
+      socket.emit('faction_exchange_list', {
+        factionId: user.faction,
+        factionName: faction.name,
+        myContribution: user.factionContribution,
+        myRank: user.factionRank,
+        items: exchangeList
+      });
+    });
+
+    // 用贡献兑换技能
+    socket.on('faction_exchange', async (data) => {
+      const { skillId } = data;
+      if (!user.faction) {
+        return socket.emit('error', { message: '你还没有加入门派' });
+      }
+      const faction = getFaction(user.faction);
+      if (!faction) return socket.emit('error', { message: '门派不存在' });
+
+      // 检查技能是否属于该门派
+      const allSkills = getLearnableSkills(user.faction, user.level, user.factionRank);
+      const skill = allSkills.find(s => s.id === skillId);
+      if (!skill) {
+        return socket.emit('error', { message: '该技能不在你可兑换的范围内（需满足等级和门派等级要求）' });
+      }
+
+      const contributionCost = skill.learnPrice || 100;
+      if (user.factionContribution < contributionCost) {
+        return socket.emit('error', { message: `门派贡献不足，需要 ${contributionCost} 贡献（当前: ${user.factionContribution}）` });
+      }
+
+      // 检查是否已学习
+      if (user.skills.includes(skillId)) {
+        return socket.emit('error', { message: '你已经学会了这个技能' });
+      }
+
+      // 消耗贡献学习技能
+      user.factionContribution -= contributionCost;
+      user.skills.push(skillId);
+      await user.save();
+
+      socket.emit('faction_exchanged', {
+        skillId,
+        skillName: skill.name,
+        cost: contributionCost,
+        remainingContribution: user.factionContribution
+      });
+      socket.emit('system_message', {
+        content: `用 ${contributionCost} 门派贡献兑换了技能「${skill.name}」！`
+      });
+
+      actionLogService.log(user._id, user.characterName, 'faction', 'exchange',
+        { factionId: user.faction, skillId, cost: contributionCost }, user.location.roomId);
+    });
+
     // ==================== NPC对话 ====================
-    
+
     socket.on('talk_npc', async (data) => {
       const { npcId } = data;
       const room = getRoom(user.location.roomId);
-      
+
       if (!room) {
         return socket.emit('error', { message: '当前位置无效' });
       }
-      
+
       // 检查NPC是否在当前房间
       const npcs = getNpcsInRoom(room.id);
       const npc = npcs.find(n => n.id === npcId);
-      
+
       if (!npc) {
         return socket.emit('error', { message: '此NPC不在当前房间' });
       }
-      
+
       // 获取NPC对话
       const dialog = npc.dialogues?.greeting || `${npc.name}: 欢迎光临！有什么需要帮忙的吗？`;
-      
+
+      // 检查NPC可发布的任务（玩家未完成且未进行中的）
+      const availableQuests = [];
+      const npcQuestIds = npc.quests || [];
+
+      for (const questId of npcQuestIds) {
+        const questConfig = getQuest(questId);
+        if (!questConfig) continue;
+
+        // 检查是否已完成（非重复任务）
+        if (!questConfig.repeatable) {
+          const completed = await Quest.findOne({ userId: user._id, questId, status: 'completed', rewardClaimed: true });
+          if (completed) continue;
+        }
+
+        // 检查是否已在任务列表中
+        const existing = await Quest.findOne({ userId: user._id, questId, status: { $in: ['accepted', 'in_progress'] } });
+        if (existing) continue;
+
+        // 检查前置任务
+        let prereqsMet = true;
+        if (questConfig.prerequisites) {
+          for (const prereq of questConfig.prerequisites) {
+            const prereqDone = await Quest.findOne({ userId: user._id, questId: prereq, status: 'completed' });
+            if (!prereqDone) { prereqsMet = false; break; }
+          }
+        }
+
+        availableQuests.push({
+          id: questConfig.id,
+          name: questConfig.name,
+          description: questConfig.description,
+          type: questConfig.type,
+          rewards: questConfig.rewards,
+          prerequisitesMet: prereqsMet
+        });
+      }
+
+      // 如果NPC是门派招募者，检查入门考核
+      if (npc.type === 'faction' && npc.factionId) {
+        const faction = getFaction(npc.factionId);
+        if (faction && faction.entryExamId && !user.faction) {
+          const examQuest = getFactionQuest(faction.entryExamId);
+          if (examQuest) {
+            const examDone = await Quest.findOne({ userId: user._id, questId: faction.entryExamId, status: 'completed' });
+            const examActive = await Quest.findOne({ userId: user._id, questId: faction.entryExamId, status: { $in: ['accepted', 'in_progress'] } });
+            if (!examDone && !examActive) {
+              availableQuests.push({
+                id: examQuest.id,
+                name: examQuest.name,
+                description: examQuest.description,
+                type: 'faction_entry',
+                rewards: examQuest.rewards,
+                prerequisitesMet: true
+              });
+            }
+          }
+        }
+      }
+
+      // 门派贡献兑换NPC
+      let factionExchangeInfo = null;
+      if (npc.type === 'faction_exchange' || npc.services?.includes('exchange')) {
+        if (user.faction) {
+          const faction = getFaction(user.faction);
+          const exchangeSkills = getLearnableSkills(user.faction, user.level, user.factionRank)
+            .filter(s => !user.skills.includes(s.id))
+            .map(s => ({ ...s, contributionCost: s.learnPrice || 100 }));
+          factionExchangeInfo = {
+            factionId: user.faction,
+            factionName: faction?.name || user.faction,
+            myContribution: user.factionContribution,
+            myRank: user.factionRank,
+            skills: exchangeSkills
+          };
+        } else {
+          factionExchangeInfo = { noFaction: true, message: '你需要先加入门派才能使用贡献兑换。' };
+        }
+      }
+
       // 返回NPC对话信息
       socket.emit('npc_dialog', {
         npc: {
@@ -1894,7 +2233,9 @@ function socketHandler(io) {
           quests: npc.quests
         },
         roomServices: room.services || [],
-        message: dialog
+        message: dialog,
+        availableQuests,
+        factionExchangeInfo
       });
 
       // 任务进度：与NPC对话
@@ -1903,8 +2244,29 @@ function socketHandler(io) {
       dailyService.updateDailyTaskProgress(user._id, 'talk').catch(() => {});
     });
     
+    // ==================== 打听消息 ====================
+
+    socket.on('rumor', async () => {
+      const room = getRoom(user.location.roomId);
+      if (!room?.services?.includes('rumor')) {
+        return socket.emit('error', { message: '这里没有可以打听消息的人' });
+      }
+      const npcs = getNpcsInRoom(room.id);
+      const rumorNpc = npcs.find(n => n.services?.includes('rumor'));
+      if (!rumorNpc) {
+        return socket.emit('error', { message: '这里没有可以打听消息的人' });
+      }
+      const rumorMsg = rumorNpc.dialogues?.rumor || '最近江湖上风平浪静...';
+      socket.emit('system_message', { content: `${rumorNpc.name}悄悄告诉你：「${rumorMsg}」` });
+      socket.emit('npc_dialog', {
+        npc: { id: rumorNpc.id, name: rumorNpc.name, description: rumorNpc.description, type: rumorNpc.type, services: rumorNpc.services },
+        roomServices: room.services || [],
+        message: `${rumorNpc.name}: 「${rumorMsg}」`
+      });
+    });
+
     // ==================== 休息 ====================
-    
+
     socket.on('rest', async () => {
       const room = getRoom(user.location.roomId);
       const isInn = room?.services?.includes('rest');
@@ -2270,7 +2632,7 @@ function socketHandler(io) {
 
       const normalizedStat = normalizeStatName(stat);
       if (!normalizedStat) {
-        return socket.emit('error', { message: '无效的属性，可用: 力量/strength, 敏捷/dexterity, 体质/constitution, 悟性/intelligence' });
+        return socket.emit('error', { message: '无效的属性。用法: train <属性>\n可用属性: 力量/strength, 敏捷/dexterity, 体质/constitution, 悟性/intelligence, 根骨/charisma\n示例: train strength' });
       }
       
       const currentValue = user.attributes?.[normalizedStat] || 10;
@@ -2321,7 +2683,7 @@ function socketHandler(io) {
       
       const normalizedStat = normalizeStatName(stat);
       if (!normalizedStat) {
-        return socket.emit('error', { message: '无效的属性，可用: 力量/strength, 敏捷/dexterity, 体质/constitution, 悟性/intelligence' });
+        return socket.emit('error', { message: '无效的属性。用法: train <属性>\n可用属性: 力量/strength, 敏捷/dexterity, 体质/constitution, 悟性/intelligence, 根骨/charisma\n示例: train strength' });
       }
       
       if (user.freePoints < points) {
@@ -2523,12 +2885,14 @@ function resolveShopType(room) {
 }
 
 function isEquipmentItem(item) {
-  return item?.type === 'weapon' || item?.type === 'armor';
+  return item?.type === 'weapon' || item?.type === 'armor' || item?.type === 'equipment';
 }
 
 function getEquipmentSlot(item) {
   if (!item) return null;
   if (item.type === 'weapon') return 'weapon';
+  // equipment 类型使用其 equipSlot 字段
+  if (item.type === 'equipment') return item.equipSlot || 'armor';
   if (item.type !== 'armor') return null;
 
   switch (item.subtype) {
@@ -2575,7 +2939,8 @@ function getStatName(stat) {
     strength: '力量',
     dexterity: '敏捷',
     constitution: '体质',
-    intelligence: '悟性'
+    intelligence: '悟性',
+    charisma: '根骨'
   };
   return names[stat] || stat;
 }
@@ -2587,10 +2952,12 @@ function normalizeStatName(input) {
     '敏捷': 'dexterity',
     '体质': 'constitution',
     '悟性': 'intelligence',
+    '根骨': 'charisma',
     'strength': 'strength',
     'dexterity': 'dexterity',
     'constitution': 'constitution',
-    'intelligence': 'intelligence'
+    'intelligence': 'intelligence',
+    'charisma': 'charisma'
   };
   return map[input] || null;
 }

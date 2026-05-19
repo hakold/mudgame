@@ -15,13 +15,17 @@ function log(userId, characterName, category, action, details = {}, roomId = nul
   });
 }
 
+function escapeRegex(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 // 查询日志
 async function queryLogs(filters = {}) {
   const { userId, characterName, category, action, roomId, startTime, endTime, keyword, page = 1, limit = 50 } = filters;
   const query = {};
 
   if (userId) query.userId = userId;
-  if (characterName) query.characterName = { $regex: characterName, $options: 'i' };
+  if (characterName) query.characterName = { $regex: escapeRegex(characterName), $options: 'i' };
   if (category) query.category = category;
   if (action) query.action = action;
   if (roomId) query.roomId = roomId;
@@ -31,9 +35,10 @@ async function queryLogs(filters = {}) {
     if (endTime) query.createdAt.$lte = new Date(endTime);
   }
   if (keyword) {
+    const escaped = escapeRegex(keyword);
     query.$or = [
-      { 'details': { $regex: keyword, $options: 'i' } },
-      { 'characterName': { $regex: keyword, $options: 'i' } }
+      { 'details': { $regex: escaped, $options: 'i' } },
+      { 'characterName': { $regex: escaped, $options: 'i' } }
     ];
   }
 

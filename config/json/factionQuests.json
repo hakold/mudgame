@@ -154,7 +154,7 @@
     "objectives": [
       {
         "type": "kill",
-        "monsterId": "monster_dark_cultist",
+        "monsterId": "monster_evil_cultist",
         "count": 3
       }
     ],
@@ -164,5 +164,821 @@
       "factionReputation": 35
     },
     "dailyReset": true
+  },
+  {
+    "id": "faction_exam_shaolin",
+    "factionId": "shaolin",
+    "name": "少林入门考核",
+    "type": "faction_entry",
+    "description": "在少林寺完成入门考验：诵读经文、击败三只野狼、与方证大师对话。",
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "shaolin_temple"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_wild_wolf",
+        "count": 3
+      },
+      {
+        "type": "talk",
+        "npcId": "npc_shaolin_abbot",
+        "dialog": "入门"
+      }
+    ],
+    "rewards": {
+      "exp": 200,
+      "gold": 100,
+      "factionReputation": 50
+    },
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_exam_wudang",
+    "factionId": "wudang",
+    "name": "武当入门考核",
+    "type": "faction_entry",
+    "description": "在武当山完成入门考验：前往武当山、击败三名山贼、向张三丰请教。",
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "wudang_peak"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_bandit",
+        "count": 3
+      },
+      {
+        "type": "talk",
+        "npcId": "npc_wudang_master",
+        "dialog": "入门"
+      }
+    ],
+    "rewards": {
+      "exp": 200,
+      "gold": 100,
+      "factionReputation": 50
+    },
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_exam_emei",
+    "factionId": "emei",
+    "name": "峨眉入门考核",
+    "type": "faction_entry",
+    "description": "在峨眉金顶完成入门考验：前往峨眉金顶、击败三只毒蛇、向灭绝师太行礼拜师。",
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "emei_temple"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_forest_snake",
+        "count": 3
+      },
+      {
+        "type": "talk",
+        "npcId": "npc_emei_abbess",
+        "dialog": "入门"
+      }
+    ],
+    "rewards": {
+      "exp": 200,
+      "gold": 100,
+      "factionReputation": 50
+    },
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_exam_beggar",
+    "factionId": "beggar",
+    "name": "丐帮入门考核",
+    "type": "faction_entry",
+    "description": "在丐帮总舵完成入门考验：前往丐帮总舵、击败三只野猪、向洪七公请教打狗棒法。",
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "gaibang_hq"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_wild_boar",
+        "count": 3
+      },
+      {
+        "type": "talk",
+        "npcId": "npc_gaibang_leader",
+        "dialog": "入门"
+      }
+    ],
+    "rewards": {
+      "exp": 200,
+      "gold": 100,
+      "factionReputation": 50
+    },
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_exam_mingjiao",
+    "factionId": "mingjiao",
+    "name": "明教入门考核",
+    "type": "faction_entry",
+    "description": "前往明教光明顶完成入门考验：前往光明顶、击败五只沙漠巨蝎、向光明左使宣誓入教。",
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "mingjiao_hall"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_desert_scorpion",
+        "count": 5
+      },
+      {
+        "type": "talk",
+        "npcId": "npc_mingjiao_leader",
+        "dialog": "入门"
+      }
+    ],
+    "rewards": {
+      "exp": 400,
+      "gold": 200,
+      "factionReputation": 80
+    },
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_exam_xiaoyao",
+    "factionId": "xiaoyao",
+    "name": "逍遥入门考核",
+    "type": "faction_entry",
+    "description": "在逍遥谷完成入门考验：前往逍遥谷、击败三只仙岛守卫、向逍遥长老展示资质。",
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "xiaoyao_valley"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_island_spirit",
+        "count": 2
+      },
+      {
+        "type": "talk",
+        "npcId": "npc_xiaoyao_elder",
+        "dialog": "入门"
+      }
+    ],
+    "rewards": {
+      "exp": 500,
+      "gold": 300,
+      "factionReputation": 100
+    },
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_shaolin_rank_deacon",
+    "factionId": "shaolin",
+    "name": "少林执事试炼",
+    "type": "faction_rank_up",
+    "description": "通过试炼晋升为少林执事：在少林寺诵经修心，击败狼王证明实力。",
+    "objectives": [
+      {
+        "type": "talk",
+        "npcId": "npc_shaolin_abbot",
+        "dialog": "晋升"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_wolf_king",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 1000,
+      "gold": 500,
+      "factionReputation": 150
+    },
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_wudang_rank_deacon",
+    "factionId": "wudang",
+    "name": "武当执事试炼",
+    "type": "faction_rank_up",
+    "description": "通过试炼晋升为武当执事：向张三丰请教太极精要，击败黑熊。",
+    "objectives": [
+      {
+        "type": "talk",
+        "npcId": "npc_wudang_master",
+        "dialog": "晋升"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_black_bear",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 1000,
+      "gold": 500,
+      "factionReputation": 150
+    },
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_emei_rank_deacon",
+    "factionId": "emei",
+    "name": "峨眉执事试炼",
+    "type": "faction_rank_up",
+    "description": "通过试炼晋升为峨眉执事：向灭绝师太请求晋升，击败猛虎。",
+    "objectives": [
+      {
+        "type": "talk",
+        "npcId": "npc_emei_abbess",
+        "dialog": "晋升"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_tiger",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 1000,
+      "gold": 500,
+      "factionReputation": 150
+    },
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_gaibang_rank_deacon",
+    "factionId": "beggar",
+    "name": "丐帮执事试炼",
+    "type": "faction_rank_up",
+    "description": "通过试炼晋升为丐帮执事：向洪七公展示武功，击败黑熊。",
+    "objectives": [
+      {
+        "type": "talk",
+        "npcId": "npc_gaibang_leader",
+        "dialog": "晋升"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_black_bear",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 1000,
+      "gold": 500,
+      "factionReputation": 150
+    },
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_mingjiao_rank_deacon",
+    "factionId": "mingjiao",
+    "name": "明教执事试炼",
+    "type": "faction_rank_up",
+    "description": "通过试炼晋升为明教执事：完成圣火令任务，击败魔教弟子。",
+    "objectives": [
+      {
+        "type": "talk",
+        "npcId": "npc_mingjiao_leader",
+        "dialog": "晋升"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_evil_cultist",
+        "count": 3
+      }
+    ],
+    "rewards": {
+      "exp": 1500,
+      "gold": 800,
+      "factionReputation": 200
+    },
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_xiaoyao_rank_deacon",
+    "factionId": "xiaoyao",
+    "name": "逍遥执事试炼",
+    "type": "faction_rank_up",
+    "description": "通过试炼晋升为逍遥执事：向逍遥长老展示轻功，击败仙兽。",
+    "objectives": [
+      {
+        "type": "talk",
+        "npcId": "npc_xiaoyao_elder",
+        "dialog": "晋升"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_fairy_beast",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 2000,
+      "gold": 1000,
+      "factionReputation": 250
+    },
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_shaolin_rank_elder",
+    "factionId": "shaolin",
+    "name": "少林长老试炼",
+    "type": "faction_rank_up",
+    "description": "通过试炼晋升为少林长老：参悟易筋经，击败冰魔。",
+    "objectives": [
+      {
+        "type": "talk",
+        "npcId": "npc_shaolin_abbot",
+        "dialog": "长老试炼"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_ice_golem",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 3000,
+      "gold": 2000,
+      "factionReputation": 300
+    },
+    "minFactionRank": "deacon"
+  },
+  {
+    "id": "faction_wudang_rank_elder",
+    "factionId": "wudang",
+    "name": "武当长老试炼",
+    "type": "faction_rank_up",
+    "description": "通过试炼晋升为武当长老：领悟太极劲，击败冰魔。",
+    "objectives": [
+      {
+        "type": "talk",
+        "npcId": "npc_wudang_master",
+        "dialog": "长老试炼"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_ice_golem",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 3000,
+      "gold": 2000,
+      "factionReputation": 300
+    },
+    "minFactionRank": "deacon"
+  },
+  {
+    "id": "faction_emei_rank_elder",
+    "factionId": "emei",
+    "name": "峨眉长老试炼",
+    "type": "faction_rank_up",
+    "description": "通过试炼晋升为峨眉长老：修习九天玄功，击败冰魔。",
+    "objectives": [
+      {
+        "type": "talk",
+        "npcId": "npc_emei_abbess",
+        "dialog": "长老试炼"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_ice_golem",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 3000,
+      "gold": 2000,
+      "factionReputation": 300
+    },
+    "minFactionRank": "deacon"
+  },
+  {
+    "id": "faction_gaibang_rank_elder",
+    "factionId": "beggar",
+    "name": "丐帮长老试炼",
+    "type": "faction_rank_up",
+    "description": "通过试炼晋升为丐帮长老：精研降龙十八掌，击败冰魔。",
+    "objectives": [
+      {
+        "type": "talk",
+        "npcId": "npc_gaibang_leader",
+        "dialog": "长老试炼"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_ice_golem",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 3000,
+      "gold": 2000,
+      "factionReputation": 300
+    },
+    "minFactionRank": "deacon"
+  },
+  {
+    "id": "faction_mingjiao_rank_elder",
+    "factionId": "mingjiao",
+    "name": "明教长老试炼",
+    "type": "faction_rank_up",
+    "description": "通过试炼晋升为明教长老：修习乾坤大挪移，击败毒龙。",
+    "objectives": [
+      {
+        "type": "talk",
+        "npcId": "npc_mingjiao_leader",
+        "dialog": "长老试炼"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_poison_dragon",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 5000,
+      "gold": 3000,
+      "factionReputation": 500
+    },
+    "minFactionRank": "deacon"
+  },
+  {
+    "id": "faction_xiaoyao_rank_elder",
+    "factionId": "xiaoyao",
+    "name": "逍遥长老试炼",
+    "type": "faction_rank_up",
+    "description": "通过试炼晋升为逍遥长老：修习天山六阳掌，击败毒龙。",
+    "objectives": [
+      {
+        "type": "talk",
+        "npcId": "npc_xiaoyao_elder",
+        "dialog": "长老试炼"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_poison_dragon",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 5000,
+      "gold": 3000,
+      "factionReputation": 500
+    },
+    "minFactionRank": "deacon"
+  },
+  {
+    "id": "faction_shaolin_rank_leader",
+    "factionId": "shaolin",
+    "name": "少林掌门试炼",
+    "type": "faction_rank_up",
+    "description": "最终试炼：击败火龙证明你有资格继承少林衣钵。",
+    "objectives": [
+      {
+        "type": "kill",
+        "monsterId": "monster_fire_dragon",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 10000,
+      "gold": 5000,
+      "factionReputation": 800
+    },
+    "minFactionRank": "elder"
+  },
+  {
+    "id": "faction_wudang_rank_leader",
+    "factionId": "wudang",
+    "name": "武当掌门试炼",
+    "type": "faction_rank_up",
+    "description": "最终试炼：击败火龙，领悟太极真谛。",
+    "objectives": [
+      {
+        "type": "kill",
+        "monsterId": "monster_fire_dragon",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 10000,
+      "gold": 5000,
+      "factionReputation": 800
+    },
+    "minFactionRank": "elder"
+  },
+  {
+    "id": "faction_emei_rank_leader",
+    "factionId": "emei",
+    "name": "峨眉掌门试炼",
+    "type": "faction_rank_up",
+    "description": "最终试炼：击败火龙，继承峨眉衣钵。",
+    "objectives": [
+      {
+        "type": "kill",
+        "monsterId": "monster_fire_dragon",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 10000,
+      "gold": 5000,
+      "factionReputation": 800
+    },
+    "minFactionRank": "elder"
+  },
+  {
+    "id": "faction_gaibang_rank_leader",
+    "factionId": "beggar",
+    "name": "丐帮帮主试炼",
+    "type": "faction_rank_up",
+    "description": "最终试炼：击败火龙证明你有资格号令丐帮。",
+    "objectives": [
+      {
+        "type": "kill",
+        "monsterId": "monster_fire_dragon",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 10000,
+      "gold": 5000,
+      "factionReputation": 800
+    },
+    "minFactionRank": "elder"
+  },
+  {
+    "id": "faction_mingjiao_rank_leader",
+    "factionId": "mingjiao",
+    "name": "明教教主试炼",
+    "type": "faction_rank_up",
+    "description": "最终试炼：击败魔王，继承明教教主之位！",
+    "objectives": [
+      {
+        "type": "kill",
+        "monsterId": "monster_demon_lord",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 20000,
+      "gold": 10000,
+      "factionReputation": 1500
+    },
+    "minFactionRank": "elder"
+  },
+  {
+    "id": "faction_xiaoyao_rank_leader",
+    "factionId": "xiaoyao",
+    "name": "逍遥掌门试炼",
+    "type": "faction_rank_up",
+    "description": "最终试炼：击败魔王，成为逍遥派掌门！",
+    "objectives": [
+      {
+        "type": "kill",
+        "monsterId": "monster_demon_lord",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 20000,
+      "gold": 10000,
+      "factionReputation": 1500
+    },
+    "minFactionRank": "elder"
+  },
+  {
+    "id": "faction_emei_daily_2",
+    "factionId": "emei",
+    "name": "剑法修行",
+    "type": "faction_daily",
+    "description": "在峨眉山修炼剑法，击败山中猛兽",
+    "objectives": [
+      {
+        "type": "kill",
+        "monsterId": "monster_tiger",
+        "count": 2
+      }
+    ],
+    "rewards": {
+      "exp": 500,
+      "gold": 200,
+      "factionReputation": 30
+    },
+    "dailyReset": true,
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_gaibang_daily_2",
+    "factionId": "beggar",
+    "name": "讨伐山贼",
+    "type": "faction_daily",
+    "description": "丐帮弟子为民除害，讨伐山贼",
+    "objectives": [
+      {
+        "type": "kill",
+        "monsterId": "monster_bandit",
+        "count": 4
+      }
+    ],
+    "rewards": {
+      "exp": 500,
+      "gold": 250,
+      "factionReputation": 35
+    },
+    "dailyReset": true,
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_shaolin_daily_3",
+    "factionId": "shaolin",
+    "name": "塔林清扫",
+    "type": "faction_daily",
+    "description": "前往少林塔林清扫并冥想",
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "shaolin_pagoda"
+      },
+      {
+        "type": "talk",
+        "npcId": "npc_shaolin_abbot",
+        "dialog": "清扫"
+      }
+    ],
+    "rewards": {
+      "exp": 350,
+      "gold": 150,
+      "factionReputation": 25
+    },
+    "dailyReset": true,
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_wudang_daily_3",
+    "factionId": "wudang",
+    "name": "真武殿参拜",
+    "type": "faction_daily",
+    "description": "前往真武殿参拜，领悟武学真谛",
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "wudang_hall"
+      },
+      {
+        "type": "talk",
+        "npcId": "npc_wudang_master",
+        "dialog": "参拜"
+      }
+    ],
+    "rewards": {
+      "exp": 350,
+      "gold": 150,
+      "factionReputation": 25
+    },
+    "dailyReset": true,
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_mingjiao_daily_2",
+    "factionId": "mingjiao",
+    "name": "密殿守卫",
+    "type": "faction_daily",
+    "description": "守卫明教密殿，击退入侵的魔族",
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "mingjiao_sanctum"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_demon_soldier",
+        "count": 2
+      }
+    ],
+    "rewards": {
+      "exp": 800,
+      "gold": 400,
+      "factionReputation": 50
+    },
+    "dailyReset": true,
+    "minFactionRank": "deacon"
+  },
+  {
+    "id": "faction_xiaoyao_daily_2",
+    "factionId": "xiaoyao",
+    "name": "逍遥阁论道",
+    "type": "faction_daily",
+    "description": "在逍遥阁与同门论道，交流武学心得",
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "xiaoyao_pavilion"
+      },
+      {
+        "type": "talk",
+        "npcId": "npc_xiaoyao_elder",
+        "dialog": "论道"
+      }
+    ],
+    "rewards": {
+      "exp": 400,
+      "gold": 200,
+      "factionReputation": 30
+    },
+    "dailyReset": true,
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_shaolin_collect",
+    "factionId": "shaolin",
+    "name": "收集草药",
+    "type": "faction_collect",
+    "description": "为少林药房收集草药和山参",
+    "objectives": [
+      {
+        "type": "collect",
+        "itemId": "item_herb",
+        "count": 10
+      },
+      {
+        "type": "collect",
+        "itemId": "item_ginseng",
+        "count": 5
+      }
+    ],
+    "rewards": {
+      "exp": 800,
+      "gold": 400,
+      "factionReputation": 60
+    },
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_wudang_collect",
+    "factionId": "wudang",
+    "name": "炼制丹药",
+    "type": "faction_collect",
+    "description": "为武当炼丹房收集药材",
+    "objectives": [
+      {
+        "type": "collect",
+        "itemId": "item_herb",
+        "count": 15
+      },
+      {
+        "type": "collect",
+        "itemId": "item_mushroom",
+        "count": 10
+      }
+    ],
+    "rewards": {
+      "exp": 800,
+      "gold": 400,
+      "factionReputation": 60
+    },
+    "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_mingjiao_collect",
+    "factionId": "mingjiao",
+    "name": "收集圣火材料",
+    "type": "faction_collect",
+    "description": "收集维持圣火的材料",
+    "objectives": [
+      {
+        "type": "collect",
+        "itemId": "item_fire_essence",
+        "count": 5
+      },
+      {
+        "type": "collect",
+        "itemId": "item_lava_rock",
+        "count": 10
+      },
+      {
+        "type": "collect",
+        "itemId": "item_coal",
+        "count": 20
+      }
+    ],
+    "rewards": {
+      "exp": 1500,
+      "gold": 800,
+      "factionReputation": 100
+    },
+    "minFactionRank": "disciple"
   }
 ]

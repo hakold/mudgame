@@ -24,6 +24,8 @@ export const useGameStore = defineStore('game', () => {
   const onlinePlayers = ref([])
   const activeTrade = ref(null)
   const pvpChallenge = ref(null)
+  const npcDialog = ref(null)   // { npc, message, availableQuests }
+  const questProgress = ref({}) // { questId: { progress, status } }
   const achievements = ref({ achieved: [], available: [] })
   const forgeRecipes = ref([])
   const timeInfo = ref(null)
@@ -100,11 +102,26 @@ export const useGameStore = defineStore('game', () => {
     inventory.value = []
     skills.value = []
     quests.value = []
+    npcDialog.value = null
+    questProgress.value = {}
+    onlinePlayers.value = []
+    battleLogList.value = []
+    battleLogDetail.value = null
+    activeTrade.value = null
+    pvpChallenge.value = null
+    achievements.value = []
+    forgeRecipes.value = []
+    timeInfo.value = null
+    roomDrops.value = []
+    connected.value = false
+    delete axios.defaults.headers.common['Authorization']
     localStorage.removeItem('token')
     if (socket.value) {
       socket.value.disconnect()
       socket.value = null
     }
+    // 强制刷新页面确保所有组件状态彻底清空
+    window.location.reload()
   }
   
   function connectSocket() {
@@ -135,6 +152,9 @@ export const useGameStore = defineStore('game', () => {
     socket.value.on('welcome', (data) => {
       console.log('Welcome data:', data)
       addMessage('system', data.message)
+      if (data.tip) {
+        addMessage('tip', data.tip)
+      }
       if (data.room) {
         currentRoom.value = data.room
         addMessage('room', `你当前在: ${data.room.name}`)
@@ -239,6 +259,9 @@ export const useGameStore = defineStore('game', () => {
       }
       if (data.rewards) {
         addMessage('system', `获得 ${data.rewards.expGained} 经验, ${data.rewards.goldGained} 金币`)
+      }
+      if (data.rewards?.autoLooted?.length) {
+        addMessage('success', `🎒 自动拾取: ${data.rewards.autoLooted.join(', ')}`)
       }
       if (data.rewards?.deathPenalty) {
         const p = data.rewards.deathPenalty
@@ -399,6 +422,22 @@ export const useGameStore = defineStore('game', () => {
       if (data.roomServices && data.roomServices.length > 0) {
         addMessage('system', `可用服务: ${data.roomServices.join(', ')}`)
       }
+      // 存储NPC对话数据用于显示可接任务UI
+      if (data.availableQuests && data.availableQuests.length > 0) {
+        npcDialog.value = data
+      } else {
+        npcDialog.value = null
+      }
+    })
+
+    socket.value.on('quest_progress', async (data) => {
+      questProgress.value = { ...questProgress.value, [data.questId]: data }
+      if (data.status === 'completed') {
+        addMessage('success', `📋 任务「${data.questName}」已完成！找NPC领取奖励。`)
+        await loadQuests()
+      } else {
+        addMessage('system', `📋 任务进度: ${data.questName} 已更新`)
+      }
     })
     
     socket.value.on('shop_items', (data) => {
@@ -420,7 +459,15 @@ export const useGameStore = defineStore('game', () => {
     })
 
     socket.value.on('item_used', async (data) => {
-      addMessage('success', `使用了 ${data.item.name}`)
+      if (data.item.type === 'skill_book') {
+        if (data.success) {
+          addMessage('success', data.message || `成功领悟了「${data.skillLearned}」！`)
+        } else {
+          addMessage('system', data.message || `研读《${data.item.name}》失败……`)
+        }
+      } else {
+        addMessage('success', `使用了 ${data.item.name}`)
+      }
       await Promise.all([refreshCurrentUser(), loadInventory()])
     })
 
@@ -477,6 +524,70 @@ export const useGameStore = defineStore('game', () => {
 
     socket.value.on('faction_joined', async (data) => {
       addMessage('success', data.message || '已加入门派')
+      await refreshCurrentUser()
+    })
+
+    socket.value.on('factions_list', (data) => {
+      addMessage('system', '【江湖门派】')
+      data.forEach(f => {
+        addMessage('system', `  [${f.id}] ${f.name} - ${f.description} (需等级${f.requireLevel})`)
+      })
+      addMessage('system', '输入 faction join <门派ID> 加入门派')
+    })
+
+    socket.value.on('faction_left', (data) => {
+      addMessage('system', data.message || '已退出门派')
+      refreshCurrentUser()
+    })
+
+    socket.value.on('faction_task_completed', (data) => {
+      addMessage('success', `捐献了 ${data.goldDonated} 金币，获得 ${data.reputationGained} 门派声望`)
+      addMessage('system', `当前声望: ${data.totalReputation} | 门派贡献: ${data.totalContribution} | 等级: ${data.factionRank}`)
+      refreshCurrentUser()
+    })
+
+    socket.value.on('faction_quests_list', (data) => {
+      addMessage('system', `【${data.factionId} 门派任务】`)
+      data.quests.forEach(q => {
+        const status = q.playerStatus
+        let statusStr = status ? (status.rewardClaimed ? '✓已领奖' : (status.status === 'completed' ? '可领奖' : status.status)) : '可接取'
+        addMessage('system', `  [${q.id}] ${q.name} (${q.type}) - ${statusStr}`)
+        if (status && status.status === 'completed' && !status.rewardClaimed) {
+          addMessage('system', `    → 输入 faction quest complete ${q.id} 领取奖励`)
+        }
+        if (!status || (status.status !== 'completed' && status.status !== 'accepted' && status.status !== 'in_progress')) {
+          addMessage('system', `    → 输入 faction quest accept ${q.id} 接取`)
+        }
+      })
+    })
+
+    socket.value.on('faction_quest_accepted', (data) => {
+      addMessage('success', `已接取门派任务: ${data.quest.name}`)
+    })
+
+    socket.value.on('faction_quest_completed', (data) => {
+      const r = data.rewards
+      const parts = []
+      if (r.exp) parts.push(`经验+${r.exp}`)
+      if (r.gold) parts.push(`金币+${r.gold}`)
+      if (r.factionReputation) parts.push(`声望+${r.factionReputation}`)
+      addMessage('success', `任务完成: ${data.quest.name}！${parts.join(', ')}`)
+      refreshCurrentUser()
+    })
+
+    socket.value.on('faction_exchange_list', (data) => {
+      addMessage('system', `【${data.factionName}贡献兑换】(你的贡献: ${data.myContribution}, 等级: ${data.myRank})`)
+      if (data.items.length === 0) {
+        addMessage('system', '  暂无可兑换的技能（可能等级不足或已全部学会）')
+      }
+      data.items.forEach(s => {
+        addMessage('system', `  [${s.id}] ${s.name} - 消耗 ${s.contributionCost} 贡献 (学习原价${s.learnPrice}金)`)
+      })
+      addMessage('system', '输入 faction exchange <技能ID> 进行兑换')
+    })
+
+    socket.value.on('faction_exchanged', async (data) => {
+      addMessage('success', `用 ${data.cost} 贡献兑换了「${data.skillName}」！剩余贡献: ${data.remainingContribution}`)
       await refreshCurrentUser()
     })
   }
@@ -538,7 +649,12 @@ export const useGameStore = defineStore('game', () => {
         }
         break
       case 'use':
-        socket.value.emit('use_item', { inventoryId: args[0] })
+        // 支持 use <物品名称> 或 use <inventoryId>
+        if (args[0] && args[0].length === 24 && /^[a-f0-9]+$/i.test(args[0])) {
+          socket.value.emit('use_item', { inventoryId: args[0] })
+        } else {
+          socket.value.emit('use_item', { itemName: args.join(' ') })
+        }
         break
       case 'quest':
         if (args[0] === 'accept') {
@@ -559,6 +675,20 @@ export const useGameStore = defineStore('game', () => {
       case 'faction':
         if (args[0] === 'join') {
           socket.value.emit('join_faction', { factionId: args[1] })
+        } else if (args[0] === 'leave') {
+          socket.value.emit('leave_faction')
+        } else if (args[0] === 'advance') {
+          socket.value.emit('faction_advance')
+        } else if (args[0] === 'quests') {
+          socket.value.emit('list_faction_quests')
+        } else if (args[0] === 'quest' && args[1] === 'accept') {
+          socket.value.emit('accept_faction_quest', { questId: args[2] })
+        } else if (args[0] === 'quest' && args[1] === 'complete') {
+          socket.value.emit('complete_faction_quest', { questId: args[2] })
+        } else if (args[0] === 'exchange' && args[1]) {
+          socket.value.emit('faction_exchange', { skillId: args[1] })
+        } else if (args[0] === 'exchange') {
+          socket.value.emit('faction_exchange_list')
         } else {
           socket.value.emit('list_factions')
         }
@@ -572,10 +702,12 @@ export const useGameStore = defineStore('game', () => {
         addMessage('system', '')
         addMessage('system', '【交互命令】')
         addMessage('system', '  talk <NPC> - 与NPC对话')
+        addMessage('system', '  rumor - 在客栈打听江湖消息')
         addMessage('system', '  shop - 查看商店物品')
-        addMessage('system', '  buy <物品ID或名称> - 购买物品')
+        addMessage('system', '  buy <物品ID> - 购买物品')
         addMessage('system', '  sell <物品ID> - 出售物品')
         addMessage('system', '  rest - 在客栈休息恢复HP/MP')
+        addMessage('system', '  pickup <物品ID> - 拾取地面物品')
         addMessage('system', '')
         addMessage('system', '【战斗命令】')
         addMessage('system', '  kill <怪物> - 攻击怪物')
@@ -586,12 +718,19 @@ export const useGameStore = defineStore('game', () => {
         addMessage('system', '【成长命令】')
         addMessage('system', '  skills learn - 查看可学习技能')
         addMessage('system', '  learn <技能ID> - 学习技能')
-        addMessage('system', '  train <属性> - 训练属性(strength/dexterity/constitution/intelligence)')
+        addMessage('system', '  train <属性> - 训练属性(力量/敏捷/体质/悟性/根骨)')
         addMessage('system', '  status - 查看状态')
         addMessage('system', '')
         addMessage('system', '【门派命令】')
         addMessage('system', '  faction - 查看门派列表')
         addMessage('system', '  faction join <门派> - 加入门派')
+        addMessage('system', '  faction leave - 退出门派')
+        addMessage('system', '  faction advance - 门派进阶')
+        addMessage('system', '  faction quests - 查看门派任务')
+        addMessage('system', '  faction quest accept <ID> - 接取门派任务')
+        addMessage('system', '  faction quest complete <ID> - 完成门派任务')
+        addMessage('system', '  faction exchange - 查看贡献兑换')
+        addMessage('system', '  faction exchange <技能ID> - 贡献兑换技能')
         addMessage('system', '══════════════════════════════')
         break
       case 'status':
@@ -612,6 +751,12 @@ export const useGameStore = defineStore('game', () => {
         break
       case 'rest':
         socket.value.emit('rest')
+        break
+      case 'rumor':
+        socket.value.emit('rumor')
+        break
+      case 'pickup':
+        socket.value.emit('pickup_item', { itemId: args[0], quantity: parseInt(args[1]) || 1 })
         break
       case 'talk':
         socket.value.emit('talk_npc', { npcId: args[0] })
@@ -895,6 +1040,8 @@ export const useGameStore = defineStore('game', () => {
     onlinePlayers,
     activeTrade,
     pvpChallenge,
+    npcDialog,
+    questProgress,
     achievements,
     forgeRecipes,
     timeInfo,

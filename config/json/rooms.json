@@ -623,6 +623,9 @@
     "features": [
       "茅屋",
       "草药"
+    ],
+    "services": [
+      "rest"
     ]
   },
   {
@@ -759,6 +762,9 @@
     "features": [
       "石像",
       "火把"
+    ],
+    "services": [
+      "rest"
     ]
   },
   {
@@ -1159,5 +1165,2424 @@
       }
     ],
     "services": []
+  },
+  {
+    "id": "shaolin_temple",
+    "mapId": "mountain",
+    "name": "少林寺",
+    "description": "千年古刹少林寺，殿宇庄严，钟声悠远。寺中僧人往来不绝，武僧在院中习武。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "mountain_temple"
+      },
+      {
+        "direction": "north",
+        "roomId": "shaolin_pagoda"
+      }
+    ],
+    "features": [
+      "大雄宝殿",
+      "练武场",
+      "藏经阁"
+    ],
+    "services": [
+      "learn_skill",
+      "train",
+      "meditate"
+    ]
+  },
+  {
+    "id": "shaolin_pagoda",
+    "mapId": "mountain",
+    "name": "少林塔林",
+    "description": "少林历代高僧的安息之地，塔林肃穆。据说这里藏有少林七十二绝技的秘密。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "shaolin_temple"
+      }
+    ],
+    "features": [
+      "古塔",
+      "石碑",
+      "铜人"
+    ],
+    "services": []
+  },
+  {
+    "id": "wudang_peak",
+    "mapId": "mountain",
+    "name": "武当山",
+    "description": "武当山云雾缭绕，紫霄宫巍然屹立。道长们在此修道习武，追求天人合一。",
+    "exits": [
+      {
+        "direction": "east",
+        "roomId": "mountain_peak"
+      },
+      {
+        "direction": "up",
+        "roomId": "wudang_hall"
+      }
+    ],
+    "features": [
+      "紫霄宫",
+      "太极广场",
+      "剑池"
+    ],
+    "services": [
+      "learn_skill",
+      "train",
+      "meditate"
+    ]
+  },
+  {
+    "id": "wudang_hall",
+    "mapId": "mountain",
+    "name": "武当真武殿",
+    "description": "武当派核心大殿，供奉真武大帝。殿中高悬太极图，蕴含天地至理。",
+    "exits": [
+      {
+        "direction": "down",
+        "roomId": "wudang_peak"
+      }
+    ],
+    "features": [
+      "真武像",
+      "太极图",
+      "武功秘籍"
+    ],
+    "services": [
+      "learn_skill"
+    ]
+  },
+  {
+    "id": "emei_temple",
+    "mapId": "mountain",
+    "name": "峨眉金顶",
+    "description": "峨眉山金顶，云海翻涌，佛光普照。峨眉派女弟子在此修行剑法。",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "mountain_temple"
+      },
+      {
+        "direction": "east",
+        "roomId": "emei_hall"
+      }
+    ],
+    "features": [
+      "金顶大殿",
+      "练剑台",
+      "药园"
+    ],
+    "services": [
+      "learn_skill",
+      "train",
+      "meditate"
+    ]
+  },
+  {
+    "id": "emei_hall",
+    "mapId": "mountain",
+    "name": "峨眉万法堂",
+    "description": "峨眉派核心所在，收藏了历代师太的武学心得。",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "emei_temple"
+      }
+    ],
+    "features": [
+      "武功壁画",
+      "佛经",
+      "剑谱"
+    ],
+    "services": [
+      "learn_skill"
+    ]
+  },
+  {
+    "id": "mingjiao_hall",
+    "mapId": "volcano",
+    "name": "明教光明顶",
+    "description": "明教总坛光明顶，圣火熊熊燃烧。教众在此议事习武，气氛庄严。",
+    "exits": [
+      {
+        "direction": "down",
+        "roomId": "volcano_crater"
+      },
+      {
+        "direction": "north",
+        "roomId": "mingjiao_sanctum"
+      }
+    ],
+    "features": [
+      "圣火坛",
+      "光明大殿",
+      "演武场"
+    ],
+    "services": [
+      "learn_skill",
+      "train"
+    ]
+  },
+  {
+    "id": "mingjiao_sanctum",
+    "mapId": "volcano",
+    "name": "明教密殿",
+    "description": "明教最隐秘的殿堂，收藏乾坤大挪移等镇教绝学。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "mingjiao_hall"
+      }
+    ],
+    "features": [
+      "乾坤大挪移心法",
+      "圣火令",
+      "暗室"
+    ],
+    "services": [
+      "learn_skill"
+    ]
+  },
+  {
+    "id": "xiaoyao_valley",
+    "mapId": "island",
+    "name": "逍遥谷",
+    "description": "隐藏在仙岛深处的逍遥谷，风景如画。逍遥派门人在此习武修道，逍遥自在。",
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "island_cave"
+      },
+      {
+        "direction": "south",
+        "roomId": "xiaoyao_pavilion"
+      }
+    ],
+    "features": [
+      "桃花林",
+      "清泉",
+      "琴台"
+    ],
+    "services": [
+      "learn_skill",
+      "train",
+      "meditate"
+    ]
+  },
+  {
+    "id": "xiaoyao_pavilion",
+    "mapId": "island",
+    "name": "逍遥阁",
+    "description": "逍遥派核心所在，藏有北冥神功和凌波微步等绝世武功。",
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "xiaoyao_valley"
+      }
+    ],
+    "features": [
+      "武功秘籍",
+      "棋盘",
+      "茶室"
+    ],
+    "services": [
+      "learn_skill"
+    ]
+  },
+  {
+    "id": "gaibang_hq",
+    "mapId": "city",
+    "name": "丐帮总舵",
+    "description": "丐帮总舵设在洛阳城偏僻处，虽简陋却卧虎藏龙。帮中高手云集于此。",
+    "exits": [
+      {
+        "direction": "east",
+        "roomId": "city_square"
+      },
+      {
+        "direction": "north",
+        "roomId": "gaibang_hall"
+      }
+    ],
+    "features": [
+      "打狗棒",
+      "酒坛",
+      "练功场"
+    ],
+    "services": [
+      "learn_skill",
+      "train"
+    ]
+  },
+  {
+    "id": "gaibang_hall",
+    "mapId": "city",
+    "name": "丐帮议事厅",
+    "description": "丐帮高层议事之处，墙上挂着历代帮主的画像。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "gaibang_hq"
+      }
+    ],
+    "features": [
+      "帮主画像",
+      "降龙十八掌秘籍",
+      "长老席"
+    ],
+    "services": [
+      "learn_skill"
+    ]
+  },
+  {
+    "id": "forest_waterfall",
+    "mapId": "forest",
+    "name": "林中瀑布",
+    "description": "一道银练般的瀑布从山崖倾泻而下，水雾弥漫。瀑布下的潭水清澈见底，偶有游鱼跃出水面。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "forest_deep"
+      },
+      {
+        "direction": "up",
+        "roomId": "mountain_spring"
+      }
+    ],
+    "features": [
+      "瀑布",
+      "深潭",
+      "彩虹"
+    ],
+    "services": [
+      "rest"
+    ]
+  },
+  {
+    "id": "herbalist_hut",
+    "mapId": "forest",
+    "name": "药师草庐",
+    "description": "一间简陋的草庐，四周晾晒着各种草药，空气中弥漫着药香。",
+    "exits": [
+      {
+        "direction": "east",
+        "roomId": "forest_path"
+      }
+    ],
+    "features": [
+      "药架",
+      "丹炉",
+      "药圃"
+    ],
+    "services": [
+      "shop",
+      "buy_item"
+    ]
+  },
+  {
+    "id": "city_docks",
+    "mapId": "city",
+    "name": "洛阳码头",
+    "description": "洛阳城外的码头，船只往来如梭。从这里可以乘船去往远方的小岛。",
+    "exits": [
+      {
+        "direction": "east",
+        "roomId": "city_gate"
+      },
+      {
+        "direction": "sail",
+        "roomId": "island_beach"
+      }
+    ],
+    "features": [
+      "船只",
+      "货物",
+      "灯塔"
+    ],
+    "services": [
+      "travel"
+    ]
+  },
+  {
+    "id": "city_residential",
+    "mapId": "city",
+    "name": "民居区",
+    "description": "洛阳城的居民区，小巷交错，百姓安居乐业。",
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "city_square"
+      },
+      {
+        "direction": "east",
+        "roomId": "city_temple"
+      }
+    ],
+    "features": [
+      "民居",
+      "小巷",
+      "茶馆"
+    ],
+    "services": []
+  },
+  {
+    "id": "city_temple",
+    "mapId": "city",
+    "name": "城隍庙",
+    "description": "古老的城隍庙，香火鼎盛。人们来此祈福求平安，庙中住持德高望重。",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "city_residential"
+      },
+      {
+        "direction": "south",
+        "roomId": "city_bridge"
+      }
+    ],
+    "features": [
+      "神像",
+      "香炉",
+      "功德箱"
+    ],
+    "services": [
+      "meditate"
+    ]
+  },
+  {
+    "id": "city_bridge",
+    "mapId": "city",
+    "name": "石桥",
+    "description": "横跨洛河的石桥，桥栏雕刻着精美的石狮。桥下流水潺潺，桥上车马不绝。",
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "city_temple"
+      },
+      {
+        "direction": "south",
+        "roomId": "city_gate"
+      }
+    ],
+    "features": [
+      "石狮",
+      "桥柱",
+      "河景"
+    ],
+    "services": []
+  },
+  {
+    "id": "mountain_cliff",
+    "mapId": "mountain",
+    "name": "山崖",
+    "description": "一处陡峭的山崖，云雾在脚下翻涌。崖边有一棵古松，据说已有千年。",
+    "exits": [
+      {
+        "direction": "down",
+        "roomId": "mountain_path"
+      },
+      {
+        "direction": "east",
+        "roomId": "mountain_spring"
+      }
+    ],
+    "features": [
+      "古松",
+      "云海",
+      "石碑"
+    ],
+    "services": []
+  },
+  {
+    "id": "mountain_spring",
+    "mapId": "mountain",
+    "name": "山泉",
+    "description": "高山泉水汇聚而成的小池，清冽甘甜。泉水有疗伤之效，常有江湖人士在此休憩。",
+    "exits": [
+      {
+        "direction": "down",
+        "roomId": "forest_waterfall"
+      },
+      {
+        "direction": "west",
+        "roomId": "mountain_cliff"
+      }
+    ],
+    "features": [
+      "泉水",
+      "温泉",
+      "石台"
+    ],
+    "services": [
+      "rest",
+      "water"
+    ]
+  },
+  {
+    "id": "mountain_bridge",
+    "mapId": "mountain",
+    "name": "铁索桥",
+    "description": "横跨两座山峰的铁索桥，桥下是万丈深渊。走在上面摇摇晃晃，考验胆量。",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "mountain_peak"
+      },
+      {
+        "direction": "east",
+        "roomId": "sky_path"
+      }
+    ],
+    "features": [
+      "铁索",
+      "深渊",
+      "云雾"
+    ],
+    "services": []
+  },
+  {
+    "id": "sky_path",
+    "mapId": "mountain",
+    "name": "天路",
+    "description": "云雾之上的古道，传闻此处通天。天空澄澈如洗，星辰仿佛触手可及。",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "mountain_bridge"
+      },
+      {
+        "direction": "up",
+        "roomId": "heaven_gate"
+      }
+    ],
+    "features": [
+      "云海",
+      "星辰",
+      "古道"
+    ],
+    "services": []
+  },
+  {
+    "id": "heaven_gate",
+    "mapId": "mountain",
+    "name": "天之门",
+    "description": "传说中通往天界的大门，散发着柔和的光辉。门前的守卫庄严威武，非大侠不可入。",
+    "exits": [
+      {
+        "direction": "down",
+        "roomId": "sky_path"
+      },
+      {
+        "direction": "in",
+        "roomId": "celestial_palace"
+      }
+    ],
+    "features": [
+      "天门",
+      "神光",
+      "守卫"
+    ],
+    "services": []
+  },
+  {
+    "id": "celestial_palace",
+    "mapId": "mountain",
+    "name": "天宫",
+    "description": "云端之上的宫殿，金碧辉煌，仙气缭绕。这里收藏着世间最强的武学秘籍。",
+    "exits": [
+      {
+        "direction": "out",
+        "roomId": "heaven_gate"
+      }
+    ],
+    "features": [
+      "仙殿",
+      "神兵架",
+      "天书阁"
+    ],
+    "services": [
+      "learn_skill",
+      "train",
+      "meditate"
+    ]
+  },
+  {
+    "id": "desert_bazaar",
+    "mapId": "desert",
+    "name": "沙漠集市",
+    "description": "沙漠中的集市，各色帐篷和摊位熙熙攘攘。来自各地的商人在此交易奇珍异宝。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "desert_oasis"
+      },
+      {
+        "direction": "west",
+        "roomId": "desert_pyramid"
+      }
+    ],
+    "features": [
+      "帐篷",
+      "摊位",
+      "珠宝"
+    ],
+    "services": [
+      "shop",
+      "buy_item",
+      "sell_item"
+    ]
+  },
+  {
+    "id": "desert_pyramid",
+    "mapId": "desert",
+    "name": "金字塔",
+    "description": "远古文明留下的金字塔，高耸入云。塔身布满神秘符文，据说内部藏有惊天秘密。",
+    "exits": [
+      {
+        "direction": "east",
+        "roomId": "desert_bazaar"
+      },
+      {
+        "direction": "in",
+        "roomId": "pyramid_interior"
+      }
+    ],
+    "features": [
+      "符文",
+      "石像",
+      "宝藏传说"
+    ],
+    "services": []
+  },
+  {
+    "id": "pyramid_interior",
+    "mapId": "desert",
+    "name": "金字塔内",
+    "description": "金字塔内部，昏暗的通道两侧是精美的壁画。空气中弥漫着古老的气息。",
+    "exits": [
+      {
+        "direction": "out",
+        "roomId": "desert_pyramid"
+      },
+      {
+        "direction": "down",
+        "roomId": "pyramid_tomb"
+      }
+    ],
+    "features": [
+      "壁画",
+      "通道",
+      "陷阱"
+    ],
+    "services": [
+      "rest"
+    ]
+  },
+  {
+    "id": "pyramid_tomb",
+    "mapId": "desert",
+    "name": "法老之墓",
+    "description": "金字塔最深处的墓室，黄金棺椁散发着令人不安的气息。传说这里有法老的诅咒。",
+    "exits": [
+      {
+        "direction": "up",
+        "roomId": "pyramid_interior"
+      }
+    ],
+    "features": [
+      "黄金棺",
+      "诅咒石碑",
+      "宝藏"
+    ],
+    "services": []
+  },
+  {
+    "id": "graveyard_entrance",
+    "mapId": "forest",
+    "name": "乱葬岗",
+    "description": "一片阴森的墓地，荒草丛生，墓碑歪斜。据说夜间会有不干净的东西出没。",
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "deep_forest"
+      },
+      {
+        "direction": "south",
+        "roomId": "graveyard_deep"
+      }
+    ],
+    "features": [
+      "墓碑",
+      "枯树",
+      "乌鸦"
+    ],
+    "services": []
+  },
+  {
+    "id": "graveyard_deep",
+    "mapId": "forest",
+    "name": "墓地深处",
+    "description": "墓地的最深处，古老的陵墓散发着诡异的气息。一座巨大的石棺半埋在土中。",
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "graveyard_entrance"
+      },
+      {
+        "direction": "down",
+        "roomId": "crypt"
+      }
+    ],
+    "features": [
+      "石棺",
+      "鬼火",
+      "枯骨"
+    ],
+    "services": []
+  },
+  {
+    "id": "crypt",
+    "mapId": "forest",
+    "name": "地下墓穴",
+    "description": "墓地下的墓穴，阴冷潮湿。墓穴深处传来若有若无的哭声，让人毛骨悚然。",
+    "exits": [
+      {
+        "direction": "up",
+        "roomId": "graveyard_deep"
+      }
+    ],
+    "features": [
+      "石棺群",
+      "幽光",
+      "古尸"
+    ],
+    "services": []
+  },
+  {
+    "id": "lakeside",
+    "mapId": "village",
+    "name": "湖畔",
+    "description": "一片宁静的湖泊，湖水碧蓝如镜。湖边有渔家居住，世世代代以打渔为生。",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "village_field"
+      },
+      {
+        "direction": "north",
+        "roomId": "lake_village"
+      },
+      {
+        "direction": "south",
+        "roomId": "lake_island"
+      }
+    ],
+    "features": [
+      "湖水",
+      "渔船",
+      "垂柳"
+    ],
+    "services": []
+  },
+  {
+    "id": "lake_village",
+    "mapId": "village",
+    "name": "渔村",
+    "description": "湖边的渔村，民风淳朴。村民们以捕鱼和采珠为生，生活宁静而祥和。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "lakeside"
+      },
+      {
+        "direction": "east",
+        "roomId": "village_field"
+      }
+    ],
+    "features": [
+      "渔网",
+      "渔船",
+      "珍珠"
+    ],
+    "services": [
+      "rest",
+      "shop"
+    ]
+  },
+  {
+    "id": "lake_island",
+    "mapId": "village",
+    "name": "湖心岛",
+    "description": "湖中央的小岛，岛上有一座古亭。据说这里是古代剑客论剑的地方。",
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "lakeside"
+      },
+      {
+        "direction": "east",
+        "roomId": "underwater_cave"
+      }
+    ],
+    "features": [
+      "古亭",
+      "石碑",
+      "剑痕"
+    ],
+    "services": [
+      "meditate"
+    ]
+  },
+  {
+    "id": "underwater_cave",
+    "mapId": "village",
+    "name": "水下洞穴",
+    "description": "湖底的神秘洞穴，透过湖水透下微弱的光。洞壁上嵌着发光的珍珠，照亮了这片水下空间。",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "lake_island"
+      },
+      {
+        "direction": "down",
+        "roomId": "cave_network"
+      }
+    ],
+    "features": [
+      "夜明珠",
+      "珊瑚",
+      "古老石刻"
+    ],
+    "services": []
+  },
+  {
+    "id": "cave_network",
+    "mapId": "underground",
+    "name": "地下洞穴",
+    "description": "错综复杂的地下洞穴网络，连通着地底的各个区域。洞壁上布满了发光的苔藓。",
+    "exits": [
+      {
+        "direction": "up",
+        "roomId": "underwater_cave"
+      },
+      {
+        "direction": "north",
+        "roomId": "dark_cave"
+      },
+      {
+        "direction": "east",
+        "roomId": "underground_hall"
+      }
+    ],
+    "features": [
+      "发光苔藓",
+      "钟乳石",
+      "暗河"
+    ],
+    "services": []
+  },
+  {
+    "id": "bandit_camp",
+    "mapId": "forest",
+    "name": "山贼营地",
+    "description": "隐藏在山林中的山贼营地，戒备森严。营帐中隐约可见堆积的赃物。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "deep_forest"
+      },
+      {
+        "direction": "north",
+        "roomId": "bandit_stronghold"
+      }
+    ],
+    "features": [
+      "营帐",
+      "守卫",
+      "赃物"
+    ],
+    "services": []
+  },
+  {
+    "id": "bandit_stronghold",
+    "mapId": "forest",
+    "name": "山贼山寨",
+    "description": "山贼的老巢，木制寨墙内是山贼头目的议事厅。寨中藏有大量掠夺来的财宝。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "bandit_camp"
+      }
+    ],
+    "features": [
+      "聚义厅",
+      "宝库",
+      "囚笼"
+    ],
+    "services": [
+      "rest"
+    ]
+  },
+  {
+    "id": "canyon_entrance",
+    "mapId": "mountain",
+    "name": "峡谷入口",
+    "description": "一道巨大的峡谷横亘在面前，两侧是陡峭的岩壁。峡谷深处传来呼啸的风声，仿佛猛兽的咆哮。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "mountain_path"
+      },
+      {
+        "direction": "down",
+        "roomId": "canyon_deep"
+      }
+    ],
+    "features": [
+      "岩壁",
+      "枯藤",
+      "鹰巢"
+    ],
+    "services": []
+  },
+  {
+    "id": "canyon_deep",
+    "mapId": "mountain",
+    "name": "峡谷深处",
+    "description": "峡谷底部光线昏暗，岩壁上刻着古老的图腾。一条地下河穿谷而过，河边散落着矿石。",
+    "exits": [
+      {
+        "direction": "up",
+        "roomId": "canyon_entrance"
+      },
+      {
+        "direction": "south",
+        "roomId": "canyon_cross"
+      },
+      {
+        "direction": "east",
+        "roomId": "crystal_cave"
+      }
+    ],
+    "features": [
+      "图腾",
+      "地下河",
+      "矿脉"
+    ],
+    "services": [
+      "rest"
+    ]
+  },
+  {
+    "id": "canyon_cross",
+    "mapId": "mountain",
+    "name": "峡谷岔路",
+    "description": "峡谷在此分岔，一条通往沙漠，一条通往更深的谷底。岔路口立着一块风化严重的石碑。",
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "canyon_deep"
+      },
+      {
+        "direction": "west",
+        "roomId": "desert_entrance"
+      },
+      {
+        "direction": "down",
+        "roomId": "canyon_abyss"
+      }
+    ],
+    "features": [
+      "石碑",
+      "岔路口",
+      "风化石"
+    ],
+    "services": []
+  },
+  {
+    "id": "canyon_abyss",
+    "mapId": "mountain",
+    "name": "深渊谷底",
+    "description": "峡谷的最深处，终年不见阳光。这里栖息着远古的生物，岩壁上闪烁着诡异的荧光。",
+    "exits": [
+      {
+        "direction": "up",
+        "roomId": "canyon_cross"
+      }
+    ],
+    "features": [
+      "荧光岩",
+      "远古化石",
+      "深渊"
+    ],
+    "services": []
+  },
+  {
+    "id": "crystal_cave",
+    "mapId": "underground",
+    "name": "水晶洞",
+    "description": "洞壁上布满了璀璨的水晶，在微弱的光线下折射出七彩光芒。这是大自然最华丽的宫殿。",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "canyon_deep"
+      },
+      {
+        "direction": "down",
+        "roomId": "cave_network"
+      }
+    ],
+    "features": [
+      "水晶柱",
+      "宝石矿",
+      "荧光"
+    ],
+    "services": [
+      "meditate"
+    ]
+  },
+  {
+    "id": "city_rich",
+    "mapId": "city",
+    "name": "富人区",
+    "description": "洛阳城的富人区，朱门大户，庭院深深。这里住着城中最有权势的商贾和官员。",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "city_square"
+      },
+      {
+        "direction": "north",
+        "roomId": "auction_house"
+      }
+    ],
+    "features": [
+      "朱门",
+      "庭院",
+      "石狮"
+    ],
+    "services": []
+  },
+  {
+    "id": "auction_house",
+    "mapId": "city",
+    "name": "拍卖行",
+    "description": "洛阳最大的拍卖行，聚集了来自天下的奇珍异宝。锤声一落，价高者得。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "city_rich"
+      }
+    ],
+    "features": [
+      "拍卖台",
+      "展品柜",
+      "竞价牌"
+    ],
+    "services": [
+      "shop"
+    ]
+  },
+  {
+    "id": "city_slums",
+    "mapId": "city",
+    "name": "贫民窟",
+    "description": "洛阳城最阴暗的角落，破败的棚屋和狭窄的巷道。这里藏着城市不为人知的秘密。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "city_residential"
+      },
+      {
+        "direction": "down",
+        "roomId": "gambling_den"
+      },
+      {
+        "direction": "east",
+        "roomId": "underground_entrance"
+      }
+    ],
+    "features": [
+      "棚屋",
+      "暗巷",
+      "乞丐"
+    ],
+    "services": []
+  },
+  {
+    "id": "gambling_den",
+    "mapId": "city",
+    "name": "地下赌坊",
+    "description": "隐藏在贫民窟地下的赌坊，烟雾缭绕，人声嘈杂。骰子声、吆喝声此起彼伏。",
+    "exits": [
+      {
+        "direction": "up",
+        "roomId": "city_slums"
+      }
+    ],
+    "features": [
+      "赌桌",
+      "骰子",
+      "筹码"
+    ],
+    "services": [
+      "rest"
+    ]
+  },
+  {
+    "id": "tea_house",
+    "mapId": "city",
+    "name": "清风茶楼",
+    "description": "雅致的茶楼，文人墨客在此品茗论剑。茶香四溢，琴声悠扬，是江湖中人交流信息的好去处。",
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "city_residential"
+      },
+      {
+        "direction": "east",
+        "roomId": "city_market"
+      }
+    ],
+    "features": [
+      "茶台",
+      "古琴",
+      "字画"
+    ],
+    "services": [
+      "rest",
+      "rumor"
+    ]
+  },
+  {
+    "id": "ancient_tree",
+    "mapId": "forest",
+    "name": "万年古树",
+    "description": "一棵参天巨树，树干需十人合抱。树冠遮天蔽日，树枝上搭建着古朴的树屋。据说这棵树已活了万年。",
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "forest_clearing"
+      },
+      {
+        "direction": "up",
+        "roomId": "tree_canopy"
+      },
+      {
+        "direction": "east",
+        "roomId": "deep_forest"
+      }
+    ],
+    "features": [
+      "巨树",
+      "树屋",
+      "古藤"
+    ],
+    "services": [
+      "rest",
+      "meditate"
+    ]
+  },
+  {
+    "id": "tree_canopy",
+    "mapId": "forest",
+    "name": "树冠之上",
+    "description": "爬上巨树的顶端，整个森林尽收眼底。远处的山脉、城池、沙漠一览无余，令人心旷神怡。",
+    "exits": [
+      {
+        "direction": "down",
+        "roomId": "ancient_tree"
+      },
+      {
+        "direction": "east",
+        "roomId": "cloud_sea"
+      }
+    ],
+    "features": [
+      "全景",
+      "鸟巢",
+      "神果"
+    ],
+    "services": [
+      "meditate"
+    ]
+  },
+  {
+    "id": "cloud_sea",
+    "mapId": "mountain",
+    "name": "云海",
+    "description": "高耸入云的山峰之巅，脚下是无边无际的云海。日出时分，霞光万丈，云海翻涌，壮丽无比。",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "tree_canopy"
+      },
+      {
+        "direction": "north",
+        "roomId": "mountain_peak"
+      }
+    ],
+    "features": [
+      "云海",
+      "日出",
+      "仙鹤"
+    ],
+    "services": [
+      "meditate"
+    ]
+  },
+  {
+    "id": "hot_springs",
+    "mapId": "mountain",
+    "name": "山间温泉",
+    "description": "隐藏在深山中的天然温泉，热气蒸腾。据说这里的温泉水有疗伤奇效，江湖中人常来此放松。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "mountain_cliff"
+      },
+      {
+        "direction": "east",
+        "roomId": "mountain_spring"
+      }
+    ],
+    "features": [
+      "温泉",
+      "石池",
+      "竹林"
+    ],
+    "services": [
+      "rest",
+      "water"
+    ]
+  },
+  {
+    "id": "coastal_cliff",
+    "mapId": "island",
+    "name": "海崖",
+    "description": "陡峭的海崖，海浪拍打着崖壁发出轰鸣。站在崖顶远眺，碧海蓝天，一望无际。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "island_beach"
+      },
+      {
+        "direction": "east",
+        "roomId": "pirate_cove"
+      }
+    ],
+    "features": [
+      "悬崖",
+      "灯塔",
+      "海鸟"
+    ],
+    "services": []
+  },
+  {
+    "id": "pirate_cove",
+    "mapId": "island",
+    "name": "海盗湾",
+    "description": "隐秘的海盗湾，停泊着几艘海盗船。这里曾是海盗的据点，如今成了冒险者的天堂。",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "coastal_cliff"
+      },
+      {
+        "direction": "ship",
+        "roomId": "pirate_ship"
+      }
+    ],
+    "features": [
+      "海盗船",
+      "宝藏箱",
+      "酒桶"
+    ],
+    "services": [
+      "rest",
+      "rumor"
+    ]
+  },
+  {
+    "id": "pirate_ship",
+    "mapId": "island",
+    "name": "幽灵海盗船",
+    "description": "一艘古老的幽灵海盗船，船身虽已腐朽，却依然漂浮在海面上。船上藏有海盗王的宝藏。",
+    "exits": [
+      {
+        "direction": "shore",
+        "roomId": "pirate_cove"
+      },
+      {
+        "direction": "cabin",
+        "roomId": "captain_cabin"
+      }
+    ],
+    "features": [
+      "幽灵船员",
+      "宝箱",
+      "桅杆"
+    ],
+    "services": []
+  },
+  {
+    "id": "captain_cabin",
+    "mapId": "island",
+    "name": "船长室",
+    "description": "海盗船长的私人船舱，墙上挂着古老的航海图。角落的铁箱里据说藏有海盗王一生的积蓄。",
+    "exits": [
+      {
+        "direction": "deck",
+        "roomId": "pirate_ship"
+      }
+    ],
+    "features": [
+      "航海图",
+      "铁箱",
+      "海盗日志"
+    ],
+    "services": []
+  },
+  {
+    "id": "ancient_battlefield",
+    "mapId": "desert",
+    "name": "古战场",
+    "description": "一片被风沙半掩的古代战场，锈蚀的兵器和残破的旗帜散落一地。阴风阵阵，仿佛还能听到千年前的厮杀声。",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "desert_ruins"
+      },
+      {
+        "direction": "east",
+        "roomId": "canyon_cross"
+      }
+    ],
+    "features": [
+      "残剑",
+      "骸骨",
+      "战旗"
+    ],
+    "services": []
+  },
+  {
+    "id": "secret_garden",
+    "mapId": "forest",
+    "name": "秘境花园",
+    "description": "隐藏在山谷中的秘境花园，奇花异草遍布，蝴蝶翩翩起舞。花园中央有一池清泉，泉边立着一座古老的石碑。",
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "bamboo_grove"
+      },
+      {
+        "direction": "east",
+        "roomId": "herbalist_hut"
+      }
+    ],
+    "features": [
+      "奇花",
+      "清泉",
+      "石碑",
+      "蝴蝶"
+    ],
+    "services": [
+      "rest",
+      "meditate"
+    ]
+  },
+  {
+    "id": "snow_peak",
+    "mapId": "snow",
+    "name": "雪山顶",
+    "description": "雪域的最高峰，终年积雪，狂风呼啸。站在这里，仿佛伸手可触星辰。",
+    "exits": [
+      {
+        "direction": "down",
+        "roomId": "snow_pass"
+      },
+      {
+        "direction": "east",
+        "roomId": "snow_monastery"
+      }
+    ],
+    "features": [
+      "冰峰",
+      "狂风",
+      "星辰"
+    ],
+    "services": [
+      "meditate"
+    ]
+  },
+  {
+    "id": "snow_monastery",
+    "mapId": "snow",
+    "name": "雪寺",
+    "description": "隐藏在雪山深处的古老寺院，寺中僧人常年闭关修行。寺院四周经幡飘扬，梵音悠远。",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "snow_peak"
+      },
+      {
+        "direction": "south",
+        "roomId": "snow_village"
+      }
+    ],
+    "features": [
+      "经幡",
+      "佛塔",
+      "闭关室"
+    ],
+    "services": [
+      "learn_skill",
+      "meditate"
+    ]
+  },
+  {
+    "id": "swamp_village",
+    "mapId": "swamp",
+    "name": "沼泽村落",
+    "description": "隐藏在沼泽深处的土著村落，村民们以狩猎和采集为生。他们知道沼泽的每一个秘密。",
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "swamp_deep"
+      },
+      {
+        "direction": "south",
+        "roomId": "swamp_entrance"
+      }
+    ],
+    "features": [
+      "草屋",
+      "图腾柱",
+      "篝火"
+    ],
+    "services": [
+      "rest",
+      "shop"
+    ]
+  },
+  {
+    "id": "swamp_altar",
+    "mapId": "swamp",
+    "name": "沼泽祭坛",
+    "description": "沼泽中心的古老祭坛，石柱上刻着诡异的符文。这里是土著举行仪式的地方，据说可以召唤远古的力量。",
+    "exits": [
+      {
+        "direction": "east",
+        "roomId": "swamp_island"
+      },
+      {
+        "direction": "west",
+        "roomId": "swamp_village"
+      }
+    ],
+    "features": [
+      "祭坛",
+      "符文石",
+      "骨堆"
+    ],
+    "services": [
+      "meditate"
+    ]
+  },
+  {
+    "id": "demon_prison",
+    "mapId": "demon",
+    "name": "魔族监狱",
+    "description": "魔族关押囚犯的地方，铁链和刑具散落一地。黑暗中传来囚犯的哀嚎，令人毛骨悚然。",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "demon_fortress"
+      }
+    ],
+    "features": [
+      "铁链",
+      "刑具",
+      "囚笼"
+    ],
+    "services": []
+  },
+  {
+    "id": "demon_treasury",
+    "mapId": "demon",
+    "name": "魔族宝库",
+    "description": "魔族珍藏宝物的地方，堆积如山的金银珠宝闪烁着诱人的光芒。但宝库中设有强大的魔咒。",
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "demon_throne"
+      }
+    ],
+    "features": [
+      "金币堆",
+      "宝箱",
+      "魔咒结界"
+    ],
+    "services": []
+  },
+  {
+    "id": "plains",
+    "mapId": "village",
+    "name": "草原",
+    "description": "一望无际的大草原，风吹草低见牛羊。这里是牧民的天堂，也是野兽的猎场。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "village_field"
+      },
+      {
+        "direction": "north",
+        "roomId": "plains_camp"
+      },
+      {
+        "direction": "west",
+        "roomId": "plains_lake"
+      }
+    ],
+    "features": [
+      "草地",
+      "牛羊",
+      "野花"
+    ],
+    "services": []
+  },
+  {
+    "id": "plains_camp",
+    "mapId": "village",
+    "name": "游牧营地",
+    "description": "草原上游牧民族的营地，白色的帐篷点缀在绿草之间。牧民们热情好客，但也警惕外来的威胁。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "plains"
+      },
+      {
+        "direction": "east",
+        "roomId": "plains_ruins"
+      }
+    ],
+    "features": [
+      "帐篷",
+      "马群",
+      "篝火"
+    ],
+    "services": [
+      "rest",
+      "shop"
+    ]
+  },
+  {
+    "id": "plains_lake",
+    "mapId": "village",
+    "name": "草原湖泊",
+    "description": "草原中央的湖泊，水天一色，美不胜收。各种动物来此饮水，是观察自然的好地方。",
+    "exits": [
+      {
+        "direction": "east",
+        "roomId": "plains"
+      },
+      {
+        "direction": "north",
+        "roomId": "desert_entrance"
+      }
+    ],
+    "features": [
+      "湖泊",
+      "水鸟",
+      "倒影"
+    ],
+    "services": [
+      "rest",
+      "water"
+    ]
+  },
+  {
+    "id": "plains_ruins",
+    "mapId": "village",
+    "name": "草原遗迹",
+    "description": "草原上的古代遗迹，断壁残垣间长满了野草。这些遗迹据说属于一个消失的草原帝国。",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "plains_camp"
+      },
+      {
+        "direction": "north",
+        "roomId": "desert_entrance"
+      }
+    ],
+    "features": [
+      "石柱",
+      "皇陵",
+      "壁画"
+    ],
+    "services": []
+  },
+  {
+    "id": "mushroom_forest",
+    "mapId": "forest",
+    "name": "蘑菇林",
+    "description": "一片奇异的森林，巨大的蘑菇高耸入云。空气中弥漫着孢子，在阳光下闪烁着微光。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "deep_forest"
+      },
+      {
+        "direction": "east",
+        "roomId": "secret_garden"
+      }
+    ],
+    "features": [
+      "巨蘑菇",
+      "孢子",
+      "荧光"
+    ],
+    "services": []
+  },
+  {
+    "id": "wind_valley",
+    "mapId": "mountain",
+    "name": "风之谷",
+    "description": "常年狂风呼啸的山谷，风蚀岩柱林立。据说这里的风能带走一切烦恼，是修行者净化心灵的地方。",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "mountain_cliff"
+      },
+      {
+        "direction": "south",
+        "roomId": "mountain_path"
+      }
+    ],
+    "features": [
+      "风蚀岩",
+      "风铃",
+      "石柱"
+    ],
+    "services": [
+      "meditate"
+    ]
+  },
+  {
+    "id": "bamboo_temple",
+    "mapId": "forest",
+    "name": "竹林禅院",
+    "description": "隐藏在竹林深处的小禅院，钟声悠悠。院中的老僧据说是少林的旁支，独辟蹊径自成一派。",
+    "exits": [
+      {
+        "direction": "east",
+        "roomId": "bamboo_grove"
+      },
+      {
+        "direction": "north",
+        "roomId": "bamboo_hall"
+      }
+    ],
+    "features": [
+      "禅堂",
+      "钟楼",
+      "竹林"
+    ],
+    "services": [
+      "meditate",
+      "learn_skill"
+    ]
+  },
+  {
+    "id": "bamboo_hall",
+    "mapId": "forest",
+    "name": "禅院武堂",
+    "description": "禅院的习武之处，木地板被打磨得光滑如镜。这里教授的武学融合了禅意与自然之道。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "bamboo_temple"
+      }
+    ],
+    "features": [
+      "木人桩",
+      "经书",
+      "香炉"
+    ],
+    "services": [
+      "train",
+      "learn_skill"
+    ]
+  },
+  {
+    "id": "dragon_graveyard",
+    "mapId": "mountain",
+    "name": "龙墓",
+    "description": "远古巨龙最后的归宿，巨大的龙骨散落在地面上。空气中弥漫着古老而庄严的气息，据说龙魂仍在此徘徊。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "cave_network"
+      },
+      {
+        "direction": "up",
+        "roomId": "dragon_shrine"
+      }
+    ],
+    "features": [
+      "龙骨",
+      "龙魂",
+      "化石"
+    ],
+    "services": []
+  },
+  {
+    "id": "dragon_shrine",
+    "mapId": "mountain",
+    "name": "龙神殿",
+    "description": "龙墓深处的神殿，供奉着太古神龙的雕像。传说神龙留下了它的一片逆鳞，得之可获龙神之力。",
+    "exits": [
+      {
+        "direction": "down",
+        "roomId": "dragon_graveyard"
+      }
+    ],
+    "features": [
+      "神龙像",
+      "逆鳞",
+      "龙血池"
+    ],
+    "services": [
+      "meditate"
+    ]
+  },
+  {
+    "id": "rainbow_bridge",
+    "mapId": "mountain",
+    "name": "彩虹桥",
+    "description": "横跨两座云峰的彩虹桥，由七彩祥云凝结而成。桥身随着光线变换颜色，如梦似幻。",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "cloud_sea"
+      },
+      {
+        "direction": "east",
+        "roomId": "celestial_palace"
+      }
+    ],
+    "features": [
+      "彩虹",
+      "祥云",
+      "仙境"
+    ],
+    "services": [
+      "meditate"
+    ]
+  },
+  {
+    "id": "fire_shrine",
+    "mapId": "volcano",
+    "name": "炎之神殿",
+    "description": "供奉火元素的神殿，圣火在殿中永不熄灭。火元素的力量在此汇聚，修炼火系功法事半功倍。",
+    "exits": [
+      {
+        "direction": "east",
+        "roomId": "volcano_crater"
+      }
+    ],
+    "features": [
+      "圣火",
+      "火灵石",
+      "炎柱"
+    ],
+    "services": [
+      "meditate",
+      "train"
+    ]
+  },
+  {
+    "id": "water_shrine",
+    "mapId": "island",
+    "name": "水之神殿",
+    "description": "深海中的神殿，四周被清澈的海水包围却滴水不进。殿中散发着柔和的蓝光，净化心灵。",
+    "exits": [
+      {
+        "direction": "up",
+        "roomId": "underwater_cave"
+      }
+    ],
+    "features": [
+      "水幕",
+      "水灵石",
+      "珍珠"
+    ],
+    "services": [
+      "meditate",
+      "rest"
+    ]
+  },
+  {
+    "id": "mirror_lake",
+    "mapId": "forest",
+    "name": "镜湖",
+    "description": "湖面平整如镜，完美倒映着天空和山峦。据说镜湖能映照出人的内心，是修行者自省的好地方。",
+    "exits": [
+      {
+        "direction": "east",
+        "roomId": "secret_garden"
+      },
+      {
+        "direction": "south",
+        "roomId": "bamboo_grove"
+      }
+    ],
+    "features": [
+      "镜面湖",
+      "倒影",
+      "莲台"
+    ],
+    "services": [
+      "meditate",
+      "rest"
+    ]
+  },
+  {
+    "id": "phoenix_peak",
+    "mapId": "mountain",
+    "name": "凤凰台",
+    "description": "传说中凤凰栖息的仙台，岩石呈火红色。每隔百年凤凰浴火重生，灰烬中蕴含着强大的力量。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "volcano_crater"
+      },
+      {
+        "direction": "up",
+        "roomId": "phoenix_nest"
+      }
+    ],
+    "features": [
+      "凤凰石",
+      "灰烬",
+      "火焰花"
+    ],
+    "services": [
+      "meditate"
+    ]
+  },
+  {
+    "id": "phoenix_nest",
+    "mapId": "mountain",
+    "name": "凤凰巢",
+    "description": "凤凰筑巢的地方，巢中残留着凤凰的羽毛。凤凰羽蕴含涅槃之力，是炼制顶级丹药的神材。",
+    "exits": [
+      {
+        "direction": "down",
+        "roomId": "phoenix_peak"
+      }
+    ],
+    "features": [
+      "凤凰羽",
+      "涅槃灰",
+      "神火"
+    ],
+    "services": []
+  },
+  {
+    "id": "time_tower",
+    "mapId": "desert",
+    "name": "时光塔",
+    "description": "沙漠深处的高塔，据说可以操控时间。塔内的沙漏倒流着时光，在此修炼一天抵得上外面十天。",
+    "exits": [
+      {
+        "direction": "east",
+        "roomId": "desert_ruins"
+      },
+      {
+        "direction": "up",
+        "roomId": "time_tower_top"
+      }
+    ],
+    "features": [
+      "沙漏",
+      "古钟",
+      "时空裂缝"
+    ],
+    "services": [
+      "train",
+      "meditate"
+    ]
+  },
+  {
+    "id": "time_tower_top",
+    "mapId": "desert",
+    "name": "时光之巅",
+    "description": "时光塔的最高层，可以俯瞰整个大陆的过去与未来。这里的时光流速最为缓慢，是终极的修炼圣地。",
+    "exits": [
+      {
+        "direction": "down",
+        "roomId": "time_tower"
+      }
+    ],
+    "features": [
+      "观时镜",
+      "日晷",
+      "永恒之钟"
+    ],
+    "services": [
+      "meditate"
+    ]
+  },
+  {
+    "id": "shadow_realm",
+    "mapId": "demon",
+    "name": "暗影界",
+    "description": "存在于现世与魔域夹缝中的暗影空间。在这里，影子有了自己的生命，而光芒则变得无比珍贵。",
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "demon_portal"
+      },
+      {
+        "direction": "down",
+        "roomId": "shadow_throne"
+      }
+    ],
+    "features": [
+      "暗影",
+      "幽光",
+      "影石"
+    ],
+    "services": []
+  },
+  {
+    "id": "shadow_throne",
+    "mapId": "demon",
+    "name": "暗影王座",
+    "description": "暗影界的核心，曾是远古影王的王座。王座上刻着掌控暗影的秘法，但靠近的人会被暗影吞噬。",
+    "exits": [
+      {
+        "direction": "up",
+        "roomId": "shadow_realm"
+      }
+    ],
+    "features": [
+      "影王座",
+      "暗影碑文",
+      "虚空"
+    ],
+    "services": [
+      "meditate"
+    ]
+  },
+  {
+    "id": "xuankong_temple",
+    "mapId": "mountain",
+    "name": "悬空寺",
+    "description": "建在悬崖峭壁上的古寺，以木柱支撑悬于半空。寺中僧人需走索道进出，步步惊心。据说建寺千年，从未有人失足。",
+    "exits": [
+      {
+        "direction": "east",
+        "roomId": "mountain_cliff"
+      },
+      {
+        "direction": "up",
+        "roomId": "xuankong_hall"
+      }
+    ],
+    "features": [
+      "悬空殿",
+      "索道",
+      "千手观音"
+    ],
+    "services": [
+      "meditate",
+      "learn_skill"
+    ]
+  },
+  {
+    "id": "xuankong_hall",
+    "mapId": "mountain",
+    "name": "悬空大殿",
+    "description": "悬空寺的主殿，供奉着千手观音。殿外的平台悬于万丈深渊之上，云海在脚下翻涌。",
+    "exits": [
+      {
+        "direction": "down",
+        "roomId": "xuankong_temple"
+      }
+    ],
+    "features": [
+      "观音像",
+      "云海",
+      "钟楼"
+    ],
+    "services": [
+      "meditate",
+      "train"
+    ]
+  },
+  {
+    "id": "underground_river",
+    "mapId": "underground",
+    "name": "地下暗河",
+    "description": "一条湍急的地下河，水流声在洞穴中回荡。河边有萤火虫般的光点，照亮了这条隐秘的水道。",
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "cave_network"
+      },
+      {
+        "direction": "south",
+        "roomId": "underwater_cave"
+      },
+      {
+        "direction": "down",
+        "roomId": "abyss_waterfall"
+      }
+    ],
+    "features": [
+      "暗河",
+      "荧光虫",
+      "石笋"
+    ],
+    "services": []
+  },
+  {
+    "id": "abyss_waterfall",
+    "mapId": "underground",
+    "name": "深渊瀑布",
+    "description": "地下暗河在此形成壮观的瀑布，倾泻入无底的深渊。水声震耳欲聋，水雾中时隐时现一道彩虹。",
+    "exits": [
+      {
+        "direction": "up",
+        "roomId": "underground_river"
+      }
+    ],
+    "features": [
+      "地下瀑布",
+      "深渊",
+      "水雾彩虹"
+    ],
+    "services": [
+      "rest"
+    ]
+  },
+  {
+    "id": "thunder_peak",
+    "mapId": "mountain",
+    "name": "雷霆峰",
+    "description": "终年雷电交加的山峰，电光在云层中闪烁。这里蕴含着天地间最狂暴的力量，据说雷神曾在此降临。",
+    "exits": [
+      {
+        "direction": "east",
+        "roomId": "mountain_peak"
+      },
+      {
+        "direction": "up",
+        "roomId": "thunder_shrine"
+      }
+    ],
+    "features": [
+      "雷电",
+      "雷击木",
+      "雷石"
+    ],
+    "services": []
+  },
+  {
+    "id": "thunder_shrine",
+    "mapId": "mountain",
+    "name": "雷神殿",
+    "description": "供奉雷神的古殿，殿中雷光闪烁。殿中央的雷神像手持雷锤，威严无比。据说被雷神认可的人能获得雷电之力。",
+    "exits": [
+      {
+        "direction": "down",
+        "roomId": "thunder_peak"
+      }
+    ],
+    "features": [
+      "雷神像",
+      "雷锤",
+      "雷光"
+    ],
+    "services": [
+      "meditate",
+      "train"
+    ]
+  },
+  {
+    "id": "mist_valley",
+    "mapId": "forest",
+    "name": "迷雾谷",
+    "description": "常年笼罩在浓雾中的山谷，方向难辨。雾气中时而传来悠远的歌声，据说是迷失在谷中的仙灵在歌唱。",
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "forest_waterfall"
+      },
+      {
+        "direction": "east",
+        "roomId": "mirror_lake"
+      }
+    ],
+    "features": [
+      "迷雾",
+      "仙灵歌声",
+      "古藤"
+    ],
+    "services": []
+  },
+  {
+    "id": "jade_palace",
+    "mapId": "mountain",
+    "name": "玉虚宫",
+    "description": "隐藏在云层之上的玉虚宫，整座宫殿以玉石砌成。这里是上古金仙的道场，宫中藏有飞升成仙的秘密。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "celestial_palace"
+      },
+      {
+        "direction": "up",
+        "roomId": "starlit_bridge"
+      }
+    ],
+    "features": [
+      "玉殿",
+      "仙丹炉",
+      "飞升台"
+    ],
+    "services": [
+      "learn_skill",
+      "meditate",
+      "train"
+    ]
+  },
+  {
+    "id": "starlit_bridge",
+    "mapId": "mountain",
+    "name": "星光桥",
+    "description": "以星光铺成的桥，横跨夜空。走在上面仿佛踏星而行，脚下的星辰闪烁着永恒的光芒。",
+    "exits": [
+      {
+        "direction": "down",
+        "roomId": "jade_palace"
+      },
+      {
+        "direction": "north",
+        "roomId": "void_edge"
+      }
+    ],
+    "features": [
+      "星光",
+      "银河",
+      "星座"
+    ],
+    "services": [
+      "meditate"
+    ]
+  },
+  {
+    "id": "void_edge",
+    "mapId": "mountain",
+    "name": "虚空边缘",
+    "description": "世界的尽头，前方是无尽的虚空。这里是已知世界的边界，传说越过虚空可以到达另一个世界。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "starlit_bridge"
+      }
+    ],
+    "features": [
+      "虚空",
+      "世界边界",
+      "混沌"
+    ],
+    "services": [
+      "meditate"
+    ]
+  },
+  {
+    "id": "dragon_palace",
+    "mapId": "island",
+    "name": "海底龙宫",
+    "description": "深海中的水晶宫殿，东海龙王的居所。宫墙以珊瑚和珍珠砌成，虾兵蟹将守卫各处。据说龙宫藏有定海神珍。",
+    "exits": [
+      {
+        "direction": "up",
+        "roomId": "underwater_cave"
+      },
+      {
+        "direction": "north",
+        "roomId": "coral_garden"
+      },
+      {
+        "direction": "in",
+        "roomId": "dragon_throne_room"
+      }
+    ],
+    "features": [
+      "水晶宫",
+      "虾兵蟹将",
+      "定海神珍"
+    ],
+    "services": []
+  },
+  {
+    "id": "coral_garden",
+    "mapId": "island",
+    "name": "珊瑚园",
+    "description": "龙宫旁的珊瑚园，五彩斑斓的珊瑚在洋流中摇曳。各种海洋生物在此嬉戏，是海底最美丽的地方。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "dragon_palace"
+      }
+    ],
+    "features": [
+      "珊瑚林",
+      "热带鱼",
+      "珍珠贝"
+    ],
+    "services": [
+      "rest",
+      "meditate"
+    ]
+  },
+  {
+    "id": "dragon_throne_room",
+    "mapId": "island",
+    "name": "龙王殿",
+    "description": "东海龙王的水晶宝座所在。殿中巨大的夜明珠照亮了整个殿堂，龙王的威压让闯入者难以呼吸。",
+    "exits": [
+      {
+        "direction": "out",
+        "roomId": "dragon_palace"
+      }
+    ],
+    "features": [
+      "龙王宝座",
+      "夜明珠",
+      "镇海柱"
+    ],
+    "services": []
+  },
+  {
+    "id": "sky_bazaar",
+    "mapId": "mountain",
+    "name": "云中集市",
+    "description": "漂浮在云海之上的集市，各路仙人和云游商人聚集于此。这里出售凡间难得一见的宝物，但只收灵石作为货币。",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "rainbow_bridge"
+      },
+      {
+        "direction": "down",
+        "roomId": "cloud_sea"
+      }
+    ],
+    "features": [
+      "浮岛商铺",
+      "仙鹤驿站",
+      "灵石兑换"
+    ],
+    "services": [
+      "shop"
+    ]
+  },
+  {
+    "id": "underground_city",
+    "mapId": "underground",
+    "name": "地下城",
+    "description": "一个完整的地下文明，由发光的苔藓和熔岩照亮。这里的居民世代生活在地底，发展出了独特的文化和技术。",
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "cave_network"
+      },
+      {
+        "direction": "south",
+        "roomId": "underground_market"
+      },
+      {
+        "direction": "east",
+        "roomId": "underground_hall"
+      }
+    ],
+    "features": [
+      "地底建筑",
+      "熔岩灯",
+      "地下运河"
+    ],
+    "services": [
+      "rest"
+    ]
+  },
+  {
+    "id": "underground_market",
+    "mapId": "underground",
+    "name": "地下集市",
+    "description": "地下城的商业中心，出售各种地底特产。这里的商人从没见过阳光，但他们手中的宝石比任何地方都闪耀。",
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "underground_city"
+      }
+    ],
+    "features": [
+      "宝石摊",
+      "矿石铺",
+      "地下酒馆"
+    ],
+    "services": [
+      "shop",
+      "buy_item",
+      "sell_item"
+    ]
+  },
+  {
+    "id": "opera_house",
+    "mapId": "city",
+    "name": "梨园",
+    "description": "洛阳城最著名的戏曲园子，名角云集。台上唱着江湖恩怨、儿女情长，台下看客如痴如醉。据说园主曾是一位隐退的武林高手。",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "city_rich"
+      },
+      {
+        "direction": "south",
+        "roomId": "city_residential"
+      }
+    ],
+    "features": [
+      "戏台",
+      "后台",
+      "雅座"
+    ],
+    "services": [
+      "rest",
+      "rumor"
+    ]
+  },
+  {
+    "id": "observatory",
+    "mapId": "city",
+    "name": "观星台",
+    "description": "城中最高处的观星台，司天监在此观测天象。巨大的浑天仪缓缓转动，记录着星辰的轨迹。据说天象的异变预示着江湖的动荡。",
+    "exits": [
+      {
+        "direction": "down",
+        "roomId": "city_temple"
+      },
+      {
+        "direction": "east",
+        "roomId": "city_rich"
+      }
+    ],
+    "features": [
+      "浑天仪",
+      "星图",
+      "观星镜"
+    ],
+    "services": [
+      "meditate"
+    ]
+  },
+  {
+    "id": "cherry_garden",
+    "mapId": "forest",
+    "name": "樱园",
+    "description": "一片盛开的樱花林，花瓣随风飘落如粉色的雪。园中有古琴台和茶亭，是文人雅士和侠客们休憩的胜地。",
+    "exits": [
+      {
+        "direction": "west",
+        "roomId": "bamboo_grove"
+      },
+      {
+        "direction": "north",
+        "roomId": "secret_garden"
+      }
+    ],
+    "features": [
+      "樱花",
+      "琴台",
+      "茶亭"
+    ],
+    "services": [
+      "rest",
+      "meditate"
+    ]
+  },
+  {
+    "id": "lava_tubes",
+    "mapId": "volcano",
+    "name": "熔岩通道",
+    "description": "火山内部的天然通道，岩浆在脚下流淌。洞壁在高温下发出暗红色的光，空气中弥漫着硫磺味。",
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "volcano_base"
+      },
+      {
+        "direction": "down",
+        "roomId": "volcano_core"
+      }
+    ],
+    "features": [
+      "岩浆流",
+      "地热口",
+      "硫磺晶"
+    ],
+    "services": []
+  },
+  {
+    "id": "volcano_core",
+    "mapId": "volcano",
+    "name": "地核之心",
+    "description": "火山最深处的核心，温度高到难以忍受。据说这里是火元素的源头，熔岩中漂浮着稀世珍宝。",
+    "exits": [
+      {
+        "direction": "up",
+        "roomId": "lava_tubes"
+      }
+    ],
+    "features": [
+      "熔岩湖",
+      "火元素精华",
+      "地心宝石"
+    ],
+    "services": []
+  },
+  {
+    "id": "warrior_tombs",
+    "mapId": "mountain",
+    "name": "侠客陵",
+    "description": "江湖历代大侠的安息之地，碑文记载着他们的传奇。陵园中央的侠客碑上刻着「侠之大者，为国为民」。",
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "mountain_peak"
+      },
+      {
+        "direction": "east",
+        "roomId": "graveyard_entrance"
+      }
+    ],
+    "features": [
+      "侠客碑",
+      "英雄冢",
+      "万剑林"
+    ],
+    "services": [
+      "meditate"
+    ]
   }
 ]

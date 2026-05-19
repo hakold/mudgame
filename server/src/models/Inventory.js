@@ -56,7 +56,7 @@ InventorySchema.methods.getItemConfig = function() {
 };
 
 function isEquipmentType(type) {
-  return type === 'weapon' || type === 'armor';
+  return type === 'weapon' || type === 'armor' || type === 'equipment';
 }
 
 // 计算装备属性加成

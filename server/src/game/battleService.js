@@ -898,18 +898,35 @@ class BattleService {
       battleLog.result.expGained = expGained;
       battleLog.result.goldGained = goldGained;
       
-      // 物品掉落 - 放到房间地面
+      // 物品掉落 - 直接进入玩家背包 + 同时放到房间地面
       const droppedItems = (monster.drops || []).filter(drop => Math.random() < (drop.rate || 0));
       const droppedItemNames = [];
+      const autoLootItems = [];
       for (const drop of droppedItems) {
         const itemConfig = getItem(drop.itemId);
         const itemName = itemConfig ? itemConfig.name : drop.itemId;
-        roomDropsService.addDrop(user.location.roomId, drop.itemId, itemName, drop.quantity || 1, monster.name);
+        const qty = drop.quantity || 1;
+        roomDropsService.addDrop(user.location.roomId, drop.itemId, itemName, qty, monster.name);
         battleLog.result.itemsDropped.push(drop.itemId);
-        droppedItemNames.push(`${itemName}×${drop.quantity || 1}`);
+        droppedItemNames.push(`${itemName}×${qty}`);
+        // 自动拾取到玩家背包
+        const isEquip = itemConfig && (itemConfig.type === 'weapon' || itemConfig.type === 'armor' || itemConfig.type === 'equipment');
+        autoLootItems.push({ itemId: drop.itemId, itemName, quantity: qty, isEquipment: isEquip });
       }
       battleLog.result.droppedItemNames = droppedItemNames;
       battleLog.result.dropRoomId = user.location.roomId;
+      // 自动放入背包
+      for (const loot of autoLootItems) {
+        const existing = await Inventory.findOne({ userId: user._id, itemId: loot.itemId, isEquipped: false });
+        if (existing && !loot.isEquipment) {
+          existing.quantity += loot.quantity;
+          await existing.save();
+        } else {
+          await Inventory.create({ userId: user._id, itemId: loot.itemId, quantity: loot.quantity,
+            durability: loot.isEquipment ? { current: 100, max: 100 } : undefined });
+        }
+      }
+      battleLog.result.autoLooted = autoLootItems.map(l => `${l.itemName}×${l.quantity}`);
     }
     
     // 如果玩家死亡

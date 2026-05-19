@@ -101,6 +101,65 @@
     
     <!-- 中央面板 - 游戏内容 -->
     <div class="center-panel">
+      <!-- NPC任务对话框 -->
+      <div class="quest-overlay" v-if="gameStore.npcDialog">
+        <div class="quest-dialog">
+          <div class="quest-dialog-title">【{{ gameStore.npcDialog.npc.name }}】</div>
+          <div class="quest-dialog-message">{{ gameStore.npcDialog.message }}</div>
+          <div v-if="gameStore.npcDialog.availableQuests.length" class="quest-offer-list">
+            <div class="quest-offer-title">📋 可接任务：</div>
+            <div
+              v-for="quest in gameStore.npcDialog.availableQuests"
+              :key="quest.id"
+              class="quest-offer-item"
+            >
+              <div class="quest-offer-info">
+                <div class="quest-offer-name">
+                  <span :class="{ 'quest-main': quest.type === 'main', 'quest-side': quest.type === 'side', 'quest-daily': quest.type === 'daily', 'quest-faction': quest.type === 'faction_entry' || quest.type === 'faction_rank_up' }">
+                    {{ quest.type === 'main' ? '【主线】' : quest.type === 'daily' ? '【日常】' : quest.type === 'faction_entry' ? '【入门考核】' : quest.type === 'faction_rank_up' ? '【门派试炼】' : '【支线】' }}
+                  </span>
+                  {{ quest.name }}
+                </div>
+                <div class="quest-offer-desc">{{ quest.description }}</div>
+                <div class="quest-offer-rewards">
+                  奖励: {{ quest.rewards.exp ? quest.rewards.exp + '经验 ' : '' }}{{ quest.rewards.gold ? quest.rewards.gold + '金币' : '' }}{{ quest.rewards.items?.length ? ' +物品' : '' }}
+                </div>
+                <div v-if="!quest.prerequisitesMet" class="quest-offer-locked">🔒 需要先完成前置任务</div>
+              </div>
+              <button
+                v-if="quest.prerequisitesMet"
+                class="quest-accept-btn"
+                @click="acceptQuest(quest.id)"
+              >接受</button>
+            </div>
+          </div>
+          <div v-else class="quest-offer-empty">该NPC暂无适合你的任务</div>
+          <!-- 门派贡献兑换 -->
+          <div v-if="gameStore.npcDialog.factionExchangeInfo" class="faction-exchange-section">
+            <div v-if="gameStore.npcDialog.factionExchangeInfo.noFaction" class="exchange-hint">
+              ⚠ 你需要先加入门派才能使用贡献兑换。
+            </div>
+            <div v-else class="exchange-content">
+              <div class="exchange-header">
+                ⚡ 门派贡献兑换 (贡献: {{ gameStore.npcDialog.factionExchangeInfo.myContribution }} | 等级: {{ gameStore.npcDialog.factionExchangeInfo.myRank }})
+              </div>
+              <div v-if="gameStore.npcDialog.factionExchangeInfo.skills.length === 0" class="exchange-empty">
+                暂无可兑换技能（等级不足或已全部学会）
+              </div>
+              <div v-for="skill in gameStore.npcDialog.factionExchangeInfo.skills" :key="skill.id" class="quest-offer-item">
+                <div class="quest-offer-info">
+                  <div class="quest-offer-name">{{ skill.name }}</div>
+                  <div class="quest-offer-desc">{{ skill.description }}</div>
+                  <div class="quest-offer-rewards">消耗 {{ skill.contributionCost }} 门派贡献</div>
+                </div>
+                <button class="quest-accept-btn exchange-btn" @click="exchangeSkill(skill.id)">兑换</button>
+              </div>
+            </div>
+          </div>
+          <button class="quest-close-btn" @click="gameStore.npcDialog = null">关闭</button>
+        </div>
+      </div>
+
       <!-- 死亡遮罩 -->
       <div class="death-overlay" v-if="isDead">
         <div class="death-content">
@@ -380,7 +439,7 @@
               <button v-if="isEquipment(item.itemId) && !item.isEquipped" class="item-btn" @click="equipItem(item)">装备</button>
               <button v-if="isEquipment(item.itemId) && item.isEquipped" class="item-btn unequip-btn" @click="unequipItem(item)">卸下</button>
               <button v-if="isEquipment(item.itemId) && (item.durability?.current || 0) < (item.durability?.max || 100)" class="item-btn repair-btn" @click="repairItem(item._id)">修复</button>
-              <button class="item-btn sell-btn" @click="sellItem(item)">出售</button>
+              <button v-if="currentRoomServices.some(s => ['shop','buy_item','buy_weapon','buy_armor','sell_item'].includes(s))" class="item-btn sell-btn" @click="sellItem(item)">出售</button>
             </div>
             <div v-if="isEquipment(item.itemId)" class="durability-bar">
               <span class="dur-label">耐久</span>
@@ -668,15 +727,24 @@ const contextualActions = computed(() => {
   }
 
   if (services.includes('train')) {
-    actions.push({ label: '💪 训练', command: 'train' })
+    actions.push({ label: '💪 训练', command: 'train ' })
   }
 
   if (services.some(service => ['learn_skill', 'meditate'].includes(service))) {
     actions.push({ label: '📖 学技能', command: 'skills learn' })
   }
 
+  if (services.some(service => ['shop', 'buy_item', 'buy_weapon', 'buy_armor', 'sell_item'].includes(service))) {
+    actions.push({ label: '🛒 购买', command: 'buy ' })
+    actions.push({ label: '💰 出售', command: 'sell ' })
+  }
+
   if (services.includes('quest')) {
     actions.push({ label: '📜 接任务', command: 'quests' })
+  }
+
+  if (services.includes('rumor')) {
+    actions.push({ label: '💬 打听消息', command: 'rumor' })
   }
 
   return actions
@@ -773,6 +841,12 @@ function sendCommand() {
 }
 
 function quickCommand(cmd) {
+  // 以空格结尾的命令需要参数，预填到输入框让用户补全
+  if (cmd.endsWith(' ')) {
+    command.value = cmd
+    showChatMode.value = false
+    return
+  }
   gameStore.sendCommand(cmd)
 }
 
@@ -858,6 +932,15 @@ function getQuestObjectives(quest) {
   })
 }
 
+function acceptQuest(questId) {
+  gameStore.socket?.emit('accept_quest', { questId })
+  gameStore.npcDialog = null
+}
+
+function exchangeSkill(skillId) {
+  gameStore.socket?.emit('faction_exchange', { skillId })
+}
+
 function claimQuestReward(questId) {
   gameStore.socket?.emit('complete_quest', { questId })
 }
@@ -887,7 +970,7 @@ function isConsumable(itemId) {
 
 function isEquipment(itemId) {
   const item = gameStore.gameConfig?.items?.[itemId]
-  return item?.type === 'weapon' || item?.type === 'armor'
+  return item?.type === 'weapon' || item?.type === 'armor' || item?.type === 'equipment'
 }
 
 function getItemDescription(itemId) {
@@ -1405,6 +1488,88 @@ onUnmounted(() => {
   font-size: 12px;
   margin-top: 15px;
 }
+
+/* NPC任务对话框 */
+.quest-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9998;
+}
+.quest-dialog {
+  background: #1a1a2e;
+  border: 2px solid #4a9eff;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 480px;
+  width: 90%;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+.quest-dialog-title {
+  font-size: 20px;
+  color: #ffd700;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.quest-dialog-message {
+  color: #ccc;
+  font-size: 14px;
+  margin-bottom: 15px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #333;
+}
+.quest-offer-list { margin-bottom: 12px; }
+.quest-offer-title {
+  color: #4a9eff;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.quest-offer-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  margin-bottom: 6px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+.quest-offer-info { flex: 1; }
+.quest-offer-name { color: #eee; font-size: 14px; font-weight: bold; }
+.quest-main { color: #ffd700; }
+.quest-side { color: #4a9eff; }
+.quest-daily { color: #4caf50; }
+.quest-offer-desc { color: #999; font-size: 12px; margin-top: 2px; }
+.quest-offer-rewards { color: #8b8; font-size: 11px; margin-top: 3px; }
+.quest-offer-locked { color: #f66; font-size: 11px; margin-top: 3px; }
+.quest-accept-btn {
+  padding: 6px 16px;
+  background: #4a9eff;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.quest-accept-btn:hover { background: #66b3ff; }
+.quest-offer-empty { color: #777; font-size: 13px; margin-bottom: 12px; }
+.quest-close-btn {
+  width: 100%;
+  padding: 8px;
+  background: #555;
+  border: none;
+  border-radius: 6px;
+  color: #ccc;
+  cursor: pointer;
+  font-size: 14px;
+}
+.quest-close-btn:hover { background: #777; }
 
 /* 地面掉落 */
 .room-drops {
