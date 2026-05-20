@@ -4691,5 +4691,605 @@
     "stackable": true,
     "maxStack": 30,
     "sellPrice": 200
+  },
+  {
+    "id": "item_yunjin",
+    "name": "云锦",
+    "type": "material",
+    "description": "南京云锦，寸锦寸金，皇家御用之物",
+    "price": 500,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 200
+  },
+  {
+    "id": "item_xiangyun_silk",
+    "name": "祥云绸",
+    "type": "material",
+    "description": "织有祥云纹的丝绸，缝制道袍的上等材料",
+    "price": 350,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 140
+  },
+  {
+    "id": "item_xuan_silk",
+    "name": "玄绸",
+    "type": "material",
+    "description": "纯黑色的丝绸，夜行衣的材料",
+    "price": 250,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 100
+  },
+  {
+    "id": "item_ice_silk",
+    "name": "冰蚕丝",
+    "type": "material",
+    "description": "天山冰蚕所吐的丝，织成的衣物冬暖夏凉",
+    "price": 800,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 320
+  },
+  {
+    "id": "item_pi_silk",
+    "name": "皮革丝线",
+    "type": "material",
+    "description": "用于缝制皮甲的坚韧丝线",
+    "price": 40,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 16
+  },
+  {
+    "id": "item_xuan_paper",
+    "name": "宣纸",
+    "type": "material",
+    "description": "安徽宣城产的纸张，书画之上品",
+    "price": 60,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 24
+  },
+  {
+    "id": "item_pi_paper",
+    "name": "皮纸",
+    "type": "material",
+    "description": "以树皮制成的坚韧纸张，可制符箓",
+    "price": 30,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 12
+  },
+  {
+    "id": "item_pine_ink",
+    "name": "松烟墨",
+    "type": "material",
+    "description": "以松烟制成的墨锭，墨色乌黑有光泽",
+    "price": 80,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 32
+  },
+  {
+    "id": "item_cinnabar_ink",
+    "name": "朱砂墨",
+    "type": "material",
+    "description": "以朱砂制成的红墨，画符辟邪之用",
+    "price": 120,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 48
+  },
+  {
+    "id": "item_wolf_brush",
+    "name": "狼毫笔",
+    "type": "material",
+    "description": "以狼毫制成的毛笔，笔锋劲健",
+    "price": 100,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 40
+  },
+  {
+    "id": "item_inkstone",
+    "name": "端砚",
+    "type": "material",
+    "description": "广东端溪产的砚台，磨墨细腻",
+    "price": 300,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 120
+  },
+  {
+    "id": "item_seal_paste",
+    "name": "印泥",
+    "type": "material",
+    "description": "朱红色的印泥，盖印所用",
+    "price": 50,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 20
+  },
+  {
+    "id": "item_cinnabar",
+    "name": "丹砂",
+    "type": "material",
+    "description": "炼丹的基础材料，也可制朱砂墨",
+    "price": 60,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 24
+  },
+  {
+    "id": "item_realgar",
+    "name": "雄黄",
+    "type": "material",
+    "description": "可驱蛇虫的矿物，也可入丹",
+    "price": 80,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 32
+  },
+  {
+    "id": "item_gypsum",
+    "name": "石膏",
+    "type": "material",
+    "description": "清热泻火的矿物药材",
+    "price": 30,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 12
+  },
+  {
+    "id": "item_bornel",
+    "name": "冰片",
+    "type": "material",
+    "description": "通窍醒神的香料，亦可入药",
+    "price": 150,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 60
+  },
+  {
+    "id": "item_musk",
+    "name": "麝香",
+    "type": "material",
+    "description": "名贵香料，开窍通络",
+    "price": 400,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 160
+  },
+  {
+    "id": "item_bezoar",
+    "name": "牛黄",
+    "type": "material",
+    "description": "牛胆囊中的结石，清热解毒之宝",
+    "price": 500,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 200
+  },
+  {
+    "id": "item_turquoise",
+    "name": "绿松石粉",
+    "type": "material",
+    "description": "绿松石研磨的粉末，附法材料",
+    "price": 300,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 120
+  },
+  {
+    "id": "item_jade_powder",
+    "name": "玉粉",
+    "type": "material",
+    "description": "玉石研磨的细粉，附法的高级材料",
+    "price": 400,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 160
+  },
+  {
+    "id": "item_beast_blood",
+    "name": "灵兽血",
+    "type": "material",
+    "description": "灵兽的新鲜血液，绘制高级符箓的材料",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_spirit_herb_ash",
+    "name": "灵草灰",
+    "type": "material",
+    "description": "灵草燃烧后的灰烬，蕴含灵力",
+    "price": 100,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 40
+  },
+  {
+    "id": "item_talisman_brush",
+    "name": "符笔",
+    "type": "material",
+    "description": "专门用于绘制符箓的毛笔",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_tripod",
+    "name": "丹炉",
+    "type": "material",
+    "description": "炼制丹药的小型丹炉，炼丹师必备",
+    "price": 500,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 200
+  },
+  {
+    "id": "item_five_mineral",
+    "name": "五石散",
+    "type": "material",
+    "description": "五种矿石精华合成的粉末，炼丹核心材料",
+    "price": 350,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 140
+  },
+  {
+    "id": "item_spirit_water",
+    "name": "无根水",
+    "type": "material",
+    "description": "天降未落地之水，炼丹的上等溶剂",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_ducks_blood",
+    "name": "鸭血",
+    "type": "material",
+    "description": "新鲜的鸭血，滑嫩可口",
+    "price": 15,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 6
+  },
+  {
+    "id": "item_tofu",
+    "name": "豆腐",
+    "type": "material",
+    "description": "嫩白的豆腐，营养丰富",
+    "price": 8,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 3
+  },
+  {
+    "id": "item_noodles",
+    "name": "挂面",
+    "type": "material",
+    "description": "晒干的细面，方便携带",
+    "price": 10,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 4
+  },
+  {
+    "id": "item_glutinous_rice",
+    "name": "糯米",
+    "type": "material",
+    "description": "软糯的糯米，可制点心",
+    "price": 15,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 6
+  },
+  {
+    "id": "item_red_bean",
+    "name": "红豆",
+    "type": "material",
+    "description": "红艳的赤豆，相思之物",
+    "price": 12,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 5
+  },
+  {
+    "id": "item_sesame",
+    "name": "芝麻",
+    "type": "material",
+    "description": "香脆的芝麻，可榨香油",
+    "price": 10,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 4
+  },
+  {
+    "id": "item_osmanthus",
+    "name": "桂花",
+    "type": "material",
+    "description": "芬芳的桂花，可制糕点和酿酒",
+    "price": 40,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 16
+  },
+  {
+    "id": "item_plum",
+    "name": "青梅",
+    "type": "material",
+    "description": "酸脆的青梅，可酿酒煮茶",
+    "price": 20,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 8
+  },
+  {
+    "id": "item_jujube",
+    "name": "红枣",
+    "type": "material",
+    "description": "甘甜的红枣，补血养气",
+    "price": 25,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 10
+  },
+  {
+    "id": "item_goji_berry",
+    "name": "枸杞子",
+    "type": "material",
+    "description": "宁夏枸杞，滋补肝肾",
+    "price": 50,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 20
+  },
+  {
+    "id": "item_maotai",
+    "name": "茅台酒",
+    "type": "material",
+    "description": "贵州茅台镇的佳酿，醇香馥郁",
+    "price": 300,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 120
+  },
+  {
+    "id": "item_osmanthus_wine",
+    "name": "桂花酿",
+    "type": "material",
+    "description": "以桂花酿制的甜酒，清香宜人",
+    "price": 100,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 40
+  },
+  {
+    "id": "item_plum_wine",
+    "name": "青梅酒",
+    "type": "material",
+    "description": "以青梅浸泡的酒，酸甜爽口",
+    "price": 80,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 32
+  },
+  {
+    "id": "item_shaoxing_wine",
+    "name": "绍兴酒",
+    "type": "material",
+    "description": "浙江绍兴产的黄酒，烹调用之增香",
+    "price": 50,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 20
+  },
+  {
+    "id": "item_zhu_ye_qing",
+    "name": "竹叶青",
+    "type": "material",
+    "description": "汾酒配竹叶等药材酿制的名酒",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_strong_liquor",
+    "name": "烧刀子",
+    "type": "material",
+    "description": "北方烈酒，入口如刀，侠客最爱",
+    "price": 60,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 24
+  },
+  {
+    "id": "item_chuanxiong",
+    "name": "川芎",
+    "type": "material",
+    "description": "活血行气的川产药材",
+    "price": 70,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 28
+  },
+  {
+    "id": "item_baizhi",
+    "name": "白芷",
+    "type": "material",
+    "description": "祛风止痛的香草",
+    "price": 55,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 22
+  },
+  {
+    "id": "item_fuling",
+    "name": "茯苓",
+    "type": "material",
+    "description": "利水渗湿的菌类药材",
+    "price": 65,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 26
+  },
+  {
+    "id": "item_huangqi",
+    "name": "黄芪",
+    "type": "material",
+    "description": "补气固表的良药",
+    "price": 80,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 32
+  },
+  {
+    "id": "item_gancao",
+    "name": "甘草",
+    "type": "material",
+    "description": "调和诸药的甜草，百药之王",
+    "price": 40,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 16
+  },
+  {
+    "id": "item_danggui",
+    "name": "当归",
+    "type": "material",
+    "description": "补血活血的妇科圣药",
+    "price": 90,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 36
+  },
+  {
+    "id": "item_taoren",
+    "name": "桃仁",
+    "type": "material",
+    "description": "活血祛瘀的桃核仁",
+    "price": 35,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 14
+  },
+  {
+    "id": "item_honghua",
+    "name": "红花",
+    "type": "material",
+    "description": "活血通经的红色小花",
+    "price": 75,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 30
+  },
+  {
+    "id": "item_tianma",
+    "name": "天麻",
+    "type": "material",
+    "description": "平肝息风的珍贵药材",
+    "price": 120,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 48
+  },
+  {
+    "id": "item_duzhong",
+    "name": "杜仲",
+    "type": "material",
+    "description": "补肝肾强筋骨的树皮",
+    "price": 85,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 34
+  },
+  {
+    "id": "item_chenpi",
+    "name": "陈皮",
+    "type": "material",
+    "description": "理气健脾的橘皮，越陈越佳",
+    "price": 30,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 12
+  },
+  {
+    "id": "item_jinyinhua",
+    "name": "金银花",
+    "type": "material",
+    "description": "清热解毒的金银双色小花",
+    "price": 45,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 18
+  },
+  {
+    "id": "item_charcoal",
+    "name": "木炭",
+    "type": "material",
+    "description": "烧制而成的木炭，锻造时用作燃料",
+    "price": 15,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 6
+  },
+  {
+    "id": "item_whetstone",
+    "name": "磨刀石",
+    "type": "material",
+    "description": "用于打磨兵器的石头",
+    "price": 25,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 10
+  },
+  {
+    "id": "item_leather_grip",
+    "name": "皮柄",
+    "type": "material",
+    "description": "用于制作兵器握柄的皮革",
+    "price": 35,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 14
+  },
+  {
+    "id": "item_sheath",
+    "name": "剑鞘",
+    "type": "material",
+    "description": "木制剑鞘，装饰和保护宝剑",
+    "price": 50,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 20
+  },
+  {
+    "id": "item_hilt_wrap",
+    "name": "缠柄绳",
+    "type": "material",
+    "description": "缠绕兵器握柄的丝绳，防滑吸汗",
+    "price": 20,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 8
+  },
+  {
+    "id": "item_polishing_sand",
+    "name": "打磨沙",
+    "type": "material",
+    "description": "精细打磨兵器的沙子",
+    "price": 10,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 4
   }
 ]
