@@ -215,7 +215,17 @@
       "quest_side_pagoda_cleanse",
       "quest_side_abyss_challenge",
       "quest_side_desert_djinn",
-      "quest_side_plains_hunt"
+      "quest_side_plains_hunt",
+      "quest_side_swamp_croc",
+      "quest_side_treasure_mimic",
+      "quest_side_faction_training",
+      "quest_side_volcano_forge",
+      "quest_side_heaven_gate",
+      "quest_side_jade_guardian",
+      "quest_side_ice_phoenix",
+      "quest_side_thunder_dragon",
+      "quest_side_eternal_guard",
+      "quest_side_frozen_giant"
     ],
     "dialogues": {
       "greeting": [
@@ -4567,6 +4577,270 @@
     ],
     "dialogues": {
       "greeting": "穿过这雪山就是另一个世界。要补给吗？"
+    }
+  },
+  {
+    "id": "npc_herbalist_apprentice",
+    "name": "药童",
+    "roomId": "herbalist_hut",
+    "type": "service",
+    "dialogues": {
+      "greeting": "师父采药去了，你有什么事吗？"
+    }
+  },
+  {
+    "id": "npc_lake_fisherman",
+    "name": "渔村长者",
+    "roomId": "lake_village",
+    "type": "service",
+    "services": [
+      "rest",
+      "rumor"
+    ],
+    "dialogues": {
+      "greeting": "渔村虽小，日子过得舒坦。",
+      "rumor": "湖里最近出现了湖匪，打鱼都不安生。"
+    }
+  },
+  {
+    "id": "npc_snow_village_healer",
+    "name": "雪村巫医",
+    "roomId": "snow_village",
+    "type": "shop",
+    "shopType": "herb",
+    "items": [
+      "item_hp_potion_medium",
+      "item_mp_potion_medium",
+      "item_antidote",
+      "item_ice_crystal"
+    ],
+    "dialogues": {
+      "greeting": "天冷，喝碗热药汤暖和暖和。"
+    }
+  },
+  {
+    "id": "npc_swamp_elder",
+    "name": "沼泽长老",
+    "roomId": "swamp_entrance",
+    "type": "quest_giver",
+    "quests": [
+      "quest_side_swamp_croc"
+    ],
+    "dialogues": {
+      "greeting": "沼泽养育了我们，但也养育了怪物。",
+      "quest_available": "孤岛上的巨鳄越来越多了……"
+    }
+  },
+  {
+    "id": "npc_underground_scavenger",
+    "name": "地底拾荒者",
+    "roomId": "underground_entrance",
+    "type": "service",
+    "services": [
+      "rumor"
+    ],
+    "dialogues": {
+      "greeting": "这地宫里什么都有——只要你敢下去。",
+      "rumor": "宝藏室里的宝箱最近不太对劲……听说有人打开箱子被咬了。"
+    }
+  },
+  {
+    "id": "npc_underground_prisoner",
+    "name": "囚牢幸存者",
+    "roomId": "underground_prison",
+    "type": "service",
+    "services": [
+      "rumor"
+    ],
+    "dialogues": {
+      "greeting": "谢天谢地有人来了！这里有可怕的骷髅狱卒……",
+      "rumor": "狱卒看守着一把古老的钥匙，据说能打开宝藏室最深处的密室。"
+    }
+  },
+  {
+    "id": "npc_volcano_smith",
+    "name": "火山铁匠",
+    "roomId": "volcano_forge",
+    "type": "service",
+    "services": [
+      "forge_weapon",
+      "repair"
+    ],
+    "dialogues": {
+      "greeting": "全天下最好的铁匠铺就在这里！火山的温度能熔化任何金属。"
+    }
+  },
+  {
+    "id": "npc_shaolin_meditator",
+    "name": "少林禅僧",
+    "roomId": "shaolin_temple",
+    "type": "service",
+    "services": [
+      "meditate"
+    ],
+    "dialogues": {
+      "greeting": "坐禅三十年，心如止水。"
+    }
+  },
+  {
+    "id": "npc_wudang_swordsman",
+    "name": "武当剑侠",
+    "roomId": "wudang_peak",
+    "type": "trainer",
+    "services": [
+      "train"
+    ],
+    "dialogues": {
+      "greeting": "剑即是我，我即是剑。",
+      "train": "太极剑法的精髓在于以柔克刚。"
+    }
+  },
+  {
+    "id": "npc_emei_nun",
+    "name": "峨眉小师太",
+    "roomId": "emei_temple",
+    "type": "service",
+    "services": [
+      "guide"
+    ],
+    "dialogues": {
+      "greeting": "阿弥陀佛，峨眉金顶欢迎女侠和侠士。"
+    }
+  },
+  {
+    "id": "npc_mingjiao_elder",
+    "name": "明教五散人",
+    "roomId": "mingjiao_hall",
+    "type": "trainer",
+    "services": [
+      "train"
+    ],
+    "dialogues": {
+      "greeting": "明教高手如云，我只是其中之一。",
+      "train": "圣火功练到极致，可以焚尽万物。"
+    }
+  },
+  {
+    "id": "npc_xiaoyao_musician",
+    "name": "逍遥琴师",
+    "roomId": "xiaoyao_valley",
+    "type": "service",
+    "services": [
+      "rest",
+      "rumor"
+    ],
+    "dialogues": {
+      "greeting": "听我一曲，胜练十年功。",
+      "rumor": "琴声中藏着武学至理……可惜只有有缘人能听出来。"
+    }
+  },
+  {
+    "id": "npc_heaven_scribe",
+    "name": "天门录事",
+    "roomId": "heaven_gate",
+    "type": "service",
+    "services": [
+      "rumor"
+    ],
+    "dialogues": {
+      "greeting": "我负责记录每一个通过天门的人。你是第……让我查查。",
+      "rumor": "天宫里有一本天书，记载了古往今来所有的武学。"
+    }
+  },
+  {
+    "id": "npc_thunder_hermit",
+    "name": "雷霆修士",
+    "roomId": "thunder_peak",
+    "type": "service",
+    "services": [
+      "meditate",
+      "rumor"
+    ],
+    "dialogues": {
+      "greeting": "雷霆之中，藏着天地的愤怒和慈悲。",
+      "rumor": "雷神殿里的雷龙是雷神的坐骑——打败它才能获得雷神的认可。"
+    }
+  },
+  {
+    "id": "npc_jade_scholar",
+    "name": "玉虚学士",
+    "roomId": "jade_palace",
+    "type": "service",
+    "services": [
+      "rumor"
+    ],
+    "dialogues": {
+      "greeting": "玉虚宫的藏书比人间所有图书馆加起来还多。",
+      "rumor": "有一卷天书散落在时光塔中，找到它就能参透时间的力量。"
+    }
+  },
+  {
+    "id": "npc_starlit_astronomer",
+    "name": "星桥观星者",
+    "roomId": "starlit_bridge",
+    "type": "service",
+    "services": [
+      "meditate"
+    ],
+    "dialogues": {
+      "greeting": "每一颗星都有一个故事。你看，那颗最亮的就是你的命星。"
+    }
+  },
+  {
+    "id": "npc_void_watcher",
+    "name": "虚空守望者",
+    "roomId": "void_edge",
+    "type": "service",
+    "services": [
+      "rumor"
+    ],
+    "dialogues": {
+      "greeting": "我看守虚空三千年。你是第三个到这里的人。",
+      "rumor": "虚空中不仅有虚空龙，还有更古老的东西……"
+    }
+  },
+  {
+    "id": "npc_shadow_merchant",
+    "name": "暗影商人",
+    "roomId": "shadow_throne",
+    "type": "shop",
+    "shopType": "general",
+    "items": [
+      "item_dark_crystal",
+      "item_demon_lord_essence",
+      "item_shadow_cloak",
+      "item_revive_pill",
+      "item_exp_boost_pill"
+    ],
+    "dialogues": {
+      "greeting": "在暗影界做生意确实有点奇怪……但对就是对，错就是错。"
+    }
+  },
+  {
+    "id": "npc_demon_veteran",
+    "name": "魔族老兵",
+    "roomId": "demon_arena",
+    "type": "service",
+    "services": [
+      "pvp",
+      "rumor"
+    ],
+    "dialogues": {
+      "greeting": "我在魔域战斗了五百年……你看起来值得一战。",
+      "rumor": "地狱火领主最近苏醒了，连魔王都忌惮它三分。"
+    }
+  },
+  {
+    "id": "npc_time_keeper",
+    "name": "守时人",
+    "roomId": "time_tower_top",
+    "type": "service",
+    "services": [
+      "meditate"
+    ],
+    "dialogues": {
+      "greeting": "时间是最公平的——每个人每天都只有十二个时辰。",
+      "rumor": "永恒守卫守护着时光之巅的秘密。击败它，你可以在这里永远修炼下去。"
     }
   }
 ]

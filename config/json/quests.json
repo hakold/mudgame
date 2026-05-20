@@ -1765,5 +1765,276 @@
         "item_thunder_crystal"
       ]
     }
+  },
+  {
+    "id": "quest_side_swamp_croc",
+    "name": "沼泽巨鳄",
+    "type": "side",
+    "description": "沼泽孤岛被巨型鳄鱼占据，去清除威胁。",
+    "prerequisites": [
+      "quest_poison_dragon"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "swamp_island"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_swamp_crocodile",
+        "count": 2
+      }
+    ],
+    "rewards": {
+      "exp": 1200,
+      "gold": 600,
+      "items": [
+        "item_mutated_skin"
+      ]
+    }
+  },
+  {
+    "id": "quest_side_treasure_mimic",
+    "name": "宝箱怪来袭",
+    "type": "side",
+    "description": "地下宝藏室的宝箱变成了怪物，去清除它们。",
+    "prerequisites": [
+      "quest_tomb_secret"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "underground_treasure"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_treasure_mimic",
+        "count": 3
+      }
+    ],
+    "rewards": {
+      "exp": 1000,
+      "gold": 600,
+      "items": [
+        "item_ancient_coin"
+      ]
+    }
+  },
+  {
+    "id": "quest_side_faction_training",
+    "name": "门派试炼场",
+    "type": "side",
+    "description": "挑战各门派的训练幻影，证明你的实力。",
+    "prerequisites": [
+      "quest_join_faction"
+    ],
+    "objectives": [
+      {
+        "type": "kill",
+        "monsterId": "monster_shaolin_trainee",
+        "count": 1
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_wudang_trainee",
+        "count": 1
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_emei_trainee",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 1500,
+      "gold": 800
+    }
+  },
+  {
+    "id": "quest_side_volcano_forge",
+    "name": "熔炉试炼",
+    "type": "side",
+    "description": "熔火锻造坊被魔像占领，去清理它们以重启锻造。",
+    "prerequisites": [
+      "quest_fire_dragon"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "volcano_forge"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_volcano_forge_golem",
+        "count": 2
+      }
+    ],
+    "rewards": {
+      "exp": 1800,
+      "gold": 1000,
+      "items": [
+        "item_lava_rock"
+      ]
+    }
+  },
+  {
+    "id": "quest_side_heaven_gate",
+    "name": "天门前哨",
+    "type": "side",
+    "description": "击败天门金刚，证明你踏足天界的资格。",
+    "prerequisites": [
+      "quest_fire_dragon"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "heaven_gate"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_heaven_golem",
+        "count": 2
+      }
+    ],
+    "rewards": {
+      "exp": 2200,
+      "gold": 1200
+    }
+  },
+  {
+    "id": "quest_side_jade_guardian",
+    "name": "玉虚守护",
+    "type": "side",
+    "description": "击败玉虚宫的石像守卫，向真人请教。",
+    "prerequisites": [
+      "quest_jade_palace"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "jade_palace"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_jade_statue",
+        "count": 3
+      }
+    ],
+    "rewards": {
+      "exp": 2500,
+      "gold": 1500,
+      "items": [
+        "item_jade_piece"
+      ]
+    }
+  },
+  {
+    "id": "quest_side_ice_phoenix",
+    "name": "冰凤之羽",
+    "type": "side",
+    "description": "前往冰洞击败冰晶凤凰，获取冰凤之羽。",
+    "prerequisites": [
+      "quest_side_ice_cave"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "snow_cave"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_ice_phoenix",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 3000,
+      "gold": 1800,
+      "items": [
+        "item_phoenix_feather",
+        "item_ice_core"
+      ]
+    }
+  },
+  {
+    "id": "quest_side_thunder_dragon",
+    "name": "雷龙讨伐",
+    "type": "side",
+    "description": "雷霆峰上出现了雷龙，去讨伐它。",
+    "prerequisites": [
+      "quest_thunder_trial"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "thunder_peak"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_thunder_dragon",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 3500,
+      "gold": 2000,
+      "items": [
+        "item_thunder_crystal"
+      ]
+    }
+  },
+  {
+    "id": "quest_side_eternal_guard",
+    "name": "永恒试炼",
+    "type": "side",
+    "description": "前往时光之巅，挑战永恒守卫。",
+    "prerequisites": [
+      "quest_time_tower"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "time_tower_top"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_eternal_guardian",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 6000,
+      "gold": 4000,
+      "items": [
+        "item_mystic_crystal"
+      ]
+    }
+  },
+  {
+    "id": "quest_side_frozen_giant",
+    "name": "冰封巨像",
+    "type": "side",
+    "description": "雪原上出现了冰封巨像，去阻止它威胁雪村。",
+    "prerequisites": [
+      "quest_side_ice_cave"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "snow_field"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_frozen_colossus",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 4000,
+      "gold": 2500,
+      "items": [
+        "item_frozen_heart"
+      ]
+    }
   }
 ]

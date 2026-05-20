@@ -4482,5 +4482,796 @@
     ],
     "roomId": "plains",
     "respawnTime": 1800
+  },
+  {
+    "id": "monster_village_rat",
+    "name": "村庄老鼠",
+    "level": 1,
+    "hp": 20,
+    "mp": 0,
+    "attack": 3,
+    "defense": 1,
+    "exp": 5,
+    "gold": 2,
+    "drops": [
+      {
+        "itemId": "item_rat_tail",
+        "rate": 0.5
+      }
+    ],
+    "skills": [],
+    "roomId": "village_center",
+    "respawnTime": 30
+  },
+  {
+    "id": "monster_herb_gatherer",
+    "name": "采药小贼",
+    "level": 7,
+    "hp": 120,
+    "mp": 20,
+    "attack": 20,
+    "defense": 10,
+    "exp": 55,
+    "gold": 25,
+    "drops": [
+      {
+        "itemId": "item_herb",
+        "rate": 0.6
+      }
+    ],
+    "skills": [],
+    "roomId": "herbalist_hut",
+    "respawnTime": 150
+  },
+  {
+    "id": "monster_lake_thief",
+    "name": "湖匪",
+    "level": 9,
+    "hp": 160,
+    "mp": 30,
+    "attack": 24,
+    "defense": 14,
+    "exp": 75,
+    "gold": 35,
+    "drops": [
+      {
+        "itemId": "item_fish",
+        "rate": 0.5
+      },
+      {
+        "itemId": "item_bandit_loot",
+        "rate": 0.2
+      }
+    ],
+    "skills": [
+      "skill_bandit_blade"
+    ],
+    "roomId": "lake_village",
+    "respawnTime": 180
+  },
+  {
+    "id": "monster_swamp_leech",
+    "name": "沼泽水蛭",
+    "level": 11,
+    "hp": 150,
+    "mp": 0,
+    "attack": 26,
+    "defense": 12,
+    "exp": 95,
+    "gold": 40,
+    "drops": [
+      {
+        "itemId": "item_toxic_gland",
+        "rate": 0.35
+      }
+    ],
+    "skills": [
+      "skill_life_drain"
+    ],
+    "roomId": "swamp_entrance",
+    "respawnTime": 200
+  },
+  {
+    "id": "monster_swamp_crocodile",
+    "name": "沼泽鳄鱼",
+    "level": 20,
+    "hp": 400,
+    "mp": 0,
+    "attack": 50,
+    "defense": 32,
+    "exp": 270,
+    "gold": 120,
+    "drops": [
+      {
+        "itemId": "item_mutated_skin",
+        "rate": 0.4
+      }
+    ],
+    "skills": [
+      "skill_bite",
+      "skill_tail_sweep"
+    ],
+    "roomId": "swamp_island",
+    "respawnTime": 360
+  },
+  {
+    "id": "monster_snow_fox",
+    "name": "雪狐",
+    "level": 13,
+    "hp": 200,
+    "mp": 60,
+    "attack": 30,
+    "defense": 18,
+    "exp": 130,
+    "gold": 55,
+    "drops": [
+      {
+        "itemId": "item_fox_fur",
+        "rate": 0.5
+      },
+      {
+        "itemId": "item_ice_crystal",
+        "rate": 0.2
+      }
+    ],
+    "skills": [
+      "skill_frost_howl"
+    ],
+    "roomId": "snow_village",
+    "respawnTime": 240
+  },
+  {
+    "id": "monster_treasure_mimic",
+    "name": "宝箱怪",
+    "level": 19,
+    "hp": 350,
+    "mp": 80,
+    "attack": 48,
+    "defense": 30,
+    "exp": 260,
+    "gold": 200,
+    "drops": [
+      {
+        "itemId": "item_ancient_coin",
+        "rate": 0.6
+      },
+      {
+        "itemId": "item_jade_piece",
+        "rate": 0.2
+      }
+    ],
+    "skills": [
+      "skill_life_drain",
+      "skill_curse"
+    ],
+    "roomId": "underground_treasure",
+    "respawnTime": 420
+  },
+  {
+    "id": "monster_prison_guard_skeleton",
+    "name": "骷髅狱卒",
+    "level": 48,
+    "hp": 1200,
+    "mp": 300,
+    "attack": 105,
+    "defense": 68,
+    "exp": 1050,
+    "gold": 500,
+    "drops": [
+      {
+        "itemId": "item_ancient_bandage",
+        "rate": 0.5
+      },
+      {
+        "itemId": "item_cursed_gem",
+        "rate": 0.25
+      }
+    ],
+    "skills": [
+      "skill_guard_strike",
+      "skill_shield_wall",
+      "skill_intimidate"
+    ],
+    "roomId": "underground_prison",
+    "respawnTime": 800
+  },
+  {
+    "id": "monster_shaolin_trainee",
+    "name": "少林武僧幻影",
+    "level": 25,
+    "hp": 500,
+    "mp": 150,
+    "attack": 56,
+    "defense": 42,
+    "exp": 360,
+    "gold": 170,
+    "drops": [
+      {
+        "itemId": "item_spirit_stone",
+        "rate": 0.3
+      }
+    ],
+    "skills": [
+      "skill_shaolin_fist",
+      "skill_golden_bell"
+    ],
+    "roomId": "shaolin_temple",
+    "respawnTime": 420
+  },
+  {
+    "id": "monster_wudang_trainee",
+    "name": "武当剑客幻影",
+    "level": 25,
+    "hp": 480,
+    "mp": 180,
+    "attack": 60,
+    "defense": 35,
+    "exp": 360,
+    "gold": 170,
+    "drops": [
+      {
+        "itemId": "item_spirit_stone",
+        "rate": 0.3
+      }
+    ],
+    "skills": [
+      "skill_wudang_sword",
+      "skill_tiyunzong"
+    ],
+    "roomId": "wudang_peak",
+    "respawnTime": 420
+  },
+  {
+    "id": "monster_emei_trainee",
+    "name": "峨眉女侠幻影",
+    "level": 25,
+    "hp": 460,
+    "mp": 200,
+    "attack": 58,
+    "defense": 38,
+    "exp": 360,
+    "gold": 170,
+    "drops": [
+      {
+        "itemId": "item_spirit_stone",
+        "rate": 0.3
+      }
+    ],
+    "skills": [
+      "skill_emei_sword",
+      "skill_jiuyang"
+    ],
+    "roomId": "emei_temple",
+    "respawnTime": 420
+  },
+  {
+    "id": "monster_mingjiao_trainee",
+    "name": "明教教徒幻影",
+    "level": 28,
+    "hp": 550,
+    "mp": 200,
+    "attack": 65,
+    "defense": 40,
+    "exp": 440,
+    "gold": 210,
+    "drops": [
+      {
+        "itemId": "item_fire_essence",
+        "rate": 0.3
+      }
+    ],
+    "skills": [
+      "skill_blazing_blade",
+      "skill_mingjiao_fire"
+    ],
+    "roomId": "mingjiao_hall",
+    "respawnTime": 480
+  },
+  {
+    "id": "monster_xiaoyao_trainee",
+    "name": "逍遥弟子幻影",
+    "level": 28,
+    "hp": 500,
+    "mp": 250,
+    "attack": 62,
+    "defense": 36,
+    "exp": 440,
+    "gold": 210,
+    "drops": [
+      {
+        "itemId": "item_fairy_dust",
+        "rate": 0.3
+      }
+    ],
+    "skills": [
+      "skill_xiaoyao_sword",
+      "skill_lingbo_weibu"
+    ],
+    "roomId": "xiaoyao_valley",
+    "respawnTime": 480
+  },
+  {
+    "id": "monster_volcano_forge_golem",
+    "name": "熔炉魔像",
+    "level": 35,
+    "hp": 800,
+    "mp": 200,
+    "attack": 76,
+    "defense": 60,
+    "exp": 580,
+    "gold": 300,
+    "drops": [
+      {
+        "itemId": "item_iron_ore",
+        "rate": 0.5
+      },
+      {
+        "itemId": "item_lava_rock",
+        "rate": 0.4
+      }
+    ],
+    "skills": [
+      "skill_shield_wall",
+      "skill_fireball"
+    ],
+    "roomId": "volcano_forge",
+    "respawnTime": 600
+  },
+  {
+    "id": "monster_underground_scout",
+    "name": "地底斥候",
+    "level": 29,
+    "hp": 500,
+    "mp": 150,
+    "attack": 68,
+    "defense": 38,
+    "exp": 450,
+    "gold": 220,
+    "drops": [
+      {
+        "itemId": "item_obsidian",
+        "rate": 0.4
+      }
+    ],
+    "skills": [
+      "skill_shadow_step",
+      "skill_dark_slash"
+    ],
+    "roomId": "underground_entrance",
+    "respawnTime": 420
+  },
+  {
+    "id": "monster_jade_statue",
+    "name": "玉虚石像",
+    "level": 41,
+    "hp": 1000,
+    "mp": 400,
+    "attack": 86,
+    "defense": 62,
+    "exp": 780,
+    "gold": 380,
+    "drops": [
+      {
+        "itemId": "item_jade_piece",
+        "rate": 0.5
+      },
+      {
+        "itemId": "item_spirit_stone",
+        "rate": 0.3
+      }
+    ],
+    "skills": [
+      "skill_shield_wall",
+      "skill_holy_light",
+      "skill_heal_basic"
+    ],
+    "roomId": "jade_palace",
+    "respawnTime": 720
+  },
+  {
+    "id": "monster_rainbow_serpent",
+    "name": "彩虹蛇",
+    "level": 44,
+    "hp": 1100,
+    "mp": 500,
+    "attack": 92,
+    "defense": 55,
+    "exp": 920,
+    "gold": 460,
+    "drops": [
+      {
+        "itemId": "item_rainbow_essence",
+        "rate": 0.5
+      },
+      {
+        "itemId": "item_spirit_stone",
+        "rate": 0.3
+      }
+    ],
+    "skills": [
+      "skill_venom_sting",
+      "skill_holy_light",
+      "skill_coil"
+    ],
+    "roomId": "rainbow_bridge",
+    "respawnTime": 720
+  },
+  {
+    "id": "monster_void_rift",
+    "name": "虚空裂隙",
+    "level": 49,
+    "hp": 1500,
+    "mp": 800,
+    "attack": 108,
+    "defense": 65,
+    "exp": 1200,
+    "gold": 600,
+    "drops": [
+      {
+        "itemId": "item_void_essence",
+        "rate": 0.4
+      },
+      {
+        "itemId": "item_dark_crystal",
+        "rate": 0.3
+      }
+    ],
+    "skills": [
+      "skill_darkness_wave",
+      "skill_soul_reap",
+      "skill_curse"
+    ],
+    "roomId": "void_edge",
+    "respawnTime": 960
+  },
+  {
+    "id": "monster_heaven_golem",
+    "name": "天门金刚",
+    "level": 46,
+    "hp": 1400,
+    "mp": 400,
+    "attack": 100,
+    "defense": 75,
+    "exp": 1000,
+    "gold": 500,
+    "drops": [
+      {
+        "itemId": "item_spirit_stone",
+        "rate": 0.4
+      }
+    ],
+    "skills": [
+      "skill_golden_bell",
+      "skill_lion_roar",
+      "skill_shield_wall"
+    ],
+    "roomId": "heaven_gate",
+    "respawnTime": 780
+  },
+  {
+    "id": "monster_fire_dragon_young",
+    "name": "幼年火龙",
+    "level": 51,
+    "hp": 1800,
+    "mp": 600,
+    "attack": 120,
+    "defense": 68,
+    "exp": 1700,
+    "gold": 850,
+    "drops": [
+      {
+        "itemId": "item_fire_dragon_scale",
+        "rate": 0.3
+      },
+      {
+        "itemId": "item_fire_essence",
+        "rate": 0.5
+      }
+    ],
+    "skills": [
+      "skill_fireball",
+      "skill_fire_breath",
+      "skill_dragon_roar"
+    ],
+    "roomId": "volcano_base",
+    "respawnTime": 960
+  },
+  {
+    "id": "monster_ice_phoenix",
+    "name": "冰晶凤凰",
+    "level": 53,
+    "hp": 2000,
+    "mp": 800,
+    "attack": 128,
+    "defense": 72,
+    "exp": 2000,
+    "gold": 1000,
+    "drops": [
+      {
+        "itemId": "item_ice_core",
+        "rate": 0.5
+      },
+      {
+        "itemId": "item_phoenix_feather",
+        "rate": 0.3
+      }
+    ],
+    "skills": [
+      "skill_ice_strike",
+      "skill_freeze",
+      "skill_heal_basic",
+      "skill_holy_light"
+    ],
+    "roomId": "snow_cave",
+    "respawnTime": 1200,
+    "isBoss": true
+  },
+  {
+    "id": "monster_thunder_dragon",
+    "name": "雷龙",
+    "level": 55,
+    "hp": 2200,
+    "mp": 900,
+    "attack": 135,
+    "defense": 75,
+    "exp": 2300,
+    "gold": 1200,
+    "drops": [
+      {
+        "itemId": "item_thunder_crystal",
+        "rate": 0.5
+      },
+      {
+        "itemId": "item_dragon_scale",
+        "rate": 0.4
+      }
+    ],
+    "skills": [
+      "skill_meteor",
+      "skill_dragon_roar",
+      "skill_tail_sweep",
+      "skill_ice_strike"
+    ],
+    "roomId": "thunder_peak",
+    "respawnTime": 1500
+  },
+  {
+    "id": "monster_shadow_assassin",
+    "name": "暗影刺客",
+    "level": 57,
+    "hp": 2000,
+    "mp": 700,
+    "attack": 145,
+    "defense": 65,
+    "exp": 2500,
+    "gold": 1300,
+    "drops": [
+      {
+        "itemId": "item_dark_crystal",
+        "rate": 0.4
+      },
+      {
+        "itemId": "item_shadow_cloak",
+        "rate": 0.08
+      }
+    ],
+    "skills": [
+      "skill_dark_slash",
+      "skill_shadow_step",
+      "skill_life_drain",
+      "skill_venom_sting"
+    ],
+    "roomId": "shadow_realm",
+    "respawnTime": 1200
+  },
+  {
+    "id": "monster_magma_behemoth",
+    "name": "熔岩巨兽",
+    "level": 59,
+    "hp": 2800,
+    "mp": 800,
+    "attack": 150,
+    "defense": 90,
+    "exp": 2800,
+    "gold": 1500,
+    "drops": [
+      {
+        "itemId": "item_magma_core",
+        "rate": 0.5
+      },
+      {
+        "itemId": "item_lava_rock",
+        "rate": 0.6
+      }
+    ],
+    "skills": [
+      "skill_fireball",
+      "skill_flame_shield",
+      "skill_bear_hug",
+      "skill_meteor"
+    ],
+    "roomId": "volcano_crater",
+    "respawnTime": 1500
+  },
+  {
+    "id": "monster_desert_basilisk",
+    "name": "沙漠蜥蜴王",
+    "level": 61,
+    "hp": 2500,
+    "mp": 600,
+    "attack": 155,
+    "defense": 82,
+    "exp": 3000,
+    "gold": 1600,
+    "drops": [
+      {
+        "itemId": "item_sand_crystal",
+        "rate": 0.5
+      },
+      {
+        "itemId": "item_scorpion_venom",
+        "rate": 0.4
+      }
+    ],
+    "skills": [
+      "skill_venom_sting",
+      "skill_tail_sweep",
+      "skill_intimidate",
+      "skill_poison_spit"
+    ],
+    "roomId": "desert_entrance",
+    "respawnTime": 1500
+  },
+  {
+    "id": "monster_frozen_colossus",
+    "name": "冰封巨像",
+    "level": 64,
+    "hp": 3500,
+    "mp": 1200,
+    "attack": 168,
+    "defense": 100,
+    "exp": 4000,
+    "gold": 2200,
+    "drops": [
+      {
+        "itemId": "item_frozen_heart",
+        "rate": 0.5
+      },
+      {
+        "itemId": "item_ice_core",
+        "rate": 0.5
+      }
+    ],
+    "skills": [
+      "skill_ice_strike",
+      "skill_freeze",
+      "skill_shield_wall",
+      "skill_intimidate"
+    ],
+    "roomId": "snow_field",
+    "respawnTime": 2100,
+    "isBoss": true
+  },
+  {
+    "id": "monster_hell_flame_lord",
+    "name": "地狱火领主",
+    "level": 68,
+    "hp": 4000,
+    "mp": 1500,
+    "attack": 178,
+    "defense": 88,
+    "exp": 5000,
+    "gold": 2800,
+    "drops": [
+      {
+        "itemId": "item_fire_essence",
+        "rate": 0.6
+      },
+      {
+        "itemId": "item_magma_core",
+        "rate": 0.5
+      }
+    ],
+    "skills": [
+      "skill_hell_fire",
+      "skill_fire_breath",
+      "skill_demon_form",
+      "skill_meteor"
+    ],
+    "roomId": "demon_arena",
+    "respawnTime": 2400,
+    "isBoss": true
+  },
+  {
+    "id": "monster_time_reaver",
+    "name": "时光掠夺者",
+    "level": 71,
+    "hp": 4500,
+    "mp": 2000,
+    "attack": 190,
+    "defense": 95,
+    "exp": 6000,
+    "gold": 3500,
+    "drops": [
+      {
+        "itemId": "item_time_sand",
+        "rate": 0.5
+      },
+      {
+        "itemId": "item_meteorite",
+        "rate": 0.3
+      }
+    ],
+    "skills": [
+      "skill_darkness_wave",
+      "skill_curse",
+      "skill_freeze",
+      "skill_soul_reap"
+    ],
+    "roomId": "time_tower",
+    "respawnTime": 2700,
+    "isBoss": true
+  },
+  {
+    "id": "monster_eternal_guardian",
+    "name": "永恒守卫",
+    "level": 75,
+    "hp": 6000,
+    "mp": 2500,
+    "attack": 210,
+    "defense": 110,
+    "exp": 8000,
+    "gold": 4500,
+    "drops": [
+      {
+        "itemId": "item_mystic_crystal",
+        "rate": 0.5
+      },
+      {
+        "itemId": "item_spirit_stone",
+        "rate": 0.6
+      }
+    ],
+    "skills": [
+      "skill_holy_light",
+      "skill_golden_bell",
+      "skill_shield_wall",
+      "skill_heal_basic",
+      "skill_lion_roar"
+    ],
+    "roomId": "time_tower_top",
+    "respawnTime": 3600,
+    "isBoss": true
+  },
+  {
+    "id": "monster_nether_wyrm",
+    "name": "幽冥龙",
+    "level": 77,
+    "hp": 7000,
+    "mp": 3000,
+    "attack": 215,
+    "defense": 105,
+    "exp": 9000,
+    "gold": 5000,
+    "drops": [
+      {
+        "itemId": "item_dragon_heart",
+        "rate": 0.5
+      },
+      {
+        "itemId": "item_void_essence",
+        "rate": 0.5
+      }
+    ],
+    "skills": [
+      "skill_darkness_wave",
+      "skill_dragon_roar",
+      "skill_fire_breath",
+      "skill_soul_reap",
+      "skill_meteor"
+    ],
+    "roomId": "shadow_throne",
+    "respawnTime": 4200,
+    "isBoss": true
   }
 ]
