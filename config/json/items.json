@@ -3241,5 +3241,455 @@
       }
     ],
     "sellPrice": 32
+  },
+  {
+    "id": "item_copper_ore",
+    "name": "铜矿石",
+    "type": "material",
+    "description": "常见的铜矿，可用于锻造基础装备",
+    "price": 15,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 5
+  },
+  {
+    "id": "item_tin_ore",
+    "name": "锡矿石",
+    "type": "material",
+    "description": "锡矿，与铜混合可制青铜",
+    "price": 20,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 7
+  },
+  {
+    "id": "item_mythril_ore",
+    "name": "秘银矿石",
+    "type": "material",
+    "description": "稀有的秘银矿，打造高级装备的珍贵材料",
+    "price": 500,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 200
+  },
+  {
+    "id": "item_adamantite_ore",
+    "name": "精金矿石",
+    "type": "material",
+    "description": "极其稀有的精金矿，锻造传说装备的必需材料",
+    "price": 2000,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 800
+  },
+  {
+    "id": "item_orichalcum",
+    "name": "山铜",
+    "type": "material",
+    "description": "传说中的神矿，据说来自天外陨星",
+    "price": 5000,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 2000
+  },
+  {
+    "id": "item_dark_iron",
+    "name": "暗铁",
+    "type": "material",
+    "description": "魔域深处出产的暗色铁矿，蕴含黑暗之力",
+    "price": 600,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 240
+  },
+  {
+    "id": "item_ruby",
+    "name": "红宝石",
+    "type": "material",
+    "description": "鲜艳的红宝石，蕴含火焰之力",
+    "price": 600,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 240
+  },
+  {
+    "id": "item_emerald",
+    "name": "绿宝石",
+    "type": "material",
+    "description": "翠绿的绿宝石，蕴含生命之力",
+    "price": 550,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 220
+  },
+  {
+    "id": "item_topaz",
+    "name": "黄玉",
+    "type": "material",
+    "description": "金黄的黄玉，蕴含大地之力",
+    "price": 400,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 160
+  },
+  {
+    "id": "item_aquamarine",
+    "name": "海蓝宝石",
+    "type": "material",
+    "description": "海蓝色的宝石，蕴含水流之力",
+    "price": 450,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 180
+  },
+  {
+    "id": "item_amethyst",
+    "name": "紫水晶",
+    "type": "material",
+    "description": "紫色的水晶，蕴含灵魂之力",
+    "price": 500,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 200
+  },
+  {
+    "id": "item_onyx",
+    "name": "黑玛瑙",
+    "type": "material",
+    "description": "纯黑的玛瑙，蕴含暗影之力",
+    "price": 550,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 220
+  },
+  {
+    "id": "item_tourmaline",
+    "name": "碧玺",
+    "type": "material",
+    "description": "五彩斑斓的碧玺，蕴含五行之力",
+    "price": 800,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 320
+  },
+  {
+    "id": "item_star_sapphire",
+    "name": "星彩蓝宝石",
+    "type": "material",
+    "description": "带有星光的蓝宝石，蕴含星辰之力",
+    "price": 1500,
+    "stackable": true,
+    "maxStack": 15,
+    "sellPrice": 600
+  },
+  {
+    "id": "item_lingzhi",
+    "name": "灵芝",
+    "type": "material",
+    "description": "珍贵的灵芝，传说可延年益寿",
+    "price": 120,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 48
+  },
+  {
+    "id": "item_he_shou_wu",
+    "name": "何首乌",
+    "type": "material",
+    "description": "稀有的何首乌，滋补圣品",
+    "price": 150,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 60
+  },
+  {
+    "id": "item_dangshen",
+    "name": "党参",
+    "type": "material",
+    "description": "补气的党参，炼制丹药的基础材料",
+    "price": 60,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 24
+  },
+  {
+    "id": "item_wolfberry",
+    "name": "枸杞",
+    "type": "material",
+    "description": "红艳的枸杞，明目养肝",
+    "price": 30,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 12
+  },
+  {
+    "id": "item_saffron",
+    "name": "藏红花",
+    "type": "material",
+    "description": "珍贵的藏红花，价比黄金",
+    "price": 300,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 120
+  },
+  {
+    "id": "item_blood_grass",
+    "name": "血草",
+    "type": "material",
+    "description": "生长在古战场上的血色草药，止血奇效",
+    "price": 90,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 36
+  },
+  {
+    "id": "item_ghost_mushroom",
+    "name": "鬼面菇",
+    "type": "material",
+    "description": "只在夜间生长的诡异蘑菇，可用于制作特殊药剂",
+    "price": 100,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 40
+  },
+  {
+    "id": "item_fire_bloom",
+    "name": "火焰花",
+    "type": "material",
+    "description": "生长在火山口的火红花朵，蕴含火元素",
+    "price": 180,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 72
+  },
+  {
+    "id": "item_ice_lichen",
+    "name": "冰苔",
+    "type": "material",
+    "description": "生长在极寒之地的苔藓，蕴含冰元素",
+    "price": 180,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 72
+  },
+  {
+    "id": "item_spider_silk",
+    "name": "蛛丝",
+    "type": "material",
+    "description": "巨型蜘蛛的丝，坚韧轻巧",
+    "price": 70,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 28
+  },
+  {
+    "id": "item_bat_wing",
+    "name": "蝙蝠翼膜",
+    "type": "material",
+    "description": "洞穴蝙蝠的翼膜，可用于制作特殊装备",
+    "price": 50,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 20
+  },
+  {
+    "id": "item_scorpion_claw",
+    "name": "蝎钳",
+    "type": "material",
+    "description": "巨蝎的钳子，坚硬锋利",
+    "price": 120,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 48
+  },
+  {
+    "id": "item_demon_heart",
+    "name": "恶魔心脏",
+    "type": "material",
+    "description": "高级恶魔的心脏，蕴含着强大的黑暗力量",
+    "price": 1500,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 600
+  },
+  {
+    "id": "item_dragon_claw",
+    "name": "龙爪",
+    "type": "material",
+    "description": "龙的爪子，锋利无比",
+    "price": 1200,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 480
+  },
+  {
+    "id": "item_phoenix_tear",
+    "name": "凤凰泪",
+    "type": "material",
+    "description": "凤凰落下的泪珠，蕴含重生之力",
+    "price": 3000,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 1200
+  },
+  {
+    "id": "item_qilin_horn",
+    "name": "麒麟角",
+    "type": "material",
+    "description": "神兽麒麟的角，祥瑞之宝",
+    "price": 4000,
+    "stackable": true,
+    "maxStack": 5,
+    "sellPrice": 1600
+  },
+  {
+    "id": "item_silk",
+    "name": "丝绸",
+    "type": "material",
+    "description": "上等丝绸，可用于缝制高级衣物",
+    "price": 100,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 40
+  },
+  {
+    "id": "item_linen",
+    "name": "麻布",
+    "type": "material",
+    "description": "粗麻布，基础防具的材料",
+    "price": 20,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 8
+  },
+  {
+    "id": "item_cotton",
+    "name": "棉花",
+    "type": "material",
+    "description": "柔软的棉花，基础衣物的材料",
+    "price": 15,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 6
+  },
+  {
+    "id": "item_sandalwood",
+    "name": "檀木",
+    "type": "material",
+    "description": "珍贵的檀木，可用于制作法器和高级武器",
+    "price": 250,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 100
+  },
+  {
+    "id": "item_ebony",
+    "name": "乌木",
+    "type": "material",
+    "description": "坚硬如铁的乌木，制作重型武器的上等材料",
+    "price": 300,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 120
+  },
+  {
+    "id": "item_ironwood",
+    "name": "铁木",
+    "type": "material",
+    "description": "硬度堪比铁的木料，制作弓和杖的理想材料",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_earth_essence",
+    "name": "大地精华",
+    "type": "material",
+    "description": "大地元素的凝结，可用于装备强化",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_wind_essence",
+    "name": "风之精华",
+    "type": "material",
+    "description": "风元素的凝结，可用于装备强化",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_light_essence",
+    "name": "光之精华",
+    "type": "material",
+    "description": "光元素的凝结，可用于装备强化",
+    "price": 300,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 120
+  },
+  {
+    "id": "item_soul_powder",
+    "name": "灵魂粉末",
+    "type": "material",
+    "description": "灵魂粉碎后留下的粉末，蕴含神秘力量",
+    "price": 400,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 160
+  },
+  {
+    "id": "item_enchant_dust",
+    "name": "附魔尘",
+    "type": "material",
+    "description": "用于装备附魔的魔法尘埃",
+    "price": 350,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 140
+  },
+  {
+    "id": "item_alchemy_catalyst",
+    "name": "炼金催化剂",
+    "type": "material",
+    "description": "加速炼金反应的催化剂，炼制高级丹药的必需品",
+    "price": 250,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 100
+  },
+  {
+    "id": "item_spring_water",
+    "name": "灵泉水",
+    "type": "material",
+    "description": "山泉中采集的灵水，炼制丹药的基础材料",
+    "price": 40,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 16
+  },
+  {
+    "id": "item_monster_blood",
+    "name": "魔兽血",
+    "type": "material",
+    "description": "魔兽的血液，可用于炼制特殊药剂",
+    "price": 80,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 32
+  },
+  {
+    "id": "item_honey",
+    "name": "野蜂蜜",
+    "type": "material",
+    "description": "森林中采集的野蜂蜜，可用于烹饪和炼药",
+    "price": 35,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 14
   }
 ]
