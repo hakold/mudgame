@@ -2599,8 +2599,8 @@ function socketHandler(io) {
       });
       actionLogService.log(user._id, user.characterName, 'economy', 'buy', { itemId, itemName: item.name, quantity, totalPrice }, user.location.roomId);
 
-      // 任务进度：购买物品
-      questProgressService.checkProgress(user._id, { type: 'buy', target: itemId }).catch(() => {});
+      // 任务进度：购买物品（使用实际物品ID而非用户输入名称）
+      questProgressService.checkProgress(user._id, { type: 'buy', target: item.id }).catch(() => {});
     });
     
     // 出售物品

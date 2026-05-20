@@ -138,15 +138,22 @@ export const useGameStore = defineStore('game', () => {
       addMessage('system', '已连接到游戏服务器')
     })
     
-    socket.value.on('disconnect', () => {
+    socket.value.on('disconnect', (reason) => {
       connected.value = false
-      console.log('Socket disconnected')
-      addMessage('error', '与服务器断开连接')
+      console.log('Socket disconnected:', reason)
+      addMessage('error', '⚠️ 与服务器断开连接，即将返回登录界面...')
+      // 3秒后踢到登录界面
+      setTimeout(() => {
+        if (!connected.value) logout()
+      }, 3000)
     })
-    
+
     socket.value.on('connect_error', (error) => {
       console.error('Socket connection error:', error)
-      addMessage('error', '连接服务器失败: ' + error.message)
+      connected.value = false
+      addMessage('error', '❌ 连接服务器失败: ' + error.message)
+      // 连接失败立即踢到登录界面
+      setTimeout(() => logout(), 2000)
     })
     
     socket.value.on('welcome', (data) => {
