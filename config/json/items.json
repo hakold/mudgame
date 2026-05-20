@@ -6191,5 +6191,1005 @@
     "stackable": true,
     "maxStack": 10,
     "sellPrice": 1200
+  },
+  {
+    "id": "item_celadon_vase",
+    "name": "青瓷瓶",
+    "type": "material",
+    "description": "龙泉青瓷制成的瓷瓶，釉色青翠如玉",
+    "price": 300,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 120
+  },
+  {
+    "id": "item_porcelain_bowl",
+    "name": "白瓷碗",
+    "type": "material",
+    "description": "景德镇白瓷碗，薄如纸白如玉",
+    "price": 150,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 60
+  },
+  {
+    "id": "item_purple_clay_pot",
+    "name": "紫砂壶",
+    "type": "material",
+    "description": "宜兴紫砂壶，泡茶之极品",
+    "price": 400,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 160
+  },
+  {
+    "id": "item_glaze_jug",
+    "name": "釉陶罐",
+    "type": "material",
+    "description": "上过釉的陶罐，储存丹药不泄药性",
+    "price": 100,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 40
+  },
+  {
+    "id": "item_wine_jar",
+    "name": "酒坛",
+    "type": "material",
+    "description": "黑陶酒坛，密封性好，越陈越香",
+    "price": 80,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 32
+  },
+  {
+    "id": "item_clay_pot",
+    "name": "砂锅",
+    "type": "material",
+    "description": "粗砂烧制的锅，炖汤煮药皆宜",
+    "price": 50,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 20
+  },
+  {
+    "id": "item_terracotta",
+    "name": "陶俑",
+    "type": "material",
+    "description": "泥塑烧制的陶俑，陪葬或装饰之用",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_blue_white_porcelain",
+    "name": "青花瓷片",
+    "type": "material",
+    "description": "元青花瓷器的碎片，虽残犹珍",
+    "price": 500,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 200
+  },
+  {
+    "id": "item_peony",
+    "name": "牡丹花",
+    "type": "material",
+    "description": "国色天香的牡丹，花中之王",
+    "price": 120,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 48
+  },
+  {
+    "id": "item_plum_blossom",
+    "name": "梅花",
+    "type": "material",
+    "description": "傲雪凌霜的梅花，花中高士",
+    "price": 100,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 40
+  },
+  {
+    "id": "item_orchid",
+    "name": "兰花",
+    "type": "material",
+    "description": "空谷幽兰，花中君子",
+    "price": 150,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 60
+  },
+  {
+    "id": "item_rose",
+    "name": "月季花",
+    "type": "material",
+    "description": "月月开花的月季，可制花茶和香料",
+    "price": 60,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 24
+  },
+  {
+    "id": "item_dried_longan",
+    "name": "桂圆干",
+    "type": "material",
+    "description": "晒干的龙眼肉，补血安神",
+    "price": 80,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 32
+  },
+  {
+    "id": "item_dried_persimmon",
+    "name": "柿饼",
+    "type": "material",
+    "description": "晒干的柿子，表面结有白霜",
+    "price": 30,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 12
+  },
+  {
+    "id": "item_walnut",
+    "name": "核桃",
+    "type": "material",
+    "description": "皮薄仁香的核桃，补脑益智",
+    "price": 40,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 16
+  },
+  {
+    "id": "item_pine_nut",
+    "name": "松子",
+    "type": "material",
+    "description": "松树的种子，香脆可口",
+    "price": 70,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 28
+  },
+  {
+    "id": "item_chestnut",
+    "name": "板栗",
+    "type": "material",
+    "description": "香甜的板栗，可炒可煮",
+    "price": 25,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 10
+  },
+  {
+    "id": "item_almond",
+    "name": "杏仁",
+    "type": "material",
+    "description": "苦杏仁，可入药止咳平喘",
+    "price": 45,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 18
+  },
+  {
+    "id": "item_abalone",
+    "name": "干鲍鱼",
+    "type": "material",
+    "description": "晒干的鲍鱼，海味珍品",
+    "price": 400,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 160
+  },
+  {
+    "id": "item_sea_cucumber",
+    "name": "海参",
+    "type": "material",
+    "description": "干制的海参，滋补圣品",
+    "price": 350,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 140
+  },
+  {
+    "id": "item_shark_fin",
+    "name": "鱼翅",
+    "type": "material",
+    "description": "鲨鱼的鳍，宴席上的珍馐",
+    "price": 500,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 200
+  },
+  {
+    "id": "item_dried_scallop",
+    "name": "干贝",
+    "type": "material",
+    "description": "晒干的扇贝柱，味道极鲜",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_dried_shrimp",
+    "name": "虾米",
+    "type": "material",
+    "description": "晒干的小虾，提鲜调味",
+    "price": 60,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 24
+  },
+  {
+    "id": "item_kelp",
+    "name": "海带",
+    "type": "material",
+    "description": "深海中生长的海藻，可食可入药",
+    "price": 25,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 10
+  },
+  {
+    "id": "item_laver",
+    "name": "紫菜",
+    "type": "material",
+    "description": "晒干的海苔，鲜美可口",
+    "price": 30,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 12
+  },
+  {
+    "id": "item_crab_roe",
+    "name": "蟹黄",
+    "type": "material",
+    "description": "母蟹的蟹黄，极其鲜美",
+    "price": 150,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 60
+  },
+  {
+    "id": "item_fish_maw",
+    "name": "鱼肚",
+    "type": "material",
+    "description": "鱼鳔干制而成，胶质丰富",
+    "price": 250,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 100
+  },
+  {
+    "id": "item_jellyfish",
+    "name": "海蜇",
+    "type": "material",
+    "description": "腌制海蜇，脆嫩爽口",
+    "price": 70,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 28
+  },
+  {
+    "id": "item_gold_thread",
+    "name": "金线",
+    "type": "material",
+    "description": "以金箔捻成的线，绣龙袍所用",
+    "price": 500,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 200
+  },
+  {
+    "id": "item_silver_thread",
+    "name": "银线",
+    "type": "material",
+    "description": "以银箔捻成的线，绣云纹所用",
+    "price": 300,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 120
+  },
+  {
+    "id": "item_embroidery_needle",
+    "name": "绣花针",
+    "type": "material",
+    "description": "细如发丝的钢针，刺绣之具",
+    "price": 20,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 8
+  },
+  {
+    "id": "item_embroidery_frame",
+    "name": "绣绷",
+    "type": "material",
+    "description": "绷紧布料的竹木框，刺绣所用",
+    "price": 60,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 24
+  },
+  {
+    "id": "item_satin",
+    "name": "素绉缎",
+    "type": "material",
+    "description": "光滑亮丽的缎面，缝制华服所用",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_gauze",
+    "name": "罗纱",
+    "type": "material",
+    "description": "轻薄透气的罗纱，制作夏衣的材料",
+    "price": 100,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 40
+  },
+  {
+    "id": "item_felt",
+    "name": "毛毡",
+    "type": "material",
+    "description": "以羊毛压制而成的毡子，保暖防潮",
+    "price": 60,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 24
+  },
+  {
+    "id": "item_dye_plant",
+    "name": "靛蓝草",
+    "type": "material",
+    "description": "可提取靛蓝染料的草，染布所用",
+    "price": 30,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 12
+  },
+  {
+    "id": "item_guqin",
+    "name": "古琴",
+    "type": "material",
+    "description": "七弦古琴，君子之器，可弹高山流水",
+    "price": 800,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 320
+  },
+  {
+    "id": "item_bamboo_flute",
+    "name": "竹笛",
+    "type": "material",
+    "description": "紫竹制成的横笛，音色清越",
+    "price": 150,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 60
+  },
+  {
+    "id": "item_xiao",
+    "name": "洞箫",
+    "type": "material",
+    "description": "竖吹的竹箫，音色低沉悠远",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_pipa",
+    "name": "琵琶",
+    "type": "material",
+    "description": "四弦琵琶，可弹十面埋伏",
+    "price": 600,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 240
+  },
+  {
+    "id": "item_go_board",
+    "name": "围棋盘",
+    "type": "material",
+    "description": "榧木制作的围棋盘，纵横十九道",
+    "price": 400,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 160
+  },
+  {
+    "id": "item_go_stones",
+    "name": "云子",
+    "type": "material",
+    "description": "云南产的围棋子，黑如墨白如玉",
+    "price": 300,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 120
+  },
+  {
+    "id": "item_calligraphy_brush",
+    "name": "湖笔",
+    "type": "material",
+    "description": "湖州产的毛笔，文房四宝之首",
+    "price": 250,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 100
+  },
+  {
+    "id": "item_inkstick",
+    "name": "徽墨",
+    "type": "material",
+    "description": "徽州产的墨锭，落纸如漆万载存真",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_sword_guard",
+    "name": "剑格",
+    "type": "material",
+    "description": "剑柄与剑身之间的护手，可镶宝石",
+    "price": 80,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 32
+  },
+  {
+    "id": "item_pommel",
+    "name": "剑首",
+    "type": "material",
+    "description": "剑柄末端的装饰，可系剑穗",
+    "price": 60,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 24
+  },
+  {
+    "id": "item_tang",
+    "name": "刀条",
+    "type": "material",
+    "description": "刀剑的金属条坯，尚未打磨开刃",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_arrowhead",
+    "name": "箭头",
+    "type": "material",
+    "description": "铁制的箭头，淬火后锋利无比",
+    "price": 15,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 6
+  },
+  {
+    "id": "item_fletching",
+    "name": "箭羽",
+    "type": "material",
+    "description": "箭尾的羽毛，保持飞行稳定",
+    "price": 10,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 4
+  },
+  {
+    "id": "item_bowstring",
+    "name": "弓弦",
+    "type": "material",
+    "description": "以兽筋绞合而成的弓弦",
+    "price": 50,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 20
+  },
+  {
+    "id": "item_quiver",
+    "name": "箭囊",
+    "type": "material",
+    "description": "牛皮制成的箭囊，可装数十支箭",
+    "price": 80,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 32
+  },
+  {
+    "id": "item_spear_shaft",
+    "name": "枪杆",
+    "type": "material",
+    "description": "白蜡木制成的枪杆，韧而不断",
+    "price": 100,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 40
+  },
+  {
+    "id": "item_chain_links",
+    "name": "铁环链",
+    "type": "material",
+    "description": "精铁打造的铁环链，可制软鞭和链枷",
+    "price": 120,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 48
+  },
+  {
+    "id": "item_blade_blank",
+    "name": "刀胚",
+    "type": "material",
+    "description": "粗锻成形的刀胚，等待淬火打磨",
+    "price": 150,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 60
+  },
+  {
+    "id": "item_peach_wood_sword",
+    "name": "桃木剑",
+    "type": "material",
+    "description": "以桃木削成的剑，辟邪驱鬼之法器",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_coin_sword",
+    "name": "铜钱剑",
+    "type": "material",
+    "description": "以铜钱串成的剑，镇宅辟邪",
+    "price": 350,
+    "stackable": true,
+    "maxStack": 15,
+    "sellPrice": 140
+  },
+  {
+    "id": "item_bagua_mirror",
+    "name": "八卦镜",
+    "type": "material",
+    "description": "刻有八卦图案的铜镜，可辟邪化煞",
+    "price": 400,
+    "stackable": true,
+    "maxStack": 15,
+    "sellPrice": 160
+  },
+  {
+    "id": "item_spirit_bell",
+    "name": "三清铃",
+    "type": "material",
+    "description": "道教科仪所用的铜铃，铃声可镇魂",
+    "price": 250,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 100
+  },
+  {
+    "id": "item_five_emperor_coins",
+    "name": "五帝钱",
+    "type": "material",
+    "description": "五位帝王年号铜钱串成，辟邪挡煞",
+    "price": 300,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 120
+  },
+  {
+    "id": "item_fulu_paper",
+    "name": "符箓纸",
+    "type": "material",
+    "description": "专用于绘制符箓的黄裱纸",
+    "price": 20,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 8
+  },
+  {
+    "id": "item_incense_burner",
+    "name": "香炉",
+    "type": "material",
+    "description": "青铜香炉，燃香祭拜之用",
+    "price": 250,
+    "stackable": true,
+    "maxStack": 15,
+    "sellPrice": 100
+  },
+  {
+    "id": "item_candle",
+    "name": "供烛",
+    "type": "material",
+    "description": "白蜡制成的长烛，供奉神佛所用",
+    "price": 15,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 6
+  },
+  {
+    "id": "item_incense_powder",
+    "name": "香粉",
+    "type": "material",
+    "description": "研磨成粉的香料，可制香柱",
+    "price": 60,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 24
+  },
+  {
+    "id": "item_fulu_brush",
+    "name": "符箓笔",
+    "type": "material",
+    "description": "绘制符箓专用的毛笔，笔尖极细",
+    "price": 120,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 48
+  },
+  {
+    "id": "item_thunder_strike_wood",
+    "name": "雷击木",
+    "type": "material",
+    "description": "被雷劈过的树木，蕴含天雷之力",
+    "price": 800,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 320
+  },
+  {
+    "id": "item_spirit_rope",
+    "name": "捆仙绳",
+    "type": "material",
+    "description": "以特殊材料编织的绳索，可困妖魔",
+    "price": 500,
+    "stackable": true,
+    "maxStack": 15,
+    "sellPrice": 200
+  },
+  {
+    "id": "item_agate",
+    "name": "玛瑙",
+    "type": "material",
+    "description": "纹理美丽的玛瑙，佛教七宝之一",
+    "price": 350,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 140
+  },
+  {
+    "id": "item_lapis_lazuli",
+    "name": "青金石",
+    "type": "material",
+    "description": "湛蓝色的青金石，古代名贵颜料",
+    "price": 500,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 200
+  },
+  {
+    "id": "item_cats_eye",
+    "name": "猫眼石",
+    "type": "material",
+    "description": "具有猫眼效应的宝石，稀有珍贵",
+    "price": 800,
+    "stackable": true,
+    "maxStack": 15,
+    "sellPrice": 320
+  },
+  {
+    "id": "item_moonstone_gem",
+    "name": "月光石",
+    "type": "material",
+    "description": "泛着月白色光芒的宝石",
+    "price": 450,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 180
+  },
+  {
+    "id": "item_bloodstone",
+    "name": "鸡血石",
+    "type": "material",
+    "description": "鲜红如鸡血的印石，治印上品",
+    "price": 600,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 240
+  },
+  {
+    "id": "item_tian_huang",
+    "name": "田黄石",
+    "type": "material",
+    "description": "寿山石中的极品田黄，一两田黄三两金",
+    "price": 1500,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 600
+  },
+  {
+    "id": "item_soapstone",
+    "name": "寿山石",
+    "type": "material",
+    "description": "福建寿山产的印石，质地温润",
+    "price": 300,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 120
+  },
+  {
+    "id": "item_chicken_blood_stone",
+    "name": "昌化鸡血石",
+    "type": "material",
+    "description": "浙江昌化产的鸡血石，鲜红夺目",
+    "price": 800,
+    "stackable": true,
+    "maxStack": 15,
+    "sellPrice": 320
+  },
+  {
+    "id": "item_crystal",
+    "name": "白水晶",
+    "type": "material",
+    "description": "透明的白水晶，蕴含纯净的灵气",
+    "price": 400,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 160
+  },
+  {
+    "id": "item_rose_quartz",
+    "name": "芙蓉石",
+    "type": "material",
+    "description": "粉红色的石英，温润如芙蓉",
+    "price": 350,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 140
+  },
+  {
+    "id": "item_tigers_eye",
+    "name": "虎眼石",
+    "type": "material",
+    "description": "具有虎眼效果的石英，霸气外露",
+    "price": 450,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 180
+  },
+  {
+    "id": "item_smoky_quartz",
+    "name": "墨晶",
+    "type": "material",
+    "description": "墨黑色的水晶，蕴含暗影之力",
+    "price": 400,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 160
+  },
+  {
+    "id": "item_ginseng_seed",
+    "name": "人参种子",
+    "type": "material",
+    "description": "人参的种子，可在灵田中培育",
+    "price": 100,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 40
+  },
+  {
+    "id": "item_lingzhi_spore",
+    "name": "灵芝孢子",
+    "type": "material",
+    "description": "灵芝的孢子粉末，可培育灵芝",
+    "price": 150,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 60
+  },
+  {
+    "id": "item_tea_seed",
+    "name": "茶树苗",
+    "type": "material",
+    "description": "茶树的幼苗，可移植到茶园",
+    "price": 80,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 32
+  },
+  {
+    "id": "item_bamboo_shoot",
+    "name": "竹笋",
+    "type": "material",
+    "description": "新鲜的竹笋，可食可种",
+    "price": 25,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 10
+  },
+  {
+    "id": "item_mulberry_sapling",
+    "name": "桑树苗",
+    "type": "material",
+    "description": "桑树的幼苗，长成后可养蚕",
+    "price": 60,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 24
+  },
+  {
+    "id": "item_lotus_seed",
+    "name": "莲子",
+    "type": "material",
+    "description": "饱满的莲子，可食可种",
+    "price": 40,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 16
+  },
+  {
+    "id": "item_soap",
+    "name": "皂角",
+    "type": "material",
+    "description": "皂角树的果实，天然的去污之物",
+    "price": 10,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 4
+  },
+  {
+    "id": "item_medicinal_wine",
+    "name": "药酒",
+    "type": "material",
+    "description": "以药材浸泡的酒，饮之可疗伤",
+    "price": 100,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 40
+  },
+  {
+    "id": "item_tiger_balm",
+    "name": "虎骨膏",
+    "type": "material",
+    "description": "以虎骨熬制的膏药，外敷可愈骨伤",
+    "price": 300,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 120
+  },
+  {
+    "id": "item_herbal_paste",
+    "name": "金疮药膏",
+    "type": "material",
+    "description": "以草药调制的膏药，外敷可止血生肌",
+    "price": 80,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 32
+  },
+  {
+    "id": "item_ice_bag",
+    "name": "冰袋",
+    "type": "material",
+    "description": "以兽皮缝制的冰袋，可冷敷退热",
+    "price": 40,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 16
+  },
+  {
+    "id": "item_towel",
+    "name": "汗巾",
+    "type": "material",
+    "description": "吸汗的棉布巾，侠客随身之物",
+    "price": 15,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 6
+  },
+  {
+    "id": "item_tianzhu_incense",
+    "name": "天竺香",
+    "type": "material",
+    "description": "天竺传來的香料，燃之可通神灵",
+    "price": 350,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 140
+  },
+  {
+    "id": "item_elecampane",
+    "name": "土木香",
+    "type": "material",
+    "description": "理气止痛的草药根",
+    "price": 55,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 22
+  },
+  {
+    "id": "item_white_peony_root",
+    "name": "白芍",
+    "type": "material",
+    "description": "养血柔肝的白芍药根",
+    "price": 70,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 28
+  },
+  {
+    "id": "item_earthworm",
+    "name": "地龙",
+    "type": "material",
+    "description": "晒干的蚯蚓，通络平喘",
+    "price": 40,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 16
+  },
+  {
+    "id": "item_centipede_dried",
+    "name": "蜈蚣干",
+    "type": "material",
+    "description": "晒干的蜈蚣，息风止痉",
+    "price": 90,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 36
+  },
+  {
+    "id": "item_scorpion_dried",
+    "name": "全蝎",
+    "type": "material",
+    "description": "完整的干蝎，攻毒散结",
+    "price": 100,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 40
+  },
+  {
+    "id": "item_gecko_dried",
+    "name": "蛤蚧",
+    "type": "material",
+    "description": "晒干的壁虎，补肺益肾",
+    "price": 150,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 60
+  },
+  {
+    "id": "item_cinnabar_stone",
+    "name": "辰砂",
+    "type": "material",
+    "description": "鲜红色的辰砂矿石，炼丹至宝",
+    "price": 300,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 120
+  },
+  {
+    "id": "item_borax",
+    "name": "硼砂",
+    "type": "material",
+    "description": "白色结晶的硼砂，可入药可锻金",
+    "price": 80,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 32
+  },
+  {
+    "id": "item_calamine",
+    "name": "炉甘石",
+    "type": "material",
+    "description": "可制外用药的矿石",
+    "price": 60,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 24
   }
 ]
