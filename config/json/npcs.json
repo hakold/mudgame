@@ -203,7 +203,19 @@
       "quest_volcano_core",
       "quest_underground_city",
       "quest_warrior_tombs",
-      "quest_sky_bazaar"
+      "quest_sky_bazaar",
+      "quest_side_scorpion_hunt",
+      "quest_side_treasure_hunter",
+      "quest_side_celestial_trial",
+      "quest_side_pirate_hunt",
+      "quest_side_pharaoh_curse",
+      "quest_side_xuankong",
+      "quest_side_bridge_troll",
+      "quest_side_garden_spirit",
+      "quest_side_pagoda_cleanse",
+      "quest_side_abyss_challenge",
+      "quest_side_desert_djinn",
+      "quest_side_plains_hunt"
     ],
     "dialogues": {
       "greeting": [
@@ -4282,6 +4294,279 @@
         "我采了一辈子的药，眼睛一瞄就知道哪株有用。",
         "你想学采药？先帮我采些蘑菇来吧。"
       ]
+    }
+  },
+  {
+    "id": "npc_wudang_disciple",
+    "name": "武当道童",
+    "roomId": "wudang_hall",
+    "type": "service",
+    "services": [
+      "guide"
+    ],
+    "dialogues": {
+      "greeting": "真武殿乃武当圣地，请保持肃静。"
+    }
+  },
+  {
+    "id": "npc_shaolin_cook",
+    "name": "少林火头僧",
+    "roomId": "shaolin_temple",
+    "type": "service",
+    "services": [
+      "rumor"
+    ],
+    "dialogues": {
+      "greeting": "阿弥陀佛，练功重要，吃饭也重要。",
+      "rumor": "塔林最近不太平，听说有游魂出没……"
+    }
+  },
+  {
+    "id": "npc_emei_herbalist",
+    "name": "峨眉药姑",
+    "roomId": "emei_hall",
+    "type": "shop",
+    "shopType": "herb",
+    "items": [
+      "item_herb",
+      "item_ginseng",
+      "item_antidote",
+      "item_hp_potion_medium",
+      "item_mp_potion_medium"
+    ],
+    "dialogues": {
+      "greeting": "峨眉山上的草药，药性比别处强三分。"
+    }
+  },
+  {
+    "id": "npc_mingjiao_scout",
+    "name": "明教探子",
+    "roomId": "mingjiao_hall",
+    "type": "service",
+    "services": [
+      "rumor"
+    ],
+    "dialogues": {
+      "greeting": "圣火昭昭……外面有什么风吹草动都瞒不过我。",
+      "rumor": "密殿里的圣火之灵最近异常活跃，不知道发生了什么。"
+    }
+  },
+  {
+    "id": "npc_xiaoyao_hermit",
+    "name": "逍遥隐者",
+    "roomId": "xiaoyao_valley",
+    "type": "trainer",
+    "services": [
+      "meditate",
+      "train"
+    ],
+    "dialogues": {
+      "greeting": "人生天地间，忽如远行客。",
+      "train": "放下执念，方能逍遥。"
+    }
+  },
+  {
+    "id": "npc_underground_blacksmith",
+    "name": "地下铁匠",
+    "roomId": "underground_market",
+    "type": "service",
+    "services": [
+      "repair"
+    ],
+    "dialogues": {
+      "greeting": "别看我住地下，我的手艺不比地上的差。"
+    }
+  },
+  {
+    "id": "npc_underground_guard",
+    "name": "地下城守卫",
+    "roomId": "underground_city",
+    "type": "service",
+    "services": [
+      "guide"
+    ],
+    "dialogues": {
+      "greeting": "站住！……哦，是地上的客人。",
+      "guide": "集市在那边，小心别惹麻烦。"
+    }
+  },
+  {
+    "id": "npc_celestial_attendant",
+    "name": "天宫侍者",
+    "roomId": "celestial_palace",
+    "type": "service",
+    "services": [
+      "guide",
+      "rumor"
+    ],
+    "dialogues": {
+      "greeting": "天宫非等闲之地，能到这里说明你已是当世强者。",
+      "rumor": "仙师云游去了，留下话说：只有通过天凤凰试炼的人才能见他。"
+    }
+  },
+  {
+    "id": "npc_pyramid_scribe",
+    "name": "金字塔书吏",
+    "roomId": "pyramid_interior",
+    "type": "service",
+    "services": [
+      "rumor"
+    ],
+    "dialogues": {
+      "greeting": "我在翻译这些壁画……法老王的秘密比想象的更深。",
+      "rumor": "法老之墓里不仅有诅咒，还有法老王之神——那是远古的神祇。"
+    }
+  },
+  {
+    "id": "npc_pirate_quartermaster",
+    "name": "海盗军需官",
+    "roomId": "pirate_cove",
+    "type": "shop",
+    "shopType": "general",
+    "items": [
+      "item_rum",
+      "item_grilled_fish",
+      "item_coral_gem",
+      "item_ancient_coin",
+      "item_revive_pill"
+    ],
+    "dialogues": {
+      "greeting": "呦呵呵！要补给吗？都是抢来的好货！"
+    }
+  },
+  {
+    "id": "npc_starlit_watcher",
+    "name": "星桥守望者",
+    "roomId": "starlit_bridge",
+    "type": "service",
+    "services": [
+      "meditate"
+    ],
+    "dialogues": {
+      "greeting": "每颗星都是一个世界。你的世界是哪一颗？"
+    }
+  },
+  {
+    "id": "npc_plains_herder",
+    "name": "牧羊人",
+    "roomId": "plains_lake",
+    "type": "service",
+    "services": [
+      "rest",
+      "water"
+    ],
+    "dialogues": {
+      "greeting": "草原上最珍贵的就是水。来，喝一口。"
+    }
+  },
+  {
+    "id": "npc_cliff_painter",
+    "name": "山崖画师",
+    "roomId": "mountain_cliff",
+    "type": "service",
+    "services": [
+      "rumor"
+    ],
+    "dialogues": {
+      "greeting": "这云海景色，画一辈子也画不够。",
+      "rumor": "铁索桥那边有巨魔出没，过桥要小心。"
+    }
+  },
+  {
+    "id": "npc_bamboo_tea_master",
+    "name": "竹院茶师",
+    "roomId": "bamboo_hall",
+    "type": "service",
+    "services": [
+      "rest",
+      "rumor"
+    ],
+    "dialogues": {
+      "greeting": "竹叶煮茶，清心明目。来一杯？",
+      "rumor": "禅院的住持最近闭关，据说在参悟一套失传的杖法。"
+    }
+  },
+  {
+    "id": "npc_xuankong_pilgrim",
+    "name": "朝圣香客",
+    "roomId": "xuankong_hall",
+    "type": "service",
+    "dialogues": {
+      "greeting": "跋涉千里，只为在悬空寺上一炷香。"
+    }
+  },
+  {
+    "id": "npc_crystal_miner",
+    "name": "水晶矿工",
+    "roomId": "crystal_cave",
+    "type": "shop",
+    "shopType": "general",
+    "items": [
+      "item_spirit_stone",
+      "item_jade_piece",
+      "item_amber",
+      "item_obsidian",
+      "item_diamond"
+    ],
+    "dialogues": {
+      "greeting": "这些水晶在发光……每一块都是大自然的艺术品。",
+      "buy": "都是亲手挖的，一块一块挑出来的。"
+    }
+  },
+  {
+    "id": "npc_palace_historian",
+    "name": "史官",
+    "roomId": "palace_library",
+    "type": "service",
+    "services": [
+      "rumor"
+    ],
+    "dialogues": {
+      "greeting": "我在编纂本朝史书，你可有什么奇闻异事？",
+      "rumor": "据史书记载，百年前有一位侠客也像你这样，从村庄一路打到了天宫……"
+    }
+  },
+  {
+    "id": "npc_demon_refugee",
+    "name": "魔域流亡者",
+    "roomId": "demon_arena",
+    "type": "service",
+    "services": [
+      "rumor"
+    ],
+    "dialogues": {
+      "greeting": "我不是你的敌人……我是从魔王手下逃出来的。",
+      "rumor": "魔王的真正力量来源不在他身上……在暗影界的王座。"
+    }
+  },
+  {
+    "id": "npc_swamp_fisher",
+    "name": "沼泽渔人",
+    "roomId": "swamp_entrance",
+    "type": "service",
+    "services": [
+      "guide"
+    ],
+    "dialogues": {
+      "greeting": "这沼泽里的鱼，虽然长得丑，但肉特别嫩。",
+      "guide": "往里走是沼泽深处，南边是村落，北边有孤岛和祭坛。"
+    }
+  },
+  {
+    "id": "npc_snow_caravan",
+    "name": "雪域商队",
+    "roomId": "snow_pass",
+    "type": "shop",
+    "shopType": "general",
+    "items": [
+      "item_hp_potion_medium",
+      "item_mp_potion_medium",
+      "item_strength_pill",
+      "item_defense_pill",
+      "item_ice_crystal"
+    ],
+    "dialogues": {
+      "greeting": "穿过这雪山就是另一个世界。要补给吗？"
     }
   }
 ]

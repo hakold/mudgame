@@ -1439,5 +1439,331 @@
         "item_sky_pearl"
       ]
     }
+  },
+  {
+    "id": "quest_side_scorpion_hunt",
+    "name": "猎蝎行动",
+    "type": "side",
+    "description": "峡谷中毒蝎泛滥，去清理峡谷岔路的毒蝎。",
+    "prerequisites": [
+      "quest_canyon_explore"
+    ],
+    "objectives": [
+      {
+        "type": "kill",
+        "monsterId": "monster_canyon_scorpion",
+        "count": 4
+      }
+    ],
+    "rewards": {
+      "exp": 900,
+      "gold": 500,
+      "items": [
+        "item_scorpion_venom"
+      ]
+    }
+  },
+  {
+    "id": "quest_side_treasure_hunter",
+    "name": "夺宝奇兵",
+    "type": "side",
+    "description": "探索金字塔，击败法老守护者获取远古宝藏。",
+    "prerequisites": [
+      "quest_tomb_secret"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "pyramid_interior"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_pyramid_guardian",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 1500,
+      "gold": 800,
+      "items": [
+        "item_ancient_coin"
+      ]
+    }
+  },
+  {
+    "id": "quest_side_celestial_trial",
+    "name": "天宫试炼",
+    "type": "side",
+    "description": "前往天宫接受试炼，击败天宫神射手。",
+    "prerequisites": [
+      "quest_fire_dragon"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "celestial_palace"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_celestial_archer",
+        "count": 2
+      }
+    ],
+    "rewards": {
+      "exp": 3500,
+      "gold": 2000,
+      "items": [
+        "item_immortal_pearl"
+      ]
+    }
+  },
+  {
+    "id": "quest_side_pirate_hunt",
+    "name": "海盗讨伐",
+    "type": "side",
+    "description": "前往海盗湾剿灭海盗掠袭者，为民除害。",
+    "prerequisites": [
+      "quest_pirate_treasure"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "pirate_cove"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_pirate_raider",
+        "count": 3
+      }
+    ],
+    "rewards": {
+      "exp": 1800,
+      "gold": 900,
+      "items": [
+        "item_coral_gem"
+      ]
+    }
+  },
+  {
+    "id": "quest_side_pharaoh_curse",
+    "name": "法老诅咒",
+    "type": "side",
+    "description": "深入金字塔最底层，击败法老诅咒之魂。",
+    "prerequisites": [
+      "quest_side_treasure_hunter"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "pyramid_tomb"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_pharaoh_curse",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 2500,
+      "gold": 1500,
+      "items": [
+        "item_cursed_gem"
+      ]
+    }
+  },
+  {
+    "id": "quest_side_xuankong",
+    "name": "悬空修行",
+    "type": "side",
+    "description": "前往悬空寺修行，击败护法与首座。",
+    "prerequisites": [
+      "quest_mountain_temple"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "xuankong_temple"
+      },
+      {
+        "type": "visit",
+        "roomId": "xuankong_hall"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_xuankong_guardian",
+        "count": 2
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_xuankong_master",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 2800,
+      "gold": 1500,
+      "items": [
+        "item_jade_piece"
+      ]
+    }
+  },
+  {
+    "id": "quest_side_bridge_troll",
+    "name": "桥头巨魔",
+    "type": "side",
+    "description": "铁索桥被巨魔占据，去清理道路。",
+    "prerequisites": [
+      "quest_mountain_temple"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "mountain_bridge"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_bridge_troll",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 1200,
+      "gold": 600
+    }
+  },
+  {
+    "id": "quest_side_garden_spirit",
+    "name": "花园守护者",
+    "type": "side",
+    "description": "秘境花园被树妖侵扰，去清除它们。",
+    "prerequisites": [
+      "quest_secret_garden"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "secret_garden"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_garden_dryad",
+        "count": 2
+      }
+    ],
+    "rewards": {
+      "exp": 1600,
+      "gold": 800,
+      "items": [
+        "item_ginseng"
+      ]
+    }
+  },
+  {
+    "id": "quest_side_pagoda_cleanse",
+    "name": "塔林净灵",
+    "type": "side",
+    "description": "少林塔林被游魂侵扰，去净化它们。",
+    "prerequisites": [
+      "quest_mountain_temple"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "shaolin_pagoda"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_pagoda_spirit",
+        "count": 3
+      }
+    ],
+    "rewards": {
+      "exp": 1000,
+      "gold": 500,
+      "items": [
+        "item_spirit_stone"
+      ]
+    }
+  },
+  {
+    "id": "quest_side_abyss_challenge",
+    "name": "深渊挑战",
+    "type": "side",
+    "description": "前往峡谷深渊，挑战深渊领主。",
+    "prerequisites": [
+      "quest_canyon_explore"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "canyon_abyss"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_abyss_lord",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 5000,
+      "gold": 3000,
+      "items": [
+        "item_void_essence"
+      ]
+    }
+  },
+  {
+    "id": "quest_side_desert_djinn",
+    "name": "沙漠巨灵",
+    "type": "side",
+    "description": "沙漠集市被巨灵骚扰，去解决这个麻烦。",
+    "prerequisites": [
+      "quest_desert_explore"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "desert_bazaar"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_desert_djinn",
+        "count": 1
+      }
+    ],
+    "rewards": {
+      "exp": 1800,
+      "gold": 1000,
+      "items": [
+        "item_sand_crystal"
+      ]
+    }
+  },
+  {
+    "id": "quest_side_plains_hunt",
+    "name": "草原狩猎",
+    "type": "side",
+    "description": "草原上的雷鸟威胁着牧民的牲畜，去狩猎它们。",
+    "prerequisites": [
+      "quest_plains_explore"
+    ],
+    "objectives": [
+      {
+        "type": "visit",
+        "roomId": "plains"
+      },
+      {
+        "type": "kill",
+        "monsterId": "monster_plains_thunderbird",
+        "count": 2
+      }
+    ],
+    "rewards": {
+      "exp": 3000,
+      "gold": 1800,
+      "items": [
+        "item_thunder_crystal"
+      ]
+    }
   }
 ]

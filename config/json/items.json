@@ -3221,5 +3221,25 @@
     "successRate": 0.2,
     "price": 50000,
     "sellPrice": 20000
+  },
+  {
+    "id": "item_rum",
+    "name": "朗姆酒",
+    "type": "consumable",
+    "description": "海盗最爱的烈酒，恢复HP 100，临时提升力量8点",
+    "price": 80,
+    "effects": [
+      {
+        "type": "heal_hp",
+        "value": 100
+      },
+      {
+        "type": "buff",
+        "stat": "strength",
+        "value": 8,
+        "duration": 8
+      }
+    ],
+    "sellPrice": 32
   }
 ]
