@@ -356,7 +356,7 @@
   },
   {
     "id": "monster_ice_golem",
-    "name": "冰魔",
+    "name": "冰傀儡",
     "level": 35,
     "hp": 800,
     "mp": 200,
@@ -497,7 +497,7 @@
   },
   {
     "id": "monster_fire_elemental",
-    "name": "火元素",
+    "name": "火元灵",
     "level": 42,
     "hp": 600,
     "mp": 300,
@@ -898,7 +898,7 @@
   },
   {
     "id": "monster_rock_golem",
-    "name": "石魔像",
+    "name": "石傀儡",
     "level": 17,
     "hp": 500,
     "mp": 50,
@@ -1057,7 +1057,7 @@
   },
   {
     "id": "monster_frost_elemental",
-    "name": "冰霜元素",
+    "name": "冰霜元灵",
     "level": 34,
     "hp": 550,
     "mp": 200,
@@ -1138,7 +1138,7 @@
   },
   {
     "id": "monster_lava_elemental",
-    "name": "熔岩元素",
+    "name": "熔岩元灵",
     "level": 41,
     "hp": 900,
     "mp": 250,
@@ -1304,7 +1304,7 @@
   },
   {
     "id": "monster_demon_mage",
-    "name": "魔族法师",
+    "name": "魔族修士",
     "level": 57,
     "hp": 1100,
     "mp": 800,
@@ -1538,7 +1538,7 @@
   },
   {
     "id": "monster_crystal_golem",
-    "name": "水晶魔像",
+    "name": "水晶傀儡",
     "level": 26,
     "hp": 600,
     "mp": 150,
@@ -1933,7 +1933,7 @@
   },
   {
     "id": "monster_lake_spirit",
-    "name": "湖中精灵",
+    "name": "湖中水灵",
     "level": 23,
     "hp": 450,
     "mp": 200,
@@ -2035,7 +2035,7 @@
   },
   {
     "id": "monster_wind_elemental",
-    "name": "风元素",
+    "name": "风元灵",
     "level": 37,
     "hp": 500,
     "mp": 300,
@@ -2145,7 +2145,7 @@
   },
   {
     "id": "monster_swamp_shaman",
-    "name": "沼泽祭司",
+    "name": "沼泽巫师",
     "level": 34,
     "hp": 500,
     "mp": 350,
@@ -3466,7 +3466,7 @@
   },
   {
     "id": "monster_coral_golem",
-    "name": "珊瑚魔像",
+    "name": "珊瑚傀儡",
     "level": 57,
     "hp": 1800,
     "mp": 500,
@@ -4331,7 +4331,7 @@
   },
   {
     "id": "monster_abyss_lord",
-    "name": "深渊领主",
+    "name": "深渊霸主",
     "level": 70,
     "hp": 5000,
     "mp": 2000,
@@ -4792,7 +4792,7 @@
   },
   {
     "id": "monster_volcano_forge_golem",
-    "name": "熔炉魔像",
+    "name": "熔炉傀儡",
     "level": 35,
     "hp": 800,
     "mp": 200,
@@ -5154,7 +5154,7 @@
   },
   {
     "id": "monster_hell_flame_lord",
-    "name": "地狱火领主",
+    "name": "业火尊者",
     "level": 68,
     "hp": 4000,
     "mp": 1500,

@@ -2896,7 +2896,7 @@
   {
     "id": "fire_shrine",
     "mapId": "volcano",
-    "name": "炎之神殿",
+    "name": "炎之殿",
     "description": "供奉火元素的神殿，圣火在殿中永不熄灭。火元素的力量在此汇聚，修炼火系功法事半功倍。",
     "exits": [
       {
@@ -2917,7 +2917,7 @@
   {
     "id": "water_shrine",
     "mapId": "island",
-    "name": "水之神殿",
+    "name": "水之殿",
     "description": "深海中的神殿，四周被清澈的海水包围却滴水不进。殿中散发着柔和的蓝光，净化心灵。",
     "exits": [
       {

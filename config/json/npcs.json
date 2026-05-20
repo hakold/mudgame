@@ -1043,7 +1043,7 @@
   },
   {
     "id": "npc_waterfall_spirit",
-    "name": "水潭精灵",
+    "name": "水潭灵",
     "roomId": "forest_waterfall",
     "type": "service",
     "services": [
@@ -1694,7 +1694,7 @@
   },
   {
     "id": "npc_demon_prisoner",
-    "name": "被囚天使",
+    "name": "被囚仙灵",
     "roomId": "demon_throne",
     "type": "quest_giver",
     "quests": [
@@ -2078,7 +2078,7 @@
   },
   {
     "id": "npc_mummy_priest",
-    "name": "木乃伊祭司",
+    "name": "木乃伊守护者",
     "roomId": "pyramid_tomb",
     "type": "service",
     "dialogues": {
@@ -2401,7 +2401,7 @@
   },
   {
     "id": "npc_pirate_ghost",
-    "name": "海盗幽灵",
+    "name": "海盗幽魂",
     "roomId": "pirate_ship",
     "type": "service",
     "services": [
@@ -2447,7 +2447,7 @@
   },
   {
     "id": "npc_battlefield_spirit",
-    "name": "战场亡灵",
+    "name": "战场英魂",
     "roomId": "ancient_battlefield",
     "type": "quest_giver",
     "quests": [
@@ -3140,7 +3140,7 @@
   },
   {
     "id": "npc_pyramid_priest",
-    "name": "金字塔祭司",
+    "name": "金字塔守护者",
     "roomId": "pyramid_interior",
     "type": "service",
     "services": [
@@ -3180,7 +3180,7 @@
   },
   {
     "id": "npc_dragon_priest",
-    "name": "龙祭司",
+    "name": "龙祝",
     "roomId": "dragon_shrine",
     "type": "service",
     "services": [
@@ -3274,7 +3274,7 @@
   },
   {
     "id": "npc_fire_priest",
-    "name": "炎之祭司",
+    "name": "炎之祝者",
     "roomId": "fire_shrine",
     "type": "trainer",
     "services": [
@@ -3296,7 +3296,7 @@
   },
   {
     "id": "npc_water_priest",
-    "name": "水之祭司",
+    "name": "水之祝者",
     "roomId": "water_shrine",
     "type": "service",
     "services": [
@@ -3464,7 +3464,7 @@
   },
   {
     "id": "npc_thunder_shaman",
-    "name": "雷神祭司",
+    "name": "雷神祝者",
     "roomId": "thunder_shrine",
     "type": "trainer",
     "services": [

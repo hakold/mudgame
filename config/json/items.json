@@ -3,7 +3,7 @@
     "id": "item_hp_potion_small",
     "name": "小还丹",
     "type": "consumable",
-    "description": "恢复50点HP",
+    "description": "恢复50点气血",
     "price": 50,
     "effects": [
       {
@@ -17,7 +17,7 @@
     "id": "item_hp_potion_medium",
     "name": "中还丹",
     "type": "consumable",
-    "description": "恢复150点HP",
+    "description": "恢复150点气血",
     "price": 150,
     "effects": [
       {
@@ -31,7 +31,7 @@
     "id": "item_hp_potion_large",
     "name": "大还丹",
     "type": "consumable",
-    "description": "恢复500点HP",
+    "description": "恢复500点气血",
     "price": 400,
     "effects": [
       {
@@ -1629,10 +1629,10 @@
   },
   {
     "id": "item_shadow_cloak",
-    "name": "暗影斗篷",
+    "name": "暗影披风",
     "type": "equipment",
     "equipSlot": "accessory",
-    "description": "暗影界的产物，穿戴后闪避大幅提升",
+    "description": "暗影界的产物，穿戴后身法大幅提升",
     "price": 8000,
     "requireLevel": 45,
     "stats": {
@@ -2492,9 +2492,9 @@
   },
   {
     "id": "item_reflect_potion",
-    "name": "反伤药水",
+    "name": "反伤丹",
     "type": "consumable",
-    "description": "反弹20%受到的伤害，持续5回合",
+    "description": "服用后反弹两成受到的伤害，持续五回合",
     "price": 400,
     "effects": [
       {
@@ -2532,7 +2532,7 @@
     "id": "item_escape_scroll",
     "name": "遁地符",
     "type": "consumable",
-    "description": "使用后必定从战斗中逃脱",
+    "description": "使用后必定从战斗中遁走",
     "price": 300,
     "effects": [
       {
@@ -3644,9 +3644,9 @@
   },
   {
     "id": "item_enchant_dust",
-    "name": "附魔尘",
+    "name": "附法尘",
     "type": "material",
-    "description": "用于装备附魔的魔法尘埃",
+    "description": "用于装备附法的灵尘",
     "price": 350,
     "stackable": true,
     "maxStack": 50,
@@ -3654,9 +3654,9 @@
   },
   {
     "id": "item_alchemy_catalyst",
-    "name": "炼金催化剂",
+    "name": "炼丹催化粉",
     "type": "material",
-    "description": "加速炼金反应的催化剂，炼制高级丹药的必需品",
+    "description": "加速炼丹反应的粉末，炼制高级丹药的必需品",
     "price": 250,
     "stackable": true,
     "maxStack": 50,
@@ -4274,9 +4274,9 @@
   },
   {
     "id": "item_philosopher_stone",
-    "name": "贤者之石",
+    "name": "点金石",
     "type": "material",
-    "description": "炼金术的终极追求，传说能点石成金",
+    "description": "炼丹术的终极追求，传说能点石成金",
     "price": 10000,
     "stackable": true,
     "maxStack": 5,
@@ -4284,9 +4284,9 @@
   },
   {
     "id": "item_magic_ink",
-    "name": "魔法墨水",
+    "name": "符墨",
     "type": "material",
-    "description": "用特殊材料调制的墨水，用于抄写卷轴",
+    "description": "用妖兽血调制的墨，用于绘制符箓",
     "price": 200,
     "stackable": true,
     "maxStack": 50,
@@ -4294,9 +4294,9 @@
   },
   {
     "id": "item_enchanted_paper",
-    "name": "附魔纸",
+    "name": "附法纸",
     "type": "material",
-    "description": "可承载魔法的特殊纸张",
+    "description": "可承载道法的特殊符纸",
     "price": 150,
     "stackable": true,
     "maxStack": 50,
@@ -4304,9 +4304,9 @@
   },
   {
     "id": "item_blank_scroll",
-    "name": "空白卷轴",
+    "name": "空白符纸",
     "type": "material",
-    "description": "等待被写入魔法的空白卷轴",
+    "description": "等待被写入道法的空白符纸",
     "price": 100,
     "stackable": true,
     "maxStack": 99,
@@ -4394,9 +4394,9 @@
   },
   {
     "id": "item_rune_fire",
-    "name": "火焰符文",
+    "name": "火纹石",
     "type": "material",
-    "description": "刻有火焰符文的石板，可用于武器附魔",
+    "description": "刻有火焰篆文的石头，可用于兵器附法",
     "price": 400,
     "stackable": true,
     "maxStack": 20,
@@ -4404,9 +4404,9 @@
   },
   {
     "id": "item_rune_ice",
-    "name": "冰霜符文",
+    "name": "冰纹石",
     "type": "material",
-    "description": "刻有冰霜符文的石板，可用于武器附魔",
+    "description": "刻有冰霜篆文的石头，可用于兵器附法",
     "price": 400,
     "stackable": true,
     "maxStack": 20,
@@ -4414,9 +4414,9 @@
   },
   {
     "id": "item_rune_lightning",
-    "name": "雷电符文",
+    "name": "雷纹石",
     "type": "material",
-    "description": "刻有雷电符文的石板，可用于武器附魔",
+    "description": "刻有雷电篆文的石头，可用于兵器附法",
     "price": 500,
     "stackable": true,
     "maxStack": 20,
@@ -4424,9 +4424,9 @@
   },
   {
     "id": "item_rune_poison",
-    "name": "剧毒符文",
+    "name": "毒纹石",
     "type": "material",
-    "description": "刻有剧毒符文的石板，可用于武器附魔",
+    "description": "刻有剧毒篆文的石头，可用于兵器附法",
     "price": 350,
     "stackable": true,
     "maxStack": 20,
@@ -4434,9 +4434,9 @@
   },
   {
     "id": "item_rune_healing",
-    "name": "治愈符文",
+    "name": "愈纹石",
     "type": "material",
-    "description": "刻有治愈符文的石板，可用于防具附魔",
+    "description": "刻有治愈篆文的石头，可用于防具附法",
     "price": 450,
     "stackable": true,
     "maxStack": 20,
@@ -4444,9 +4444,9 @@
   },
   {
     "id": "item_rune_protection",
-    "name": "防护符文",
+    "name": "御纹石",
     "type": "material",
-    "description": "刻有防护符文的石板，可用于防具附魔",
+    "description": "刻有防护篆文的石头，可用于防具附法",
     "price": 450,
     "stackable": true,
     "maxStack": 20,
@@ -4454,9 +4454,9 @@
   },
   {
     "id": "item_rune_vampire",
-    "name": "吸血符文",
+    "name": "嗜血纹石",
     "type": "material",
-    "description": "刻有吸血符文的石板，可用于武器附魔",
+    "description": "刻有嗜血篆文的石头，可用于兵器附法",
     "price": 600,
     "stackable": true,
     "maxStack": 15,
@@ -4464,9 +4464,9 @@
   },
   {
     "id": "item_rune_void",
-    "name": "虚空符文",
+    "name": "虚空纹石",
     "type": "material",
-    "description": "刻有虚空符文的石板，可用于终极附魔",
+    "description": "刻有虚空篆文的石头，可用于终极附法",
     "price": 2000,
     "stackable": true,
     "maxStack": 10,

@@ -313,7 +313,7 @@
     "id": "skill_meteor",
     "name": "流星",
     "type": "attack",
-    "description": "召唤流星攻击",
+    "description": "引动流星攻击",
     "faction": "monster",
     "mpCost": 200,
     "damage": [
@@ -372,9 +372,9 @@
   },
   {
     "id": "skill_hell_fire",
-    "name": "地狱火",
+    "name": "业火",
     "type": "attack",
-    "description": "召唤地狱火焰",
+    "description": "引动业火焚烧敌人",
     "faction": "monster",
     "mpCost": 400,
     "damage": [
@@ -665,9 +665,9 @@
   },
   {
     "id": "skill_holy_light",
-    "name": "圣光",
+    "name": "仙光术",
     "type": "attack",
-    "description": "仙兽的圣光攻击",
+    "description": "仙人传承的光系法术",
     "faction": "monster",
     "mpCost": 60,
     "damage": [
