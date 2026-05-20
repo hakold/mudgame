@@ -6,6 +6,8 @@
     "description": "与村长对话，了解村庄情况",
     "roomId": "village_center",
     "npcId": "npc_village_chief",
+    "completionMode": "npc",
+    "handInNpcId": "npc_village_chief",
     "objectives": [
       {
         "type": "talk",
@@ -22,10 +24,12 @@
     "id": "quest_buy_weapon",
     "name": "装备自己",
     "type": "main",
-    "description": "购买一把木剑",
+    "description": "在铁匠铺购买一把木剑",
     "prerequisites": [
       "quest_talk_chief"
     ],
+    "completionMode": "npc",
+    "handInNpcId": "npc_blacksmith",
     "objectives": [
       {
         "type": "buy",
@@ -42,10 +46,12 @@
     "id": "quest_kill_boars",
     "name": "初试身手",
     "type": "main",
-    "description": "击杀3只野猪",
+    "description": "击杀3只野猪，然后回村庄向村长复命",
     "prerequisites": [
       "quest_buy_weapon"
     ],
+    "completionMode": "npc",
+    "handInNpcId": "npc_village_chief",
     "objectives": [
       {
         "type": "kill",

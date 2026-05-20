@@ -124,7 +124,7 @@
                 <div class="quest-offer-rewards">
                   奖励: {{ quest.rewards.exp ? quest.rewards.exp + '经验 ' : '' }}{{ quest.rewards.gold ? quest.rewards.gold + '金币' : '' }}{{ quest.rewards.items?.length ? ' +物品' : '' }}
                 </div>
-                <div v-if="!quest.prerequisitesMet" class="quest-offer-locked">🔒 需要先完成前置任务</div>
+                <div v-if="!quest.prerequisitesMet" class="quest-offer-locked">🔒 需要先完成前置任务: {{ quest.missingPrereqs?.join('、') || '未知' }}</div>
               </div>
               <button
                 v-if="quest.prerequisitesMet"
@@ -487,7 +487,8 @@
             <div v-if="quest.status === 'completed' && !quest.rewardClaimed" class="quest-reward-info">
               {{ getQuestRewardText(quest.questId) }}
             </div>
-            <button v-if="quest.status === 'completed' && !quest.rewardClaimed" class="quest-reward-btn" @click="claimQuestReward(quest.questId)">领取奖励</button>
+            <button v-if="quest.status === 'completed' && !quest.rewardClaimed && !needNpcHandIn(quest.questId)" class="quest-reward-btn" @click="claimQuestReward(quest.questId)">领取奖励</button>
+            <span v-if="quest.status === 'completed' && !quest.rewardClaimed && needNpcHandIn(quest.questId)" class="hand-in-hint">📍 需要找 {{ getHandInNpcName(quest.questId) }} 交接任务</span>
             <div v-if="quest.status === 'completed' && quest.rewardClaimed" class="reward-claimed">已领取奖励</div>
           </div>
           <div v-if="!quests.length" class="empty-hint">没有进行中的任务</div>
@@ -793,7 +794,8 @@ function directionLabel(dir) {
     'up': '上',
     'down': '下',
     'in': '里',
-    'out': '外'
+    'out': '外',
+    'back': '返'
   }
   return labels[dir] || dir
 }
@@ -895,8 +897,25 @@ function getSkillName(skillId) {
 }
 
 function getQuestName(questId) {
-  const quest = gameStore.gameConfig?.quests?.[questId]
+  const quest = gameStore.gameConfig?.quests?.[questId] || gameStore.gameConfig?.factionQuests?.[questId]
   return quest?.name || questId
+}
+
+function getQuestConfig(questId) {
+  return gameStore.gameConfig?.quests?.[questId] || gameStore.gameConfig?.factionQuests?.[questId] || null
+}
+
+function needNpcHandIn(questId) {
+  const config = getQuestConfig(questId)
+  return config?.completionMode === 'npc' && config?.handInNpcId
+}
+
+function getHandInNpcName(questId) {
+  const config = getQuestConfig(questId)
+  const npcId = config?.handInNpcId
+  if (!npcId) return 'NPC'
+  const npc = gameStore.gameConfig?.npcs?.[npcId]
+  return npc?.name || npcId
 }
 
 function questStatus(status) {
@@ -1059,15 +1078,23 @@ function formatLogTurn(turn) {
   if (!turn) return ''
   const parts = []
   if (turn.attacker) parts.push(turn.attacker)
-  if (turn.action === 'skill' && turn.skill) parts.push(`使用${turn.skill}`)
+  if (turn.action === 'skill' && turn.skill) parts.push(`使用【${turn.skill}】`)
   else if (turn.action === 'attack') parts.push('攻击')
-  else if (turn.action === 'defend') parts.push('防御')
-  else if (turn.action === 'flee') parts.push('逃跑')
+  else if (turn.action === 'defend') parts.push('进入防御姿态')
+  else if (turn.action === 'flee') parts.push('试图逃跑')
   else if (turn.action) parts.push(turn.action)
-  if (turn.damage) parts.push(`造成${turn.damage}伤害`)
-  if (turn.healed) parts.push(`恢复${turn.healed}生命`)
-  if (turn.dodged) parts.push('被闪避')
-  if (turn.fled) parts.push('成功逃跑')
+  if (turn.damage) parts.push(`造成${turn.damage}点伤害`)
+  if (turn.healed) parts.push(`恢复${turn.healed}点生命`)
+  if (turn.mpCost) parts.push(`消耗${turn.mpCost}MP`)
+  if (turn.hpCost) parts.push(`消耗${turn.hpCost}HP`)
+  if (turn.reflectedDamage) parts.push(`(反弹${turn.reflectedDamage}伤害)`)
+  if (turn.counterDamage) parts.push(`(反击${turn.counterDamage}伤害)`)
+  if (turn.dodged) parts.push('✗被闪避')
+  if (turn.fled) parts.push('逃跑成功')
+  if (turn.defending) parts.push('(防御)')
+  if (turn.skipped) parts.push('(无法行动)')
+  if (turn.mutualDefeat) parts.push('同归于尽!')
+  if (turn.remainingHp !== undefined && !turn.damage) parts.push(`(剩余HP:${turn.remainingHp})`)
   return parts.join(' ') || JSON.stringify(turn)
 }
 

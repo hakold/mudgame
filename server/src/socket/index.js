@@ -1,6 +1,6 @@
 const { User, CharacterSkill, Inventory, Quest, ChatMessage, BattleLog, Achievement, Gang } = require('../models');
 const { socketAuthMiddleware, registerSocket: authRegisterSocket, unregisterSocket: authUnregisterSocket, findSocketByUserId: authFindSocket } = require('../middleware/auth');
-const { getRoom, getRoomExits, getNpcsInRoom, getMonstersInRoom, getSkill, getQuest, getItem, getItemByName, getFaction, getAllFactions, getLearnableSkills, getForgeRecipe, getAllForgeRecipes, getFactionQuest, getFactionQuestsByFaction } = require('../game');
+const { getRoom, getNpc, getRoomExits, getNpcsInRoom, getMonstersInRoom, getSkill, getQuest, getItem, getItemByName, getFaction, getAllFactions, getLearnableSkills, getForgeRecipe, getAllForgeRecipes, getFactionQuest, getFactionQuestsByFaction } = require('../game');
 const BattleService = require('../game/battleService');
 const questProgressService = require('../game/questProgressService');
 const roomDropsService = require('../game/roomDropsService');
@@ -87,7 +87,7 @@ function guardSocket(socket, user, eventName, data) {
   }
 
   // 4. 反作弊记录
-  if (!['look', 'who', 'get_time', 'list_factions', 'list_learnable_skills', 'list_faction_quests', 'list_gathering_nodes', 'list_alchemy_recipes', 'list_cooking_recipes', 'get_forge_recipes', 'get_achievements', 'get_daily_status', 'shop_list', 'get_battle_logs', 'get_battle_detail', 'auction_search', 'auction_my_listings', 'list_dungeons', 'gang_search', 'gang_info'].includes(eventName)) {
+  if (!['look', 'who', 'help', 'get_time', 'list_factions', 'list_learnable_skills', 'list_faction_quests', 'list_gathering_nodes', 'list_alchemy_recipes', 'list_cooking_recipes', 'get_forge_recipes', 'get_achievements', 'get_daily_status', 'shop_list', 'get_battle_logs', 'get_battle_detail', 'auction_search', 'auction_my_listings', 'list_dungeons', 'gang_search', 'gang_info'].includes(eventName)) {
     antiCheatService.recordAction(user._id, eventName);
   }
 
@@ -128,7 +128,7 @@ function socketHandler(io) {
 
     // 全局包装 socket.on，自动注入限频+校验+反作弊
     const _on = socket.on.bind(socket);
-    const readOnlyEvents = new Set(['look', 'who', 'get_time', 'list_factions', 'list_learnable_skills',
+    const readOnlyEvents = new Set(['look', 'who', 'help', 'get_time', 'list_factions', 'list_learnable_skills',
       'list_faction_quests', 'list_gathering_nodes', 'list_alchemy_recipes', 'list_cooking_recipes',
       'get_forge_recipes', 'get_achievements', 'get_daily_status', 'shop_list', 'get_battle_logs',
       'get_battle_detail', 'auction_search', 'auction_my_listings', 'list_dungeons', 'gang_search', 'gang_info']);
@@ -166,12 +166,27 @@ function socketHandler(io) {
     user.status = 'online';
     await user.save();
     
-    // 发送欢迎消息
+    // 发送欢迎消息（含动态引导提示）
+    const questCount = await Quest.countDocuments({ userId: user._id });
+    let tip = null;
+    if (user.level <= 1 && !questCount) {
+      tip = '💡 新手: 输入 talk npc_village_chief 与村长对话，接取第一个任务';
+    } else if (!user.faction && user.level >= 5) {
+      tip = '💡 提示: 你还没有加入门派，输入 factions 查看门派列表，找到对应的NPC拜师学艺';
+    } else if (user.freePoints > 0) {
+      tip = `💡 提示: 你有 ${user.freePoints} 点可分配属性，点击左侧面板属性旁的 + 号来提升实力`;
+    } else if (questCount > 0) {
+      const activeQuests = await Quest.countDocuments({ userId: user._id, status: { $in: ['accepted', 'in_progress'] } });
+      const completedQuests = await Quest.countDocuments({ userId: user._id, status: 'completed', rewardClaimed: false });
+      if (completedQuests > 0) {
+        tip = `💡 提示: 你有 ${completedQuests} 个任务已完成，在任务面板点击"领取奖励"或找到对应NPC交任务`;
+      } else if (activeQuests > 0) {
+        tip = '💡 提示: 使用 quests 查看任务进度，输入 help 查看所有命令';
+      }
+    }
     socket.emit('welcome', {
       message: `欢迎来到侠客行，${user.characterName}！`,
-      tip: user.level <= 1 && !(await Quest.countDocuments({ userId: user._id }))
-        ? '💡 新手提示: 输入 talk npc_village_chief 与村长对话，接取第一个任务'
-        : null,
+      tip,
       player: {
         name: user.characterName,
         level: user.level,
@@ -232,6 +247,35 @@ function socketHandler(io) {
       roomDesc.drops = roomDropsService.getDrops(roomId);
       socket.emit('room_info', roomDesc);
     });
+
+    // 帮助
+    socket.on('help', () => {
+      const room = getRoom(user.location.roomId);
+      const services = room?.services || [];
+      const helpLines = [
+        '══════════════════════════════',
+        '【移动】n/s/e/w | north/south/east/west | go <方向> | look/l',
+        '【战斗】kill/attack <怪物ID> | skill <技能名> | flee',
+        '【物品】inv/i | pickup <物品> | use <物品> | equip <物品> | unequip <槽位>',
+        '【商店】shop | buy <物品> | sell <物品>',
+      ];
+      if (services.includes('rest')) {
+        helpLines.push('【休息】rest - 客栈可完全恢复HP/MP');
+      } else {
+        helpLines.push('【休息】rest - 任何地方都可休息（客栈完全恢复，野外50%）');
+      }
+      helpLines.push('【任务】quests | talk <NPC_ID> | 在任务面板领取奖励');
+      helpLines.push('【社交】who | say <内容> | trade <玩家> | pvp <玩家>');
+      helpLines.push('【门派】factions | faction join <门派ID> | faction leave');
+      helpLines.push('【系统】help | rumor | where | time');
+      if (user.freePoints > 0) {
+        helpLines.push(`💡 你有 ${user.freePoints} 可分配属性点，点击左侧属性旁的 + 分配`);
+      }
+      helpLines.push('══════════════════════════════');
+      for (const line of helpLines) {
+        socket.emit('system_message', { content: line });
+      }
+    });
     
     // 移动
     socket.on('move', async (data) => {
@@ -253,12 +297,15 @@ function socketHandler(io) {
         return socket.emit('error', { message: '该方向没有出口' });
       }
       
+      const oldRoomId = user.location.roomId;
       // 离开当前房间
-      socket.leave(`room:${user.location.roomId}`);
-      removeFromRoom(user.location.roomId, socket.id);
-      io.to(`room:${user.location.roomId}`).emit('player_left', {
+      socket.leave(`room:${oldRoomId}`);
+      removeFromRoom(oldRoomId, socket.id);
+      io.to(`room:${oldRoomId}`).emit('player_left', {
         name: user.characterName
       });
+      // 通知旧房间剩余玩家刷新房间信息
+      io.to(`room:${oldRoomId}`).emit('room_info', getRoomDescription(oldRoomId));
       
       // 进入新房间
       user.location.roomId = exit.roomId;
@@ -271,7 +318,9 @@ function socketHandler(io) {
         name: user.characterName,
         level: user.level
       });
-      
+      // 通知新房间所有玩家刷新房间信息
+      io.to(`room:${exit.roomId}`).emit('room_info', getRoomDescription(exit.roomId));
+
       socket.emit('room_info', getRoomDescription(exit.roomId));
 
       // 通知新房间地面掉落
@@ -334,6 +383,21 @@ function socketHandler(io) {
         if (autoResult.battle.status === 'ended' || autoResult.battle.status === 'fled') {
           io.to(battleRoom).emit('battle_ended', autoResult);
           io.in(battleRoom).socketsLeave(battleRoom);
+
+          // 从DB同步最新用户状态
+          const synced = await User.findById(user._id, 'status hp mp exp gold level freePoints stats').lean();
+          if (synced) {
+            user.status = synced.status;
+            user.hp = synced.hp;
+            user.mp = synced.mp;
+            user.exp = synced.exp;
+            user.gold = synced.gold;
+            user.level = synced.level;
+            user.freePoints = synced.freePoints;
+            if (synced.stats) {
+              user.stats = synced.stats;
+            }
+          }
         }
       } catch (error) {
         socket.emit('error', { message: error.message });
@@ -376,6 +440,21 @@ function socketHandler(io) {
 
         if (turnResult.battle.status === 'ended' || turnResult.battle.status === 'fled') {
           io.to(roomName).emit('battle_ended', turnResult);
+
+          // 从DB同步最新用户状态（endBattle已更新status/hp/mp/exp/gold）
+          const synced = await User.findById(user._id, 'status hp mp exp gold level freePoints stats').lean();
+          if (synced) {
+            user.status = synced.status;
+            user.hp = synced.hp;
+            user.mp = synced.mp;
+            user.exp = synced.exp;
+            user.gold = synced.gold;
+            user.level = synced.level;
+            user.freePoints = synced.freePoints;
+            if (synced.stats) {
+              user.stats = synced.stats;
+            }
+          }
 
           // 任务进度：击杀怪物
           if (turnResult.battle.status === 'ended' && turnResult.battle.winner?.userId) {
@@ -746,6 +825,7 @@ function socketHandler(io) {
       
       // 检查前置任务
       if (questConfig.prerequisites) {
+        const missingPrereqs = [];
         for (const prereq of questConfig.prerequisites) {
           const prereqQuest = await Quest.findOne({
             userId: user._id,
@@ -753,8 +833,12 @@ function socketHandler(io) {
             status: 'completed'
           });
           if (!prereqQuest) {
-            return socket.emit('error', { message: '需要先完成前置任务' });
+            const prereqConfig = getQuest(prereq);
+            missingPrereqs.push(prereqConfig?.name || prereq);
           }
+        }
+        if (missingPrereqs.length > 0) {
+          return socket.emit('error', { message: `需要先完成前置任务: ${missingPrereqs.join('、')}` });
         }
       }
       
@@ -814,6 +898,17 @@ function socketHandler(io) {
       if (!questConfig) questConfig = getFactionQuest(questId);
       if (!questConfig) {
         return socket.emit('error', { message: '任务配置不存在' });
+      }
+
+      // 检查交接模式：npc模式需要找到对应NPC
+      if (questConfig.completionMode === 'npc' && questConfig.handInNpcId) {
+        const room = getRoom(user.location.roomId);
+        const roomNpcs = getNpcsInRoom(room?.id);
+        const handInNpc = roomNpcs.find(n => n.id === questConfig.handInNpcId);
+        if (!handInNpc) {
+          const npcName = getNpc(questConfig.handInNpcId)?.name || questConfig.handInNpcId;
+          return socket.emit('error', { message: `你需要找到「${npcName}」交接任务才能领取奖励` });
+        }
       }
 
       // 发放奖励
@@ -2138,8 +2233,21 @@ function socketHandler(io) {
         return socket.emit('error', { message: '此NPC不在当前房间' });
       }
 
-      // 获取NPC对话
-      const dialog = npc.dialogues?.greeting || `${npc.name}: 欢迎光临！有什么需要帮忙的吗？`;
+      // 获取NPC对话（支持随机变体数组）
+      const greeting = npc.dialogues?.greeting;
+      const defaultDialog = npc.dialogues?.default;
+      let dialog;
+      if (Array.isArray(greeting)) {
+        dialog = greeting[Math.floor(Math.random() * greeting.length)];
+      } else if (greeting) {
+        dialog = greeting;
+      } else if (Array.isArray(defaultDialog)) {
+        dialog = defaultDialog[Math.floor(Math.random() * defaultDialog.length)];
+      } else if (defaultDialog) {
+        dialog = defaultDialog;
+      } else {
+        dialog = `${npc.name}: 欢迎光临！有什么需要帮忙的吗？`;
+      }
 
       // 检查NPC可发布的任务（玩家未完成且未进行中的）
       const availableQuests = [];
@@ -2161,10 +2269,15 @@ function socketHandler(io) {
 
         // 检查前置任务
         let prereqsMet = true;
+        const missingPrereqNames = [];
         if (questConfig.prerequisites) {
           for (const prereq of questConfig.prerequisites) {
             const prereqDone = await Quest.findOne({ userId: user._id, questId: prereq, status: 'completed' });
-            if (!prereqDone) { prereqsMet = false; break; }
+            if (!prereqDone) {
+              prereqsMet = false;
+              const prereqConfig = getQuest(prereq);
+              missingPrereqNames.push(prereqConfig?.name || prereq);
+            }
           }
         }
 
@@ -2174,7 +2287,8 @@ function socketHandler(io) {
           description: questConfig.description,
           type: questConfig.type,
           rewards: questConfig.rewards,
-          prerequisitesMet: prereqsMet
+          prerequisitesMet: prereqsMet,
+          missingPrereqs: prereqsMet ? null : missingPrereqNames
         });
       }
 
@@ -2270,26 +2384,39 @@ function socketHandler(io) {
     socket.on('rest', async () => {
       const room = getRoom(user.location.roomId);
       const isInn = room?.services?.includes('rest');
-      
+
+      // 从数据库重新加载最新HP/MP（战斗升级后可能已变化）
+      const fresh = await User.findById(user._id, 'hp mp').lean();
+      if (!fresh) return;
+      const maxHp = fresh.hp?.max || user.hp.max;
+      const maxMp = fresh.mp?.max || user.mp.max;
+      const curHp = fresh.hp?.current ?? user.hp.current;
+      const curMp = fresh.mp?.current ?? user.mp.current;
+
+      let newHp, newMp;
       if (isInn) {
-        // 客栈/酒馆：完全恢复
-        user.hp.current = user.hp.max;
-        user.mp.current = user.mp.max;
+        newHp = maxHp;
+        newMp = maxMp;
         socket.emit('system_message', { content: '你休息了一会儿，体力完全恢复了。' });
       } else {
-        // 其他地方：恢复50%
-        const hpRecover = Math.floor(user.hp.max * 0.5);
-        const mpRecover = Math.floor(user.mp.max * 0.5);
-        user.hp.current = Math.min(user.hp.current + hpRecover, user.hp.max);
-        user.mp.current = Math.min(user.mp.current + mpRecover, user.mp.max);
+        const hpRecover = Math.floor(maxHp * 0.5);
+        const mpRecover = Math.floor(maxMp * 0.5);
+        newHp = Math.min(curHp + hpRecover, maxHp);
+        newMp = Math.min(curMp + mpRecover, maxMp);
         socket.emit('system_message', { content: `你在野外休息了一会儿，恢复了${hpRecover}点生命和${mpRecover}点内力。（客栈可完全恢复）` });
       }
-      
-      await user.save();
-      
+
+      await User.findByIdAndUpdate(user._id, { $set: { 'hp.current': newHp, 'mp.current': newMp } });
+
+      // 同步内存中的user对象
+      user.hp.current = newHp;
+      user.hp.max = maxHp;
+      user.mp.current = newMp;
+      user.mp.max = maxMp;
+
       socket.emit('rest_complete', {
-        hp: user.hp,
-        mp: user.mp,
+        hp: { current: newHp, max: maxHp },
+        mp: { current: newMp, max: maxMp },
         fullRecovery: isInn
       });
     });
@@ -2727,6 +2854,8 @@ function socketHandler(io) {
       io.to(`room:${roomId}`).emit('player_left', {
         name: user.characterName
       });
+      // 通知房间剩余玩家刷新
+      io.to(`room:${roomId}`).emit('room_info', getRoomDescription(roomId));
       
       // 更新状态
       user.status = 'offline';

@@ -151,8 +151,16 @@
         "roomId": "forest_cave"
       },
       {
+        "direction": "in",
+        "roomId": "forest_cave"
+      },
+      {
         "direction": "out",
         "roomId": "forest_entrance"
+      },
+      {
+        "direction": "back",
+        "roomId": "swamp_entrance"
       }
     ],
     "features": [

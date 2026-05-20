@@ -1,0 +1,15 @@
+bug list:
+1.客栈休息左边属性显示不正确 ✅ 已修复 (rest从DB重新加载HP/MP max，避免使用过期内存数据)
+2.buy_weapon指令不存在，是要用buy？ ✅ 已修复 (添加buy_weapon/buy_item作为buy的别名)
+3.战斗后用rest没有成功休息 ✅ 已修复 (战斗结束后从DB同步status/hp/mp，避免status被覆盖为fighting)
+4.room 森林深处 in 和 back都是无效的 ✅ 已修复 (添加in→forest_cave, back→swamp_entrance出口)
+
+优化list:
+1.前置任务提示不明确 ✅ 已修复 (错误消息和NPC对话框显示具体缺失的前置任务名称)
+2.游戏引导不明确 ✅ 已修复 (增强欢迎提示含动态引导 + 服务端help命令含上下文提示)
+3.检测到其他玩家离开当前地图时，应当触发一次刷新 ✅ 已修复 (player_left/player_entered/disconnect时广播room_info)
+4.战斗log需要更加详细 ✅ 已修复 (formatLogTurn增加mpCost/hpCost/reflectedDamage/counterDamage/defending/skipped/mutualDefeat)
+5.连续任务（主线）应当要找到对应NPC交接任务 ✅ 已修复 (主线任务添加completionMode:npc+handInNpcId，服务端检查NPC在房间)
+6.任务支持配置（找NPC交任务和自己的任务面板点击完成） ✅ 已修复 (quest配置支持completionMode:npc|panel和handInNpcId字段)
+7.NPC增加文本随机（语义类似） ✅ 已修复 (NPC对话支持数组随机选择，村长/客栈老板/游商等已添加变体)
+8.NPC增加 ✅ 已修复 (新增5个NPC：游商/剑客柳白/沙漠向导/采药老人/城门守卫)

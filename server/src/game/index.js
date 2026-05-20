@@ -143,6 +143,11 @@ function getRoom(roomId) {
   return gameConfig.rooms[roomId] || null;
 }
 
+// 获取NPC配置
+function getNpc(npcId) {
+  return gameConfig.npcs[npcId] || null;
+}
+
 // 获取房间内的NPC
 function getNpcsInRoom(roomId) {
   return Object.values(gameConfig.npcs).filter(npc => npc.roomId === roomId);
@@ -236,6 +241,7 @@ module.exports = {
   initGameSystems,
   getMap,
   getRoom,
+  getNpc,
   getNpcsInRoom,
   getMonstersInRoom,
   getRoomExits,

@@ -23,7 +23,7 @@ module.exports = {
       const auth = this.user && this.password 
         ? `${this.user}:${this.password}@` 
         : '';
-      return `mongodb://${auth}${this.host}:${this.port}/${this.database}`;
+      return `mongodb://${auth}${this.host}:${this.port}/${this.database}?authSource=admin`;
     }
   },
   

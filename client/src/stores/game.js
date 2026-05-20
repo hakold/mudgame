@@ -282,6 +282,11 @@ export const useGameStore = defineStore('game', () => {
     })
     
     socket.value.on('rest_complete', async (data) => {
+      // 立即更新HP/MP显示
+      if (user.value && data.hp) {
+        user.value.hp = data.hp
+        user.value.mp = data.mp
+      }
       if (data.fullRecovery) {
         addMessage('success', '💤 休息完毕，生命和内力完全恢复！')
       } else {
@@ -694,7 +699,9 @@ export const useGameStore = defineStore('game', () => {
         }
         break
       case 'help':
-        addMessage('system', '══════════════════════════════')
+        // Send to server for dynamic help (includes context-sensitive tips)
+        socket.value.emit('help')
+        // Also show basic static reference
         addMessage('system', '【移动命令】')
         addMessage('system', '  look/l - 查看当前房间')
         addMessage('system', '  go/move <方向> - 移动(n/s/e/w/up/down/in/out)')
@@ -762,6 +769,8 @@ export const useGameStore = defineStore('game', () => {
         socket.value.emit('talk_npc', { npcId: args[0] })
         break
       case 'buy':
+      case 'buy_weapon':
+      case 'buy_item':
         socket.value.emit('buy_item', { itemId: args[0] })
         break
       case 'sell':

@@ -29,8 +29,6 @@ const validators = {
   move: (data) => {
     const dir = safeString(data.direction, 20);
     if (!dir) return '无效方向';
-    const validDirs = ['north', 'south', 'east', 'west', 'northeast', 'northwest', 'southeast', 'southwest', 'up', 'down', 'enter', 'out'];
-    if (!validDirs.includes(dir.toLowerCase())) return `无效方向: ${dir}`;
     return null;
   },
 

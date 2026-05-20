@@ -6,7 +6,12 @@
     "roomId": "village_center",
     "type": "quest_giver",
     "dialogues": {
-      "greeting": "年轻人，欢迎来到我们村庄。有什么需要帮助的吗？",
+      "greeting": [
+        "年轻人，欢迎来到我们村庄。有什么需要帮助的吗？",
+        "又见面了，少侠。村子虽然小，但总有些事情需要人手帮忙。",
+        "你来了。最近村外的野兽越发猖獗，村民们都很不安。",
+        "欢迎你，侠客。希望你能为村子做些什么。"
+      ],
       "quest_available": "最近村外的森林里野兽增多，你能帮忙清理一下吗？",
       "quest_accepted": "太好了！去森林入口看看吧。",
       "quest_completed": "辛苦了！这是给你的报酬。"
@@ -30,7 +35,12 @@
       "rumor"
     ],
     "dialogues": {
-      "greeting": "欢迎光临！要住店还是打听消息？",
+      "greeting": [
+        "欢迎光临！要住店还是打听消息？",
+        "客官来得正好，小店还有上房。要住店吗？",
+        "哟，少侠！一看就是赶路累了，进来歇歇脚？",
+        "你好你好，住店50金币，全恢复！"
+      ],
       "rest": "一间房50金币，可以恢复全部HP和MP。",
       "rumor": "最近听说洛阳城来了不少江湖人物..."
     }
@@ -3740,6 +3750,78 @@
     "dialogues": {
       "greeting": "丐帮弟子遍布天下，我负责记录帮中大事。",
       "rumor": "帮主的降龙十八掌练到了第十三掌，剩下五掌据说失传了。"
+    }
+  },
+  {
+    "id": "npc_wandering_merchant",
+    "name": "游商",
+    "roomId": "city_market",
+    "type": "shop",
+    "shopType": "general",
+    "items": ["item_hp_pill_medium", "item_mp_pill_medium", "item_bandage", "item_antidote"],
+    "dialogues": {
+      "greeting": [
+        "走过路过不要错过！我这儿都是好东西！",
+        "全洛阳最好的货，价格公道，童叟无欺！",
+        "刚从西域进的货，来看看有没有需要的？"
+      ]
+    }
+  },
+  {
+    "id": "npc_sword_master",
+    "name": "剑客柳白",
+    "roomId": "bamboo_grove",
+    "type": "trainer",
+    "services": ["train"],
+    "dialogues": {
+      "greeting": [
+        "在下柳白，在此竹林练剑已有十年。你想学剑吗？",
+        "剑之道，在于心。心静则剑快。",
+        "又一位求学者。来吧，让我看看你的根骨。"
+      ]
+    }
+  },
+  {
+    "id": "npc_desert_guide",
+    "name": "沙漠向导",
+    "roomId": "desert_entrance",
+    "type": "service",
+    "services": ["guide", "rumor"],
+    "dialogues": {
+      "greeting": [
+        "沙漠险恶，你确定要进去吗？我可以给你指路。",
+        "我在这沙漠边上住了二十年，没人比我更熟这片沙海。",
+        "迷路的话就找我，不过得给我点路费。"
+      ],
+      "rumor": "传说沙漠深处有一座古城，里面藏着无数财宝，但也危机四伏……"
+    }
+  },
+  {
+    "id": "npc_herb_gatherer",
+    "name": "采药老人",
+    "roomId": "forest_clearing",
+    "type": "service",
+    "services": ["gathering"],
+    "dialogues": {
+      "greeting": [
+        "这森林里到处都是草药，懂行的人才能找到好东西。",
+        "我采了一辈子的药，眼睛一瞄就知道哪株有用。",
+        "你想学采药？先帮我采些蘑菇来吧。"
+      ]
+    }
+  },
+  {
+    "id": "npc_city_guard",
+    "name": "城门守卫",
+    "roomId": "city_gate",
+    "type": "service",
+    "services": ["guide"],
+    "dialogues": {
+      "greeting": [
+        "入城需缴纳过路费……哦不，开个玩笑。请进吧。",
+        "洛阳城欢迎各方侠客。城内禁止私斗，记住了。",
+        "一看你就是习武之人。洛阳城高手如云，注意分寸。"
+      ]
     }
   }
 ]
