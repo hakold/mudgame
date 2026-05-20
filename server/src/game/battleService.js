@@ -848,8 +848,8 @@ class BattleService {
     // 计算奖励（如果玩家获胜）
     if (battle.winner?.userId && battle.type === 'pve') {
       const monster = battle.monster;
-      const expGained = monster.exp || Math.floor(monster.level * 10 * (1 + Math.random() * 0.2));
-      const goldGained = monster.gold || Math.floor(monster.level * 5 * (1 + Math.random() * 0.3));
+      const expGained = monster.exp != null ? monster.exp : Math.floor(monster.level * 10 * (1 + Math.random() * 0.2));
+      const goldGained = monster.gold != null ? monster.gold : Math.floor(monster.level * 5 * (1 + Math.random() * 0.3));
       
       user.exp += expGained;
       user.gold += goldGained;

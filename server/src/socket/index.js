@@ -17,6 +17,24 @@ const { checkSocketRate } = require('../middleware/rateLimiter');
 const { validateEvent } = require('../game/validatorService');
 const antiCheatService = require('../game/antiCheatService');
 
+// 服务名称映射
+const SERVICE_LABELS = {
+  rest: '休息', rumor: '打听消息', shop: '商店', buy_item: '购买', buy_weapon: '买武器',
+  sell_item: '出售', repair: '修理', train: '训练', learn_skill: '学习技能',
+  meditate: '冥想', water: '饮水', pvp: '竞技', quest: '任务', ranking: '排行榜',
+  bank: '钱庄', storage: '仓库', guide: '向导', exchange: '贡献兑换', travel: '出行',
+  fortune: '算命', forge_weapon: '锻造', drink: '饮酒'
+};
+
+// 方向中文映射
+const DIR_LABELS = {
+  north: '北', south: '南', east: '东', west: '西',
+  up: '上', down: '下', in: '进', out: '出', back: '返回',
+  north_east: '东北', north_west: '西北', south_east: '东南', south_west: '西南',
+  temple: '寺院', cave: '洞穴', forge: '锻造', ship: '船上', sail: '航行',
+  cabin: '船舱', deck: '甲板', shore: '岸边'
+};
+
 // 在线玩家映射
 const onlinePlayers = new Map();
 
@@ -2249,23 +2267,51 @@ function socketHandler(io) {
         dialog = `${npc.name}: 欢迎光临！有什么需要帮忙的吗？`;
       }
 
-      // 检查NPC可发布的任务（玩家未完成且未进行中的）
+      // 检查NPC关联的任务，分为三类：
+      // 1. availableQuests — 可接取的
+      // 2. acceptedQuests — 已接取/进行中（显示进度）
+      // 3. completableQuests — 已完成待交任务（显示完成按钮）
       const availableQuests = [];
+      const acceptedQuests = [];
+      const completableQuests = [];
       const npcQuestIds = npc.quests || [];
 
       for (const questId of npcQuestIds) {
         const questConfig = getQuest(questId);
         if (!questConfig) continue;
 
-        // 检查是否已完成（非重复任务）
-        if (!questConfig.repeatable) {
-          const completed = await Quest.findOne({ userId: user._id, questId, status: 'completed', rewardClaimed: true });
-          if (completed) continue;
+        // 检查是否已接取/进行中
+        const existing = await Quest.findOne({ userId: user._id, questId, status: { $in: ['accepted', 'in_progress'] } });
+        if (existing) {
+          acceptedQuests.push({
+            id: questConfig.id,
+            name: questConfig.name,
+            description: questConfig.description,
+            type: questConfig.type,
+            progress: existing.progress || {},
+            status: existing.status
+          });
+          continue;
         }
 
-        // 检查是否已在任务列表中
-        const existing = await Quest.findOne({ userId: user._id, questId, status: { $in: ['accepted', 'in_progress'] } });
-        if (existing) continue;
+        // 检查是否已完成但未领奖（可交任务）
+        const completed = await Quest.findOne({ userId: user._id, questId, status: 'completed', rewardClaimed: false });
+        if (completed) {
+          completableQuests.push({
+            id: questConfig.id,
+            name: questConfig.name,
+            description: questConfig.description,
+            type: questConfig.type,
+            rewards: questConfig.rewards
+          });
+          continue;
+        }
+
+        // 检查是否已彻底完成（已领奖，非重复任务）
+        if (!questConfig.repeatable) {
+          const done = await Quest.findOne({ userId: user._id, questId, status: 'completed', rewardClaimed: true });
+          if (done) continue;
+        }
 
         // 检查前置任务
         let prereqsMet = true;
@@ -2349,6 +2395,8 @@ function socketHandler(io) {
         roomServices: room.services || [],
         message: dialog,
         availableQuests,
+        acceptedQuests,
+        completableQuests,
         factionExchangeInfo
       });
 
@@ -2370,8 +2418,51 @@ function socketHandler(io) {
       if (!rumorNpc) {
         return socket.emit('error', { message: '这里没有可以打听消息的人' });
       }
-      const rumorMsg = rumorNpc.dialogues?.rumor || '最近江湖上风平浪静...';
-      socket.emit('system_message', { content: `${rumorNpc.name}悄悄告诉你：「${rumorMsg}」` });
+
+      // 智能谣言系统：结合NPC对话、任务进度、附近区域生成有用提示
+      const rumorHints = [];
+      // 1. NPC自带的谣言
+      const npcRumor = rumorNpc.dialogues?.rumor;
+      if (npcRumor) rumorHints.push(npcRumor);
+
+      // 2. 当前已接任务的提示
+      const activeQuests = await Quest.find({ userId: user._id, status: { $in: ['accepted', 'in_progress'] } });
+      for (const q of activeQuests.slice(0, 2)) {
+        const cfg = getQuest(q.questId);
+        if (cfg?.hint) rumorHints.push(cfg.hint);
+      }
+
+      // 3. 附近探索提示 (随机一个有怪物的出口方向)
+      if (rumorHints.length < 2 && room.exits?.length > 0) {
+        const randomExit = room.exits[Math.floor(Math.random() * room.exits.length)];
+        const exitRoom = getRoom(randomExit.roomId);
+        if (exitRoom) {
+          const hasMonsters = getMonstersInRoom(randomExit.roomId).length > 0;
+          if (hasMonsters) {
+            rumorHints.push(`${DIR_LABELS[randomExit.direction] || randomExit.direction}边的${exitRoom.name}有怪物出没，去那里练级不错。`);
+          } else {
+            rumorHints.push(`${DIR_LABELS[randomExit.direction] || randomExit.direction}边的${exitRoom.name}值得一探。`);
+          }
+        }
+      }
+
+      // 4. 通用游戏提示
+      const generalTips = [
+        '练武场的教头可以教你基础功夫。',
+        '去铁匠铺买把趁手的武器，打怪更轻松。',
+        '客栈休息可以恢复全部生命和内力。',
+        '加入门派后可以在门派总部学习独门武功。',
+        '功法书可以在背包中使用，有概率直接领悟技能。'
+      ];
+      if (rumorHints.length < 2) {
+        rumorHints.push(generalTips[Math.floor(Math.random() * generalTips.length)]);
+      }
+
+      const rumorMsg = rumorHints.length > 0
+        ? rumorHints[Math.floor(Math.random() * Math.min(2, rumorHints.length))]
+        : '最近江湖上风平浪静...';
+
+      socket.emit('system_message', { content: `💬 ${rumorNpc.name}悄悄告诉你：「${rumorMsg}」` });
       socket.emit('npc_dialog', {
         npc: { id: rumorNpc.id, name: rumorNpc.name, description: rumorNpc.description, type: rumorNpc.type, services: rumorNpc.services },
         roomServices: room.services || [],
@@ -2430,10 +2521,11 @@ function socketHandler(io) {
         return socket.emit('error', { message: '这里没有商店' });
       }
       
-      // 根据房间类型返回不同商品，附带库存信息
+      // 根据房间类型返回不同商品，附带库存和出售价信息
       const shopItems = getShopItems(resolveShopType(room)).map(item => ({
         ...item,
-        stock: getShopStock(room.id, item.id)
+        stock: getShopStock(room.id, item.id),
+        sellPrice: item.sellPrice || Math.floor((item.price || 0) * 0.4)
       }));
       socket.emit('shop_items', { items: shopItems, roomName: room.name });
     });
@@ -2933,20 +3025,23 @@ async function checkAndAwardAchievements(userId) {
 function getRoomDescription(roomId) {
   const room = getRoom(roomId);
   if (!room) return null;
-  
+
   const players = getPlayersInRoom(roomId);
   const npcs = getNpcsInRoom(roomId);
   const monsters = getMonstersInRoom(roomId);
-  const exits = getRoomExits(roomId);
-  
+  const exits = getRoomExits(roomId).map(e => ({
+    ...e,
+    label: DIR_LABELS[e.direction] || e.direction
+  }));
+
   return {
     id: room.id,
     name: room.name,
     description: room.description,
-    services: room.services || [],
+    services: room.services?.map(s => SERVICE_LABELS[s] || s) || [],
     exits,
     players: players.map(p => ({ name: p.name, level: p.level })),
-    npcs: npcs.map(n => ({ id: n.id, name: n.name })),
+    npcs: npcs.map(n => ({ id: n.id, name: n.name, type: n.type, factionId: n.factionId })),
     monsters: monsters.map(m => ({ id: m.id, name: m.name, level: m.level }))
   };
 }

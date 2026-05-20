@@ -35,4 +35,28 @@
 - 支持 `use <物品名称>` 客户端命令
 
 ## 配置数据规模
-rooms:164 / npcs:249 / monsters:129 / items:272 / skills:90 / quests:54 / factionQuests:41
+rooms:164 / npcs:252 / monsters:129 / items:272 / skills:90 / quests:54 / factionQuests:41
+
+## 测试流程 (必须)
+
+**每次开发完成后必须执行:**
+
+```bash
+# 阶段1+2: 离线测试 (无需服务器，必须全部通过)
+node tests/run_all.js
+
+# 阶段3+4: 集成测试 (需要启动服务器)
+node tests/run_all.js --full
+```
+
+**测试模块:**
+- `tests/config.test.js` — 配置验证: ID唯一性/必需字段/交叉引用/房间连通/怪物等级/装备覆盖/任务链
+- `tests/game.test.js` — 游戏逻辑: 战斗公式/经验曲线/物品堆叠/装备槽位/任务目标/掉落率/功法书/门派
+- `tests/api.test.js` — REST API: 注册/登录/获取背包/技能/任务
+- `tests/socket.test.js` — Socket.IO全流程: 注册→连接→移动→对话→战斗→背包→门派→断连重连
+- `tests/run_all.js` — 主运行器
+
+**新增功能后必须:**
+1. 在对应测试模块添加新测试用例
+2. 运行 `node tests/run_all.js` 确保回归通过
+3. 在 `tests/README.md` 末尾「测试用例登记表」记录本次新增用例

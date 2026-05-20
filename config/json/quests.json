@@ -18,7 +18,8 @@
       "exp": 100,
       "gold": 50
     },
-    "nextQuest": "quest_buy_weapon"
+    "nextQuest": "quest_buy_weapon",
+    "hint": "去村庄广场找村长对话，他会指引你踏上江湖之路。"
   },
   {
     "id": "quest_buy_weapon",
@@ -40,7 +41,8 @@
       "exp": 200,
       "gold": 100
     },
-    "nextQuest": "quest_kill_boars"
+    "nextQuest": "quest_kill_boars",
+    "hint": "去铁匠铺(村庄广场向西)买把武器。"
   },
   {
     "id": "quest_kill_boars",
@@ -66,7 +68,8 @@
         "armor_leather"
       ]
     },
-    "nextQuest": "quest_join_faction"
+    "nextQuest": "quest_join_faction",
+    "hint": "去森林入口(村庄广场向外)猎杀3只野猪。"
   },
   {
     "id": "quest_join_faction",
@@ -85,7 +88,8 @@
       "exp": 500,
       "gold": 200
     },
-    "nextQuest": "quest_learn_skill"
+    "nextQuest": "quest_learn_skill",
+    "hint": "去山顶的青云观找门派弟子，加入一个门派。"
   },
   {
     "id": "quest_learn_skill",
@@ -104,7 +108,8 @@
       "exp": 400,
       "gold": 100
     },
-    "nextQuest": "quest_explore_forest"
+    "nextQuest": "quest_explore_forest",
+    "hint": "加入门派后，找门派导师学习技能。"
   },
   {
     "id": "quest_explore_forest",
@@ -124,7 +129,8 @@
       "exp": 600,
       "gold": 300
     },
-    "nextQuest": "quest_kill_wolf_king"
+    "nextQuest": "quest_kill_wolf_king",
+    "hint": "深入探索森林：林间空地、神秘洞穴和密林深处都要走遍。"
   },
   {
     "id": "quest_kill_wolf_king",
@@ -148,7 +154,8 @@
         "item_wolf_king_fang"
       ]
     },
-    "nextQuest": "quest_enter_city"
+    "nextQuest": "quest_enter_city",
+    "hint": "去林间空地击败狼王(10级BOSS)。"
   },
   {
     "id": "quest_enter_city",
@@ -168,7 +175,8 @@
       "exp": 800,
       "gold": 400
     },
-    "nextQuest": "quest_city_guild"
+    "nextQuest": "quest_city_guild",
+    "hint": "穿过山道前往洛阳城，开启新的冒险。"
   },
   {
     "id": "quest_city_guild",
@@ -188,7 +196,8 @@
       "exp": 500,
       "gold": 200
     },
-    "nextQuest": "quest_bandit_bounty"
+    "nextQuest": "quest_bandit_bounty",
+    "hint": "去洛阳城的侠客公会(广场向西)接取新的任务。"
   },
   {
     "id": "quest_bandit_bounty",
@@ -212,7 +221,8 @@
         "weapon_iron_sword"
       ]
     },
-    "nextQuest": "quest_mountain_temple"
+    "nextQuest": "quest_mountain_temple",
+    "hint": "去山道(洛阳城南)讨伐山贼。"
   },
   {
     "id": "quest_mountain_temple",
@@ -236,7 +246,8 @@
       "exp": 2000,
       "gold": 1000
     },
-    "nextQuest": "quest_desert_explore"
+    "nextQuest": "quest_desert_explore",
+    "hint": "去山顶的青云观一探究竟。"
   },
   {
     "id": "quest_desert_explore",
@@ -260,7 +271,8 @@
       "exp": 1500,
       "gold": 600
     },
-    "nextQuest": "quest_tomb_secret"
+    "nextQuest": "quest_tomb_secret",
+    "hint": "穿过洛阳城前往大沙漠探险。"
   },
   {
     "id": "quest_tomb_secret",
@@ -288,7 +300,8 @@
         "item_cursed_gem"
       ]
     },
-    "nextQuest": "quest_poison_dragon"
+    "nextQuest": "quest_poison_dragon",
+    "hint": "在沙漠古城遗址找到地下陵墓的秘密。"
   },
   {
     "id": "quest_poison_dragon",
@@ -313,7 +326,8 @@
         "weapon_steel_sword"
       ]
     },
-    "nextQuest": "quest_fire_dragon"
+    "nextQuest": "quest_fire_dragon",
+    "hint": "前往沼泽深处的毒龙巢穴，击败毒龙。"
   },
   {
     "id": "quest_fire_dragon",
@@ -338,7 +352,8 @@
         "weapon_xuantie_sword"
       ]
     },
-    "nextQuest": "quest_demon_lord"
+    "nextQuest": "quest_demon_lord",
+    "hint": "前往火山口的火龙巢穴，击败火龙。"
   },
   {
     "id": "quest_demon_lord",
@@ -362,7 +377,8 @@
         "item_demon_lord_essence",
         "weapon_fire_dragon_sword"
       ]
-    }
+    },
+    "hint": "进入魔域，打败魔王拯救天下。"
   },
   {
     "id": "quest_daily_kill_monsters",

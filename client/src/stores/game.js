@@ -448,9 +448,10 @@ export const useGameStore = defineStore('game', () => {
     socket.value.on('shop_items', (data) => {
       addMessage('shop', `【${data.roomName}商店】`)
       data.items.forEach(item => {
-        addMessage('shop', `  [${item.id}] ${item.name} - ${item.price}金币 - ${item.description}`)
+        const sellInfo = item.sellPrice ? ` | 出售价:${item.sellPrice}金` : ''
+        addMessage('shop', `  [${item.id}] ${item.name} - 买${item.price}金 / 卖${item.sellPrice || '?'}金 - ${item.description}`)
       })
-      addMessage('shop', '输入 buy <物品ID或名称> 购买，例如: buy 木剑 或 buy item_hp_potion_small')
+      addMessage('shop', '输入 buy <物品ID或名称> 购买，例如: buy 木剑')
     })
     
     socket.value.on('item_bought', async (data) => {

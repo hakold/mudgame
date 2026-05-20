@@ -106,6 +106,29 @@
         <div class="quest-dialog">
           <div class="quest-dialog-title">【{{ gameStore.npcDialog.npc.name }}】</div>
           <div class="quest-dialog-message">{{ gameStore.npcDialog.message }}</div>
+          <!-- 可交任务 -->
+          <div v-if="gameStore.npcDialog.completableQuests?.length" class="quest-offer-list">
+            <div class="quest-offer-title completable">✅ 可交任务：</div>
+            <div v-for="quest in gameStore.npcDialog.completableQuests" :key="'comp-'+quest.id" class="quest-offer-item completable">
+              <div class="quest-offer-info">
+                <div class="quest-offer-name">{{ quest.name }}</div>
+                <div class="quest-offer-desc">{{ quest.description }}</div>
+                <div class="quest-offer-rewards">奖励: {{ quest.rewards.exp ? quest.rewards.exp + '经验 ' : '' }}{{ quest.rewards.gold ? quest.rewards.gold + '金币' : '' }}{{ quest.rewards.items?.length ? ' +物品' : '' }}</div>
+              </div>
+              <button class="quest-accept-btn complete-btn" @click="completeQuest(quest.id)">完成</button>
+            </div>
+          </div>
+          <!-- 已接任务 -->
+          <div v-if="gameStore.npcDialog.acceptedQuests?.length" class="quest-offer-list">
+            <div class="quest-offer-title accepted">⏳ 已接任务：</div>
+            <div v-for="quest in gameStore.npcDialog.acceptedQuests" :key="'acc-'+quest.id" class="quest-offer-item accepted">
+              <div class="quest-offer-info">
+                <div class="quest-offer-name">{{ quest.name }}</div>
+                <div class="quest-offer-desc">状态: {{ quest.status === 'in_progress' ? '进行中' : '已接取' }}</div>
+              </div>
+            </div>
+          </div>
+          <!-- 可接任务 -->
           <div v-if="gameStore.npcDialog.availableQuests.length" class="quest-offer-list">
             <div class="quest-offer-title">📋 可接任务：</div>
             <div
@@ -133,7 +156,7 @@
               >接受</button>
             </div>
           </div>
-          <div v-else class="quest-offer-empty">该NPC暂无适合你的任务</div>
+          <div v-if="!gameStore.npcDialog.availableQuests.length && !gameStore.npcDialog.acceptedQuests?.length && !gameStore.npcDialog.completableQuests?.length" class="quest-offer-empty">该NPC暂无适合你的任务</div>
           <!-- 门派贡献兑换 -->
           <div v-if="gameStore.npcDialog.factionExchangeInfo" class="faction-exchange-section">
             <div v-if="gameStore.npcDialog.factionExchangeInfo.noFaction" class="exchange-hint">
@@ -405,7 +428,7 @@
         <button class="quick-btn" @click="quickCommand('inventory')">🎒 背包</button>
         <button class="quick-btn" @click="quickCommand('skills')">⚔️ 技能</button>
         <button class="quick-btn" @click="quickCommand('quests')">📜 任务</button>
-        <button class="quick-btn" @click="quickCommand('faction')">🏯 门派</button>
+        <button v-if="hasFactionNpc" class="quick-btn" @click="quickCommand('faction')">🏯 门派</button>
       </div>
     </div>
     
@@ -425,6 +448,15 @@
       <div class="menu-content">
         <!-- 背包 -->
         <div v-if="activeTab === 'inventory'">
+          <!-- 装备槽位 -->
+          <div class="equipment-slots">
+            <div class="equip-slots-title">⚔️ 装备栏</div>
+            <div v-for="slot in equipmentSlots" :key="slot.key" class="equip-slot-row">
+              <span class="equip-slot-label">{{ slot.label }}</span>
+              <span class="equip-slot-item" :class="{ empty: !slot.item }">{{ slot.item ? getItemName(slot.item.itemId) : '空' }}</span>
+              <span v-if="slot.item" class="equip-slot-stats">{{ getItemStats(slot.item.itemId) }}</span>
+            </div>
+          </div>
           <div v-for="item in inventory" :key="item._id" class="inventory-item">
             <div class="item-header">
               <span class="item-name" :class="itemRarity(item)">{{ getItemName(item.itemId) }}</span>
@@ -706,6 +738,26 @@ const factionName = computed(() => {
   return faction?.name || gameStore.user.faction
 })
 
+const hasFactionNpc = computed(() => {
+  return (gameStore.currentRoom?.npcs || []).some(n => n.type === 'faction')
+})
+
+const equipmentSlots = computed(() => {
+  const slots = [
+    { key: 'weapon', label: '🗡️ 武器' },
+    { key: 'armor', label: '🛡️ 铠甲' },
+    { key: 'helmet', label: '⛑️ 头盔' },
+    { key: 'boots', label: '👢 靴子' },
+    { key: 'ring', label: '💍 戒指' },
+    { key: 'accessory', label: '📿 饰品' }
+  ]
+  const equipped = (gameStore.inventory || []).filter(i => i.isEquipped)
+  return slots.map(s => ({
+    ...s,
+    item: equipped.find(i => i.equipSlot === s.key) || null
+  }))
+})
+
 const currentMap = computed(() => {
   if (!gameStore.currentRoom || !gameStore.gameConfig) return null
   const roomId = gameStore.currentRoom.id
@@ -953,6 +1005,11 @@ function getQuestObjectives(quest) {
 
 function acceptQuest(questId) {
   gameStore.socket?.emit('accept_quest', { questId })
+  gameStore.npcDialog = null
+}
+
+function completeQuest(questId) {
+  gameStore.socket?.emit('complete_quest', { questId })
   gameStore.npcDialog = null
 }
 
@@ -1586,6 +1643,51 @@ onUnmounted(() => {
 }
 .quest-accept-btn:hover { background: #66b3ff; }
 .quest-offer-empty { color: #777; font-size: 13px; margin-bottom: 12px; }
+.quest-offer-title.completable { color: #4caf50; }
+.quest-offer-title.accepted { color: #ff9800; }
+.quest-offer-item.completable { border-color: #4caf50; background: rgba(76,175,80,0.08); }
+.quest-offer-item.accepted { border-color: #ff9800; background: rgba(255,152,0,0.05); }
+.complete-btn { background: #4caf50 !important; }
+.complete-btn:hover { background: #388e3c !important; }
+
+/* 装备槽位 */
+.equipment-slots {
+  background: rgba(255,255,255,0.03);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #2a2a4a;
+}
+.equip-slots-title {
+  color: #e94560;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+.equip-slot-row {
+  display: flex;
+  align-items: center;
+  padding: 4px 0;
+  gap: 8px;
+  font-size: 13px;
+}
+.equip-slot-label {
+  color: #888;
+  width: 70px;
+  flex-shrink: 0;
+}
+.equip-slot-item {
+  color: #eee;
+  flex: 1;
+}
+.equip-slot-item.empty {
+  color: #555;
+  font-style: italic;
+}
+.equip-slot-stats {
+  color: #8b8;
+  font-size: 11px;
+}
 .quest-close-btn {
   width: 100%;
   padding: 8px;
