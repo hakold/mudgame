@@ -3691,5 +3691,1005 @@
     "stackable": true,
     "maxStack": 99,
     "sellPrice": 14
+  },
+  {
+    "id": "item_deer_hide",
+    "name": "鹿皮",
+    "type": "material",
+    "description": "柔软的小鹿皮，制作皮甲的基础材料",
+    "price": 25,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 10
+  },
+  {
+    "id": "item_crocodile_skin",
+    "name": "鳄鱼皮",
+    "type": "material",
+    "description": "坚韧的鳄鱼皮，制作高级皮甲的材料",
+    "price": 150,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 60
+  },
+  {
+    "id": "item_sharkskin",
+    "name": "鲨鱼皮",
+    "type": "material",
+    "description": "粗糙的鲨鱼皮，防水耐磨",
+    "price": 180,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 72
+  },
+  {
+    "id": "item_wyvern_hide",
+    "name": "双足飞龙皮",
+    "type": "material",
+    "description": "双足飞龙的外皮，制作顶级皮甲的材料",
+    "price": 800,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 320
+  },
+  {
+    "id": "item_basilisk_skin",
+    "name": "蜥蜴王皮",
+    "type": "material",
+    "description": "石化蜥蜴的外皮，天然具有抗魔性",
+    "price": 600,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 240
+  },
+  {
+    "id": "item_yeti_fur",
+    "name": "雪人毛皮",
+    "type": "material",
+    "description": "雪人的厚实毛皮，极寒地区的保暖极品",
+    "price": 350,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 140
+  },
+  {
+    "id": "item_polar_bear_fur",
+    "name": "北极熊皮",
+    "type": "material",
+    "description": "北极熊的白色毛皮，保暖且美观",
+    "price": 250,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 100
+  },
+  {
+    "id": "item_shadow_leather",
+    "name": "暗影皮革",
+    "type": "material",
+    "description": "暗影界生物的皮，轻如无物却坚韧无比",
+    "price": 1200,
+    "stackable": true,
+    "maxStack": 15,
+    "sellPrice": 480
+  },
+  {
+    "id": "item_golden_fleece",
+    "name": "金羊毛",
+    "type": "material",
+    "description": "传说中金羊的毛，刀枪不入水火不侵",
+    "price": 3000,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 1200
+  },
+  {
+    "id": "item_hydra_scale",
+    "name": "九头蛇鳞",
+    "type": "material",
+    "description": "九头蛇的鳞片，拥有强大的再生能力",
+    "price": 2500,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 1000
+  },
+  {
+    "id": "item_peacock_feather",
+    "name": "孔雀翎",
+    "type": "material",
+    "description": "美丽的孔雀尾羽，可用于制作饰品",
+    "price": 120,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 48
+  },
+  {
+    "id": "item_crane_feather",
+    "name": "仙鹤羽",
+    "type": "material",
+    "description": "仙鹤的羽毛，轻盈洁白",
+    "price": 150,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 60
+  },
+  {
+    "id": "item_raven_feather",
+    "name": "渡鸦羽毛",
+    "type": "material",
+    "description": "渡鸦的黑羽，据说能带来厄运",
+    "price": 80,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 32
+  },
+  {
+    "id": "item_owl_feather",
+    "name": "猫头鹰翎",
+    "type": "material",
+    "description": "猫头鹰的翎毛，蕴含智慧之力",
+    "price": 100,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 40
+  },
+  {
+    "id": "item_swan_feather",
+    "name": "天鹅绒羽",
+    "type": "material",
+    "description": "天鹅的绒羽，柔软保暖",
+    "price": 90,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 36
+  },
+  {
+    "id": "item_falcon_feather",
+    "name": "猎鹰飞羽",
+    "type": "material",
+    "description": "猎鹰的飞行羽毛，蕴含速度之力",
+    "price": 130,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 52
+  },
+  {
+    "id": "item_pegasus_feather",
+    "name": "天马羽",
+    "type": "material",
+    "description": "传说中天马的羽毛，蕴含飞翔之力",
+    "price": 1000,
+    "stackable": true,
+    "maxStack": 15,
+    "sellPrice": 400
+  },
+  {
+    "id": "item_roc_feather",
+    "name": "大鹏金翅",
+    "type": "material",
+    "description": "大鹏鸟的金色翅羽，遮天蔽日之大",
+    "price": 2000,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 800
+  },
+  {
+    "id": "item_ivory",
+    "name": "象牙",
+    "type": "material",
+    "description": "洁白细腻的象牙，雕刻工艺品的上等材料",
+    "price": 500,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 200
+  },
+  {
+    "id": "item_rhino_horn",
+    "name": "犀牛角",
+    "type": "material",
+    "description": "粗壮的犀牛角，可入药也可制器",
+    "price": 350,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 140
+  },
+  {
+    "id": "item_deer_antler",
+    "name": "鹿茸",
+    "type": "material",
+    "description": "珍贵的鹿茸，滋补圣品",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_turtle_shell",
+    "name": "龟甲",
+    "type": "material",
+    "description": "坚硬的龟甲，天然护盾材料",
+    "price": 180,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 72
+  },
+  {
+    "id": "item_crab_shell",
+    "name": "巨蟹壳",
+    "type": "material",
+    "description": "巨型螃蟹的壳，防御力惊人",
+    "price": 120,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 48
+  },
+  {
+    "id": "item_nautilus_shell",
+    "name": "鹦鹉螺壳",
+    "type": "material",
+    "description": "精美的鹦鹉螺壳，天然的螺旋美学",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_wyvern_fang",
+    "name": "飞龙毒牙",
+    "type": "material",
+    "description": "飞龙的毒牙，毒性猛烈",
+    "price": 400,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 160
+  },
+  {
+    "id": "item_mammoth_tusk",
+    "name": "猛犸象牙",
+    "type": "material",
+    "description": "远古猛犸的象牙，巨大而稀有",
+    "price": 1500,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 600
+  },
+  {
+    "id": "item_demon_skull",
+    "name": "恶魔头骨",
+    "type": "material",
+    "description": "高级恶魔的头骨，散发着邪恶的气息",
+    "price": 800,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 320
+  },
+  {
+    "id": "item_ancient_bone",
+    "name": "远古兽骨",
+    "type": "material",
+    "description": "远古巨兽的骨头，石化后坚硬如铁",
+    "price": 600,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 240
+  },
+  {
+    "id": "item_mint",
+    "name": "薄荷",
+    "type": "material",
+    "description": "清凉的薄荷叶，可制作提神药剂",
+    "price": 20,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 8
+  },
+  {
+    "id": "item_ginger",
+    "name": "生姜",
+    "type": "material",
+    "description": "辛辣的生姜，驱寒暖身",
+    "price": 25,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 10
+  },
+  {
+    "id": "item_garlic",
+    "name": "大蒜",
+    "type": "material",
+    "description": "辛辣的大蒜，据说能辟邪",
+    "price": 15,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 6
+  },
+  {
+    "id": "item_belladonna",
+    "name": "颠茄",
+    "type": "material",
+    "description": "剧毒的颠茄，微量可入药",
+    "price": 100,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 40
+  },
+  {
+    "id": "item_mandrake",
+    "name": "曼德拉草",
+    "type": "material",
+    "description": "传说中拔出来会尖叫的奇异草药",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_nightshade",
+    "name": "夜影草",
+    "type": "material",
+    "description": "只在夜间开花的毒草，暗杀者的最爱",
+    "price": 150,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 60
+  },
+  {
+    "id": "item_sun_flower",
+    "name": "向日葵",
+    "type": "material",
+    "description": "永远朝向太阳的花，蕴含光明之力",
+    "price": 80,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 32
+  },
+  {
+    "id": "item_moon_flower",
+    "name": "月光花",
+    "type": "material",
+    "description": "只在月光下绽放的花，蕴含月华之力",
+    "price": 120,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 48
+  },
+  {
+    "id": "item_lotus",
+    "name": "莲花",
+    "type": "material",
+    "description": "出淤泥而不染的莲花，净化心灵的圣物",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_wolfsbane",
+    "name": "狼毒草",
+    "type": "material",
+    "description": "对狼族致命的毒草，猎狼人的必备品",
+    "price": 60,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 24
+  },
+  {
+    "id": "item_dragon_blood_tree",
+    "name": "龙血树汁",
+    "type": "material",
+    "description": "龙血树的红色树脂，药效极强",
+    "price": 350,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 140
+  },
+  {
+    "id": "item_immortal_herb",
+    "name": "仙草",
+    "type": "material",
+    "description": "传说中的不死仙草，极其稀有",
+    "price": 2000,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 800
+  },
+  {
+    "id": "item_rice",
+    "name": "大米",
+    "type": "material",
+    "description": "白花花的大米，烹饪的基础食材",
+    "price": 10,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 4
+  },
+  {
+    "id": "item_wheat",
+    "name": "小麦",
+    "type": "material",
+    "description": "金黄的小麦，可磨成面粉",
+    "price": 8,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 3
+  },
+  {
+    "id": "item_egg",
+    "name": "鸡蛋",
+    "type": "material",
+    "description": "新鲜的鸡蛋，营养丰富",
+    "price": 5,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 2
+  },
+  {
+    "id": "item_milk",
+    "name": "牛奶",
+    "type": "material",
+    "description": "新鲜的牛奶，滋补养颜",
+    "price": 10,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 4
+  },
+  {
+    "id": "item_salt",
+    "name": "食盐",
+    "type": "material",
+    "description": "洁白的食盐，调味必备",
+    "price": 8,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 3
+  },
+  {
+    "id": "item_sugar",
+    "name": "白糖",
+    "type": "material",
+    "description": "甜甜的白糖，甜品必备",
+    "price": 15,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 6
+  },
+  {
+    "id": "item_chili",
+    "name": "辣椒",
+    "type": "material",
+    "description": "火红的辣椒，让人热血沸腾",
+    "price": 12,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 5
+  },
+  {
+    "id": "item_soy_sauce",
+    "name": "酱油",
+    "type": "material",
+    "description": "醇厚的酱油，提鲜调味",
+    "price": 20,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 8
+  },
+  {
+    "id": "item_vinegar",
+    "name": "陈醋",
+    "type": "material",
+    "description": "酸香的陈醋，开胃消食",
+    "price": 18,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 7
+  },
+  {
+    "id": "item_cooking_wine",
+    "name": "料酒",
+    "type": "material",
+    "description": "烹饪用的料酒，去腥增香",
+    "price": 25,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 10
+  },
+  {
+    "id": "item_tea_leaves",
+    "name": "茶叶",
+    "type": "material",
+    "description": "上等茶叶，沏一壶好茶",
+    "price": 50,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 20
+  },
+  {
+    "id": "item_truffle",
+    "name": "松露",
+    "type": "material",
+    "description": "地下生长的珍贵松露，顶级食材",
+    "price": 400,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 160
+  },
+  {
+    "id": "item_quicksilver",
+    "name": "水银",
+    "type": "material",
+    "description": "流动的液态金属，炼金术的基础材料",
+    "price": 150,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 60
+  },
+  {
+    "id": "item_sulfur",
+    "name": "硫磺",
+    "type": "material",
+    "description": "火山口采集的硫磺，易燃易爆",
+    "price": 80,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 32
+  },
+  {
+    "id": "item_phosphorus",
+    "name": "磷粉",
+    "type": "material",
+    "description": "墓地采集的磷粉，黑暗中会发光",
+    "price": 60,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 24
+  },
+  {
+    "id": "item_saltpeter",
+    "name": "硝石",
+    "type": "material",
+    "description": "洞穴中采集的硝石，可制火药",
+    "price": 70,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 28
+  },
+  {
+    "id": "item_ichor",
+    "name": "灵液",
+    "type": "material",
+    "description": "从仙兽体内提炼的灵液，蕴含生命力",
+    "price": 500,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 200
+  },
+  {
+    "id": "item_elixir_base",
+    "name": "药基",
+    "type": "material",
+    "description": "炼制丹药的基础溶剂",
+    "price": 100,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 40
+  },
+  {
+    "id": "item_philosopher_stone",
+    "name": "贤者之石",
+    "type": "material",
+    "description": "炼金术的终极追求，传说能点石成金",
+    "price": 10000,
+    "stackable": true,
+    "maxStack": 5,
+    "sellPrice": 4000
+  },
+  {
+    "id": "item_magic_ink",
+    "name": "魔法墨水",
+    "type": "material",
+    "description": "用特殊材料调制的墨水，用于抄写卷轴",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_enchanted_paper",
+    "name": "附魔纸",
+    "type": "material",
+    "description": "可承载魔法的特殊纸张",
+    "price": 150,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 60
+  },
+  {
+    "id": "item_blank_scroll",
+    "name": "空白卷轴",
+    "type": "material",
+    "description": "等待被写入魔法的空白卷轴",
+    "price": 100,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 40
+  },
+  {
+    "id": "item_platinum_ore",
+    "name": "铂金矿石",
+    "type": "material",
+    "description": "稀有的铂金矿，比黄金更珍贵",
+    "price": 800,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 320
+  },
+  {
+    "id": "item_titanium_ore",
+    "name": "钛矿石",
+    "type": "material",
+    "description": "极其坚固的钛矿，锻造神兵的材料",
+    "price": 1500,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 600
+  },
+  {
+    "id": "item_cobalt_ore",
+    "name": "钴矿石",
+    "type": "material",
+    "description": "深蓝色的钴矿，蕴含魔法力量",
+    "price": 400,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 160
+  },
+  {
+    "id": "item_magnetite",
+    "name": "磁铁矿石",
+    "type": "material",
+    "description": "天然磁石，可吸附金属",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_steel_ingot",
+    "name": "钢锭",
+    "type": "material",
+    "description": "经过精炼的钢锭，锻造高级装备的基础",
+    "price": 300,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 120
+  },
+  {
+    "id": "item_bronze_ingot",
+    "name": "青铜锭",
+    "type": "material",
+    "description": "铜锡合金的锭，锻造中级装备的材料",
+    "price": 100,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 40
+  },
+  {
+    "id": "item_iron_ingot",
+    "name": "铁锭",
+    "type": "material",
+    "description": "经过冶炼的铁锭，基础锻造材料",
+    "price": 60,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 24
+  },
+  {
+    "id": "item_mythril_ingot",
+    "name": "秘银锭",
+    "type": "material",
+    "description": "精炼后的秘银锭，闪烁着银光",
+    "price": 600,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 240
+  },
+  {
+    "id": "item_rune_fire",
+    "name": "火焰符文",
+    "type": "material",
+    "description": "刻有火焰符文的石板，可用于武器附魔",
+    "price": 400,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 160
+  },
+  {
+    "id": "item_rune_ice",
+    "name": "冰霜符文",
+    "type": "material",
+    "description": "刻有冰霜符文的石板，可用于武器附魔",
+    "price": 400,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 160
+  },
+  {
+    "id": "item_rune_lightning",
+    "name": "雷电符文",
+    "type": "material",
+    "description": "刻有雷电符文的石板，可用于武器附魔",
+    "price": 500,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 200
+  },
+  {
+    "id": "item_rune_poison",
+    "name": "剧毒符文",
+    "type": "material",
+    "description": "刻有剧毒符文的石板，可用于武器附魔",
+    "price": 350,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 140
+  },
+  {
+    "id": "item_rune_healing",
+    "name": "治愈符文",
+    "type": "material",
+    "description": "刻有治愈符文的石板，可用于防具附魔",
+    "price": 450,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 180
+  },
+  {
+    "id": "item_rune_protection",
+    "name": "防护符文",
+    "type": "material",
+    "description": "刻有防护符文的石板，可用于防具附魔",
+    "price": 450,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 180
+  },
+  {
+    "id": "item_rune_vampire",
+    "name": "吸血符文",
+    "type": "material",
+    "description": "刻有吸血符文的石板，可用于武器附魔",
+    "price": 600,
+    "stackable": true,
+    "maxStack": 15,
+    "sellPrice": 240
+  },
+  {
+    "id": "item_rune_void",
+    "name": "虚空符文",
+    "type": "material",
+    "description": "刻有虚空符文的石板，可用于终极附魔",
+    "price": 2000,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 800
+  },
+  {
+    "id": "item_gold_nugget",
+    "name": "金块",
+    "type": "material",
+    "description": "天然的金块，价值不菲",
+    "price": 1000,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 500
+  },
+  {
+    "id": "item_silver_nugget",
+    "name": "银块",
+    "type": "material",
+    "description": "天然的银块，颇具价值",
+    "price": 400,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 200
+  },
+  {
+    "id": "item_dragon_egg",
+    "name": "龙蛋",
+    "type": "material",
+    "description": "一颗龙蛋——小心，它可能随时孵化",
+    "price": 5000,
+    "stackable": true,
+    "maxStack": 5,
+    "sellPrice": 2000
+  },
+  {
+    "id": "item_phoenix_egg",
+    "name": "凤凰蛋",
+    "type": "material",
+    "description": "一颗凤凰蛋，散发着温暖的光芒",
+    "price": 5000,
+    "stackable": true,
+    "maxStack": 5,
+    "sellPrice": 2000
+  },
+  {
+    "id": "item_mermaid_tear",
+    "name": "鲛人泪",
+    "type": "material",
+    "description": "鲛人落下的泪珠，化作了珍珠",
+    "price": 800,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 320
+  },
+  {
+    "id": "item_ghost_orb",
+    "name": "幽灵宝珠",
+    "type": "material",
+    "description": "幽灵的能量核心，漂浮在空中散发微光",
+    "price": 300,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 120
+  },
+  {
+    "id": "item_memory_crystal",
+    "name": "记忆水晶",
+    "type": "material",
+    "description": "可以存储记忆的水晶，触摸可看到过去的影像",
+    "price": 600,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 240
+  },
+  {
+    "id": "item_star_fragment",
+    "name": "星辰碎片",
+    "type": "material",
+    "description": "从天上坠落的星辰碎片，蕴含着星光",
+    "price": 1200,
+    "stackable": true,
+    "maxStack": 15,
+    "sellPrice": 480
+  },
+  {
+    "id": "item_dimensional_dust",
+    "name": "次元尘埃",
+    "type": "material",
+    "description": "虚空中的尘埃，蕴含着穿越空间的力量",
+    "price": 1500,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 600
+  },
+  {
+    "id": "item_treasure_map",
+    "name": "藏宝图碎片",
+    "type": "material",
+    "description": "一张古老藏宝图的碎片，收集完整后可找到宝藏",
+    "price": 300,
+    "stackable": true,
+    "maxStack": 10,
+    "sellPrice": 120
+  },
+  {
+    "id": "item_ancient_key",
+    "name": "古老钥匙",
+    "type": "material",
+    "description": "一把锈迹斑斑的古老钥匙，不知能打开什么",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 20,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_compass",
+    "name": "指南针",
+    "type": "material",
+    "description": "一个精巧的指南针，永远指向北方",
+    "price": 150,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 60
+  },
+  {
+    "id": "item_hemp",
+    "name": "麻绳",
+    "type": "material",
+    "description": "粗麻绳，结实耐用",
+    "price": 12,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 5
+  },
+  {
+    "id": "item_wool",
+    "name": "羊毛",
+    "type": "material",
+    "description": "柔软的羊毛，保暖性好",
+    "price": 25,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 10
+  },
+  {
+    "id": "item_leather_strap",
+    "name": "皮绳",
+    "type": "material",
+    "description": "坚韧的皮绳，可用于制作护甲绑带",
+    "price": 30,
+    "stackable": true,
+    "maxStack": 99,
+    "sellPrice": 12
+  },
+  {
+    "id": "item_velvet",
+    "name": "天鹅绒",
+    "type": "material",
+    "description": "华丽的天鹅绒，贵族的最爱",
+    "price": 200,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_brocade",
+    "name": "锦缎",
+    "type": "material",
+    "description": "精美的锦缎，绣有吉祥图案",
+    "price": 300,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 120
+  },
+  {
+    "id": "item_red_dye",
+    "name": "朱砂",
+    "type": "material",
+    "description": "鲜红的朱砂，可用于染色和炼丹",
+    "price": 80,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 32
+  },
+  {
+    "id": "item_indigo",
+    "name": "靛蓝",
+    "type": "material",
+    "description": "深蓝色的靛蓝染料，从蓝草中提取",
+    "price": 70,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 28
+  },
+  {
+    "id": "item_ochre",
+    "name": "赭石",
+    "type": "material",
+    "description": "黄褐色的赭石粉末，最古老的颜料之一",
+    "price": 50,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 20
+  },
+  {
+    "id": "item_malachite",
+    "name": "孔雀石绿",
+    "type": "material",
+    "description": "翠绿色的孔雀石粉末，鲜艳的绿色颜料",
+    "price": 90,
+    "stackable": true,
+    "maxStack": 50,
+    "sellPrice": 36
+  },
+  {
+    "id": "item_gold_leaf",
+    "name": "金箔",
+    "type": "material",
+    "description": "薄如蝉翼的金箔，装饰顶级装备",
+    "price": 500,
+    "stackable": true,
+    "maxStack": 30,
+    "sellPrice": 200
   }
 ]
