@@ -22,7 +22,33 @@
       "skill_shaolin_divine"
     ],
     "color": "#FFD700",
-    "entryExamId": "faction_exam_shaolin"
+    "entryExamId": "faction_exam_shaolin",
+    "ranks": [
+      {
+        "rank": "disciple",
+        "name": "弟子",
+        "requiredReputation": 0,
+        "requiredLevel": 0
+      },
+      {
+        "rank": "deacon",
+        "name": "执事",
+        "requiredReputation": 100,
+        "requiredLevel": 10
+      },
+      {
+        "rank": "elder",
+        "name": "长老",
+        "requiredReputation": 500,
+        "requiredLevel": 25
+      },
+      {
+        "rank": "leader",
+        "name": "掌门",
+        "requiredReputation": 2000,
+        "requiredLevel": 50
+      }
+    ]
   },
   {
     "id": "wudang",
@@ -46,7 +72,33 @@
       "skill_zhenwu_sword"
     ],
     "color": "#4169E1",
-    "entryExamId": "faction_exam_wudang"
+    "entryExamId": "faction_exam_wudang",
+    "ranks": [
+      {
+        "rank": "disciple",
+        "name": "弟子",
+        "requiredReputation": 0,
+        "requiredLevel": 0
+      },
+      {
+        "rank": "deacon",
+        "name": "执事",
+        "requiredReputation": 100,
+        "requiredLevel": 10
+      },
+      {
+        "rank": "elder",
+        "name": "长老",
+        "requiredReputation": 500,
+        "requiredLevel": 25
+      },
+      {
+        "rank": "leader",
+        "name": "掌门",
+        "requiredReputation": 2000,
+        "requiredLevel": 50
+      }
+    ]
   },
   {
     "id": "emei",
@@ -71,7 +123,33 @@
       "skill_emei_divine"
     ],
     "color": "#FF69B4",
-    "entryExamId": "faction_exam_emei"
+    "entryExamId": "faction_exam_emei",
+    "ranks": [
+      {
+        "rank": "disciple",
+        "name": "弟子",
+        "requiredReputation": 0,
+        "requiredLevel": 0
+      },
+      {
+        "rank": "deacon",
+        "name": "执事",
+        "requiredReputation": 100,
+        "requiredLevel": 10
+      },
+      {
+        "rank": "elder",
+        "name": "长老",
+        "requiredReputation": 500,
+        "requiredLevel": 25
+      },
+      {
+        "rank": "leader",
+        "name": "掌门",
+        "requiredReputation": 2000,
+        "requiredLevel": 50
+      }
+    ]
   },
   {
     "id": "beggar",
@@ -95,7 +173,33 @@
       "skill_dragon_subdue"
     ],
     "color": "#8B4513",
-    "entryExamId": "faction_exam_beggar"
+    "entryExamId": "faction_exam_beggar",
+    "ranks": [
+      {
+        "rank": "disciple",
+        "name": "弟子",
+        "requiredReputation": 0,
+        "requiredLevel": 0
+      },
+      {
+        "rank": "deacon",
+        "name": "执事",
+        "requiredReputation": 100,
+        "requiredLevel": 10
+      },
+      {
+        "rank": "elder",
+        "name": "长老",
+        "requiredReputation": 500,
+        "requiredLevel": 25
+      },
+      {
+        "rank": "leader",
+        "name": "掌门",
+        "requiredReputation": 2000,
+        "requiredLevel": 50
+      }
+    ]
   },
   {
     "id": "mingjiao",
@@ -120,7 +224,33 @@
       "skill_burn_heaven"
     ],
     "color": "#FF4500",
-    "entryExamId": "faction_exam_mingjiao"
+    "entryExamId": "faction_exam_mingjiao",
+    "ranks": [
+      {
+        "rank": "disciple",
+        "name": "弟子",
+        "requiredReputation": 0,
+        "requiredLevel": 0
+      },
+      {
+        "rank": "deacon",
+        "name": "执事",
+        "requiredReputation": 100,
+        "requiredLevel": 10
+      },
+      {
+        "rank": "elder",
+        "name": "长老",
+        "requiredReputation": 500,
+        "requiredLevel": 25
+      },
+      {
+        "rank": "leader",
+        "name": "掌门",
+        "requiredReputation": 2000,
+        "requiredLevel": 50
+      }
+    ]
   },
   {
     "id": "xiaoyao",
@@ -142,6 +272,32 @@
       "skill_bahuang"
     ],
     "color": "#9370DB",
-    "entryExamId": "faction_exam_xiaoyao"
+    "entryExamId": "faction_exam_xiaoyao",
+    "ranks": [
+      {
+        "rank": "disciple",
+        "name": "弟子",
+        "requiredReputation": 0,
+        "requiredLevel": 0
+      },
+      {
+        "rank": "deacon",
+        "name": "执事",
+        "requiredReputation": 100,
+        "requiredLevel": 10
+      },
+      {
+        "rank": "elder",
+        "name": "长老",
+        "requiredReputation": 500,
+        "requiredLevel": 25
+      },
+      {
+        "rank": "leader",
+        "name": "掌门",
+        "requiredReputation": 2000,
+        "requiredLevel": 50
+      }
+    ]
   }
 ]

@@ -12,7 +12,8 @@
       5,
       15
     ],
-    "learnPrice": 0
+    "learnPrice": 0,
+    "factionId": "general"
   },
   {
     "id": "skill_heal_basic",
@@ -27,7 +28,8 @@
       20,
       40
     ],
-    "learnPrice": 50
+    "learnPrice": 50,
+    "factionId": "general"
   },
   {
     "id": "skill_meditation",
@@ -37,7 +39,8 @@
     "faction": "general",
     "requireLevel": 1,
     "mpRegen": 5,
-    "learnPrice": 100
+    "learnPrice": 100,
+    "factionId": "general"
   },
   {
     "id": "skill_charge",
@@ -50,7 +53,8 @@
       15,
       25
     ],
-    "stunChance": 0.2
+    "stunChance": 0.2,
+    "factionId": "general"
   },
   {
     "id": "skill_bite",
@@ -62,7 +66,8 @@
     "damage": [
       20,
       35
-    ]
+    ],
+    "factionId": "general"
   },
   {
     "id": "skill_poison_bite",
@@ -76,7 +81,8 @@
       20
     ],
     "poisonDamage": 15,
-    "poisonDuration": 3
+    "poisonDuration": 3,
+    "factionId": "general"
   },
   {
     "id": "skill_howl",
@@ -88,7 +94,8 @@
     "buff": {
       "attack": 20,
       "duration": 3
-    }
+    },
+    "factionId": "general"
   },
   {
     "id": "skill_bear_hug",
@@ -101,7 +108,8 @@
       30,
       50
     ],
-    "stunChance": 0.3
+    "stunChance": 0.3,
+    "factionId": "general"
   },
   {
     "id": "skill_tiger_roar",
@@ -114,7 +122,8 @@
       25,
       40
     ],
-    "fearChance": 0.15
+    "fearChance": 0.15,
+    "factionId": "general"
   },
   {
     "id": "skill_pounce",
@@ -126,7 +135,8 @@
     "damage": [
       40,
       60
-    ]
+    ],
+    "factionId": "general"
   },
   {
     "id": "skill_venom_sting",
@@ -140,7 +150,8 @@
       25
     ],
     "poisonDamage": 30,
-    "poisonDuration": 5
+    "poisonDuration": 5,
+    "factionId": "general"
   },
   {
     "id": "skill_curse",
@@ -153,7 +164,8 @@
       "attack": -10,
       "defense": -10,
       "duration": 5
-    }
+    },
+    "factionId": "general"
   },
   {
     "id": "skill_life_drain",
@@ -166,7 +178,8 @@
       20,
       30
     ],
-    "healPercent": 0.5
+    "healPercent": 0.5,
+    "factionId": "general"
   },
   {
     "id": "skill_ice_bite",
@@ -179,7 +192,8 @@
       25,
       40
     ],
-    "freezeChance": 0.2
+    "freezeChance": 0.2,
+    "factionId": "general"
   },
   {
     "id": "skill_frost_howl",
@@ -192,7 +206,8 @@
       30,
       50
     ],
-    "freezeChance": 0.25
+    "freezeChance": 0.25,
+    "factionId": "general"
   },
   {
     "id": "skill_ice_strike",
@@ -205,7 +220,8 @@
       50,
       80
     ],
-    "freezeChance": 0.3
+    "freezeChance": 0.3,
+    "factionId": "general"
   },
   {
     "id": "skill_freeze",
@@ -215,7 +231,8 @@
     "faction": "monster",
     "mpCost": 50,
     "freezeChance": 0.5,
-    "freezeDuration": 2
+    "freezeDuration": 2,
+    "factionId": "general"
   },
   {
     "id": "skill_poison_spit",
@@ -229,7 +246,8 @@
       35
     ],
     "poisonDamage": 25,
-    "poisonDuration": 4
+    "poisonDuration": 4,
+    "factionId": "general"
   },
   {
     "id": "skill_acid_pool",
@@ -243,7 +261,8 @@
       50
     ],
     "dotDamage": 20,
-    "dotDuration": 3
+    "dotDuration": 3,
+    "factionId": "general"
   },
   {
     "id": "skill_poison_breath",
@@ -257,7 +276,8 @@
       120
     ],
     "poisonDamage": 50,
-    "poisonDuration": 5
+    "poisonDuration": 5,
+    "factionId": "general"
   },
   {
     "id": "skill_tail_sweep",
@@ -269,7 +289,8 @@
     "damage": [
       60,
       100
-    ]
+    ],
+    "factionId": "general"
   },
   {
     "id": "skill_dragon_roar",
@@ -281,7 +302,8 @@
     "buff": {
       "attack": 50,
       "duration": 5
-    }
+    },
+    "factionId": "general"
   },
   {
     "id": "skill_fire_breath",
@@ -295,7 +317,8 @@
       150
     ],
     "burnDamage": 30,
-    "burnDuration": 3
+    "burnDuration": 3,
+    "factionId": "general"
   },
   {
     "id": "skill_dragon_claw",
@@ -307,7 +330,8 @@
     "damage": [
       80,
       120
-    ]
+    ],
+    "factionId": "general"
   },
   {
     "id": "skill_meteor",
@@ -319,7 +343,8 @@
     "damage": [
       150,
       200
-    ]
+    ],
+    "factionId": "general"
   },
   {
     "id": "skill_dark_slash",
@@ -331,7 +356,8 @@
     "damage": [
       50,
       80
-    ]
+    ],
+    "factionId": "general"
   },
   {
     "id": "skill_shadow_step",
@@ -343,7 +369,8 @@
     "buff": {
       "dexterity": 30,
       "duration": 3
-    }
+    },
+    "factionId": "general"
   },
   {
     "id": "skill_darkness_wave",
@@ -355,7 +382,8 @@
     "damage": [
       200,
       300
-    ]
+    ],
+    "factionId": "general"
   },
   {
     "id": "skill_demon_form",
@@ -368,7 +396,8 @@
       "attack": 100,
       "defense": 50,
       "duration": 10
-    }
+    },
+    "factionId": "general"
   },
   {
     "id": "skill_hell_fire",
@@ -382,7 +411,8 @@
       350
     ],
     "burnDamage": 50,
-    "burnDuration": 5
+    "burnDuration": 5,
+    "factionId": "general"
   },
   {
     "id": "skill_soul_reap",
@@ -395,7 +425,8 @@
       300,
       500
     ],
-    "healPercent": 0.3
+    "healPercent": 0.3,
+    "factionId": "general"
   },
   {
     "id": "skill_shaolin_fist",
@@ -409,7 +440,8 @@
       20,
       40
     ],
-    "learnPrice": 500
+    "learnPrice": 500,
+    "factionId": "shaolin"
   },
   {
     "id": "skill_shaolin_palm",
@@ -423,7 +455,8 @@
       40,
       70
     ],
-    "learnPrice": 1500
+    "learnPrice": 1500,
+    "factionId": "shaolin"
   },
   {
     "id": "skill_yijinjing",
@@ -437,7 +470,8 @@
       "constitution": 10,
       "duration": 999
     },
-    "learnPrice": 5000
+    "learnPrice": 5000,
+    "factionId": "shaolin"
   },
   {
     "id": "skill_wudang_fist",
@@ -452,7 +486,8 @@
       45
     ],
     "counterChance": 0.2,
-    "learnPrice": 500
+    "learnPrice": 500,
+    "factionId": "wudang"
   },
   {
     "id": "skill_wudang_sword",
@@ -466,7 +501,8 @@
       45,
       75
     ],
-    "learnPrice": 1500
+    "learnPrice": 1500,
+    "factionId": "wudang"
   },
   {
     "id": "skill_tiyunzong",
@@ -480,7 +516,8 @@
       "dexterity": 50,
       "duration": 5
     },
-    "learnPrice": 3000
+    "learnPrice": 3000,
+    "factionId": "wudang"
   },
   {
     "id": "skill_emei_sword",
@@ -494,7 +531,8 @@
       20,
       40
     ],
-    "learnPrice": 500
+    "learnPrice": 500,
+    "factionId": "emei"
   },
   {
     "id": "skill_jiuyang",
@@ -508,7 +546,8 @@
       100,
       200
     ],
-    "learnPrice": 2000
+    "learnPrice": 2000,
+    "factionId": "emei"
   },
   {
     "id": "skill_gaibang_stick",
@@ -522,7 +561,8 @@
       35,
       60
     ],
-    "learnPrice": 1000
+    "learnPrice": 1000,
+    "factionId": "beggar"
   },
   {
     "id": "skill_xianglong",
@@ -536,7 +576,8 @@
       100,
       180
     ],
-    "learnPrice": 10000
+    "learnPrice": 10000,
+    "factionId": "beggar"
   },
   {
     "id": "skill_mingjiao_qiankun",
@@ -550,7 +591,8 @@
       "reflectDamage": 15,
       "duration": 3
     },
-    "learnPrice": 8000
+    "learnPrice": 8000,
+    "factionId": "mingjiao"
   },
   {
     "id": "skill_mingjiao_fire",
@@ -566,7 +608,8 @@
     ],
     "burnDamage": 20,
     "burnDuration": 2,
-    "learnPrice": 2500
+    "learnPrice": 2500,
+    "factionId": "mingjiao"
   },
   {
     "id": "skill_bandit_blade",
@@ -578,7 +621,8 @@
     "damage": [
       15,
       30
-    ]
+    ],
+    "factionId": "general"
   },
   {
     "id": "skill_intimidate",
@@ -590,7 +634,8 @@
     "debuff": {
       "attack": -15,
       "duration": 3
-    }
+    },
+    "factionId": "general"
   },
   {
     "id": "skill_dark_strike",
@@ -602,7 +647,8 @@
     "damage": [
       40,
       70
-    ]
+    ],
+    "factionId": "general"
   },
   {
     "id": "skill_blood_sacrifice",
@@ -615,7 +661,8 @@
     "damage": [
       80,
       120
-    ]
+    ],
+    "factionId": "general"
   },
   {
     "id": "skill_guard_strike",
@@ -627,7 +674,8 @@
     "damage": [
       35,
       55
-    ]
+    ],
+    "factionId": "general"
   },
   {
     "id": "skill_shield_wall",
@@ -639,7 +687,8 @@
     "buff": {
       "defense": 30,
       "duration": 4
-    }
+    },
+    "factionId": "general"
   },
   {
     "id": "skill_water_jet",
@@ -651,7 +700,8 @@
     "damage": [
       40,
       65
-    ]
+    ],
+    "factionId": "general"
   },
   {
     "id": "skill_coil",
@@ -661,7 +711,8 @@
     "faction": "monster",
     "mpCost": 20,
     "stunChance": 0.4,
-    "stunDuration": 2
+    "stunDuration": 2,
+    "factionId": "general"
   },
   {
     "id": "skill_holy_light",
@@ -673,7 +724,8 @@
     "damage": [
       60,
       100
-    ]
+    ],
+    "factionId": "general"
   },
   {
     "id": "skill_fireball",
@@ -687,7 +739,8 @@
       85
     ],
     "burnDamage": 15,
-    "burnDuration": 2
+    "burnDuration": 2,
+    "factionId": "general"
   },
   {
     "id": "skill_flame_shield",
@@ -700,7 +753,8 @@
       "defense": 20,
       "reflectDamage": 10,
       "duration": 3
-    }
+    },
+    "factionId": "general"
   },
   {
     "id": "skill_shaolin_staff",
@@ -716,7 +770,8 @@
       30,
       50
     ],
-    "learnPrice": 800
+    "learnPrice": 800,
+    "factionId": "shaolin"
   },
   {
     "id": "skill_golden_bell",
@@ -732,7 +787,8 @@
       "defense": 40,
       "duration": 4
     },
-    "learnPrice": 2000
+    "learnPrice": 2000,
+    "factionId": "shaolin"
   },
   {
     "id": "skill_lion_roar",
@@ -749,7 +805,8 @@
       "duration": 3
     },
     "fearChance": 0.3,
-    "learnPrice": 3000
+    "learnPrice": 3000,
+    "factionId": "shaolin"
   },
   {
     "id": "skill_damo_sword",
@@ -765,7 +822,8 @@
       80,
       130
     ],
-    "learnPrice": 6000
+    "learnPrice": 6000,
+    "factionId": "shaolin"
   },
   {
     "id": "skill_xisuijing",
@@ -776,7 +834,8 @@
     "requireLevel": 40,
     "rankRequired": "elder",
     "hpRegen": 30,
-    "learnPrice": 8000
+    "learnPrice": 8000,
+    "factionId": "shaolin"
   },
   {
     "id": "skill_shaolin_divine",
@@ -793,7 +852,8 @@
       250
     ],
     "stunChance": 0.3,
-    "learnPrice": 15000
+    "learnPrice": 15000,
+    "factionId": "shaolin"
   },
   {
     "id": "skill_wudang_xinfa",
@@ -804,7 +864,8 @@
     "requireLevel": 10,
     "rankRequired": "disciple",
     "mpRegen": 8,
-    "learnPrice": 800
+    "learnPrice": 800,
+    "factionId": "wudang"
   },
   {
     "id": "skill_liangyi_sword",
@@ -820,7 +881,8 @@
       50,
       80
     ],
-    "learnPrice": 2000
+    "learnPrice": 2000,
+    "factionId": "wudang"
   },
   {
     "id": "skill_taiji_jin",
@@ -837,7 +899,8 @@
       "defense": 30,
       "duration": 5
     },
-    "learnPrice": 4000
+    "learnPrice": 4000,
+    "factionId": "wudang"
   },
   {
     "id": "skill_chunyang",
@@ -853,7 +916,8 @@
       150,
       300
     ],
-    "learnPrice": 5000
+    "learnPrice": 5000,
+    "factionId": "wudang"
   },
   {
     "id": "skill_zhenwu_sword",
@@ -870,7 +934,8 @@
       220
     ],
     "counterChance": 0.25,
-    "learnPrice": 12000
+    "learnPrice": 12000,
+    "factionId": "wudang"
   },
   {
     "id": "skill_emei_xinfa",
@@ -881,7 +946,8 @@
     "requireLevel": 8,
     "rankRequired": "disciple",
     "healBonus": 0.2,
-    "learnPrice": 500
+    "learnPrice": 500,
+    "factionId": "emei"
   },
   {
     "id": "skill_yunv_sword",
@@ -897,7 +963,8 @@
       35,
       60
     ],
-    "learnPrice": 1500
+    "learnPrice": 1500,
+    "factionId": "emei"
   },
   {
     "id": "skill_jinding_light",
@@ -914,7 +981,8 @@
       "dexterity": 30,
       "duration": 4
     },
-    "learnPrice": 3000
+    "learnPrice": 3000,
+    "factionId": "emei"
   },
   {
     "id": "skill_emei_thorn",
@@ -932,7 +1000,8 @@
     ],
     "dotDamage": 20,
     "dotDuration": 3,
-    "learnPrice": 4000
+    "learnPrice": 4000,
+    "factionId": "emei"
   },
   {
     "id": "skill_mercy_palm",
@@ -949,7 +1018,8 @@
       120
     ],
     "healPercent": 0.3,
-    "learnPrice": 5000
+    "learnPrice": 5000,
+    "factionId": "emei"
   },
   {
     "id": "skill_jiutian_xuangong",
@@ -965,7 +1035,8 @@
       300,
       500
     ],
-    "learnPrice": 8000
+    "learnPrice": 8000,
+    "factionId": "emei"
   },
   {
     "id": "skill_emei_divine",
@@ -984,7 +1055,8 @@
     "stunChance": 0.2,
     "dotDamage": 30,
     "dotDuration": 3,
-    "learnPrice": 15000
+    "learnPrice": 15000,
+    "factionId": "emei"
   },
   {
     "id": "skill_gaibang_xinfa",
@@ -995,7 +1067,8 @@
     "requireLevel": 8,
     "rankRequired": "disciple",
     "attackBonus": 10,
-    "learnPrice": 500
+    "learnPrice": 500,
+    "factionId": "beggar"
   },
   {
     "id": "skill_lotus_palm",
@@ -1011,7 +1084,8 @@
       40,
       70
     ],
-    "learnPrice": 1500
+    "learnPrice": 1500,
+    "factionId": "beggar"
   },
   {
     "id": "skill_drunken_fist",
@@ -1028,7 +1102,8 @@
       80
     ],
     "dodgeChance": 0.25,
-    "learnPrice": 2500
+    "learnPrice": 2500,
+    "factionId": "beggar"
   },
   {
     "id": "skill_gaibang_formation",
@@ -1044,7 +1119,8 @@
       "attack": 50,
       "duration": 4
     },
-    "learnPrice": 4000
+    "learnPrice": 4000,
+    "factionId": "beggar"
   },
   {
     "id": "skill_kanglong",
@@ -1061,7 +1137,8 @@
       260
     ],
     "stunChance": 0.3,
-    "learnPrice": 12000
+    "learnPrice": 12000,
+    "factionId": "beggar"
   },
   {
     "id": "skill_dragon_subdue",
@@ -1079,7 +1156,8 @@
     ],
     "fearChance": 0.2,
     "stunChance": 0.2,
-    "learnPrice": 18000
+    "learnPrice": 18000,
+    "factionId": "beggar"
   },
   {
     "id": "skill_mingjiao_xinfa",
@@ -1090,7 +1168,8 @@
     "requireLevel": 10,
     "rankRequired": "disciple",
     "attackBonus": 12,
-    "learnPrice": 800
+    "learnPrice": 800,
+    "factionId": "mingjiao"
   },
   {
     "id": "skill_blazing_blade",
@@ -1108,7 +1187,8 @@
     ],
     "burnDamage": 15,
     "burnDuration": 2,
-    "learnPrice": 1500
+    "learnPrice": 1500,
+    "factionId": "mingjiao"
   },
   {
     "id": "skill_holy_flame_order",
@@ -1125,7 +1205,8 @@
       "dexterity": 25,
       "duration": 4
     },
-    "learnPrice": 3000
+    "learnPrice": 3000,
+    "factionId": "mingjiao"
   },
   {
     "id": "skill_light_fist",
@@ -1142,7 +1223,8 @@
       170
     ],
     "stunChance": 0.15,
-    "learnPrice": 7000
+    "learnPrice": 7000,
+    "factionId": "mingjiao"
   },
   {
     "id": "skill_burn_heaven",
@@ -1160,7 +1242,8 @@
     ],
     "burnDamage": 50,
     "burnDuration": 4,
-    "learnPrice": 16000
+    "learnPrice": 16000,
+    "factionId": "mingjiao"
   },
   {
     "id": "skill_xiaoyao_xinfa",
@@ -1175,7 +1258,8 @@
       "dexterity": 10,
       "duration": 999
     },
-    "learnPrice": 2000
+    "learnPrice": 2000,
+    "factionId": "xiaoyao"
   },
   {
     "id": "skill_lingbo_weibu",
@@ -1191,7 +1275,8 @@
       "dexterity": 60,
       "duration": 4
     },
-    "learnPrice": 3000
+    "learnPrice": 3000,
+    "factionId": "xiaoyao"
   },
   {
     "id": "skill_beiming",
@@ -1208,7 +1293,8 @@
       110
     ],
     "mpSteal": 30,
-    "learnPrice": 5000
+    "learnPrice": 5000,
+    "factionId": "xiaoyao"
   },
   {
     "id": "skill_xiaoyao_sword",
@@ -1224,7 +1310,8 @@
       55,
       95
     ],
-    "learnPrice": 3500
+    "learnPrice": 3500,
+    "factionId": "xiaoyao"
   },
   {
     "id": "skill_tianshan_liuyang",
@@ -1242,7 +1329,8 @@
     ],
     "burnDamage": 25,
     "burnDuration": 3,
-    "learnPrice": 8000
+    "learnPrice": 8000,
+    "factionId": "xiaoyao"
   },
   {
     "id": "skill_bahuang",
@@ -1261,7 +1349,8 @@
       "constitution": 30,
       "duration": 5
     },
-    "learnPrice": 20000
+    "learnPrice": 20000,
+    "factionId": "xiaoyao"
   },
   {
     "id": "skill_fenyin_bu",
@@ -1277,6 +1366,7 @@
       "dexterity": 50,
       "duration": 3
     },
-    "learnPrice": 4000
+    "learnPrice": 4000,
+    "factionId": "mingjiao"
   }
 ]
