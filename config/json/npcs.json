@@ -168,8 +168,8 @@
       "quest_mountain_temple",
       "quest_desert_explore",
       "quest_tomb_secret",
-      "quest_poison_dragon",
-      "quest_fire_dragon",
+      "quest_poison_jiao",
+      "quest_fire_jiao",
       "quest_demon_lord",
       "quest_side_bandit_clear",
       "quest_side_ice_cave",
@@ -189,7 +189,7 @@
       "quest_mushroom_forest",
       "quest_snow_monastery",
       "quest_bamboo_temple",
-      "quest_dragon_graveyard",
+      "quest_jiao_graveyard",
       "quest_phoenix_feather",
       "quest_time_tower",
       "quest_shadow_realm",
@@ -199,7 +199,7 @@
       "quest_void_edge",
       "quest_jade_palace",
       "quest_underground_river",
-      "quest_dragon_palace",
+      "quest_jiao_palace",
       "quest_volcano_core",
       "quest_underground_city",
       "quest_warrior_tombs",
@@ -223,7 +223,7 @@
       "quest_side_heaven_gate",
       "quest_side_jade_guardian",
       "quest_side_ice_phoenix",
-      "quest_side_thunder_dragon",
+      "quest_side_thunder_jiao",
       "quest_side_eternal_guard",
       "quest_side_frozen_giant"
     ],
@@ -884,7 +884,7 @@
       "skill_gaibang_formation",
       "skill_kanglong",
       "skill_xianglong",
-      "skill_dragon_subdue"
+      "skill_jiao_subdue"
     ],
     "dialogues": {
       "greeting": [
@@ -1255,7 +1255,7 @@
       "skill_shaolin_divine",
       "skill_zhenwu_sword",
       "skill_emei_divine",
-      "skill_dragon_subdue",
+      "skill_jiao_subdue",
       "skill_burn_heaven",
       "skill_bahuang"
     ],
@@ -1394,7 +1394,7 @@
       "greeting": [
         "是谁擅闯我冰宫？……罢了，来者是客。"
       ],
-      "quest_available": "既然你来了，帮我处理掉冰洞里的那些冰魔。"
+      "quest_available": "既然你来了，帮我清除冰洞里的那些冰魔。"
     }
   },
   {
@@ -1418,23 +1418,23 @@
     "roomId": "swamp_island",
     "type": "quest_giver",
     "quests": [
-      "quest_poison_dragon"
+      "quest_poison_jiao"
     ],
     "dialogues": {
       "greeting": [
         "我在这沼泽住了二十年，终于有人来了。"
       ],
-      "quest_available": "毒龙霸占了北边的巢穴，你能除掉它吗？"
+      "quest_available": "毒蛟霸占了北边的巢穴，你能除掉它吗？"
     }
   },
   {
-    "id": "npc_dragon_hunter",
-    "name": "屠龙者",
+    "id": "npc_jiao_hunter",
+    "name": "斩蛟者",
     "roomId": "swamp_lair",
     "type": "service",
     "dialogues": {
       "greeting": [
-        "你也是来屠龙的？小心，它可不是吃素的。"
+        "你也是来斩蛟的？小心，它可不是吃素的。"
       ],
       "default": "我已经在这里蹲了三天了，龙还没出来。"
     }
@@ -1575,19 +1575,19 @@
         "别看我这样，这山里最好的矿石只有我能找到！"
       ],
       "buy": "都是火山特产，别处挖不到的。",
-      "rumor": "火龙巢穴里据说有块陨铁，是打造神器的材料。"
+      "rumor": "火蛟巢穴里据说有块陨铁，是打造神器的材料。"
     }
   },
   {
-    "id": "npc_dragon_keeper",
+    "id": "npc_jiao_keeper",
     "name": "养龙人",
     "roomId": "volcano_lair",
     "type": "service",
     "dialogues": {
       "greeting": [
-        "嘘……火龙在睡觉，别吵醒它。"
+        "嘘……火蛟在睡觉，别吵醒它。"
       ],
-      "default": "我照顾火龙二十年了，它的脾气我最清楚。"
+      "default": "我照顾火蛟二十年了，它的脾气我最清楚。"
     }
   },
   {
@@ -1924,7 +1924,7 @@
       "learn_skill"
     ],
     "skills": [
-      "skill_dragon_subdue",
+      "skill_jiao_subdue",
       "skill_kanglong",
       "skill_gaibang_formation"
     ],
@@ -1932,7 +1932,7 @@
       "greeting": [
         "议事厅乃丐帮重地，非帮中大员不得进入。"
       ],
-      "learn": "降龙伏虎是我丐帮至高绝学，看好了！"
+      "learn": "伏蛟伏虎是我丐帮至高绝学，看好了！"
     }
   },
   {
@@ -2008,7 +2008,7 @@
         "在这沼泽活了十年，别人都叫我疯子。"
       ],
       "guide": "往北是孤岛，小心别陷进泥潭。",
-      "rumor": "孤岛北边是毒龙巢穴，不过毒龙可不是好惹的。"
+      "rumor": "孤岛北边是毒蛟巢穴，不过毒蛟可不是好惹的。"
     }
   },
   {
@@ -2040,7 +2040,7 @@
         "这冰天雪地的，你怎么来的？"
       ],
       "guide": "往南是关隘，往东是冰洞。雪狼群常在这片雪原游荡。",
-      "rumor": "冰魔最近异常活跃，不知道冰洞里发生了什么。"
+      "rumor": "冰魔最近异常活跃，不知冰洞深处有何变故。"
     }
   },
   {
@@ -2291,7 +2291,7 @@
     "shopType": "general",
     "items": [
       "item_phoenix_feather",
-      "item_dragon_bone",
+      "item_jiao_bone",
       "item_meteorite",
       "item_celestial_silk",
       "item_immortal_pearl",
@@ -2701,13 +2701,13 @@
     "roomId": "swamp_village",
     "type": "quest_giver",
     "quests": [
-      "quest_poison_dragon"
+      "quest_poison_jiao"
     ],
     "dialogues": {
       "greeting": [
         "外来人……你已经走遍了沼泽的每个角落。"
       ],
-      "quest_available": "毒龙盘踞北方巢穴，威胁着我们的生存。帮我们除掉它！"
+      "quest_available": "毒蛟盘踞北方巢穴，威胁着我们的生存。帮我们除掉它！"
     }
   },
   {
@@ -3179,9 +3179,9 @@
     }
   },
   {
-    "id": "npc_dragon_priest",
+    "id": "npc_jiao_priest",
     "name": "龙祝",
-    "roomId": "dragon_shrine",
+    "roomId": "jiao_shrine",
     "type": "service",
     "services": [
       "meditate",
@@ -3200,7 +3200,7 @@
     "roomId": "phoenix_peak",
     "type": "quest_giver",
     "quests": [
-      "quest_fire_dragon"
+      "quest_fire_jiao"
     ],
     "dialogues": {
       "greeting": [
@@ -3497,7 +3497,7 @@
       "skill_shaolin_divine",
       "skill_zhenwu_sword",
       "skill_emei_divine",
-      "skill_dragon_subdue",
+      "skill_jiao_subdue",
       "skill_burn_heaven",
       "skill_bahuang"
     ],
@@ -3714,7 +3714,7 @@
     "shopType": "herb",
     "items": [
       "item_toxic_gland",
-      "item_mutated_skin",
+      "item_alien_skin",
       "item_toad_venom",
       "item_herb",
       "item_antidote",
@@ -3794,7 +3794,7 @@
     "items": [
       "item_bear_paw_feast",
       "item_tiger_bone_soup",
-      "item_dragon_feast",
+      "item_jiao_feast",
       "item_meat_stew",
       "item_roast_meat"
     ],
@@ -4019,7 +4019,7 @@
     }
   },
   {
-    "id": "npc_dragon_princess",
+    "id": "npc_jiao_princess",
     "name": "龙女",
     "roomId": "coral_garden",
     "type": "quest_giver",
@@ -4028,7 +4028,7 @@
     ],
     "dialogues": {
       "greeting": [
-        "凡人能到龙宫来，真是稀客。"
+        "凡人能到水府来，真是稀客。"
       ],
       "rumor": "父王最近心情不好，因为定海神珍被偷了。"
     }
@@ -4036,14 +4036,14 @@
   {
     "id": "npc_turtle_advisor",
     "name": "龟丞相",
-    "roomId": "dragon_palace",
+    "roomId": "jiao_palace",
     "type": "service",
     "services": [
       "guide"
     ],
     "dialogues": {
       "greeting": [
-        "老臣在龙宫当差八百年，见过不少凡人闯进来。"
+        "老臣在水府当差八百年，见过不少凡人闯进来。"
       ],
       "guide": "珊瑚园在那边，龙王殿在宫内。不过龙王最近脾气不好。"
     }
@@ -4129,7 +4129,7 @@
       "greeting": [
         "在海上漂了四十年，什么怪事都见过。"
       ],
-      "rumor": "海底有座龙宫，据说龙王的宝座上镶满了夜明珠。"
+      "rumor": "海底有座水府，据说龙王的宝座上镶满了夜明珠。"
     }
   },
   {
@@ -4251,7 +4251,7 @@
       "greeting": [
         "丐帮弟子遍布天下，我负责记录帮中大事。"
       ],
-      "rumor": "帮主的降龙十八掌练到了第十三掌，剩下五掌据说失传了。"
+      "rumor": "帮主的伏蛟十八掌练到了第十三掌，剩下五掌据说失传了。"
     }
   },
   {

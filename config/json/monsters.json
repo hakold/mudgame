@@ -355,8 +355,8 @@
     "respawnTime": 360
   },
   {
-    "id": "monster_ice_golem",
-    "name": "冰傀儡",
+    "id": "monster_ice_demon",
+    "name": "冰魔",
     "level": 35,
     "hp": 800,
     "mp": 200,
@@ -382,7 +382,7 @@
     "respawnTime": 720
   },
   {
-    "id": "monster_swamp_creature",
+    "id": "monster_swamp_beast",
     "name": "沼泽毒兽",
     "level": 30,
     "hp": 550,
@@ -397,20 +397,20 @@
         "rate": 0.3
       },
       {
-        "itemId": "item_mutated_skin",
+        "itemId": "item_alien_skin",
         "rate": 0.2
       }
     ],
     "skills": [
-      "skill_poison_spit",
-      "skill_acid_pool"
+      "skill_poison_fog",
+      "skill_corrosive_fog"
     ],
     "roomId": "swamp_deep",
     "respawnTime": 480
   },
   {
-    "id": "monster_poison_dragon",
-    "name": "毒龙",
+    "id": "monster_poison_jiao",
+    "name": "毒蛟",
     "level": 45,
     "hp": 1500,
     "mp": 500,
@@ -420,22 +420,22 @@
     "gold": 800,
     "drops": [
       {
-        "itemId": "item_dragon_scale",
+        "itemId": "item_jiao_scale",
         "rate": 0.3
       },
       {
-        "itemId": "item_dragon_venom",
+        "itemId": "item_jiao_venom",
         "rate": 0.2
       },
       {
-        "itemId": "weapon_poison_dragon_blade",
+        "itemId": "weapon_poison_jiao_blade",
         "rate": 0.05
       }
     ],
     "skills": [
-      "skill_poison_breath",
+      "skill_poison_mist",
       "skill_tail_sweep",
-      "skill_dragon_roar"
+      "skill_jiao_roar"
     ],
     "roomId": "swamp_lair",
     "respawnTime": 1800,
@@ -523,8 +523,8 @@
     "respawnTime": 600
   },
   {
-    "id": "monster_fire_dragon",
-    "name": "火龙",
+    "id": "monster_fire_jiao",
+    "name": "火蛟",
     "level": 60,
     "hp": 2500,
     "mp": 800,
@@ -534,20 +534,20 @@
     "gold": 1500,
     "drops": [
       {
-        "itemId": "item_fire_dragon_scale",
+        "itemId": "item_fire_jiao_scale",
         "rate": 0.3
       },
       {
-        "itemId": "item_dragon_heart",
+        "itemId": "item_jiao_dan",
         "rate": 0.1
       },
       {
-        "itemId": "weapon_fire_dragon_sword",
+        "itemId": "weapon_fire_jiao_sword",
         "rate": 0.03
       }
     ],
     "skills": [
-      "skill_fire_breath",
+      "skill_fire_mist",
       "skill_dragon_claw",
       "skill_meteor"
     ],
@@ -786,7 +786,7 @@
       }
     ],
     "skills": [
-      "skill_poison_spit"
+      "skill_poison_fog"
     ],
     "roomId": "river_bank",
     "respawnTime": 150
@@ -897,7 +897,7 @@
     "respawnTime": 360
   },
   {
-    "id": "monster_rock_golem",
+    "id": "monster_rock_demon",
     "name": "石傀儡",
     "level": 17,
     "hp": 500,
@@ -997,7 +997,7 @@
     ],
     "skills": [
       "skill_venom_sting",
-      "skill_acid_pool"
+      "skill_corrosive_fog"
     ],
     "roomId": "desert_entrance",
     "respawnTime": 330
@@ -1094,7 +1094,7 @@
     "gold": 260,
     "drops": [
       {
-        "itemId": "item_mutated_skin",
+        "itemId": "item_alien_skin",
         "rate": 0.3
       },
       {
@@ -1103,7 +1103,7 @@
       }
     ],
     "skills": [
-      "skill_poison_spit",
+      "skill_poison_fog",
       "skill_curse"
     ],
     "roomId": "swamp_deep",
@@ -1351,7 +1351,7 @@
       }
     ],
     "skills": [
-      "skill_fire_breath",
+      "skill_fire_mist",
       "skill_bite",
       "skill_intimidate"
     ],
@@ -1434,15 +1434,15 @@
     "gold": 2500,
     "drops": [
       {
-        "itemId": "item_dragon_bone",
+        "itemId": "item_jiao_bone",
         "rate": 0.4
       },
       {
-        "itemId": "item_dragon_scale",
+        "itemId": "item_jiao_scale",
         "rate": 0.3
       },
       {
-        "itemId": "item_dragon_heart",
+        "itemId": "item_jiao_dan",
         "rate": 0.15
       },
       {
@@ -1451,8 +1451,8 @@
       }
     ],
     "skills": [
-      "skill_fire_breath",
-      "skill_dragon_roar",
+      "skill_fire_mist",
+      "skill_jiao_roar",
       "skill_dragon_claw",
       "skill_meteor"
     ],
@@ -1531,13 +1531,13 @@
     ],
     "skills": [
       "skill_venom_sting",
-      "skill_acid_pool"
+      "skill_corrosive_fog"
     ],
     "roomId": "canyon_abyss",
     "respawnTime": 420
   },
   {
-    "id": "monster_crystal_golem",
+    "id": "monster_crystal_spirit",
     "name": "水晶傀儡",
     "level": 26,
     "hp": 600,
@@ -1612,7 +1612,7 @@
     ],
     "skills": [
       "skill_venom_sting",
-      "skill_poison_spit"
+      "skill_poison_fog"
     ],
     "roomId": "tree_canopy",
     "respawnTime": 300
@@ -1629,7 +1629,7 @@
     "gold": 250,
     "drops": [
       {
-        "itemId": "item_dragon_scale",
+        "itemId": "item_jiao_scale",
         "rate": 0.2
       },
       {
@@ -1639,7 +1639,7 @@
     ],
     "skills": [
       "skill_water_jet",
-      "skill_dragon_roar"
+      "skill_jiao_roar"
     ],
     "roomId": "cloud_sea",
     "respawnTime": 600
@@ -1981,7 +1981,7 @@
     "skills": [
       "skill_water_jet",
       "skill_coil",
-      "skill_poison_spit"
+      "skill_poison_fog"
     ],
     "roomId": "underwater_cave",
     "respawnTime": 540
@@ -1998,7 +1998,7 @@
     "gold": 180,
     "drops": [
       {
-        "itemId": "item_mutated_skin",
+        "itemId": "item_alien_skin",
         "rate": 0.3
       },
       {
@@ -2008,7 +2008,7 @@
     ],
     "skills": [
       "skill_venom_sting",
-      "skill_poison_spit"
+      "skill_poison_fog"
     ],
     "roomId": "cave_network",
     "respawnTime": 420
@@ -2082,8 +2082,8 @@
       }
     ],
     "skills": [
-      "skill_poison_spit",
-      "skill_acid_pool"
+      "skill_poison_fog",
+      "skill_corrosive_fog"
     ],
     "roomId": "mushroom_forest",
     "respawnTime": 360
@@ -2166,7 +2166,7 @@
     "skills": [
       "skill_curse",
       "skill_life_drain",
-      "skill_poison_spit"
+      "skill_poison_fog"
     ],
     "roomId": "swamp_village",
     "respawnTime": 540
@@ -2362,7 +2362,7 @@
       }
     ],
     "skills": [
-      "skill_poison_spit",
+      "skill_poison_fog",
       "skill_heal_basic",
       "skill_curse"
     ],
@@ -2408,16 +2408,16 @@
     "gold": 550,
     "drops": [
       {
-        "itemId": "item_dragon_bone",
+        "itemId": "item_jiao_bone",
         "rate": 0.5
       },
       {
-        "itemId": "item_dragon_scale",
+        "itemId": "item_jiao_scale",
         "rate": 0.3
       }
     ],
     "skills": [
-      "skill_dragon_roar",
+      "skill_jiao_roar",
       "skill_tail_sweep",
       "skill_darkness_wave"
     ],
@@ -2436,11 +2436,11 @@
     "gold": 1000,
     "drops": [
       {
-        "itemId": "item_dragon_heart",
+        "itemId": "item_jiao_dan",
         "rate": 0.3
       },
       {
-        "itemId": "item_dragon_bone",
+        "itemId": "item_jiao_bone",
         "rate": 0.5
       },
       {
@@ -2449,12 +2449,12 @@
       }
     ],
     "skills": [
-      "skill_fire_breath",
-      "skill_dragon_roar",
+      "skill_fire_mist",
+      "skill_jiao_roar",
       "skill_meteor",
       "skill_heal_basic"
     ],
-    "roomId": "dragon_shrine",
+    "roomId": "jiao_shrine",
     "respawnTime": 1800,
     "isBoss": true
   },
@@ -2483,7 +2483,7 @@
       }
     ],
     "skills": [
-      "skill_fire_breath",
+      "skill_fire_mist",
       "skill_meteor",
       "skill_holy_light",
       "skill_heal_basic"
@@ -2517,7 +2517,7 @@
       }
     ],
     "skills": [
-      "skill_fire_breath",
+      "skill_fire_mist",
       "skill_meteor",
       "skill_holy_light",
       "skill_flame_shield"
@@ -2655,7 +2655,7 @@
         "rate": 0.3
       },
       {
-        "itemId": "item_dragon_heart",
+        "itemId": "item_jiao_dan",
         "rate": 0.2
       },
       {
@@ -2835,7 +2835,7 @@
         "rate": 0.3
       },
       {
-        "itemId": "item_mutated_skin",
+        "itemId": "item_alien_skin",
         "rate": 0.3
       }
     ],
@@ -2891,7 +2891,7 @@
         "rate": 0.4
       },
       {
-        "itemId": "item_dragon_heart",
+        "itemId": "item_jiao_dan",
         "rate": 0.3
       },
       {
@@ -2902,7 +2902,7 @@
     "skills": [
       "skill_meteor",
       "skill_darkness_wave",
-      "skill_dragon_roar",
+      "skill_jiao_roar",
       "skill_fireball"
     ],
     "roomId": "thunder_shrine",
@@ -3046,17 +3046,17 @@
     "gold": 2000,
     "drops": [
       {
-        "itemId": "item_dragon_scale",
+        "itemId": "item_jiao_scale",
         "rate": 0.4
       },
       {
-        "itemId": "item_mutated_skin",
+        "itemId": "item_alien_skin",
         "rate": 0.5
       }
     ],
     "skills": [
       "skill_venom_sting",
-      "skill_acid_pool",
+      "skill_corrosive_fog",
       "skill_tail_sweep"
     ],
     "roomId": "underground_river",
@@ -3134,11 +3134,11 @@
     "gold": 5000,
     "drops": [
       {
-        "itemId": "item_dragon_heart",
+        "itemId": "item_jiao_dan",
         "rate": 0.5
       },
       {
-        "itemId": "item_fire_dragon_scale",
+        "itemId": "item_fire_jiao_scale",
         "rate": 0.5
       },
       {
@@ -3147,8 +3147,8 @@
       }
     ],
     "skills": [
-      "skill_fire_breath",
-      "skill_dragon_roar",
+      "skill_fire_mist",
+      "skill_jiao_roar",
       "skill_meteor",
       "skill_holy_light",
       "skill_heal_basic"
@@ -3169,7 +3169,7 @@
     "gold": 6000,
     "drops": [
       {
-        "itemId": "item_dragon_heart",
+        "itemId": "item_jiao_dan",
         "rate": 0.6
       },
       {
@@ -3183,8 +3183,8 @@
     ],
     "skills": [
       "skill_darkness_wave",
-      "skill_fire_breath",
-      "skill_dragon_roar",
+      "skill_fire_mist",
+      "skill_jiao_roar",
       "skill_meteor",
       "skill_soul_reap"
     ],
@@ -3204,18 +3204,18 @@
     "gold": 1600,
     "drops": [
       {
-        "itemId": "item_dragon_scale",
+        "itemId": "item_jiao_scale",
         "rate": 0.4
       },
       {
-        "itemId": "weapon_poison_dragon_blade",
+        "itemId": "weapon_poison_jiao_blade",
         "rate": 0.05
       }
     ],
     "skills": [
-      "skill_poison_breath",
+      "skill_poison_mist",
       "skill_tail_sweep",
-      "skill_dragon_roar"
+      "skill_jiao_roar"
     ],
     "roomId": "deep_forest",
     "respawnTime": 1800
@@ -3338,7 +3338,7 @@
       "skill_water_jet",
       "skill_bite"
     ],
-    "roomId": "dragon_palace",
+    "roomId": "jiao_palace",
     "respawnTime": 900
   },
   {
@@ -3353,7 +3353,7 @@
     "gold": 3500,
     "drops": [
       {
-        "itemId": "item_dragon_heart",
+        "itemId": "item_jiao_dan",
         "rate": 0.5
       },
       {
@@ -3367,7 +3367,7 @@
     ],
     "skills": [
       "skill_water_jet",
-      "skill_dragon_roar",
+      "skill_jiao_roar",
       "skill_tail_sweep",
       "skill_freeze"
     ],
@@ -3397,7 +3397,7 @@
     ],
     "skills": [
       "skill_fireball",
-      "skill_acid_pool",
+      "skill_corrosive_fog",
       "skill_tail_sweep"
     ],
     "roomId": "lava_tubes",
@@ -3428,7 +3428,7 @@
       }
     ],
     "skills": [
-      "skill_fire_breath",
+      "skill_fire_mist",
       "skill_meteor",
       "skill_flame_shield",
       "skill_demon_form"
@@ -3465,7 +3465,7 @@
     "respawnTime": 1080
   },
   {
-    "id": "monster_coral_golem",
+    "id": "monster_coral_spirit",
     "name": "珊瑚傀儡",
     "level": 57,
     "hp": 1800,
@@ -3802,7 +3802,7 @@
     ],
     "skills": [
       "skill_venom_sting",
-      "skill_poison_spit"
+      "skill_poison_fog"
     ],
     "roomId": "canyon_cross",
     "respawnTime": 420
@@ -4380,7 +4380,7 @@
       }
     ],
     "skills": [
-      "skill_fire_breath",
+      "skill_fire_mist",
       "skill_holy_light",
       "skill_meteor",
       "skill_heal_basic"
@@ -4583,7 +4583,7 @@
     "gold": 120,
     "drops": [
       {
-        "itemId": "item_mutated_skin",
+        "itemId": "item_alien_skin",
         "rate": 0.4
       }
     ],
@@ -4791,7 +4791,7 @@
     "respawnTime": 480
   },
   {
-    "id": "monster_volcano_forge_golem",
+    "id": "monster_volcano_spirit",
     "name": "熔炉傀儡",
     "level": 35,
     "hp": 800,
@@ -4925,7 +4925,7 @@
     "respawnTime": 960
   },
   {
-    "id": "monster_heaven_golem",
+    "id": "monster_heaven_guardian",
     "name": "天门金刚",
     "level": 46,
     "hp": 1400,
@@ -4949,8 +4949,8 @@
     "respawnTime": 780
   },
   {
-    "id": "monster_fire_dragon_young",
-    "name": "幼年火龙",
+    "id": "monster_fire_jiao_young",
+    "name": "幼年火蛟",
     "level": 51,
     "hp": 1800,
     "mp": 600,
@@ -4960,7 +4960,7 @@
     "gold": 850,
     "drops": [
       {
-        "itemId": "item_fire_dragon_scale",
+        "itemId": "item_fire_jiao_scale",
         "rate": 0.3
       },
       {
@@ -4970,8 +4970,8 @@
     ],
     "skills": [
       "skill_fireball",
-      "skill_fire_breath",
-      "skill_dragon_roar"
+      "skill_fire_mist",
+      "skill_jiao_roar"
     ],
     "roomId": "volcano_base",
     "respawnTime": 960
@@ -5022,13 +5022,13 @@
         "rate": 0.5
       },
       {
-        "itemId": "item_dragon_scale",
+        "itemId": "item_jiao_scale",
         "rate": 0.4
       }
     ],
     "skills": [
       "skill_meteor",
-      "skill_dragon_roar",
+      "skill_jiao_roar",
       "skill_tail_sweep",
       "skill_ice_strike"
     ],
@@ -5117,7 +5117,7 @@
       "skill_venom_sting",
       "skill_tail_sweep",
       "skill_intimidate",
-      "skill_poison_spit"
+      "skill_poison_fog"
     ],
     "roomId": "desert_entrance",
     "respawnTime": 1500
@@ -5174,7 +5174,7 @@
     ],
     "skills": [
       "skill_hell_fire",
-      "skill_fire_breath",
+      "skill_fire_mist",
       "skill_demon_form",
       "skill_meteor"
     ],
@@ -5255,7 +5255,7 @@
     "gold": 5000,
     "drops": [
       {
-        "itemId": "item_dragon_heart",
+        "itemId": "item_jiao_dan",
         "rate": 0.5
       },
       {
@@ -5265,8 +5265,8 @@
     ],
     "skills": [
       "skill_darkness_wave",
-      "skill_dragon_roar",
-      "skill_fire_breath",
+      "skill_jiao_roar",
+      "skill_fire_mist",
       "skill_soul_reap",
       "skill_meteor"
     ],

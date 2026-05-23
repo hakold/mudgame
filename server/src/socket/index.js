@@ -1974,6 +1974,111 @@ function socketHandler(io) {
       socket.emit('system_message', { content: result.message });
     });
 
+    // ==================== 万安塔 — 爬塔副本 ====================
+
+    // 获取塔层信息
+    socket.on('tower_floor_info', (data) => {
+      const { dungeonId } = data;
+      const result = instanceService.getTowerFloor(user._id, dungeonId);
+      if (result.error) return socket.emit('error', { message: result.error });
+      socket.emit('tower_floor', result);
+    });
+
+    // 完成一层塔（击败当前层怪物后调用）
+    socket.on('tower_floor_complete', async (data) => {
+      const { dungeonId } = data;
+      const result = await instanceService.completeTowerFloor(user._id, dungeonId);
+      if (result.error) return socket.emit('error', { message: result.error });
+      if (result.complete) {
+        socket.emit('tower_completed', result);
+        socket.emit('system_message', { content: result.message });
+      } else {
+        socket.emit('tower_floor_cleared', result);
+        socket.emit('system_message', { content: result.message });
+      }
+    });
+
+    // 敲锣退出（领取累积奖励）
+    socket.on('tower_exit', async (data) => {
+      const { dungeonId } = data;
+      const result = await instanceService.exitTower(user._id, dungeonId);
+      if (result.error) return socket.emit('error', { message: result.error });
+      socket.emit('tower_exited', result);
+      socket.emit('system_message', { content: result.message });
+    });
+
+    // ==================== 藏经阁 — 潜行副本 ====================
+
+    // 开始潜行
+    socket.on('stealth_start', (data) => {
+      const { dungeonId } = data;
+      const result = instanceService.startStealth(user._id, dungeonId);
+      if (result.error) return socket.emit('error', { message: result.error });
+      socket.emit('stealth_started', result);
+      socket.emit('system_message', { content: result.message });
+    });
+
+    // 潜行移动
+    socket.on('stealth_move', (data) => {
+      const { battleId } = data;
+      const result = instanceService.moveStealth(battleId);
+      if (result.error) return socket.emit('error', { message: result.error });
+
+      switch (result.type) {
+        case 'move':
+          socket.emit('stealth_moved', result);
+          break;
+        case 'detected':
+          socket.emit('stealth_detected', result);
+          socket.emit('system_message', { content: result.message });
+          break;
+        case 'found_item':
+          socket.emit('stealth_item_found', result);
+          socket.emit('system_message', { content: result.message });
+          break;
+        case 'layer_complete':
+          socket.emit('stealth_layer_complete', result);
+          socket.emit('system_message', { content: result.message });
+          break;
+        case 'dungeon_complete':
+          socket.emit('stealth_completed', result);
+          socket.emit('system_message', { content: `藏经阁探索完成！获得积分：${result.score}，收集残页：${result.collected}份。` });
+          break;
+        case 'failed':
+          socket.emit('stealth_failed', result);
+          socket.emit('system_message', { content: result.message });
+          break;
+      }
+    });
+
+    // ==================== 鄱阳湖漂流 — 航海副本 ====================
+
+    // 开始漂流
+    socket.on('drift_start', (data) => {
+      const { dungeonId, mode } = data;
+      const result = instanceService.startDrift(user._id, dungeonId, mode || 'normal');
+      if (result.error) return socket.emit('error', { message: result.error });
+      socket.emit('drift_started', result);
+      socket.emit('system_message', { content: result.message });
+    });
+
+    // 船控指令
+    socket.on('drift_command', (data) => {
+      const { battleId, command } = data;
+      const result = instanceService.shipNavigate(battleId, command);
+      if (result.error) return socket.emit('error', { message: result.error });
+
+      if (result.returned) {
+        socket.emit('drift_completed', result);
+        socket.emit('system_message', { content: result.message });
+      } else if (result.encounter) {
+        socket.emit('drift_encounter', result);
+      } else {
+        socket.emit('drift_navigated', result);
+        socket.emit('system_message', { content: result.message });
+      }
+    });
+
     // ==================== 帮派系统 ====================
 
     // 创建帮派

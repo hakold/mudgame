@@ -65,7 +65,7 @@
   {
     "id": "volcano",
     "name": "火山熔岩",
-    "description": "炽热的火山地带，岩浆流淌，火龙栖息。",
+    "description": "炽热的火山地带，岩浆流淌，火蛟栖息。",
     "level": "45-60",
     "rooms": ["volcano_base", "volcano_crater", "volcano_lair", "volcano_forge"]
   },

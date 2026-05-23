@@ -111,25 +111,25 @@
     }
   },
   {
-    "id": "dungeon_dragon_lair",
-    "name": "龙穴深渊",
+    "id": "dungeon_jiao_cave",
+    "name": "毒蛟洞窟",
     "type": "boss",
-    "description": "传说中的龙穴，击败毒龙获取龙之宝藏",
+    "description": "传说中的蛟穴，击败毒蛟获取蛟龙秘藏",
     "entryRoomId": "dark_cave",
     "entryNpcId": "npc_old_hermit",
     "requireLevel": 40,
-    "requireItem": "item_dragon_scale",
+    "requireItem": "item_jiao_scale",
     "dailyLimit": 1,
-    "bossMonsterId": "monster_poison_dragon",
+    "bossMonsterId": "monster_poison_jiao",
     "bossLevel": 55,
     "bossHpMultiplier": 3,
     "rewards": {
       "exp": 5000,
       "gold": 3000,
       "items": [
-        "item_dragon_scale",
-        "item_dragon_venom",
-        "item_dragon_heart"
+        "item_jiao_scale",
+        "item_jiao_venom",
+        "item_jiao_dan"
       ]
     }
   },
@@ -160,19 +160,19 @@
         "wave": 3,
         "monsterId": "monster_snow_wolf",
         "count": 2,
-        "monsterId2": "monster_ice_golem",
+        "monsterId2": "monster_ice_demon",
         "count2": 1,
         "description": "第三层：冰晶大厅"
       },
       {
         "wave": 4,
-        "monsterId": "monster_ice_golem",
+        "monsterId": "monster_ice_demon",
         "count": 2,
         "description": "第四层：寒冰深渊"
       },
       {
         "wave": 5,
-        "monsterId": "monster_ice_golem",
+        "monsterId": "monster_ice_demon",
         "count": 3,
         "description": "第五层：极寒走廊"
       },
@@ -180,13 +180,13 @@
         "wave": 6,
         "monsterId": "monster_snow_wolf",
         "count": 2,
-        "monsterId2": "monster_ice_golem",
+        "monsterId2": "monster_ice_demon",
         "count2": 2,
         "description": "第六层：冰封王座"
       },
       {
         "wave": 7,
-        "monsterId": "monster_ice_golem",
+        "monsterId": "monster_ice_demon",
         "count": 1,
         "description": "第七层：冰魔"
       }
@@ -197,6 +197,269 @@
       "items": [
         "item_ice_crystal",
         "item_frozen_heart"
+      ]
+    }
+  },
+  {
+    "id": "dungeon_wanan_tower",
+    "name": "万安塔",
+    "type": "tower",
+    "description": "少林寺万安塔，共七层，每层有少林武僧把守。可随时敲锣退出领取当前奖励，亦可冒险继续攀登。塔七藏有玄冥神掌秘籍。",
+    "entryRoomId": "shaolin_pagoda",
+    "entryNpcId": "npc_pagoda_keeper",
+    "requireLevel": 15,
+    "requireItem": null,
+    "dailyLimit": 5,
+    "cdMinutes": 15,
+    "totalFloors": 7,
+    "floors": [
+      {
+        "floor": 1,
+        "monsterId": "monster_shaolin_trainee",
+        "count": 1,
+        "expReward": 2000,
+        "potReward": 500,
+        "renownReward": 100,
+        "description": "第一层：塔门初入"
+      },
+      {
+        "floor": 2,
+        "monsterId": "monster_shaolin_trainee",
+        "count": 1,
+        "expReward": 3000,
+        "potReward": 800,
+        "renownReward": 150,
+        "description": "第二层：佛光初现"
+      },
+      {
+        "floor": 3,
+        "monsterId": "monster_shaolin_trainee",
+        "count": 1,
+        "expReward": 4000,
+        "potReward": 1000,
+        "renownReward": 200,
+        "description": "第三层：金刚怒目"
+      },
+      {
+        "floor": 4,
+        "monsterId": "monster_shaolin_trainee",
+        "count": 2,
+        "expReward": 5000,
+        "potReward": 1500,
+        "renownReward": 300,
+        "description": "第四层：罗汉阵起"
+      },
+      {
+        "floor": 5,
+        "monsterId": "monster_shaolin_trainee",
+        "count": 3,
+        "expReward": 6000,
+        "potReward": 2000,
+        "renownReward": 400,
+        "description": "第五层：群僧围困"
+      },
+      {
+        "floor": 6,
+        "monsterId": "monster_temple_guardian",
+        "count": 3,
+        "expReward": 8000,
+        "potReward": 3000,
+        "renownReward": 600,
+        "description": "第六层：护法拦路"
+      },
+      {
+        "floor": 7,
+        "monsterId": "monster_temple_guardian",
+        "count": 5,
+        "expReward": 12000,
+        "potReward": 5000,
+        "renownReward": 1000,
+        "specialReward": {
+          "skillBookId": "skill_book_shaolin_palm",
+          "chance": 0.05
+        },
+        "description": "第七层：塔顶决战"
+      }
+    ],
+    "rewards": {
+      "exp": 12000,
+      "gold": 5000,
+      "items": [
+        "item_ice_crystal",
+        "item_jade_piece"
+      ]
+    }
+  },
+  {
+    "id": "dungeon_scripture_pavilion",
+    "name": "藏经阁",
+    "type": "stealth",
+    "description": "少林藏经阁藏有天下武学，但戒备森严。需易容潜入，避开巡逻武僧，收集散落的武学残页。被看破三次即被送入戒律院。",
+    "entryRoomId": "shaolin_temple",
+    "entryNpcId": "npc_shaolin_guard",
+    "requireLevel": 20,
+    "requireItem": null,
+    "dailyLimit": 2,
+    "timeLimitMinutes": 20,
+    "maxDetections": 3,
+    "mazeLayers": [
+      {
+        "layer": 1,
+        "type": "patrol_maze",
+        "rooms": 54,
+        "description": "第一层：经书架阵（9×6矩阵），避开巡逻僧兵",
+        "patrolCount": 5,
+        "treasureCount": 10
+      },
+      {
+        "layer": 2,
+        "type": "random_maze",
+        "rooms": 20,
+        "description": "第二层：密道迷宫（20间随机），需铜板标记寻路",
+        "trapCount": 5,
+        "treasureCount": 5,
+        "bossMonsterId": "monster_temple_guardian"
+      }
+    ],
+    "patrolMonsterId": "monster_shaolin_trainee",
+    "scoreMultiplier": {
+      "night": 1.5,
+      "fast_clear": 2.0
+    },
+    "exchangeShop": [
+      {
+        "skillBookId": "skill_book_shaolin_palm",
+        "cost": 3000,
+        "name": "金刚掌秘籍"
+      },
+      {
+        "skillBookId": "skill_book_wudang_xinfa",
+        "cost": 2500,
+        "name": "武当心法口诀"
+      },
+      {
+        "skillBookId": "skill_book_emei_xinfa",
+        "cost": 2500,
+        "name": "峨眉心法"
+      },
+      {
+        "skillBookId": "skill_book_lotus_palm",
+        "cost": 2000,
+        "name": "莲花掌秘籍"
+      },
+      {
+        "itemId": "item_exp_boost_pill",
+        "cost": 500,
+        "name": "悟道丹"
+      },
+      {
+        "itemId": "item_full_recovery_pill",
+        "cost": 800,
+        "name": "九转还魂丹"
+      },
+      {
+        "itemId": "item_jade_piece",
+        "cost": 300,
+        "name": "玉石"
+      }
+    ],
+    "rewards": {
+      "exp": 3000,
+      "gold": 2000,
+      "items": [
+        "item_ice_crystal"
+      ]
+    }
+  },
+  {
+    "id": "dungeon_poyang_drift",
+    "name": "鄱阳湖漂流",
+    "type": "drift",
+    "description": "鄱阳湖上驾船漂流，沿水路寻找宝藏。操控船帆行进，途中遭遇水匪截杀。划到指定地点下锚寻宝，再划回码头交宝箱。",
+    "entryRoomId": "city_docks",
+    "entryNpcId": "npc_dock_sailor",
+    "requireLevel": 10,
+    "requireItem": null,
+    "dailyLimit": 5,
+    "cdMinutes": 120,
+    "totalDistance": 30,
+    "modes": [
+      {
+        "id": "practice",
+        "name": "练手",
+        "maxDistance": 10,
+        "hasGems": false,
+        "description": "可在任意位置返航，适合新手熟悉船控"
+      },
+      {
+        "id": "normal",
+        "name": "普通寻宝",
+        "maxDistance": 18,
+        "hasGems": true,
+        "description": "18里内寻宝，水贼数量适中"
+      },
+      {
+        "id": "heavy",
+        "name": "重宝",
+        "maxDistance": 30,
+        "hasGems": true,
+        "description": "深入湖区寻重宝，水贼更强更多"
+      }
+    ],
+    "waterBandits": [
+      {
+        "minDistance": 0,
+        "maxDistance": 10,
+        "monsterId": "monster_water_snake",
+        "count": 1,
+        "headChance": 0.01
+      },
+      {
+        "minDistance": 10,
+        "maxDistance": 22,
+        "monsterId": "monster_lake_thief",
+        "count": 2,
+        "headChance": 0.03
+      },
+      {
+        "minDistance": 22,
+        "maxDistance": 30,
+        "monsterId": "monster_lake_thief",
+        "count": 3,
+        "headChance": 0.1
+      }
+    ],
+    "shipCommands": [
+      "shengfan",
+      "jiangfan",
+      "huadong",
+      "tingchuan",
+      "xiamao",
+      "fanhang",
+      "xiufu",
+      "tancha"
+    ],
+    "attributeBonus": {
+      "rotationHours": 1,
+      "attributes": [
+        "wu",
+        "gen",
+        "shen",
+        "li"
+      ],
+      "names": [
+        "悟性",
+        "根骨",
+        "身法",
+        "膂力"
+      ]
+    },
+    "rewards": {
+      "exp": 2000,
+      "gold": 1500,
+      "items": [
+        "item_jade_piece",
+        "item_ice_crystal"
       ]
     }
   }

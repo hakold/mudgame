@@ -149,11 +149,11 @@
     "sellPrice": 320
   },
   {
-    "id": "weapon_fire_dragon_sword",
-    "name": "火龙剑",
+    "id": "weapon_fire_jiao_sword",
+    "name": "火蛟剑",
     "type": "weapon",
     "subtype": "sword",
-    "description": "火龙之骨打造的绝世神剑，攻击+100",
+    "description": "火蛟之骨打造的绝世神剑，攻击+100",
     "price": 50000,
     "requireLevel": 50,
     "stats": {
@@ -373,32 +373,32 @@
     "sellPrice": 100
   },
   {
-    "id": "item_dragon_scale",
-    "name": "龙鳞",
+    "id": "item_jiao_scale",
+    "name": "蛟鳞",
     "type": "material",
     "description": "龙的鳞片，极其珍贵",
     "price": 1000,
     "sellPrice": 400
   },
   {
-    "id": "item_dragon_venom",
-    "name": "龙毒",
+    "id": "item_jiao_venom",
+    "name": "蛟毒",
     "type": "material",
-    "description": "毒龙的剧毒",
+    "description": "毒蛟的剧毒",
     "price": 800,
     "sellPrice": 320
   },
   {
-    "id": "item_fire_dragon_scale",
-    "name": "火龙鳞",
+    "id": "item_fire_jiao_scale",
+    "name": "火蛟鳞",
     "type": "material",
-    "description": "火龙的鳞片，蕴含火焰之力",
+    "description": "火蛟的鳞片，蕴含火焰之力",
     "price": 2000,
     "sellPrice": 800
   },
   {
-    "id": "item_dragon_heart",
-    "name": "龙心",
+    "id": "item_jiao_dan",
+    "name": "蛟丹",
     "type": "material",
     "description": "龙的心脏，传说中的神物",
     "price": 5000,
@@ -554,16 +554,16 @@
     "sellPrice": 24
   },
   {
-    "id": "item_mutated_skin",
-    "name": "变异兽皮",
+    "id": "item_alien_skin",
+    "name": "异化兽皮",
     "type": "material",
-    "description": "变异野兽的皮，异常坚韧",
+    "description": "异化野兽的皮，异常坚韧",
     "price": 150,
     "sellPrice": 60
   },
   {
-    "id": "weapon_poison_dragon_blade",
-    "name": "毒龙刀",
+    "id": "weapon_poison_jiao_blade",
+    "name": "毒蛟刀",
     "type": "weapon",
     "subtype": "sword",
     "description": "淬有剧毒的宝刀，刀身泛着绿光",
@@ -919,7 +919,7 @@
     "sellPrice": 140
   },
   {
-    "id": "item_dragon_feast",
+    "id": "item_jiao_feast",
     "name": "龙肉盛宴",
     "type": "consumable",
     "description": "绝世珍馐，恢复HP 500、MP 300，全面提升属性",
@@ -1197,7 +1197,7 @@
     "name": "龙盔",
     "type": "armor",
     "subtype": "helmet",
-    "description": "龙鳞打造的头盔，防御+35，力量+10",
+    "description": "蛟鳞打造的头盔，防御+35，力量+10",
     "price": 8000,
     "requireLevel": 50,
     "stats": {
@@ -1277,10 +1277,10 @@
   },
   {
     "id": "armor_dragon_scale",
-    "name": "龙鳞甲",
+    "name": "蛟鳞甲",
     "type": "armor",
     "subtype": "body",
-    "description": "以龙鳞打造的宝甲，防御+60",
+    "description": "以蛟鳞打造的宝甲，防御+60",
     "price": 8000,
     "requireLevel": 40,
     "stats": {
@@ -1418,8 +1418,8 @@
     "sellPrice": 320
   },
   {
-    "id": "item_dragon_bone",
-    "name": "龙骨",
+    "id": "item_jiao_bone",
+    "name": "蛟骨",
     "type": "material",
     "description": "远古巨龙的遗骨，打造神兵利器",
     "price": 1500,
@@ -1614,10 +1614,10 @@
   },
   {
     "id": "weapon_dragon_bone_blade",
-    "name": "龙骨刀",
+    "name": "蛟骨刀",
     "type": "weapon",
     "subtype": "sword",
-    "description": "以龙骨锻造的神兵，攻击+85，龙魂附体",
+    "description": "以蛟骨锻造的神兵，攻击+85，龙魂附体",
     "price": 20000,
     "requireLevel": 50,
     "stats": {
@@ -1723,7 +1723,7 @@
     "name": "三叉戟",
     "type": "weapon",
     "subtype": "staff",
-    "description": "东海龙宫的神兵，攻击+90，附带水流之力",
+    "description": "东海水府的神兵，攻击+90，附带水流之力",
     "price": 25000,
     "requireLevel": 55,
     "stats": {
@@ -2413,10 +2413,10 @@
   },
   {
     "id": "accessory_dragon_heart_necklace",
-    "name": "龙心项链",
+    "name": "蛟丹项链",
     "type": "armor",
     "subtype": "accessory",
-    "description": "以龙心打造的项链，生命+500，力量+20",
+    "description": "以蛟丹打造的项链，生命+500，力量+20",
     "price": 40000,
     "requireLevel": 70,
     "stats": {
@@ -3088,9 +3088,9 @@
   },
   {
     "id": "skill_book_xianglong",
-    "name": "降龙十八掌残谱",
+    "name": "伏蛟十八掌残谱",
     "type": "skill_book",
-    "description": "丐帮绝学的残谱。使用后有35%概率学会降龙十八掌。",
+    "description": "丐帮绝学的残谱。使用后有35%概率学会伏蛟十八掌。",
     "skillId": "skill_xianglong",
     "successRate": 0.35,
     "price": 12000,
@@ -3102,7 +3102,7 @@
     "id": "skill_book_kanglong",
     "name": "亢龙有悔真诀",
     "type": "skill_book",
-    "description": "降龙十八掌最强一式的真诀。使用后有25%概率学会亢龙有悔。",
+    "description": "伏蛟十八掌最强一式的真诀。使用后有25%概率学会亢龙有悔。",
     "skillId": "skill_kanglong",
     "successRate": 0.25,
     "price": 18000,
@@ -3113,10 +3113,10 @@
   },
   {
     "id": "skill_book_dragon_subdue",
-    "name": "降龙伏虎神功",
+    "name": "伏蛟伏虎神功",
     "type": "skill_book",
-    "description": "丐帮镇派绝学的真传！使用后有15%概率学会降龙伏虎。",
-    "skillId": "skill_dragon_subdue",
+    "description": "丐帮镇派绝学的真传！使用后有15%概率学会伏蛟伏虎。",
+    "skillId": "skill_jiao_subdue",
     "successRate": 0.15,
     "price": 35000,
     "sellPrice": 14000,
@@ -3306,9 +3306,9 @@
   },
   {
     "id": "skill_book_rare_xianglong",
-    "name": "降龙十八掌真本",
+    "name": "伏蛟十八掌真本",
     "type": "skill_book",
-    "description": "传说中的降龙十八掌完整真本！使用后有20%概率直接学会降龙十八掌（无门派要求）。",
+    "description": "传说中的伏蛟十八掌完整真本！使用后有20%概率直接学会伏蛟十八掌（无门派要求）。",
     "skillId": "skill_xianglong",
     "successRate": 0.2,
     "price": 50000,
@@ -4079,7 +4079,7 @@
   },
   {
     "id": "item_wyvern_fang",
-    "name": "飞龙毒牙",
+    "name": "飞蛟毒牙",
     "type": "material",
     "description": "飞龙的毒牙，毒性猛烈",
     "price": 400,
@@ -4218,10 +4218,10 @@
     "sellPrice": 24
   },
   {
-    "id": "item_dragon_blood_tree",
-    "name": "龙血树汁",
+    "id": "item_jiao_blood_tree",
+    "name": "蛟血树汁",
     "type": "material",
-    "description": "龙血树的红色树脂，药效极强",
+    "description": "蛟血树的红色树脂，药效极强",
     "price": 350,
     "stackable": true,
     "maxStack": 20,
@@ -7958,10 +7958,10 @@
     "sellPrice": 100
   },
   {
-    "id": "item_dragon_blood_resin",
+    "id": "item_jiao_blood_resin",
     "name": "血竭",
     "type": "material",
-    "description": "龙血树的红色树脂，活血圣药",
+    "description": "蛟血树的红色树脂，活血圣药",
     "price": 400,
     "stackable": true,
     "maxStack": 20,

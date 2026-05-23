@@ -629,8 +629,68 @@
 
         <!-- 副本 -->
         <div v-if="activeTab === 'dungeons'">
-          <!-- 副本中 -->
-          <div v-if="gameStore.currentDungeon" class="dungeon-active">
+          <!-- ===== 万安塔(爬塔)中 ===== -->
+          <div v-if="gameStore.towerState" class="dungeon-active">
+            <div class="dungeon-header">
+              <span class="dungeon-name">🏯 万安塔</span>
+              <span class="dungeon-wave">第 {{ gameStore.towerState.floor }}/{{ gameStore.towerState.totalFloors }} 层</span>
+            </div>
+            <div class="dungeon-desc">{{ gameStore.towerState.description }}</div>
+            <div class="dungeon-wave-info">
+              <div class="dungeon-monster" v-for="m in (gameStore.towerState.monsters || [])" :key="m.monsterId">
+                <span class="monster-name">{{ m.monsterId }}</span>
+                <span class="monster-lv">×{{ m.count }}</span>
+              </div>
+            </div>
+            <div class="dungeon-meta">
+              <span>当前累积奖励：经验+{{ gameStore.towerState.currentReward?.accumulatedExp || 0 }}</span>
+            </div>
+            <div class="dungeon-actions">
+              <button class="forge-btn" @click="gameStore.towerFloorComplete('dungeon_wanan_tower')">挑战本层</button>
+              <button class="forge-btn" style="background:#d4a017" @click="gameStore.towerExit('dungeon_wanan_tower')">🔔 敲锣收功</button>
+            </div>
+          </div>
+
+          <!-- ===== 藏经阁(潜行)中 ===== -->
+          <div v-else-if="gameStore.stealthState" class="dungeon-active">
+            <div class="dungeon-header">
+              <span class="dungeon-name">📜 藏经阁</span>
+              <span class="dungeon-wave">第 {{ gameStore.stealthState.layer?.number || 1 }} 层</span>
+            </div>
+            <div class="dungeon-desc">{{ gameStore.stealthState.layer?.description }}</div>
+            <div class="dungeon-wave-info">
+              <div>📍 位置：{{ gameStore.stealthState.position || 0 }}/{{ gameStore.stealthState.layer?.rooms }}</div>
+              <div>👁 看破：{{ gameStore.stealthState.detections || 0 }}/{{ gameStore.stealthState.maxDetections }}</div>
+              <div>⭐ 积分：{{ gameStore.stealthState.score || 0 }}</div>
+            </div>
+            <div class="dungeon-actions">
+              <button class="forge-btn" @click="gameStore.stealthMove(gameStore.stealthState.battleId)">前进一步</button>
+            </div>
+          </div>
+
+          <!-- ===== 鄱阳湖漂流(航海)中 ===== -->
+          <div v-else-if="gameStore.driftState" class="dungeon-active">
+            <div class="dungeon-header">
+              <span class="dungeon-name">⛵ 鄱阳湖漂流</span>
+              <span class="dungeon-wave">{{ gameStore.driftState.mode?.name }}</span>
+            </div>
+            <div class="dungeon-wave-info">
+              <div>📍 航程：{{ gameStore.driftState.distance }}/{{ gameStore.driftState.maxDistance }} 里</div>
+              <div v-if="gameStore.driftState.anchored">⚓ 已下锚</div>
+            </div>
+            <div class="dungeon-actions" style="flex-wrap:wrap">
+              <button class="forge-btn" @click="gameStore.driftCommand(gameStore.driftState.battleId, 'shengfan')">⛵ 升帆</button>
+              <button class="forge-btn" @click="gameStore.driftCommand(gameStore.driftState.battleId, 'huadong')">🛶 划桨</button>
+              <button class="forge-btn" @click="gameStore.driftCommand(gameStore.driftState.battleId, 'xiamao')">⚓ 下锚</button>
+              <button class="forge-btn" @click="gameStore.driftCommand(gameStore.driftState.battleId, 'fanhang')" :disabled="!gameStore.driftState.anchored">🏠 返航</button>
+              <button class="forge-btn" @click="gameStore.driftCommand(gameStore.driftState.battleId, 'tancha')">🔍 探查</button>
+              <button class="forge-btn" style="background:#888" @click="gameStore.driftCommand(gameStore.driftState.battleId, 'jiangfan')">降帆</button>
+              <button class="forge-btn" style="background:#888" @click="gameStore.driftCommand(gameStore.driftState.battleId, 'tingchuan')">停船</button>
+            </div>
+          </div>
+
+          <!-- ===== 旧副本(试炼/探索/BOSS)中 ===== -->
+          <div v-else-if="gameStore.currentDungeon" class="dungeon-active">
             <div class="dungeon-header">
               <span class="dungeon-name">⚔️ {{ gameStore.currentDungeon.dungeonName }}</span>
               <span class="dungeon-wave" v-if="gameStore.currentDungeon.currentWave">第 {{ gameStore.currentDungeon.currentWave }}/{{ gameStore.currentDungeon.totalWaves }} 波</span>
@@ -647,19 +707,20 @@
               <button class="btn btn-secondary" @click="gameStore.leaveDungeon(gameStore.currentDungeon.dungeonId)">退出副本</button>
             </div>
           </div>
-          <!-- 副本列表 -->
+
+          <!-- ===== 副本列表 ===== -->
           <div v-else>
             <div v-for="d in gameStore.dungeons" :key="d.id" class="dungeon-item">
               <div class="dungeon-header">
                 <span class="dungeon-name">{{ d.name }}</span>
-                <span class="dungeon-type">{{ d.type === 'trial' ? '试炼' : d.type === 'explore' ? '探索' : 'BOSS' }}</span>
+                <span class="dungeon-type">{{ typeLabel(d.type) }}</span>
               </div>
               <div class="dungeon-desc">{{ d.description }}</div>
               <div class="dungeon-meta">
                 <span v-if="d.requireLevel">需等级 {{ d.requireLevel }}</span>
-                <span v-if="d.dailyLimit > 0">今日剩余 {{ d.dailyLimit }} 次</span>
+                <span v-if="d.dailyLimit > 0">每日 {{ d.dailyLimit }} 次</span>
               </div>
-              <button class="forge-btn" @click="gameStore.enterDungeon(d.id)">进入副本</button>
+              <button class="forge-btn" @click="enterDungeonByType(d)">进入副本</button>
             </div>
             <div v-if="!gameStore.dungeons.length" class="empty-hint">暂无副本</div>
           </div>
@@ -1487,6 +1548,30 @@ function loadForgeRecipes() {
 
 function forge(recipeId) {
   gameStore.forge(recipeId)
+}
+
+// P6: 副本类型标签
+function typeLabel(type) {
+  const map = { trial: '试炼', explore: '探索', boss: 'BOSS', tower: '爬塔', stealth: '潜行', drift: '漂流' }
+  return map[type] || type
+}
+
+// P6: 根据副本类型调用不同进入方法
+function enterDungeonByType(d) {
+  switch (d.type) {
+    case 'tower':
+      gameStore.enterDungeon(d.id)
+      setTimeout(() => gameStore.towerFloorInfo(d.id), 500)
+      break
+    case 'stealth':
+      gameStore.stealthStart(d.id)
+      break
+    case 'drift':
+      gameStore.driftStart(d.id, 'normal')
+      break
+    default:
+      gameStore.enterDungeon(d.id)
+  }
 }
 
 // Phase 7-8 helper functions

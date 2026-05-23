@@ -555,7 +555,7 @@
       },
       {
         "type": "kill",
-        "monsterId": "monster_ice_golem",
+        "monsterId": "monster_ice_demon",
         "count": 1
       }
     ],
@@ -584,7 +584,7 @@
       },
       {
         "type": "kill",
-        "monsterId": "monster_ice_golem",
+        "monsterId": "monster_ice_demon",
         "count": 1
       }
     ],
@@ -613,7 +613,7 @@
       },
       {
         "type": "kill",
-        "monsterId": "monster_ice_golem",
+        "monsterId": "monster_ice_demon",
         "count": 1
       }
     ],
@@ -633,7 +633,7 @@
     "factionId": "beggar",
     "name": "丐帮长老试炼",
     "type": "faction_rank_up",
-    "description": "通过试炼晋升为丐帮长老：精研降龙十八掌，击败冰魔。",
+    "description": "通过试炼晋升为丐帮长老：精研伏蛟十八掌，击败冰魔。",
     "objectives": [
       {
         "type": "talk",
@@ -642,7 +642,7 @@
       },
       {
         "type": "kill",
-        "monsterId": "monster_ice_golem",
+        "monsterId": "monster_ice_demon",
         "count": 1
       }
     ],
@@ -662,7 +662,7 @@
     "factionId": "mingjiao",
     "name": "明教长老试炼",
     "type": "faction_rank_up",
-    "description": "通过试炼晋升为明教长老：修习乾坤大挪移，击败毒龙。",
+    "description": "通过试炼晋升为明教长老：修习乾坤大挪移，击败毒蛟。",
     "objectives": [
       {
         "type": "talk",
@@ -671,7 +671,7 @@
       },
       {
         "type": "kill",
-        "monsterId": "monster_poison_dragon",
+        "monsterId": "monster_poison_jiao",
         "count": 1
       }
     ],
@@ -691,7 +691,7 @@
     "factionId": "xiaoyao",
     "name": "逍遥长老试炼",
     "type": "faction_rank_up",
-    "description": "通过试炼晋升为逍遥长老：修习天山六阳掌，击败毒龙。",
+    "description": "通过试炼晋升为逍遥长老：修习天山六阳掌，击败毒蛟。",
     "objectives": [
       {
         "type": "talk",
@@ -700,7 +700,7 @@
       },
       {
         "type": "kill",
-        "monsterId": "monster_poison_dragon",
+        "monsterId": "monster_poison_jiao",
         "count": 1
       }
     ],
@@ -720,11 +720,11 @@
     "factionId": "shaolin",
     "name": "少林掌门试炼",
     "type": "faction_rank_up",
-    "description": "最终试炼：击败火龙证明你有资格继承少林衣钵。",
+    "description": "最终试炼：击败火蛟证明你有资格继承少林衣钵。",
     "objectives": [
       {
         "type": "kill",
-        "monsterId": "monster_fire_dragon",
+        "monsterId": "monster_fire_jiao",
         "count": 1
       }
     ],
@@ -744,11 +744,11 @@
     "factionId": "wudang",
     "name": "武当掌门试炼",
     "type": "faction_rank_up",
-    "description": "最终试炼：击败火龙，领悟太极真谛。",
+    "description": "最终试炼：击败火蛟，领悟太极真谛。",
     "objectives": [
       {
         "type": "kill",
-        "monsterId": "monster_fire_dragon",
+        "monsterId": "monster_fire_jiao",
         "count": 1
       }
     ],
@@ -768,11 +768,11 @@
     "factionId": "emei",
     "name": "峨眉掌门试炼",
     "type": "faction_rank_up",
-    "description": "最终试炼：击败火龙，继承峨眉衣钵。",
+    "description": "最终试炼：击败火蛟，继承峨眉衣钵。",
     "objectives": [
       {
         "type": "kill",
-        "monsterId": "monster_fire_dragon",
+        "monsterId": "monster_fire_jiao",
         "count": 1
       }
     ],
@@ -792,11 +792,11 @@
     "factionId": "beggar",
     "name": "丐帮帮主试炼",
     "type": "faction_rank_up",
-    "description": "最终试炼：击败火龙证明你有资格号令丐帮。",
+    "description": "最终试炼：击败火蛟证明你有资格号令丐帮。",
     "objectives": [
       {
         "type": "kill",
-        "monsterId": "monster_fire_dragon",
+        "monsterId": "monster_fire_jiao",
         "count": 1
       }
     ],

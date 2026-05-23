@@ -235,8 +235,8 @@
     "factionId": "general"
   },
   {
-    "id": "skill_poison_spit",
-    "name": "毒液喷射",
+    "id": "skill_poison_fog",
+    "name": "毒雾弥漫",
     "type": "attack",
     "description": "喷射毒液",
     "faction": "monster",
@@ -250,7 +250,7 @@
     "factionId": "general"
   },
   {
-    "id": "skill_acid_pool",
+    "id": "skill_corrosive_fog",
     "name": "酸池",
     "type": "attack",
     "description": "制造酸性区域",
@@ -265,10 +265,10 @@
     "factionId": "general"
   },
   {
-    "id": "skill_poison_breath",
-    "name": "毒龙吐息",
+    "id": "skill_poison_mist",
+    "name": "毒蛟吐息",
     "type": "attack",
-    "description": "毒龙的毒气吐息",
+    "description": "毒蛟的毒气吐息",
     "faction": "monster",
     "mpCost": 100,
     "damage": [
@@ -293,7 +293,7 @@
     "factionId": "general"
   },
   {
-    "id": "skill_dragon_roar",
+    "id": "skill_jiao_roar",
     "name": "龙啸",
     "type": "buff",
     "description": "龙的咆哮，大幅提升攻击",
@@ -306,10 +306,10 @@
     "factionId": "general"
   },
   {
-    "id": "skill_fire_breath",
-    "name": "火龙吐息",
+    "id": "skill_fire_mist",
+    "name": "火蛟吐息",
     "type": "attack",
-    "description": "火龙的火焰吐息",
+    "description": "火蛟的烈火毒雾",
     "faction": "monster",
     "mpCost": 150,
     "damage": [
@@ -566,9 +566,9 @@
   },
   {
     "id": "skill_xianglong",
-    "name": "降龙十八掌",
+    "name": "伏蛟十八掌",
     "type": "attack",
-    "description": "丐帮绝学降龙十八掌",
+    "description": "丐帮绝学伏蛟十八掌",
     "faction": "gaibang",
     "requireLevel": 40,
     "mpCost": 100,
@@ -1126,7 +1126,7 @@
     "id": "skill_kanglong",
     "name": "亢龙有悔",
     "type": "attack",
-    "description": "降龙十八掌最强一式，毁天灭地",
+    "description": "伏蛟十八掌最强一式，毁天灭地",
     "faction": "gaibang",
     "requireLevel": 45,
     "rankRequired": "elder",
@@ -1141,8 +1141,8 @@
     "factionId": "beggar"
   },
   {
-    "id": "skill_dragon_subdue",
-    "name": "降龙伏虎",
+    "id": "skill_jiao_subdue",
+    "name": "伏蛟伏虎",
     "type": "attack",
     "description": "丐帮镇派绝学，龙虎之力合一",
     "faction": "gaibang",

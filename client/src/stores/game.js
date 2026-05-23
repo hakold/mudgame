@@ -33,6 +33,10 @@ export const useGameStore = defineStore('game', () => {
   const dungeons = ref([])
   const currentDungeon = ref(null)
   const dungeonWave = ref(null)
+  // P6: 新副本类型
+  const towerState = ref(null)     // { floor, totalFloors, currentReward }
+  const stealthState = ref(null)   // { battleId, layer, position, detections, score }
+  const driftState = ref(null)     // { battleId, mode, distance, maxDistance, anchored }
   const gangs = ref([])
   const myGang = ref(null)
   const auctions = ref({ listings: [], myListings: [] })
@@ -443,6 +447,92 @@ export const useGameStore = defineStore('game', () => {
       addMessage('system', data.message || '已退出副本')
       currentDungeon.value = null
       dungeonWave.value = null
+    })
+
+    // ===== P6: 万安塔 (爬塔) =====
+    socket.value.on('tower_floor', (data) => {
+      towerState.value = data
+      addMessage('battle', `万安塔 第${data.floor}/${data.totalFloors}层 — ${data.description}`)
+    })
+    socket.value.on('tower_floor_cleared', (data) => {
+      towerState.value = null  // 清除，等待请求下一层
+      addMessage('success', data.message)
+    })
+    socket.value.on('tower_completed', async (data) => {
+      towerState.value = null
+      addMessage('success', data.message)
+      await Promise.all([refreshCurrentUser(), loadInventory()])
+    })
+    socket.value.on('tower_exited', async (data) => {
+      towerState.value = null
+      addMessage('success', data.message)
+      if (data.rewards) {
+        addMessage('success', `获得经验+${data.rewards.exp}，潜能+${data.rewards.gold}`)
+      }
+      await Promise.all([refreshCurrentUser(), loadInventory()])
+    })
+
+    // ===== P6: 藏经阁 (潜行) =====
+    socket.value.on('stealth_started', (data) => {
+      stealthState.value = data
+      addMessage('system', data.message)
+    })
+    socket.value.on('stealth_moved', (data) => {
+      if (stealthState.value) {
+        stealthState.value.position = data.position
+      }
+    })
+    socket.value.on('stealth_detected', (data) => {
+      if (stealthState.value) {
+        stealthState.value.detections = data.detections
+      }
+    })
+    socket.value.on('stealth_item_found', (data) => {
+      if (stealthState.value) {
+        stealthState.value.score = (stealthState.value.score || 0) + 100
+      }
+    })
+    socket.value.on('stealth_layer_complete', (data) => {
+      if (data.nextLayer) {
+        stealthState.value = { ...stealthState.value, ...data.nextLayer, position: 0, detections: 0 }
+        addMessage('success', `进入藏经阁第${data.nextLayer.number}层！`)
+      }
+    })
+    socket.value.on('stealth_completed', async (data) => {
+      stealthState.value = null
+      addMessage('success', `藏经阁探索完成！积分：${data.score}，残页：${data.collected}`)
+      await Promise.all([refreshCurrentUser(), loadInventory()])
+    })
+    socket.value.on('stealth_failed', (data) => {
+      stealthState.value = null
+      addMessage('error', data.message)
+    })
+
+    // ===== P6: 鄱阳湖漂流 (航海) =====
+    socket.value.on('drift_started', (data) => {
+      driftState.value = data
+      addMessage('system', data.message)
+    })
+    socket.value.on('drift_navigated', (data) => {
+      if (driftState.value) {
+        driftState.value.distance = data.distance
+        if (data.foundItems) {
+          addMessage('success', `寻得宝物：${data.foundItems.join(', ')}`)
+        }
+      }
+    })
+    socket.value.on('drift_encounter', (data) => {
+      if (driftState.value) {
+        driftState.value.distance = data.distance
+      }
+      if (data.encounter) {
+        addMessage('battle', data.encounter.message)
+      }
+    })
+    socket.value.on('drift_completed', async (data) => {
+      driftState.value = null
+      addMessage('success', `漂流结束！航程${data.distance}里，宝物${data.totalItems}件，杀贼${data.banditsKilled}个`)
+      await Promise.all([refreshCurrentUser(), loadInventory()])
     })
 
     // ===== Phase 7-8: 帮派 =====
@@ -1191,6 +1281,33 @@ export const useGameStore = defineStore('game', () => {
     if (socket.value) socket.value.emit('leave_dungeon', { dungeonId })
   }
 
+  // ===== P6: 万安塔 (爬塔) =====
+  function towerFloorInfo(dungeonId) {
+    if (socket.value) socket.value.emit('tower_floor_info', { dungeonId })
+  }
+  function towerFloorComplete(dungeonId) {
+    if (socket.value) socket.value.emit('tower_floor_complete', { dungeonId })
+  }
+  function towerExit(dungeonId) {
+    if (socket.value) socket.value.emit('tower_exit', { dungeonId })
+  }
+
+  // ===== P6: 藏经阁 (潜行) =====
+  function stealthStart(dungeonId) {
+    if (socket.value) socket.value.emit('stealth_start', { dungeonId })
+  }
+  function stealthMove(battleId) {
+    if (socket.value) socket.value.emit('stealth_move', { battleId })
+  }
+
+  // ===== P6: 鄱阳湖漂流 (航海) =====
+  function driftStart(dungeonId, mode) {
+    if (socket.value) socket.value.emit('drift_start', { dungeonId, mode })
+  }
+  function driftCommand(battleId, command) {
+    if (socket.value) socket.value.emit('drift_command', { battleId, command })
+  }
+
   // ===== Phase 7-8: 帮派 =====
   function createGang(name, description) {
     if (socket.value) socket.value.emit('gang_create', { name, description })
@@ -1298,6 +1415,10 @@ export const useGameStore = defineStore('game', () => {
     dungeons,
     currentDungeon,
     dungeonWave,
+    // P6 新副本状态
+    towerState,
+    stealthState,
+    driftState,
     gangs,
     myGang,
     auctions,
@@ -1353,6 +1474,14 @@ export const useGameStore = defineStore('game', () => {
     dungeonNextWave,
     dungeonWaveComplete,
     leaveDungeon,
+    // P6 新副本方法
+    towerFloorInfo,
+    towerFloorComplete,
+    towerExit,
+    stealthStart,
+    stealthMove,
+    driftStart,
+    driftCommand,
     createGang,
     searchGangs,
     joinGang,

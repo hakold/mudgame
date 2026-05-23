@@ -300,21 +300,21 @@
         "item_cursed_gem"
       ]
     },
-    "nextQuest": "quest_poison_dragon",
+    "nextQuest": "quest_poison_jiao",
     "hint": "在沙漠古城遗址找到地下陵墓的秘密。"
   },
   {
-    "id": "quest_poison_dragon",
-    "name": "毒龙之祸",
+    "id": "quest_poison_jiao",
+    "name": "毒蛟之祸",
     "type": "main",
-    "description": "击杀毒龙",
+    "description": "击杀毒蛟",
     "prerequisites": [
       "quest_tomb_secret"
     ],
     "objectives": [
       {
         "type": "kill",
-        "monsterId": "monster_poison_dragon",
+        "monsterId": "monster_poison_jiao",
         "count": 1
       }
     ],
@@ -322,25 +322,25 @@
       "exp": 5000,
       "gold": 3000,
       "items": [
-        "item_dragon_scale",
+        "item_jiao_scale",
         "weapon_steel_sword"
       ]
     },
-    "nextQuest": "quest_fire_dragon",
-    "hint": "前往沼泽深处的毒龙巢穴，击败毒龙。"
+    "nextQuest": "quest_fire_jiao",
+    "hint": "前往沼泽深处的毒蛟巢穴，击败毒蛟。"
   },
   {
-    "id": "quest_fire_dragon",
-    "name": "火龙传说",
+    "id": "quest_fire_jiao",
+    "name": "火蛟传说",
     "type": "main",
-    "description": "击杀火龙",
+    "description": "击杀火蛟",
     "prerequisites": [
-      "quest_poison_dragon"
+      "quest_poison_jiao"
     ],
     "objectives": [
       {
         "type": "kill",
-        "monsterId": "monster_fire_dragon",
+        "monsterId": "monster_fire_jiao",
         "count": 1
       }
     ],
@@ -348,12 +348,12 @@
       "exp": 10000,
       "gold": 8000,
       "items": [
-        "item_fire_dragon_scale",
+        "item_fire_jiao_scale",
         "weapon_xuantie_sword"
       ]
     },
     "nextQuest": "quest_demon_lord",
-    "hint": "前往火山口的火龙巢穴，击败火龙。"
+    "hint": "前往火山口的火蛟巢穴，击败火蛟。"
   },
   {
     "id": "quest_demon_lord",
@@ -361,7 +361,7 @@
     "type": "main",
     "description": "击败魔王，拯救世界",
     "prerequisites": [
-      "quest_fire_dragon"
+      "quest_fire_jiao"
     ],
     "objectives": [
       {
@@ -375,7 +375,7 @@
       "gold": 20000,
       "items": [
         "item_demon_lord_essence",
-        "weapon_fire_dragon_sword"
+        "weapon_fire_jiao_sword"
       ]
     },
     "hint": "进入魔域，打败魔王拯救天下。"
@@ -508,7 +508,7 @@
       },
       {
         "type": "kill",
-        "monsterId": "monster_ice_golem",
+        "monsterId": "monster_ice_demon",
         "count": 1
       }
     ],
@@ -562,7 +562,7 @@
       },
       {
         "type": "kill",
-        "monsterId": "monster_rock_golem",
+        "monsterId": "monster_rock_demon",
         "count": 2
       }
     ],
@@ -651,7 +651,7 @@
       },
       {
         "type": "kill",
-        "monsterId": "monster_ice_golem",
+        "monsterId": "monster_ice_demon",
         "count": 1
       }
     ],
@@ -982,12 +982,12 @@
     }
   },
   {
-    "id": "quest_dragon_graveyard",
+    "id": "quest_jiao_graveyard",
     "name": "龙墓探险",
     "type": "side",
-    "description": "探索远古龙墓，击败神龙之魂取得龙骨。",
+    "description": "探索远古龙墓，击败神龙之魂取得蛟骨。",
     "prerequisites": [
-      "quest_fire_dragon"
+      "quest_fire_jiao"
     ],
     "objectives": [
       {
@@ -996,7 +996,7 @@
       },
       {
         "type": "visit",
-        "roomId": "dragon_shrine"
+        "roomId": "jiao_shrine"
       },
       {
         "type": "kill",
@@ -1013,7 +1013,7 @@
       "exp": 3000,
       "gold": 2000,
       "items": [
-        "item_dragon_bone"
+        "item_jiao_bone"
       ]
     }
   },
@@ -1023,7 +1023,7 @@
     "type": "side",
     "description": "前往凤凰台，击败凤凰获得涅槃之羽。",
     "prerequisites": [
-      "quest_fire_dragon"
+      "quest_fire_jiao"
     ],
     "objectives": [
       {
@@ -1236,7 +1236,7 @@
     "type": "side",
     "description": "前往传说中的玉虚宫，向真人请教飞升之道。",
     "prerequisites": [
-      "quest_fire_dragon"
+      "quest_fire_jiao"
     ],
     "objectives": [
       {
@@ -1294,17 +1294,17 @@
     }
   },
   {
-    "id": "quest_dragon_palace",
-    "name": "龙宫探秘",
+    "id": "quest_jiao_palace",
+    "name": "水府探秘",
     "type": "side",
-    "description": "探索深海中的龙宫，击败东海龙王。",
+    "description": "探索深海中的水府，击败东海龙王。",
     "prerequisites": [
       "quest_pirate_treasure"
     ],
     "objectives": [
       {
         "type": "visit",
-        "roomId": "dragon_palace"
+        "roomId": "jiao_palace"
       },
       {
         "type": "visit",
@@ -1325,7 +1325,7 @@
       "exp": 5000,
       "gold": 3000,
       "items": [
-        "item_dragon_heart"
+        "item_jiao_dan"
       ]
     }
   },
@@ -1335,7 +1335,7 @@
     "type": "side",
     "description": "深入火山核心，击败地核火灵获取熔岩精华。",
     "prerequisites": [
-      "quest_fire_dragon"
+      "quest_fire_jiao"
     ],
     "objectives": [
       {
@@ -1496,7 +1496,7 @@
     "type": "side",
     "description": "前往天宫接受试炼，击败天宫神射手。",
     "prerequisites": [
-      "quest_fire_dragon"
+      "quest_fire_jiao"
     ],
     "objectives": [
       {
@@ -1772,7 +1772,7 @@
     "type": "side",
     "description": "沼泽孤岛被巨型鳄鱼占据，去清除威胁。",
     "prerequisites": [
-      "quest_poison_dragon"
+      "quest_poison_jiao"
     ],
     "objectives": [
       {
@@ -1789,7 +1789,7 @@
       "exp": 1200,
       "gold": 600,
       "items": [
-        "item_mutated_skin"
+        "item_alien_skin"
       ]
     }
   },
@@ -1856,7 +1856,7 @@
     "type": "side",
     "description": "熔火锻造坊被魔像占领，去清理它们以重启锻造。",
     "prerequisites": [
-      "quest_fire_dragon"
+      "quest_fire_jiao"
     ],
     "objectives": [
       {
@@ -1865,7 +1865,7 @@
       },
       {
         "type": "kill",
-        "monsterId": "monster_volcano_forge_golem",
+        "monsterId": "monster_volcano_spirit",
         "count": 2
       }
     ],
@@ -1883,7 +1883,7 @@
     "type": "side",
     "description": "击败天门金刚，证明你踏足天界的资格。",
     "prerequisites": [
-      "quest_fire_dragon"
+      "quest_fire_jiao"
     ],
     "objectives": [
       {
@@ -1892,7 +1892,7 @@
       },
       {
         "type": "kill",
-        "monsterId": "monster_heaven_golem",
+        "monsterId": "monster_heaven_guardian",
         "count": 2
       }
     ],
@@ -1957,7 +1957,7 @@
     }
   },
   {
-    "id": "quest_side_thunder_dragon",
+    "id": "quest_side_thunder_jiao",
     "name": "雷龙讨伐",
     "type": "side",
     "description": "雷霆峰上出现了雷龙，去讨伐它。",

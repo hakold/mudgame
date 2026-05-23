@@ -638,8 +638,8 @@
   },
   {
     "id": "swamp_lair",
-    "name": "毒龙巢穴",
-    "description": "传说中毒龙的巢穴，危险重重。",
+    "name": "毒蛟巢穴",
+    "description": "传说中毒蛟的巢穴，危险重重。",
     "mapId": "swamp",
     "exits": [
       {
@@ -648,7 +648,7 @@
       }
     ],
     "features": [
-      "龙骨",
+      "蛟骨",
       "宝箱"
     ]
   },
@@ -853,8 +853,8 @@
   },
   {
     "id": "volcano_lair",
-    "name": "火龙巢穴",
-    "description": "火龙的巢穴，洞穴深处传来低沉的咆哮声。",
+    "name": "火蛟巢穴",
+    "description": "火蛟的巢穴，洞穴深处传来低沉的咆哮声。",
     "mapId": "volcano",
     "exits": [
       {
@@ -863,7 +863,7 @@
       }
     ],
     "features": [
-      "龙鳞",
+      "蛟鳞",
       "火焰"
     ]
   },
@@ -1439,7 +1439,7 @@
     ],
     "features": [
       "帮主画像",
-      "降龙十八掌秘籍",
+      "伏蛟十八掌秘籍",
       "长老席"
     ],
     "services": [
@@ -2831,7 +2831,7 @@
     "id": "dragon_graveyard",
     "mapId": "mountain",
     "name": "龙墓",
-    "description": "远古巨龙最后的归宿，巨大的龙骨散落在地面上。空气中弥漫着古老而庄严的气息，据说龙魂仍在此徘徊。",
+    "description": "远古巨龙最后的归宿，巨大的蛟骨散落在地面上。空气中弥漫着古老而庄严的气息，据说龙魂仍在此徘徊。",
     "exits": [
       {
         "direction": "south",
@@ -2839,18 +2839,18 @@
       },
       {
         "direction": "up",
-        "roomId": "dragon_shrine"
+        "roomId": "jiao_shrine"
       }
     ],
     "features": [
-      "龙骨",
+      "蛟骨",
       "龙魂",
       "化石"
     ],
     "services": []
   },
   {
-    "id": "dragon_shrine",
+    "id": "jiao_shrine",
     "mapId": "mountain",
     "name": "龙神殿",
     "description": "龙墓深处的神殿，供奉着太古神龙的雕像。传说神龙留下了它的一片逆鳞，得之可获龙神之力。",
@@ -2863,7 +2863,7 @@
     "features": [
       "神龙像",
       "逆鳞",
-      "龙血池"
+      "蛟血池"
     ],
     "services": [
       "meditate"
@@ -3317,10 +3317,10 @@
     ]
   },
   {
-    "id": "dragon_palace",
+    "id": "jiao_palace",
     "mapId": "island",
-    "name": "海底龙宫",
-    "description": "深海中的水晶宫殿，东海龙王的居所。宫墙以珊瑚和珍珠砌成，虾兵蟹将守卫各处。据说龙宫藏有定海神珍。",
+    "name": "海底水府",
+    "description": "深海中的水晶宫殿，东海龙王的居所。宫墙以珊瑚和珍珠砌成，虾兵蟹将守卫各处。据说水府藏有定海神珍。",
     "exits": [
       {
         "direction": "up",
@@ -3346,11 +3346,11 @@
     "id": "coral_garden",
     "mapId": "island",
     "name": "珊瑚园",
-    "description": "龙宫旁的珊瑚园，五彩斑斓的珊瑚在洋流中摇曳。各种海洋生物在此嬉戏，是海底最美丽的地方。",
+    "description": "水府旁的珊瑚园，五彩斑斓的珊瑚在洋流中摇曳。各种海洋生物在此嬉戏，是海底最美丽的地方。",
     "exits": [
       {
         "direction": "south",
-        "roomId": "dragon_palace"
+        "roomId": "jiao_palace"
       }
     ],
     "features": [
@@ -3371,7 +3371,7 @@
     "exits": [
       {
         "direction": "out",
-        "roomId": "dragon_palace"
+        "roomId": "jiao_palace"
       }
     ],
     "features": [

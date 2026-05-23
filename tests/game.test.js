@@ -306,6 +306,118 @@ test('PvP disconnect grace — expires after timeout', () => {
   assert(isExpired(null) === true, 'null = expired (should not happen)');
 });
 
+// ========== P6: 副本系统 ==========
+
+test('Dungeons — all types covered', () => {
+  const dungeons = require('../server/src/game/instanceService').dungeons;
+  assert(dungeons.length >= 8, `Expected >=8 dungeons, got ${dungeons.length}`);
+  
+  const typeCounts = {};
+  for (const d of dungeons) {
+    typeCounts[d.type] = (typeCounts[d.type] || 0) + 1;
+  }
+  // All 6 types should exist
+  assert(typeCounts.trial >= 2, 'At least 2 trial dungeons');
+  assert(typeCounts.explore >= 1, 'At least 1 explore dungeon');
+  assert(typeCounts.boss >= 2, 'At least 2 boss dungeons');
+  assert(typeCounts.tower >= 1, 'Tower dungeon exists');
+  assert(typeCounts.stealth >= 1, 'Stealth dungeon exists');
+  assert(typeCounts.drift >= 1, 'Drift dungeon exists');
+});
+
+test('Dungeons — valid monster references', () => {
+  const dungeons = require('../server/src/game/instanceService').dungeons;
+  const monsters = JSON.parse(require('fs').readFileSync(
+    require('path').join(__dirname, '..', 'config', 'json', 'monsters.json'), 'utf8'
+  ));
+  const monsterIds = new Set(monsters.map(m => m.id));
+  
+  const missing = [];
+  for (const d of dungeons) {
+    // Check waves
+    if (d.waves) {
+      for (const w of d.waves) {
+        if (w.monsterId && !monsterIds.has(w.monsterId)) missing.push(`${d.id} wave ${w.wave}: ${w.monsterId}`);
+        if (w.monsterId2 && !monsterIds.has(w.monsterId2)) missing.push(`${d.id} wave ${w.wave}: ${w.monsterId2}`);
+      }
+    }
+    // Check floors
+    if (d.floors) {
+      for (const f of d.floors) {
+        if (f.monsterId && !monsterIds.has(f.monsterId)) missing.push(`${d.id} floor ${f.floor}: ${f.monsterId}`);
+      }
+    }
+    // Check boss
+    if (d.bossMonsterId && !monsterIds.has(d.bossMonsterId)) missing.push(`${d.id} boss: ${d.bossMonsterId}`);
+    // Check patrol
+    if (d.patrolMonsterId && !monsterIds.has(d.patrolMonsterId)) missing.push(`${d.id} patrol: ${d.patrolMonsterId}`);
+    // Check water bandits
+    if (d.waterBandits) {
+      for (const wb of d.waterBandits) {
+        if (wb.monsterId && !monsterIds.has(wb.monsterId)) missing.push(`${d.id} bandit: ${wb.monsterId}`);
+      }
+    }
+  }
+  assert(missing.length === 0, `Missing monsters: ${missing.join(', ')}`);
+});
+
+test('Dungeons — no western fantasy in monster names', () => {
+  const monsters = JSON.parse(require('fs').readFileSync(
+    require('path').join(__dirname, '..', 'config', 'json', 'monsters.json'), 'utf8'
+  ));
+  const banned = ['golem', 'mutated', '变异'];
+  const violations = [];
+  for (const m of monsters) {
+    for (const b of banned) {
+      if (m.id.includes(b) || m.name.includes(b)) {
+        violations.push(`${m.id} (${m.name}): contains '${b}'`);
+      }
+    }
+  }
+  assert(violations.length === 0, `Western fantasy found: ${violations.join('; ')}`);
+});
+
+test('Dungeons — tower floors have increasing rewards', () => {
+  const dungeons = require('../server/src/game/instanceService').dungeons;
+  const tower = dungeons.find(d => d.id === 'dungeon_wanan_tower');
+  assert(tower, '万安塔 exists');
+  assert(tower.totalFloors === 7, '7 floors');
+  assert(tower.floors.length === 7, '7 floor configs');
+  
+  for (let i = 1; i < tower.floors.length; i++) {
+    const prev = tower.floors[i - 1];
+    const curr = tower.floors[i];
+    assert(curr.expReward > prev.expReward, `Floor ${i + 1} exp > floor ${i} exp`);
+    assert(curr.potReward >= prev.potReward, `Floor ${i + 1} pot >= floor ${i} pot`);
+  }
+});
+
+test('Dungeons — stealth maze layers are valid', () => {
+  const dungeons = require('../server/src/game/instanceService').dungeons;
+  const stealth = dungeons.find(d => d.id === 'dungeon_scripture_pavilion');
+  assert(stealth, '藏经阁 exists');
+  assert(stealth.maxDetections === 3, 'Max 3 detections');
+  assert(stealth.mazeLayers.length === 2, '2 layers');
+  assert(stealth.mazeLayers[0].rooms === 54, 'Layer 1: 54 rooms');
+  assert(stealth.mazeLayers[1].rooms === 20, 'Layer 2: 20 rooms');
+});
+
+test('Dungeons — drift modes and bandits are valid', () => {
+  const dungeons = require('../server/src/game/instanceService').dungeons;
+  const drift = dungeons.find(d => d.id === 'dungeon_poyang_drift');
+  assert(drift, '鄱阳湖漂流 exists');
+  assert(drift.modes.length === 3, '3 modes');
+  assert(drift.waterBandits.length === 3, '3 bandit tiers');
+  assert(drift.shipCommands.length >= 6, 'At least 6 ship commands');
+  
+  // Bandit distance ranges are non-overlapping
+  const sorted = drift.waterBandits.sort((a, b) => a.minDistance - b.minDistance);
+  for (let i = 0; i < sorted.length - 1; i++) {
+    assert(sorted[i].maxDistance <= sorted[i + 1].minDistance,
+      `Bandit ranges should not overlap: ${sorted[i].maxDistance} vs ${sorted[i + 1].minDistance}`);
+  }
+});
+
 // ========== 运行 ==========
 function runAll() {
   console.log('=== Game Logic Tests ===\n');
