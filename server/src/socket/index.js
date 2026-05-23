@@ -2184,6 +2184,7 @@ function socketHandler(io) {
         if (rewards.exp) user.exp += rewards.exp;
         if (rewards.gold) user.gold += rewards.gold;
         if (rewards.factionReputation) user.factionReputation += rewards.factionReputation;
+        if (rewards.factionContribution) user.factionContribution = (user.factionContribution || 0) + rewards.factionContribution;
         if (rewards.items) {
           for (const itemId of rewards.items) {
             await Inventory.create({ userId: user._id, itemId, quantity: 1 });
@@ -2196,7 +2197,8 @@ function socketHandler(io) {
       quest.completedAt = new Date();
       await quest.save();
       socket.emit('faction_quest_completed', { quest: questConfig, rewards: questConfig.rewards });
-      socket.emit('system_message', { content: `门派任务完成：${questConfig.name}！` });
+      const contribMsg = rewards.factionContribution ? `，门派贡献+${rewards.factionContribution}` : '';
+      socket.emit('system_message', { content: `门派任务完成：${questConfig.name}！${contribMsg}` });
       user.stats.questsCompleted = (user.stats.questsCompleted || 0) + 1;
       await user.save();
       checkAndAwardAchievements(user._id);
@@ -2228,49 +2230,64 @@ function socketHandler(io) {
       });
     });
 
-    // 用贡献兑换技能
+    // 用贡献兑换技能或物品
     socket.on('faction_exchange', async (data) => {
-      const { skillId } = data;
+      const { skillId, itemId } = data;
       if (!user.faction) {
         return socket.emit('error', { message: '你还没有加入门派' });
       }
       const faction = getFaction(user.faction);
       if (!faction) return socket.emit('error', { message: '门派不存在' });
 
-      // 检查技能是否属于该门派
-      const allSkills = getLearnableSkills(user.faction, user.level, user.factionRank);
-      const skill = allSkills.find(s => s.id === skillId);
-      if (!skill) {
-        return socket.emit('error', { message: '该技能不在你可兑换的范围内（需满足等级和门派等级要求）' });
+      // 兑换技能
+      if (skillId) {
+        const allSkills = getLearnableSkills(user.faction, user.level, user.factionRank);
+        const skill = allSkills.find(s => s.id === skillId);
+        if (!skill) {
+          return socket.emit('error', { message: '该技能不在你可兑换的范围内（需满足等级和门派等级要求）' });
+        }
+        const contributionCost = skill.learnPrice || 100;
+        if (user.factionContribution < contributionCost) {
+          return socket.emit('error', { message: `门派贡献不足，需要 ${contributionCost} 贡献（当前: ${user.factionContribution}）` });
+        }
+        if (user.skills.includes(skillId)) {
+          return socket.emit('error', { message: '你已经学会了这个技能' });
+        }
+        user.factionContribution -= contributionCost;
+        user.skills.push(skillId);
+        await user.save();
+        socket.emit('faction_exchanged', {
+          skillId, skillName: skill.name, cost: contributionCost,
+          remainingContribution: user.factionContribution
+        });
+        socket.emit('system_message', { content: `用 ${contributionCost} 门派贡献兑换了技能「${skill.name}」！` });
+        actionLogService.log(user._id, user.characterName, 'faction', 'exchange_skill',
+          { factionId: user.faction, skillId, cost: contributionCost }, user.location.roomId);
       }
-
-      const contributionCost = skill.learnPrice || 100;
-      if (user.factionContribution < contributionCost) {
-        return socket.emit('error', { message: `门派贡献不足，需要 ${contributionCost} 贡献（当前: ${user.factionContribution}）` });
+      // 兑换物品
+      else if (itemId) {
+        const itemConfig = getItem(itemId);
+        if (!itemConfig) {
+          return socket.emit('error', { message: '物品不存在' });
+        }
+        // 物品兑换价格：按稀有度定价，默认30贡献起
+        const itemCost = itemConfig.contributionCost || (itemConfig.price ? Math.ceil(itemConfig.price / 10) : 30);
+        if (user.factionContribution < itemCost) {
+          return socket.emit('error', { message: `门派贡献不足，需要 ${itemCost} 贡献（当前: ${user.factionContribution}）` });
+        }
+        user.factionContribution -= itemCost;
+        await user.save();
+        await Inventory.create({ userId: user._id, itemId, quantity: 1 });
+        socket.emit('faction_exchanged', {
+          itemId, itemName: itemConfig.name, cost: itemCost,
+          remainingContribution: user.factionContribution
+        });
+        socket.emit('system_message', { content: `用 ${itemCost} 门派贡献兑换了「${itemConfig.name}」！` });
+        actionLogService.log(user._id, user.characterName, 'faction', 'exchange_item',
+          { factionId: user.faction, itemId, cost: itemCost }, user.location.roomId);
+      } else {
+        return socket.emit('error', { message: '请指定要兑换的技能ID或物品ID' });
       }
-
-      // 检查是否已学习
-      if (user.skills.includes(skillId)) {
-        return socket.emit('error', { message: '你已经学会了这个技能' });
-      }
-
-      // 消耗贡献学习技能
-      user.factionContribution -= contributionCost;
-      user.skills.push(skillId);
-      await user.save();
-
-      socket.emit('faction_exchanged', {
-        skillId,
-        skillName: skill.name,
-        cost: contributionCost,
-        remainingContribution: user.factionContribution
-      });
-      socket.emit('system_message', {
-        content: `用 ${contributionCost} 门派贡献兑换了技能「${skill.name}」！`
-      });
-
-      actionLogService.log(user._id, user.characterName, 'faction', 'exchange',
-        { factionId: user.faction, skillId, cost: contributionCost }, user.location.roomId);
     });
 
     // ==================== NPC对话 ====================

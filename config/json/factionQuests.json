@@ -16,7 +16,8 @@
     "rewards": {
       "exp": 300,
       "gold": 100,
-      "factionReputation": 20
+      "factionReputation": 20,
+      "factionContribution": 15
     },
     "dailyReset": true,
     "minFactionRank": "disciple"
@@ -37,7 +38,8 @@
     "rewards": {
       "exp": 500,
       "gold": 200,
-      "factionReputation": 30
+      "factionReputation": 30,
+      "factionContribution": 15
     },
     "dailyReset": true,
     "minFactionRank": "disciple"
@@ -59,7 +61,8 @@
     "rewards": {
       "exp": 300,
       "gold": 100,
-      "factionReputation": 20
+      "factionReputation": 20,
+      "factionContribution": 15
     },
     "dailyReset": true,
     "minFactionRank": "disciple"
@@ -80,7 +83,8 @@
     "rewards": {
       "exp": 500,
       "gold": 200,
-      "factionReputation": 30
+      "factionReputation": 30,
+      "factionContribution": 15
     },
     "dailyReset": true,
     "minFactionRank": "disciple"
@@ -101,7 +105,8 @@
     "rewards": {
       "exp": 300,
       "gold": 100,
-      "factionReputation": 20
+      "factionReputation": 20,
+      "factionContribution": 15
     },
     "dailyReset": true
   },
@@ -121,7 +126,8 @@
     "rewards": {
       "exp": 300,
       "gold": 150,
-      "factionReputation": 20
+      "factionReputation": 20,
+      "factionContribution": 15
     },
     "dailyReset": true
   },
@@ -141,7 +147,8 @@
     "rewards": {
       "exp": 600,
       "gold": 300,
-      "factionReputation": 40
+      "factionReputation": 40,
+      "factionContribution": 15
     },
     "dailyReset": true
   },
@@ -161,7 +168,8 @@
     "rewards": {
       "exp": 500,
       "gold": 250,
-      "factionReputation": 35
+      "factionReputation": 35,
+      "factionContribution": 15
     },
     "dailyReset": true
   },
@@ -190,7 +198,8 @@
     "rewards": {
       "exp": 200,
       "gold": 100,
-      "factionReputation": 50
+      "factionReputation": 50,
+      "factionContribution": 10
     },
     "minFactionRank": "disciple"
   },
@@ -219,7 +228,8 @@
     "rewards": {
       "exp": 200,
       "gold": 100,
-      "factionReputation": 50
+      "factionReputation": 50,
+      "factionContribution": 10
     },
     "minFactionRank": "disciple"
   },
@@ -248,7 +258,8 @@
     "rewards": {
       "exp": 200,
       "gold": 100,
-      "factionReputation": 50
+      "factionReputation": 50,
+      "factionContribution": 10
     },
     "minFactionRank": "disciple"
   },
@@ -277,7 +288,8 @@
     "rewards": {
       "exp": 200,
       "gold": 100,
-      "factionReputation": 50
+      "factionReputation": 50,
+      "factionContribution": 10
     },
     "minFactionRank": "disciple"
   },
@@ -306,7 +318,8 @@
     "rewards": {
       "exp": 400,
       "gold": 200,
-      "factionReputation": 80
+      "factionReputation": 80,
+      "factionContribution": 10
     },
     "minFactionRank": "disciple"
   },
@@ -335,7 +348,8 @@
     "rewards": {
       "exp": 500,
       "gold": 300,
-      "factionReputation": 100
+      "factionReputation": 100,
+      "factionContribution": 10
     },
     "minFactionRank": "disciple"
   },
@@ -360,7 +374,8 @@
     "rewards": {
       "exp": 1000,
       "gold": 500,
-      "factionReputation": 150
+      "factionReputation": 150,
+      "factionContribution": 25
     },
     "minFactionRank": "disciple"
   },
@@ -385,7 +400,8 @@
     "rewards": {
       "exp": 1000,
       "gold": 500,
-      "factionReputation": 150
+      "factionReputation": 150,
+      "factionContribution": 25
     },
     "minFactionRank": "disciple"
   },
@@ -410,7 +426,8 @@
     "rewards": {
       "exp": 1000,
       "gold": 500,
-      "factionReputation": 150
+      "factionReputation": 150,
+      "factionContribution": 25
     },
     "minFactionRank": "disciple"
   },
@@ -435,7 +452,8 @@
     "rewards": {
       "exp": 1000,
       "gold": 500,
-      "factionReputation": 150
+      "factionReputation": 150,
+      "factionContribution": 25
     },
     "minFactionRank": "disciple"
   },
@@ -460,7 +478,8 @@
     "rewards": {
       "exp": 1500,
       "gold": 800,
-      "factionReputation": 200
+      "factionReputation": 200,
+      "factionContribution": 25
     },
     "minFactionRank": "disciple"
   },
@@ -485,7 +504,8 @@
     "rewards": {
       "exp": 2000,
       "gold": 1000,
-      "factionReputation": 250
+      "factionReputation": 250,
+      "factionContribution": 25
     },
     "minFactionRank": "disciple"
   },
@@ -510,7 +530,8 @@
     "rewards": {
       "exp": 3000,
       "gold": 2000,
-      "factionReputation": 300
+      "factionReputation": 300,
+      "factionContribution": 25
     },
     "minFactionRank": "deacon"
   },
@@ -535,7 +556,8 @@
     "rewards": {
       "exp": 3000,
       "gold": 2000,
-      "factionReputation": 300
+      "factionReputation": 300,
+      "factionContribution": 25
     },
     "minFactionRank": "deacon"
   },
@@ -560,7 +582,8 @@
     "rewards": {
       "exp": 3000,
       "gold": 2000,
-      "factionReputation": 300
+      "factionReputation": 300,
+      "factionContribution": 25
     },
     "minFactionRank": "deacon"
   },
@@ -585,7 +608,8 @@
     "rewards": {
       "exp": 3000,
       "gold": 2000,
-      "factionReputation": 300
+      "factionReputation": 300,
+      "factionContribution": 25
     },
     "minFactionRank": "deacon"
   },
@@ -610,7 +634,8 @@
     "rewards": {
       "exp": 5000,
       "gold": 3000,
-      "factionReputation": 500
+      "factionReputation": 500,
+      "factionContribution": 25
     },
     "minFactionRank": "deacon"
   },
@@ -635,7 +660,8 @@
     "rewards": {
       "exp": 5000,
       "gold": 3000,
-      "factionReputation": 500
+      "factionReputation": 500,
+      "factionContribution": 25
     },
     "minFactionRank": "deacon"
   },
@@ -655,7 +681,8 @@
     "rewards": {
       "exp": 10000,
       "gold": 5000,
-      "factionReputation": 800
+      "factionReputation": 800,
+      "factionContribution": 25
     },
     "minFactionRank": "elder"
   },
@@ -675,7 +702,8 @@
     "rewards": {
       "exp": 10000,
       "gold": 5000,
-      "factionReputation": 800
+      "factionReputation": 800,
+      "factionContribution": 25
     },
     "minFactionRank": "elder"
   },
@@ -695,7 +723,8 @@
     "rewards": {
       "exp": 10000,
       "gold": 5000,
-      "factionReputation": 800
+      "factionReputation": 800,
+      "factionContribution": 25
     },
     "minFactionRank": "elder"
   },
@@ -715,7 +744,8 @@
     "rewards": {
       "exp": 10000,
       "gold": 5000,
-      "factionReputation": 800
+      "factionReputation": 800,
+      "factionContribution": 25
     },
     "minFactionRank": "elder"
   },
@@ -735,7 +765,8 @@
     "rewards": {
       "exp": 20000,
       "gold": 10000,
-      "factionReputation": 1500
+      "factionReputation": 1500,
+      "factionContribution": 25
     },
     "minFactionRank": "elder"
   },
@@ -755,7 +786,8 @@
     "rewards": {
       "exp": 20000,
       "gold": 10000,
-      "factionReputation": 1500
+      "factionReputation": 1500,
+      "factionContribution": 25
     },
     "minFactionRank": "elder"
   },
@@ -775,7 +807,8 @@
     "rewards": {
       "exp": 500,
       "gold": 200,
-      "factionReputation": 30
+      "factionReputation": 30,
+      "factionContribution": 15
     },
     "dailyReset": true,
     "minFactionRank": "disciple"
@@ -796,7 +829,8 @@
     "rewards": {
       "exp": 500,
       "gold": 250,
-      "factionReputation": 35
+      "factionReputation": 35,
+      "factionContribution": 15
     },
     "dailyReset": true,
     "minFactionRank": "disciple"
@@ -821,7 +855,8 @@
     "rewards": {
       "exp": 350,
       "gold": 150,
-      "factionReputation": 25
+      "factionReputation": 25,
+      "factionContribution": 15
     },
     "dailyReset": true,
     "minFactionRank": "disciple"
@@ -846,7 +881,8 @@
     "rewards": {
       "exp": 350,
       "gold": 150,
-      "factionReputation": 25
+      "factionReputation": 25,
+      "factionContribution": 15
     },
     "dailyReset": true,
     "minFactionRank": "disciple"
@@ -871,7 +907,8 @@
     "rewards": {
       "exp": 800,
       "gold": 400,
-      "factionReputation": 50
+      "factionReputation": 50,
+      "factionContribution": 15
     },
     "dailyReset": true,
     "minFactionRank": "deacon"
@@ -896,7 +933,8 @@
     "rewards": {
       "exp": 400,
       "gold": 200,
-      "factionReputation": 30
+      "factionReputation": 30,
+      "factionContribution": 15
     },
     "dailyReset": true,
     "minFactionRank": "disciple"
@@ -922,7 +960,8 @@
     "rewards": {
       "exp": 800,
       "gold": 400,
-      "factionReputation": 60
+      "factionReputation": 60,
+      "factionContribution": 20
     },
     "minFactionRank": "disciple"
   },
@@ -947,7 +986,8 @@
     "rewards": {
       "exp": 800,
       "gold": 400,
-      "factionReputation": 60
+      "factionReputation": 60,
+      "factionContribution": 20
     },
     "minFactionRank": "disciple"
   },
@@ -977,8 +1017,561 @@
     "rewards": {
       "exp": 1500,
       "gold": 800,
-      "factionReputation": 100
+      "factionReputation": 100,
+      "factionContribution": 20
     },
     "minFactionRank": "disciple"
+  },
+  {
+    "id": "faction_shaolin_daily_new_1",
+    "name": "除害(少林派)",
+    "description": "清除附近的怪物，维护门派安宁。",
+    "type": "faction_daily",
+    "factionId": "shaolin",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "kill",
+        "count": 3,
+        "monsterId": "monster_bandit"
+      }
+    ],
+    "rewards": {
+      "exp": 200,
+      "gold": 80,
+      "factionReputation": 15,
+      "factionContribution": 12
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_shaolin_monk"
+  },
+  {
+    "id": "faction_shaolin_daily_new_2",
+    "name": "巡山(少林派)",
+    "description": "巡视门派领地，确保没有异常。",
+    "type": "faction_daily",
+    "factionId": "shaolin",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "visit",
+        "count": 1,
+        "roomId": "forest_path"
+      }
+    ],
+    "rewards": {
+      "exp": 300,
+      "gold": 120,
+      "factionReputation": 20,
+      "factionContribution": 15
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_shaolin_monk"
+  },
+  {
+    "id": "faction_shaolin_daily_new_3",
+    "name": "化缘(少林派)",
+    "description": "与NPC交谈化缘，为门派积攒善款。",
+    "type": "faction_daily",
+    "factionId": "shaolin",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "talk",
+        "count": 1,
+        "npcId": "npc_shaolin_monk"
+      }
+    ],
+    "rewards": {
+      "exp": 400,
+      "gold": 160,
+      "factionReputation": 25,
+      "factionContribution": 18
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_shaolin_monk"
+  },
+  {
+    "id": "faction_shaolin_daily_new_4",
+    "name": "采药(少林派)",
+    "description": "采集草药上交门派，用于炼制丹药。",
+    "type": "faction_daily",
+    "factionId": "shaolin",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "collect",
+        "count": 5,
+        "itemId": "item_herb"
+      }
+    ],
+    "rewards": {
+      "exp": 500,
+      "gold": 200,
+      "factionReputation": 30,
+      "factionContribution": 21
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_shaolin_monk"
+  },
+  {
+    "id": "faction_wudang_daily_new_1",
+    "name": "除害(武当派)",
+    "description": "清除附近的怪物，维护门派安宁。",
+    "type": "faction_daily",
+    "factionId": "wudang",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "kill",
+        "count": 3,
+        "monsterId": "monster_tiger"
+      }
+    ],
+    "rewards": {
+      "exp": 200,
+      "gold": 80,
+      "factionReputation": 15,
+      "factionContribution": 12
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_wudang_taoist"
+  },
+  {
+    "id": "faction_wudang_daily_new_2",
+    "name": "巡山(武当派)",
+    "description": "巡视门派领地，确保没有异常。",
+    "type": "faction_daily",
+    "factionId": "wudang",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "visit",
+        "count": 1,
+        "roomId": "mountain_path"
+      }
+    ],
+    "rewards": {
+      "exp": 300,
+      "gold": 120,
+      "factionReputation": 20,
+      "factionContribution": 15
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_wudang_taoist"
+  },
+  {
+    "id": "faction_wudang_daily_new_3",
+    "name": "化缘(武当派)",
+    "description": "与NPC交谈化缘，为门派积攒善款。",
+    "type": "faction_daily",
+    "factionId": "wudang",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "talk",
+        "count": 1,
+        "npcId": "npc_wudang_taoist"
+      }
+    ],
+    "rewards": {
+      "exp": 400,
+      "gold": 160,
+      "factionReputation": 25,
+      "factionContribution": 18
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_wudang_taoist"
+  },
+  {
+    "id": "faction_wudang_daily_new_4",
+    "name": "采药(武当派)",
+    "description": "采集草药上交门派，用于炼制丹药。",
+    "type": "faction_daily",
+    "factionId": "wudang",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "collect",
+        "count": 5,
+        "itemId": "item_herb"
+      }
+    ],
+    "rewards": {
+      "exp": 500,
+      "gold": 200,
+      "factionReputation": 30,
+      "factionContribution": 21
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_wudang_taoist"
+  },
+  {
+    "id": "faction_emei_daily_new_1",
+    "name": "除害(峨眉派)",
+    "description": "清除附近的怪物，维护门派安宁。",
+    "type": "faction_daily",
+    "factionId": "emei",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "kill",
+        "count": 3,
+        "monsterId": "monster_snake"
+      }
+    ],
+    "rewards": {
+      "exp": 200,
+      "gold": 80,
+      "factionReputation": 15,
+      "factionContribution": 12
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_emei_nun"
+  },
+  {
+    "id": "faction_emei_daily_new_2",
+    "name": "巡山(峨眉派)",
+    "description": "巡视门派领地，确保没有异常。",
+    "type": "faction_daily",
+    "factionId": "emei",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "visit",
+        "count": 1,
+        "roomId": "mountain_peak"
+      }
+    ],
+    "rewards": {
+      "exp": 300,
+      "gold": 120,
+      "factionReputation": 20,
+      "factionContribution": 15
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_emei_nun"
+  },
+  {
+    "id": "faction_emei_daily_new_3",
+    "name": "化缘(峨眉派)",
+    "description": "与NPC交谈化缘，为门派积攒善款。",
+    "type": "faction_daily",
+    "factionId": "emei",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "talk",
+        "count": 1,
+        "npcId": "npc_emei_nun"
+      }
+    ],
+    "rewards": {
+      "exp": 400,
+      "gold": 160,
+      "factionReputation": 25,
+      "factionContribution": 18
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_emei_nun"
+  },
+  {
+    "id": "faction_emei_daily_new_4",
+    "name": "采药(峨眉派)",
+    "description": "采集草药上交门派，用于炼制丹药。",
+    "type": "faction_daily",
+    "factionId": "emei",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "collect",
+        "count": 5,
+        "itemId": "item_herb"
+      }
+    ],
+    "rewards": {
+      "exp": 500,
+      "gold": 200,
+      "factionReputation": 30,
+      "factionContribution": 21
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_emei_nun"
+  },
+  {
+    "id": "faction_beggar_daily_new_1",
+    "name": "除害(丐帮)",
+    "description": "清除附近的怪物，维护门派安宁。",
+    "type": "faction_daily",
+    "factionId": "beggar",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "kill",
+        "count": 3,
+        "monsterId": "monster_thug"
+      }
+    ],
+    "rewards": {
+      "exp": 200,
+      "gold": 80,
+      "factionReputation": 15,
+      "factionContribution": 12
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_beggar_elder"
+  },
+  {
+    "id": "faction_beggar_daily_new_2",
+    "name": "巡山(丐帮)",
+    "description": "巡视门派领地，确保没有异常。",
+    "type": "faction_daily",
+    "factionId": "beggar",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "visit",
+        "count": 1,
+        "roomId": "city_street"
+      }
+    ],
+    "rewards": {
+      "exp": 300,
+      "gold": 120,
+      "factionReputation": 20,
+      "factionContribution": 15
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_beggar_elder"
+  },
+  {
+    "id": "faction_beggar_daily_new_3",
+    "name": "化缘(丐帮)",
+    "description": "与NPC交谈化缘，为门派积攒善款。",
+    "type": "faction_daily",
+    "factionId": "beggar",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "talk",
+        "count": 1,
+        "npcId": "npc_beggar_elder"
+      }
+    ],
+    "rewards": {
+      "exp": 400,
+      "gold": 160,
+      "factionReputation": 25,
+      "factionContribution": 18
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_beggar_elder"
+  },
+  {
+    "id": "faction_beggar_daily_new_4",
+    "name": "采药(丐帮)",
+    "description": "采集草药上交门派，用于炼制丹药。",
+    "type": "faction_daily",
+    "factionId": "beggar",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "collect",
+        "count": 5,
+        "itemId": "item_herb"
+      }
+    ],
+    "rewards": {
+      "exp": 500,
+      "gold": 200,
+      "factionReputation": 30,
+      "factionContribution": 21
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_beggar_elder"
+  },
+  {
+    "id": "faction_mingjiao_daily_new_1",
+    "name": "除害(明教)",
+    "description": "清除附近的怪物，维护门派安宁。",
+    "type": "faction_daily",
+    "factionId": "mingjiao",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "kill",
+        "count": 3,
+        "monsterId": "monster_rebel"
+      }
+    ],
+    "rewards": {
+      "exp": 200,
+      "gold": 80,
+      "factionReputation": 15,
+      "factionContribution": 12
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_ming_cultist"
+  },
+  {
+    "id": "faction_mingjiao_daily_new_2",
+    "name": "巡山(明教)",
+    "description": "巡视门派领地，确保没有异常。",
+    "type": "faction_daily",
+    "factionId": "mingjiao",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "visit",
+        "count": 1,
+        "roomId": "desert_outpost"
+      }
+    ],
+    "rewards": {
+      "exp": 300,
+      "gold": 120,
+      "factionReputation": 20,
+      "factionContribution": 15
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_ming_cultist"
+  },
+  {
+    "id": "faction_mingjiao_daily_new_3",
+    "name": "化缘(明教)",
+    "description": "与NPC交谈化缘，为门派积攒善款。",
+    "type": "faction_daily",
+    "factionId": "mingjiao",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "talk",
+        "count": 1,
+        "npcId": "npc_ming_cultist"
+      }
+    ],
+    "rewards": {
+      "exp": 400,
+      "gold": 160,
+      "factionReputation": 25,
+      "factionContribution": 18
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_ming_cultist"
+  },
+  {
+    "id": "faction_mingjiao_daily_new_4",
+    "name": "采药(明教)",
+    "description": "采集草药上交门派，用于炼制丹药。",
+    "type": "faction_daily",
+    "factionId": "mingjiao",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "collect",
+        "count": 5,
+        "itemId": "item_herb"
+      }
+    ],
+    "rewards": {
+      "exp": 500,
+      "gold": 200,
+      "factionReputation": 30,
+      "factionContribution": 21
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_ming_cultist"
+  },
+  {
+    "id": "faction_xiaoyao_daily_new_1",
+    "name": "除害(逍遥派)",
+    "description": "清除附近的怪物，维护门派安宁。",
+    "type": "faction_daily",
+    "factionId": "xiaoyao",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "kill",
+        "count": 3,
+        "monsterId": "monster_eagle"
+      }
+    ],
+    "rewards": {
+      "exp": 200,
+      "gold": 80,
+      "factionReputation": 15,
+      "factionContribution": 12
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_xiaoyao_elder"
+  },
+  {
+    "id": "faction_xiaoyao_daily_new_2",
+    "name": "巡山(逍遥派)",
+    "description": "巡视门派领地，确保没有异常。",
+    "type": "faction_daily",
+    "factionId": "xiaoyao",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "visit",
+        "count": 1,
+        "roomId": "bamboo_grove"
+      }
+    ],
+    "rewards": {
+      "exp": 300,
+      "gold": 120,
+      "factionReputation": 20,
+      "factionContribution": 15
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_xiaoyao_elder"
+  },
+  {
+    "id": "faction_xiaoyao_daily_new_3",
+    "name": "化缘(逍遥派)",
+    "description": "与NPC交谈化缘，为门派积攒善款。",
+    "type": "faction_daily",
+    "factionId": "xiaoyao",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "talk",
+        "count": 1,
+        "npcId": "npc_xiaoyao_elder"
+      }
+    ],
+    "rewards": {
+      "exp": 400,
+      "gold": 160,
+      "factionReputation": 25,
+      "factionContribution": 18
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_xiaoyao_elder"
+  },
+  {
+    "id": "faction_xiaoyao_daily_new_4",
+    "name": "采药(逍遥派)",
+    "description": "采集草药上交门派，用于炼制丹药。",
+    "type": "faction_daily",
+    "factionId": "xiaoyao",
+    "minFactionRank": "disciple",
+    "objectives": [
+      {
+        "type": "collect",
+        "count": 5,
+        "itemId": "item_herb"
+      }
+    ],
+    "rewards": {
+      "exp": 500,
+      "gold": 200,
+      "factionReputation": 30,
+      "factionContribution": 21
+    },
+    "cooldown": 86400,
+    "npcGiverId": "npc_xiaoyao_elder"
   }
 ]
