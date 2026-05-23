@@ -834,47 +834,68 @@
         <!-- 生活技能 -->
         <div v-if="activeTab === 'life'">
           <div class="life-tabs">
-            <button class="menu-tab" :class="{ active: lifeView === 'gather' }" @click="lifeView = 'gather'; gameStore.loadGatheringNodes()">采集</button>
-            <button class="menu-tab" :class="{ active: lifeView === 'alchemy' }" @click="lifeView = 'alchemy'; gameStore.loadAlchemyRecipes()">炼药</button>
-            <button class="menu-tab" :class="{ active: lifeView === 'cooking' }" @click="lifeView = 'cooking'; gameStore.loadCookingRecipes()">烹饪</button>
+            <button class="menu-tab" :class="{ active: lifeView === 'herb' }" @click="lifeView = 'herb'; gameStore.loadGatheringNodes()">🌿采药</button>
+            <button class="menu-tab" :class="{ active: lifeView === 'mining' }" @click="lifeView = 'mining'; gameStore.loadGatheringNodes()">⛏️挖矿</button>
+            <button class="menu-tab" :class="{ active: lifeView === 'fishing' }" @click="lifeView = 'fishing'; gameStore.loadGatheringNodes()">🎣钓鱼</button>
+            <button class="menu-tab" :class="{ active: lifeView === 'alchemy' }" @click="lifeView = 'alchemy'; gameStore.loadAlchemyRecipes()">⚗️炼药</button>
+            <button class="menu-tab" :class="{ active: lifeView === 'cooking' }" @click="lifeView = 'cooking'; gameStore.loadCookingRecipes()">🍳烹饪</button>
+            <button class="menu-tab" :class="{ active: lifeView === 'forging' }" @click="lifeView = 'forging'; gameStore.loadForgeRecipes()">🔨锻造</button>
           </div>
-          <!-- 采集 -->
-          <div v-if="lifeView === 'gather'">
-            <div v-for="node in gameStore.gatheringNodes" :key="node.id" class="gather-node">
-              <div class="gather-name">{{ node.name }}</div>
+
+          <!-- 三系采集 -->
+          <div v-if="['herb','mining','fishing'].includes(lifeView)">
+            <div v-for="node in filteredGatherNodes(lifeView)" :key="node.id" class="gather-node">
+              <div class="gather-name">{{ node.icon || '' }} {{ node.name }}</div>
               <div class="gather-desc">{{ node.description }}</div>
               <div class="gather-meta">
-                <span v-if="node.levelRequired">需采集等级 {{ node.levelRequired }}</span>
+                <span v-if="node.level">需{{ lifeView === 'herb' ? '采药' : lifeView === 'mining' ? '挖矿' : '钓鱼' }}Lv{{ node.level }}</span>
+                <span v-if="node.cooldownRemaining > 0" style="color:#f66">冷却 {{ node.cooldownRemaining }}秒</span>
               </div>
-              <button class="forge-btn" @click="gameStore.gather(node.id)">采集</button>
+              <button class="forge-btn" :disabled="node.cooldownRemaining > 0" @click="gameStore.gather(lifeView, node.id)">采集</button>
             </div>
-            <div v-if="!gameStore.gatheringNodes.length" class="empty-hint">当前房间没有采集点</div>
+            <div v-if="!filteredGatherNodes(lifeView).length" class="empty-hint">当前房间没有{{ lifeView === 'herb' ? '采药' : lifeView === 'mining' ? '矿脉' : '钓点' }}</div>
           </div>
+
           <!-- 炼药 -->
           <div v-if="lifeView === 'alchemy'">
             <div v-for="r in gameStore.alchemyRecipes" :key="r.id" class="craft-recipe">
-              <div class="craft-name">{{ r.name }}</div>
+              <div class="craft-name">{{ r.name }} <span class="craft-lv">Lv{{ r.level }}</span></div>
               <div class="craft-desc">{{ r.description }}</div>
               <div class="craft-cost">
-                <span v-if="r.cost?.gold">💰{{ r.cost.gold }}金</span>
-                <span v-for="m in (r.cost?.materials || [])" :key="m.itemId">{{ m.itemId }}x{{ m.quantity }}</span>
+                <span v-if="r.goldCost">💰{{ r.goldCost }}金</span>
+                <span v-for="m in (r.materials || [])" :key="m.itemId">{{ getItemName(m.itemId) }}×{{ m.quantity }}</span>
               </div>
-              <button class="forge-btn" @click="gameStore.alchemy(r.id)">炼制</button>
+              <button class="forge-btn" @click="gameStore.alchemy(r.id)">炼制 ({{ (r.successRate*100).toFixed(0) }}%)</button>
             </div>
             <div v-if="!gameStore.alchemyRecipes.length" class="empty-hint">暂无炼药配方</div>
           </div>
+
           <!-- 烹饪 -->
           <div v-if="lifeView === 'cooking'">
             <div v-for="r in gameStore.cookingRecipes" :key="r.id" class="craft-recipe">
-              <div class="craft-name">{{ r.name }}</div>
+              <div class="craft-name">{{ r.name }} <span class="craft-lv">Lv{{ r.level }}</span></div>
               <div class="craft-desc">{{ r.description }}</div>
               <div class="craft-cost">
-                <span v-if="r.cost?.gold">💰{{ r.cost.gold }}金</span>
-                <span v-for="m in (r.cost?.materials || [])" :key="m.itemId">{{ m.itemId }}x{{ m.quantity }}</span>
+                <span v-if="r.goldCost">💰{{ r.goldCost }}金</span>
+                <span v-for="m in (r.materials || [])" :key="m.itemId">{{ getItemName(m.itemId) }}×{{ m.quantity }}</span>
               </div>
-              <button class="forge-btn" @click="gameStore.cooking(r.id)">烹饪</button>
+              <button class="forge-btn" @click="gameStore.cooking(r.id)">烹饪 ({{ (r.successRate*100).toFixed(0) }}%)</button>
             </div>
             <div v-if="!gameStore.cookingRecipes.length" class="empty-hint">暂无烹饪配方</div>
+          </div>
+
+          <!-- 锻造 -->
+          <div v-if="lifeView === 'forging'">
+            <div v-for="r in gameStore.forgeRecipes" :key="r.id" class="craft-recipe">
+              <div class="craft-name">{{ r.name }} <span class="craft-lv">Lv{{ r.level }}</span></div>
+              <div class="craft-desc">{{ r.description }}</div>
+              <div class="craft-cost">
+                <span v-if="r.goldCost">💰{{ r.goldCost }}金</span>
+                <span v-for="m in (r.materials || [])" :key="m.itemId">{{ getItemName(m.itemId) }}×{{ m.quantity }}</span>
+              </div>
+              <button class="forge-btn" @click="gameStore.forge(r.id)">锻造 ({{ (r.successRate*100).toFixed(0) }}%)</button>
+            </div>
+            <div v-if="!gameStore.forgeRecipes.length" class="empty-hint">暂无锻造配方</div>
           </div>
         </div>
 
@@ -965,7 +986,7 @@ const auctionItemId = ref('')
 const auctionQuantity = ref(1)
 const auctionPrice = ref(100)
 const auctionDuration = ref(48)
-const lifeView = ref('gather')
+const lifeView = ref('herb')
 
 // 计算属性
 const isDead = computed(() => gameStore.isDead || (gameStore.user?.hp?.current <= 0 && !gameStore.battle))
@@ -1573,6 +1594,11 @@ function enterDungeonByType(d) {
     default:
       gameStore.enterDungeon(d.id)
   }
+}
+
+// P7: 按采集类型过滤节点
+function filteredGatherNodes(skillType) {
+  return (gameStore.gatheringNodes || []).filter(n => n.skillType === skillType)
 }
 
 // Phase 7-8 helper functions

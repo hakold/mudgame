@@ -1,0 +1,132 @@
+[
+  {
+    "id": "mine_mountain_path",
+    "roomId": "mountain_path",
+    "name": "铁矿脉",
+    "level": 1,
+    "itemId": "item_iron_ore",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 300,
+    "description": "露出地表的铁矿石"
+  },
+  {
+    "id": "mine_mountain_cave",
+    "roomId": "dark_cave",
+    "name": "铜矿脉",
+    "level": 3,
+    "itemId": "item_copper_ore",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 350,
+    "description": "洞壁上的铜矿脉"
+  },
+  {
+    "id": "mine_riverbank",
+    "roomId": "river_bank",
+    "name": "砂金",
+    "level": 5,
+    "itemId": "item_gold_ore",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 600,
+    "description": "河沙中的金砂"
+  },
+  {
+    "id": "mine_snow_cave",
+    "roomId": "snow_cave",
+    "name": "银矿脉",
+    "level": 8,
+    "itemId": "item_silver_ore",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 500,
+    "description": "雪洞中的银矿石"
+  },
+  {
+    "id": "mine_volcano",
+    "roomId": "volcano_crater",
+    "name": "熔岩石",
+    "level": 10,
+    "itemId": "item_lava_rock",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 400,
+    "description": "火山口的熔岩石"
+  },
+  {
+    "id": "mine_underground",
+    "roomId": "underground_city",
+    "name": "秘银矿",
+    "level": 12,
+    "itemId": "item_mythril_ore",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 800,
+    "description": "地下深处的秘银矿脉"
+  },
+  {
+    "id": "mine_crystal_cave",
+    "roomId": "dark_cave",
+    "name": "水晶矿",
+    "level": 10,
+    "itemId": "item_mystic_crystal",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 900,
+    "description": "洞窟深处的水晶矿脉"
+  },
+  {
+    "id": "mine_jade_cliff",
+    "roomId": "mountain_cliff",
+    "name": "玉石矿",
+    "level": 15,
+    "itemId": "item_jade_piece",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 1000,
+    "description": "悬崖上的玉石矿脉"
+  },
+  {
+    "id": "mine_desert",
+    "roomId": "desert_entrance",
+    "name": "黑曜石",
+    "level": 18,
+    "itemId": "item_obsidian",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 1200,
+    "description": "沙漠中的黑曜石"
+  },
+  {
+    "id": "mine_heaven_gate",
+    "roomId": "heaven_gate",
+    "name": "天外陨铁",
+    "level": 25,
+    "itemId": "item_meteorite_iron",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 3600,
+    "description": "从天而降的陨铁，锻造神兵的材料"
+  }
+]

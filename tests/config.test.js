@@ -6,7 +6,8 @@ const CONFIG_DIR = path.join(__dirname, '..', 'config', 'json');
 const configs = {};
 
 function loadConfigs() {
-  const files = ['rooms', 'items', 'monsters', 'npcs', 'quests', 'factions', 'factionQuests', 'skills', 'achievements'];
+  const files = ['rooms', 'items', 'monsters', 'npcs', 'quests', 'factions', 'factionQuests', 'skills', 'achievements',
+    'herbNodes', 'miningNodes', 'fishingNodes', 'alchemyRecipes', 'cookingRecipes', 'forgeRecipes'];
   for (const f of files) {
     try {
       configs[f] = JSON.parse(fs.readFileSync(path.join(CONFIG_DIR, f + '.json'), 'utf8'));

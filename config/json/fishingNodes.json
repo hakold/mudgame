@@ -1,0 +1,132 @@
+[
+  {
+    "id": "fish_river_bank",
+    "roomId": "river_bank",
+    "name": "河畔钓点",
+    "level": 1,
+    "itemId": "item_carp",
+    "quantity": [
+      1,
+      3
+    ],
+    "respawnSeconds": 150,
+    "description": "河中的鲤鱼，肉质鲜美"
+  },
+  {
+    "id": "fish_lakeside",
+    "roomId": "lakeside",
+    "name": "湖畔钓点",
+    "level": 3,
+    "itemId": "item_bass",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 200,
+    "description": "湖中的鲈鱼"
+  },
+  {
+    "id": "fish_city_docks",
+    "roomId": "city_docks",
+    "name": "码头钓点",
+    "level": 5,
+    "itemId": "item_mackerel",
+    "quantity": [
+      1,
+      3
+    ],
+    "respawnSeconds": 180,
+    "description": "码头水域的鲭鱼群"
+  },
+  {
+    "id": "fish_lake_island",
+    "roomId": "lake_island",
+    "name": "湖心钓点",
+    "level": 8,
+    "itemId": "item_sturgeon",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 400,
+    "description": "湖心深处的鲟鱼，极为肥美"
+  },
+  {
+    "id": "fish_island_beach",
+    "roomId": "island_beach",
+    "name": "海滩钓点",
+    "level": 10,
+    "itemId": "item_grouper",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 300,
+    "description": "近海的石斑鱼"
+  },
+  {
+    "id": "fish_underground_river",
+    "roomId": "underground_river",
+    "name": "暗河钓点",
+    "level": 12,
+    "itemId": "item_blind_fish",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 500,
+    "description": "地下暗河中的盲鱼，眼睛退化肉质却异常细嫩"
+  },
+  {
+    "id": "fish_coastal_cliff",
+    "roomId": "coastal_cliff",
+    "name": "悬崖钓点",
+    "level": 15,
+    "itemId": "item_swordfish",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 600,
+    "description": "悬崖下的剑鱼，凶猛异常"
+  },
+  {
+    "id": "fish_snow_monastery",
+    "roomId": "snow_monastery",
+    "name": "寒潭钓点",
+    "level": 18,
+    "itemId": "item_ice_fish",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 700,
+    "description": "冰寒潭水中的冰鱼，体内蕴含寒气"
+  },
+  {
+    "id": "fish_shrimp_river",
+    "roomId": "river_bank",
+    "name": "河虾",
+    "level": 1,
+    "itemId": "item_shrimp",
+    "quantity": [
+      1,
+      3
+    ],
+    "respawnSeconds": 120,
+    "description": "河中游弋的青虾"
+  },
+  {
+    "id": "fish_crab_beach",
+    "roomId": "island_beach",
+    "name": "螃蟹",
+    "level": 6,
+    "itemId": "item_crab",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 250,
+    "description": "沙滩上的螃蟹"
+  }
+]

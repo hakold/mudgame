@@ -1,85 +1,114 @@
 [
   {
-    "id": "forge_upgrade_weapon_1",
-    "name": "武器精炼·初级",
-    "description": "将武器精炼至+1，提升攻击力5%",
-    "type": "upgrade",
-    "targetType": "weapon",
+    "id": "forge_iron_ingot",
+    "name": "炼制铁锭",
+    "skill": "forging",
     "level": 1,
-    "cost": { "gold": 500, "materials": [{ "itemId": "item_iron_ore", "quantity": 3 }] },
-    "effect": { "attackBonus": 0.05 },
-    "successRate": 0.9,
-    "npcId": "npc_blacksmith"
+    "description": "将铁矿石炼成铁锭",
+    "materials": [
+      {
+        "itemId": "item_iron_ore",
+        "quantity": 3
+      }
+    ],
+    "result": {
+      "itemId": "item_iron_ingot",
+      "quantity": 1
+    },
+    "exp": 15,
+    "goldCost": 5,
+    "successRate": 0.95
   },
   {
-    "id": "forge_upgrade_weapon_2",
-    "name": "武器精炼·中级",
-    "description": "将武器精炼至+2，提升攻击力10%",
-    "type": "upgrade",
-    "targetType": "weapon",
-    "level": 2,
-    "cost": { "gold": 1500, "materials": [{ "itemId": "item_iron_ore", "quantity": 5 }, { "itemId": "item_refined_steel", "quantity": 2 }] },
-    "effect": { "attackBonus": 0.10 },
-    "successRate": 0.7,
-    "npcId": "npc_blacksmith",
-    "prerequisiteLevel": 1
+    "id": "forge_steel_ingot",
+    "name": "炼制钢锭",
+    "skill": "forging",
+    "level": 5,
+    "description": "精炼钢锭",
+    "materials": [
+      {
+        "itemId": "item_iron_ore",
+        "quantity": 5
+      },
+      {
+        "itemId": "item_copper_ore",
+        "quantity": 2
+      }
+    ],
+    "result": {
+      "itemId": "item_steel_ingot",
+      "quantity": 1
+    },
+    "exp": 30,
+    "goldCost": 15,
+    "successRate": 0.85
   },
   {
-    "id": "forge_upgrade_weapon_3",
-    "name": "武器精炼·高级",
-    "description": "将武器精炼至+3，提升攻击力15%",
-    "type": "upgrade",
-    "targetType": "weapon",
+    "id": "forge_mythril_ingot",
+    "name": "炼制秘银锭",
+    "skill": "forging",
+    "level": 10,
+    "description": "将秘银矿炼成秘银锭",
+    "materials": [
+      {
+        "itemId": "item_mythril_ore",
+        "quantity": 2
+      },
+      {
+        "itemId": "item_lava_rock",
+        "quantity": 1
+      }
+    ],
+    "result": {
+      "itemId": "item_mythril_ingot",
+      "quantity": 1
+    },
+    "exp": 50,
+    "goldCost": 30,
+    "successRate": 0.75
+  },
+  {
+    "id": "forge_meteorite_ingot",
+    "name": "炼制陨铁锭",
+    "skill": "forging",
+    "level": 20,
+    "description": "将天外陨铁炼成陨铁锭",
+    "materials": [
+      {
+        "itemId": "item_meteorite_iron",
+        "quantity": 1
+      },
+      {
+        "itemId": "item_lava_rock",
+        "quantity": 3
+      }
+    ],
+    "result": {
+      "itemId": "item_meteorite_ingot",
+      "quantity": 1
+    },
+    "exp": 100,
+    "goldCost": 80,
+    "successRate": 0.5
+  },
+  {
+    "id": "forge_whetstone",
+    "name": "制作磨刀石",
+    "skill": "forging",
     "level": 3,
-    "cost": { "gold": 5000, "materials": [{ "itemId": "item_refined_steel", "quantity": 5 }, { "itemId": "item_mystic_crystal", "quantity": 1 }] },
-    "effect": { "attackBonus": 0.15 },
-    "successRate": 0.5,
-    "npcId": "npc_blacksmith",
-    "prerequisiteLevel": 2
-  },
-  {
-    "id": "forge_upgrade_armor_1",
-    "name": "护甲加固·初级",
-    "description": "将护甲加固至+1，提升防御力5%",
-    "type": "upgrade",
-    "targetType": "armor",
-    "level": 1,
-    "cost": { "gold": 400, "materials": [{ "itemId": "item_iron_ore", "quantity": 2 }] },
-    "effect": { "defenseBonus": 0.05 },
-    "successRate": 0.9,
-    "npcId": "npc_blacksmith"
-  },
-  {
-    "id": "forge_upgrade_armor_2",
-    "name": "护甲加固·中级",
-    "description": "将护甲加固至+2，提升防御力10%",
-    "type": "upgrade",
-    "targetType": "armor",
-    "level": 2,
-    "cost": { "gold": 1200, "materials": [{ "itemId": "item_iron_ore", "quantity": 4 }, { "itemId": "item_refined_steel", "quantity": 1 }] },
-    "effect": { "defenseBonus": 0.10 },
-    "successRate": 0.7,
-    "npcId": "npc_blacksmith",
-    "prerequisiteLevel": 1
-  },
-  {
-    "id": "forge_craft_steel_sword",
-    "name": "锻造精钢剑",
-    "description": "锻造一把精钢剑，攻击力18",
-    "type": "craft",
-    "resultItemId": "weapon_steel_sword",
-    "cost": { "gold": 800, "materials": [{ "itemId": "item_iron_ore", "quantity": 5 }, { "itemId": "item_coal", "quantity": 3 }] },
-    "successRate": 0.85,
-    "npcId": "npc_blacksmith"
-  },
-  {
-    "id": "forge_craft_iron_armor",
-    "name": "锻造铁甲",
-    "description": "锻造一件铁甲，防御力15",
-    "type": "craft",
-    "resultItemId": "armor_iron_plate",
-    "cost": { "gold": 600, "materials": [{ "itemId": "item_iron_ore", "quantity": 8 }] },
-    "successRate": 0.85,
-    "npcId": "npc_blacksmith"
+    "description": "制作磨刀石，用于修复武器",
+    "materials": [
+      {
+        "itemId": "item_iron_ore",
+        "quantity": 2
+      }
+    ],
+    "result": {
+      "itemId": "item_whetstone",
+      "quantity": 1
+    },
+    "exp": 20,
+    "goldCost": 5,
+    "successRate": 0.9
   }
 ]

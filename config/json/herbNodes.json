@@ -1,0 +1,158 @@
+[
+  {
+    "id": "herb_village_field",
+    "roomId": "village_field",
+    "name": "田边草药",
+    "level": 1,
+    "itemId": "item_herb",
+    "quantity": [
+      1,
+      3
+    ],
+    "respawnSeconds": 90,
+    "description": "村庄田边的常见草药"
+  },
+  {
+    "id": "herb_forest_path",
+    "roomId": "forest_path",
+    "name": "草药丛",
+    "level": 1,
+    "itemId": "item_herb",
+    "quantity": [
+      1,
+      3
+    ],
+    "respawnSeconds": 120,
+    "description": "林间小径旁的草药丛"
+  },
+  {
+    "id": "herb_village_herb2",
+    "roomId": "village_center",
+    "name": "篱笆药草",
+    "level": 1,
+    "itemId": "item_herb",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 100,
+    "description": "村民篱笆边的药草"
+  },
+  {
+    "id": "herb_deep_forest",
+    "roomId": "deep_forest",
+    "name": "灵芝",
+    "level": 3,
+    "itemId": "item_mushroom",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 180,
+    "description": "深林中的灵芝，可入药"
+  },
+  {
+    "id": "herb_mountain_peak",
+    "roomId": "mountain_peak",
+    "name": "山参",
+    "level": 5,
+    "itemId": "item_ginseng",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 600,
+    "description": "珍贵的野生山参"
+  },
+  {
+    "id": "herb_bamboo_grove",
+    "roomId": "bamboo_grove",
+    "name": "竹笋",
+    "level": 2,
+    "itemId": "item_bamboo_shoot",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 150,
+    "description": "鲜嫩的竹笋"
+  },
+  {
+    "id": "herb_lakeside",
+    "roomId": "lakeside",
+    "name": "水边菖蒲",
+    "level": 4,
+    "itemId": "item_calamus",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 200,
+    "description": "水边生长的菖蒲，可解暑热"
+  },
+  {
+    "id": "herb_desert_oasis",
+    "roomId": "desert_oasis",
+    "name": "沙漠药草",
+    "level": 8,
+    "itemId": "item_desert_herb",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 300,
+    "description": "沙漠绿洲中的稀有药草"
+  },
+  {
+    "id": "herb_snow_field",
+    "roomId": "snow_field",
+    "name": "雪莲",
+    "level": 12,
+    "itemId": "item_snow_lotus",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 600,
+    "description": "雪地中盛开的雪莲，极珍贵"
+  },
+  {
+    "id": "herb_mountain_spring",
+    "roomId": "mountain_spring",
+    "name": "石斛",
+    "level": 7,
+    "itemId": "item_dendrobium",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 400,
+    "description": "长在悬崖石壁上的石斛"
+  },
+  {
+    "id": "herb_swamp",
+    "roomId": "swamp_entrance",
+    "name": "沼泽灵芝",
+    "level": 10,
+    "itemId": "item_swamp_herb",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 450,
+    "description": "沼泽中的黑灵芝，毒性中和后可为良药"
+  },
+  {
+    "id": "herb_phoenix_peak",
+    "roomId": "phoenix_peak",
+    "name": "凤凰草",
+    "level": 20,
+    "itemId": "item_phoenix_herb",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 1200,
+    "description": "传说中凤凰栖息的灵草，千年难遇"
+  }
+]

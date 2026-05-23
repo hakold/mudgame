@@ -8336,5 +8336,271 @@
     "stackable": true,
     "maxStack": 20,
     "sellPrice": 16
+  },
+  {
+    "id": "item_carp",
+    "name": "鲤鱼",
+    "type": "material",
+    "description": "常见的淡水鲤鱼，可烹饪",
+    "price": 10,
+    "sellPrice": 4
+  },
+  {
+    "id": "item_bass",
+    "name": "鲈鱼",
+    "type": "material",
+    "description": "肉质鲜美的鲈鱼",
+    "price": 20,
+    "sellPrice": 8
+  },
+  {
+    "id": "item_mackerel",
+    "name": "鲭鱼",
+    "type": "material",
+    "description": "肥美的海鱼",
+    "price": 15,
+    "sellPrice": 6
+  },
+  {
+    "id": "item_sturgeon",
+    "name": "鲟鱼",
+    "type": "material",
+    "description": "珍贵的鲟鱼，鱼子尤为名贵",
+    "price": 50,
+    "sellPrice": 20
+  },
+  {
+    "id": "item_grouper",
+    "name": "石斑鱼",
+    "type": "material",
+    "description": "肉质嫩滑的石斑鱼",
+    "price": 35,
+    "sellPrice": 15
+  },
+  {
+    "id": "item_blind_fish",
+    "name": "盲鱼",
+    "type": "material",
+    "description": "地下暗河的盲鱼，肉质异常细嫩",
+    "price": 60,
+    "sellPrice": 25
+  },
+  {
+    "id": "item_swordfish",
+    "name": "剑鱼",
+    "type": "material",
+    "description": "长吻如剑的凶猛鱼类",
+    "price": 80,
+    "sellPrice": 30
+  },
+  {
+    "id": "item_ice_fish",
+    "name": "冰鱼",
+    "type": "material",
+    "description": "寒潭中的冰鱼，体内蕴含寒气",
+    "price": 100,
+    "sellPrice": 40
+  },
+  {
+    "id": "item_shrimp",
+    "name": "青虾",
+    "type": "material",
+    "description": "河中游弋的青虾",
+    "price": 8,
+    "sellPrice": 3
+  },
+  {
+    "id": "item_crab",
+    "name": "螃蟹",
+    "type": "material",
+    "description": "肥美的河蟹",
+    "price": 25,
+    "sellPrice": 10
+  },
+  {
+    "id": "item_calamus",
+    "name": "菖蒲",
+    "type": "material",
+    "description": "水边生长的菖蒲，可解暑热",
+    "price": 18,
+    "sellPrice": 7
+  },
+  {
+    "id": "item_dendrobium",
+    "name": "石斛",
+    "type": "material",
+    "description": "悬崖石壁上的名贵药材",
+    "price": 45,
+    "sellPrice": 18
+  },
+  {
+    "id": "item_swamp_herb",
+    "name": "黑灵芝",
+    "type": "material",
+    "description": "沼泽中的黑灵芝，入药可强身",
+    "price": 55,
+    "sellPrice": 22
+  },
+  {
+    "id": "item_phoenix_herb",
+    "name": "凤凰草",
+    "type": "material",
+    "description": "传说中凤凰栖息的灵草",
+    "price": 200,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_meteorite_iron",
+    "name": "陨铁",
+    "type": "material",
+    "description": "从天而降的陨铁，锻造神兵的材料",
+    "price": 500,
+    "sellPrice": 200
+  },
+  {
+    "id": "item_steamed_fish",
+    "name": "清蒸鱼",
+    "type": "consumable",
+    "description": "清蒸鲜鱼，恢复300HP",
+    "price": 40,
+    "effect": {
+      "hpRestore": 300
+    },
+    "stackable": true,
+    "maxStack": 20
+  },
+  {
+    "id": "item_fish_soup",
+    "name": "鱼汤",
+    "type": "consumable",
+    "description": "鲜美的鱼汤，恢复200HP和100MP",
+    "price": 35,
+    "effect": {
+      "hpRestore": 200,
+      "mpRestore": 100
+    },
+    "stackable": true,
+    "maxStack": 20
+  },
+  {
+    "id": "item_braised_fish",
+    "name": "红烧鱼",
+    "type": "consumable",
+    "description": "红烧大鱼，恢复400HP",
+    "price": 55,
+    "effect": {
+      "hpRestore": 400
+    },
+    "stackable": true,
+    "maxStack": 20
+  },
+  {
+    "id": "item_shrimp_dumpling",
+    "name": "虾饺",
+    "type": "consumable",
+    "description": "晶莹剔透的虾饺，恢复250HP和150MP",
+    "price": 45,
+    "effect": {
+      "hpRestore": 250,
+      "mpRestore": 150
+    },
+    "stackable": true,
+    "maxStack": 20
+  },
+  {
+    "id": "item_crab_feast",
+    "name": "蟹黄宴",
+    "type": "consumable",
+    "description": "蟹黄烹制的盛宴，临时提升攻击力10点持续30分钟",
+    "price": 80,
+    "effect": {
+      "atkBoost": 10,
+      "duration": 1800
+    },
+    "stackable": true,
+    "maxStack": 10
+  },
+  {
+    "id": "item_ice_fish_sashimi",
+    "name": "冰鱼脍",
+    "type": "consumable",
+    "description": "冰鱼切片生食，恢复500HP和300MP",
+    "price": 100,
+    "effect": {
+      "hpRestore": 500,
+      "mpRestore": 300
+    },
+    "stackable": true,
+    "maxStack": 10
+  },
+  {
+    "id": "item_meteorite_ingot",
+    "name": "陨铁锭",
+    "type": "material",
+    "description": "陨铁炼制的神兵材料",
+    "price": 600,
+    "sellPrice": 250
+  },
+  {
+    "id": "item_recovery_pill",
+    "name": "续命丸",
+    "type": "consumable",
+    "description": "恢复500HP的急救丹药",
+    "price": 120,
+    "effect": {
+      "hpRestore": 500
+    },
+    "stackable": true,
+    "maxStack": 20
+  },
+  {
+    "id": "item_spirit_pill",
+    "name": "凝神丹",
+    "type": "consumable",
+    "description": "恢复300MP的丹药",
+    "price": 100,
+    "effect": {
+      "mpRestore": 300
+    },
+    "stackable": true,
+    "maxStack": 20
+  },
+  {
+    "id": "item_poison_antidote_pill",
+    "name": "万灵解毒丹",
+    "type": "consumable",
+    "description": "可解百毒的灵丹",
+    "price": 150,
+    "effect": {
+      "curePoison": true
+    },
+    "stackable": true,
+    "maxStack": 10
+  },
+  {
+    "id": "item_fortify_pill",
+    "name": "铁骨壮体丹",
+    "type": "consumable",
+    "description": "临时提升体质10点，持续30分钟",
+    "price": 200,
+    "effect": {
+      "conBoost": 10,
+      "duration": 1800
+    },
+    "stackable": true,
+    "maxStack": 10
+  },
+  {
+    "id": "item_enlighten_pill",
+    "name": "开悟丹",
+    "type": "consumable",
+    "description": "临时提升悟性10点，持续30分钟",
+    "price": 200,
+    "effect": {
+      "intBoost": 10,
+      "duration": 1800
+    },
+    "stackable": true,
+    "maxStack": 10
   }
 ]

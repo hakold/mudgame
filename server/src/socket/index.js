@@ -1676,136 +1676,57 @@ function socketHandler(io) {
     
     // 获取锻造配方
     socket.on('get_forge_recipes', () => {
-      const recipes = getAllForgeRecipes();
+      const recipes = craftService.getRecipesBySkill('forging', 99);
       socket.emit('forge_recipes', { recipes });
+    });
+
+    // 获取生活技能熟练度
+    socket.on('get_life_skills', async () => {
+      const skills = await craftService.getLifeSkills(user._id);
+      socket.emit('life_skills', skills);
     });
     
     // 执行锻造
     socket.on('forge', async (data) => {
       const { recipeId } = data;
-      const recipe = getForgeRecipe(recipeId);
-      if (!recipe) {
-        return socket.emit('error', { message: '锻造配方不存在' });
-      }
-      
-      // 检查金币
-      if (recipe.cost.gold && user.gold < recipe.cost.gold) {
-        return socket.emit('error', { message: `金币不足，需要 ${recipe.cost.gold} 金币` });
-      }
-      
-      // 检查材料
-      if (recipe.cost.materials) {
-        for (const mat of recipe.cost.materials) {
-          const inv = await Inventory.findOne({ userId: user._id, itemId: mat.itemId });
-          if (!inv || inv.quantity < mat.quantity) {
-            const itemConfig = getItem(mat.itemId);
-            return socket.emit('error', { message: `材料不足: ${itemConfig?.name || mat.itemId} 需要 ${mat.quantity}` });
-          }
-        }
-      }
-      
-      // 判断成功
-      const success = Math.random() < (recipe.successRate || 1);
-      
-      // 扣除金币和材料
-      if (recipe.cost.gold) {
-        user.gold -= recipe.cost.gold;
+      const result = await craftService.performCraft(user._id, 'forging', recipeId, user.gold);
+      if (result.error) return socket.emit('error', { message: result.error });
+      if (result.success) {
+        user.gold -= result.goldCost;
         await user.save();
-      }
-      if (recipe.cost.materials) {
-        for (const mat of recipe.cost.materials) {
-          const inv = await Inventory.findOne({ userId: user._id, itemId: mat.itemId });
-          if (inv.quantity <= mat.quantity) {
-            await Inventory.deleteOne({ _id: inv._id });
-          } else {
-            inv.quantity -= mat.quantity;
-            await inv.save();
-          }
-        }
-      }
-      
-      if (success) {
-        if (recipe.type === 'craft') {
-          // 创建新物品
-          const resultItem = getItem(recipe.resultItemId);
-          await Inventory.create({
-            userId: user._id,
-            itemId: recipe.resultItemId,
-            quantity: 1,
-            durability: resultItem?.durability ? { current: resultItem.durability, max: resultItem.durability } : undefined
-          });
-          socket.emit('forge_success', { 
-            recipeId, 
-            itemName: resultItem?.name || recipe.resultItemId,
-            message: `锻造成功！获得了 ${resultItem?.name || recipe.resultItemId}` 
-          });
-          // 更新制造统计
-          user.stats = user.stats || {};
-          user.stats.craftingCount = (user.stats.craftingCount || 0) + 1;
-          await user.save();
-          checkAndAwardAchievements(user._id);
-        } else if (recipe.type === 'upgrade') {
-          // 查找符合条件的装备进行升级
-          const targetItem = await Inventory.findOne({
-            userId: user._id,
-            isEquipped: true,
-            equipSlot: recipe.targetType,
-            enhanceLevel: recipe.prerequisiteLevel || 0
-          });
-          if (targetItem) {
-            targetItem.enhanceLevel = recipe.level;
-            await targetItem.save();
-            const itemConfig = getItem(targetItem.itemId);
-            socket.emit('forge_success', {
-              recipeId,
-              itemName: itemConfig?.name || targetItem.itemId,
-              enhanceLevel: targetItem.enhanceLevel,
-              message: `精炼成功！${itemConfig?.name || '装备'} 已升级至 +${recipe.level}`
-            });
-          } else {
-            socket.emit('forge_failed', {
-              recipeId,
-              message: `未找到可升级的${recipe.targetType === 'weapon' ? '武器' : '护甲'}`
-            });
-          }
-        }
+        socket.emit('forge_success', result);
+        socket.emit('system_message', { content: `锻造成功！获得了 ${result.resultItemName}×${result.quantity}` });
+        user.stats = user.stats || {};
+        user.stats.craftingCount = (user.stats.craftingCount || 0) + 1;
+        await user.save();
+        checkAndAwardAchievements(user._id);
+        dailyService.updateDailyTaskProgress(user._id, 'craft').catch(() => {});
       } else {
-        socket.emit('forge_failed', { 
-          recipeId, 
-          message: '锻造失败，材料已消耗' 
-        });
+        user.gold -= result.goldCost;
+        await user.save();
+        socket.emit('forge_failed', result);
+        socket.emit('system_message', { content: result.message });
       }
-      
-      await Promise.all([user.save(), (async () => {
-        const items = await Inventory.find({ userId: user._id });
-        socket.emit('inventory_updated', items);
-      })()]);
+      const items = await Inventory.find({ userId: user._id });
+      socket.emit('inventory_updated', items);
     });
     
-    // ==================== 生活技能：采集/炼药/烹饪 ====================
+    // ==================== 生活技能：三系采集 + 三系制造 ====================
 
-    // 查看可采集资源
+    // 查看可采集资源（三系合并）
     socket.on('list_gathering_nodes', () => {
       const roomId = user.location.roomId;
-      const now = Date.now();
-      const nodes = craftService.getGatheringNodes(roomId).map(n => ({
-        ...n,
-        available: !craftService.gatheringCooldowns.has(n.id) || (craftService.gatheringCooldowns.get(n.id) || 0) <= now,
-        cooldownSeconds: Math.max(0, Math.ceil(((craftService.gatheringCooldowns.get(n.id) || 0) - now) / 1000))
-      }));
+      const nodes = craftService.getAllGatheringNodes(roomId);
       socket.emit('gathering_nodes', { roomId, nodes });
     });
 
     // 采集
     socket.on('gather', async (data) => {
-      const { nodeId } = data;
-      const result = await craftService.gather(user._id, nodeId);
-      if (result.error) {
-        return socket.emit('error', { message: result.error });
-      }
+      const { skillType, nodeId } = data;
+      const result = await craftService.gather(user._id, skillType, nodeId);
+      if (result.error) return socket.emit('error', { message: result.error });
       socket.emit('gather_success', result);
       socket.emit('system_message', { content: `采集成功！获得了 ${result.itemName}×${result.quantity}` });
-      // 每日任务：采集
       dailyService.updateDailyTaskProgress(user._id, 'gather').catch(() => {});
       const items = await Inventory.find({ userId: user._id });
       socket.emit('inventory_updated', items);
@@ -1813,27 +1734,25 @@ function socketHandler(io) {
 
     // 查看炼药配方
     socket.on('list_alchemy_recipes', () => {
-      const recipes = craftService.getAlchemyRecipes(99); // all recipes
+      const recipes = craftService.getRecipesBySkill('alchemy', 99);
       socket.emit('alchemy_recipes', { recipes });
     });
 
     // 炼药
     socket.on('alchemy', async (data) => {
       const { recipeId } = data;
-      const result = await craftService.performAlchemy(user._id, recipeId, user.gold);
-      if (result.error) {
-        return socket.emit('error', { message: result.error });
-      }
+      const result = await craftService.performCraft(user._id, 'alchemy', recipeId, user.gold);
+      if (result.error) return socket.emit('error', { message: result.error });
       if (result.success) {
         user.gold -= result.goldCost;
         await user.save();
         socket.emit('alchemy_success', result);
         socket.emit('system_message', { content: `炼药成功！获得了 ${result.resultItemName}×${result.quantity}` });
-        // 更新制造统计
         user.stats = user.stats || {};
         user.stats.craftingCount = (user.stats.craftingCount || 0) + 1;
         await user.save();
         checkAndAwardAchievements(user._id);
+        dailyService.updateDailyTaskProgress(user._id, 'craft').catch(() => {});
       } else {
         user.gold -= result.goldCost;
         await user.save();
@@ -1846,27 +1765,25 @@ function socketHandler(io) {
 
     // 查看烹饪配方
     socket.on('list_cooking_recipes', () => {
-      const recipes = craftService.getCookingRecipes(99);
+      const recipes = craftService.getRecipesBySkill('cooking', 99);
       socket.emit('cooking_recipes', { recipes });
     });
 
     // 烹饪
     socket.on('cooking', async (data) => {
       const { recipeId } = data;
-      const result = await craftService.performCooking(user._id, recipeId, user.gold);
-      if (result.error) {
-        return socket.emit('error', { message: result.error });
-      }
+      const result = await craftService.performCraft(user._id, 'cooking', recipeId, user.gold);
+      if (result.error) return socket.emit('error', { message: result.error });
       if (result.success) {
         user.gold -= result.goldCost;
         await user.save();
         socket.emit('cooking_success', result);
         socket.emit('system_message', { content: `烹饪成功！获得了 ${result.resultItemName}×${result.quantity}` });
-        // 更新制造统计
         user.stats = user.stats || {};
         user.stats.craftingCount = (user.stats.craftingCount || 0) + 1;
         await user.save();
         checkAndAwardAchievements(user._id);
+        dailyService.updateDailyTaskProgress(user._id, 'craft').catch(() => {});
       } else {
         user.gold -= result.goldCost;
         await user.save();

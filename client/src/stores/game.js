@@ -1355,8 +1355,8 @@ export const useGameStore = defineStore('game', () => {
   function loadGatheringNodes() {
     if (socket.value) socket.value.emit('list_gathering_nodes')
   }
-  function gather(nodeId) {
-    if (socket.value) socket.value.emit('gather', { nodeId })
+  function gather(skillType, nodeId) {
+    if (socket.value) socket.value.emit('gather', { skillType, nodeId })
   }
   function loadAlchemyRecipes() {
     if (socket.value) socket.value.emit('list_alchemy_recipes')

@@ -1,10 +1,346 @@
 [
-  {"id":"alchemy_hp_small","name":"炼制小还丹","skill":"alchemy","level":1,"description":"用草药炼制止血疗伤的小还丹","materials":[{"itemId":"item_herb","quantity":3}],"result":{"itemId":"item_hp_potion_small","quantity":1},"exp":20,"goldCost":10,"successRate":0.9},
-  {"id":"alchemy_mp_small","name":"炼制小回气丹","skill":"alchemy","level":2,"description":"用草药炼制恢复内力的小回气丹","materials":[{"itemId":"item_herb","quantity":2},{"itemId":"item_mushroom","quantity":1}],"result":{"itemId":"item_mp_potion_small","quantity":1},"exp":25,"goldCost":10,"successRate":0.85},
-  {"id":"alchemy_hp_medium","name":"炼制中还丹","skill":"alchemy","level":5,"description":"炼制更强效的疗伤丹药","materials":[{"itemId":"item_herb","quantity":5},{"itemId":"item_ginseng","quantity":1}],"result":{"itemId":"item_hp_potion_medium","quantity":1},"exp":40,"goldCost":30,"successRate":0.8},
-  {"id":"alchemy_mp_medium","name":"炼制中回气丹","skill":"alchemy","level":6,"description":"炼制更强效的回气丹药","materials":[{"itemId":"item_herb","quantity":3},{"itemId":"item_mushroom","quantity":2},{"itemId":"item_ginseng","quantity":1}],"result":{"itemId":"item_mp_potion_medium","quantity":1},"exp":45,"goldCost":30,"successRate":0.8},
-  {"id":"alchemy_hp_large","name":"炼制大还丹","skill":"alchemy","level":10,"description":"炼制极品疗伤圣药","materials":[{"itemId":"item_ginseng","quantity":3},{"itemId":"item_desert_herb","quantity":2}],"result":{"itemId":"item_hp_potion_large","quantity":1},"exp":80,"goldCost":50,"successRate":0.7},
-  {"id":"alchemy_mp_large","name":"炼制大回气丹","skill":"alchemy","level":12,"description":"炼制极品回气圣药","materials":[{"itemId":"item_ginseng","quantity":2},{"itemId":"item_snow_lotus","quantity":1},{"itemId":"item_desert_herb","quantity":1}],"result":{"itemId":"item_mp_potion_large","quantity":1},"exp":90,"goldCost":50,"successRate":0.7},
-  {"id":"alchemy_antidote","name":"炼制解毒丹","skill":"alchemy","level":4,"description":"炼制解除中毒状态的丹药","materials":[{"itemId":"item_herb","quantity":3},{"itemId":"item_snake_venom","quantity":1}],"result":{"itemId":"item_antidote","quantity":1},"exp":30,"goldCost":20,"successRate":0.85},
-  {"id":"alchemy_strength_pill","name":"炼制力量丹","skill":"alchemy","level":15,"description":"临时提升力量的丹药","materials":[{"itemId":"item_ginseng","quantity":2},{"itemId":"item_bear_gall","quantity":1},{"itemId":"item_tiger_bone","quantity":1}],"result":{"itemId":"item_strength_pill","quantity":1},"exp":100,"goldCost":80,"successRate":0.6}
+  {
+    "id": "alchemy_hp_small",
+    "name": "炼制小还丹",
+    "skill": "alchemy",
+    "level": 1,
+    "description": "用草药炼制止血疗伤的小还丹",
+    "materials": [
+      {
+        "itemId": "item_herb",
+        "quantity": 3
+      }
+    ],
+    "result": {
+      "itemId": "item_hp_potion_small",
+      "quantity": 1
+    },
+    "exp": 20,
+    "goldCost": 10,
+    "successRate": 0.9
+  },
+  {
+    "id": "alchemy_mp_small",
+    "name": "炼制小回气丹",
+    "skill": "alchemy",
+    "level": 2,
+    "description": "用草药炼制恢复内力的小回气丹",
+    "materials": [
+      {
+        "itemId": "item_herb",
+        "quantity": 2
+      },
+      {
+        "itemId": "item_mushroom",
+        "quantity": 1
+      }
+    ],
+    "result": {
+      "itemId": "item_mp_potion_small",
+      "quantity": 1
+    },
+    "exp": 25,
+    "goldCost": 10,
+    "successRate": 0.85
+  },
+  {
+    "id": "alchemy_antidote",
+    "name": "炼制解毒丹",
+    "skill": "alchemy",
+    "level": 4,
+    "description": "炼制解除中毒状态的丹药",
+    "materials": [
+      {
+        "itemId": "item_herb",
+        "quantity": 3
+      },
+      {
+        "itemId": "item_snake_venom",
+        "quantity": 1
+      }
+    ],
+    "result": {
+      "itemId": "item_antidote",
+      "quantity": 1
+    },
+    "exp": 30,
+    "goldCost": 20,
+    "successRate": 0.85
+  },
+  {
+    "id": "alchemy_hp_medium",
+    "name": "炼制中还丹",
+    "skill": "alchemy",
+    "level": 5,
+    "description": "炼制更强效的疗伤丹药",
+    "materials": [
+      {
+        "itemId": "item_herb",
+        "quantity": 5
+      },
+      {
+        "itemId": "item_ginseng",
+        "quantity": 1
+      }
+    ],
+    "result": {
+      "itemId": "item_hp_potion_medium",
+      "quantity": 1
+    },
+    "exp": 40,
+    "goldCost": 30,
+    "successRate": 0.8
+  },
+  {
+    "id": "alchemy_mp_medium",
+    "name": "炼制中回气丹",
+    "skill": "alchemy",
+    "level": 6,
+    "description": "炼制更强效的回气丹药",
+    "materials": [
+      {
+        "itemId": "item_herb",
+        "quantity": 3
+      },
+      {
+        "itemId": "item_mushroom",
+        "quantity": 2
+      },
+      {
+        "itemId": "item_ginseng",
+        "quantity": 1
+      }
+    ],
+    "result": {
+      "itemId": "item_mp_potion_medium",
+      "quantity": 1
+    },
+    "exp": 45,
+    "goldCost": 30,
+    "successRate": 0.8
+  },
+  {
+    "id": "alchemy_recovery",
+    "name": "炼制续命丸",
+    "skill": "alchemy",
+    "level": 8,
+    "description": "采石斛+灵芝炼制的急救丹药",
+    "materials": [
+      {
+        "itemId": "item_dendrobium",
+        "quantity": 2
+      },
+      {
+        "itemId": "item_mushroom",
+        "quantity": 2
+      }
+    ],
+    "result": {
+      "itemId": "item_recovery_pill",
+      "quantity": 1
+    },
+    "exp": 60,
+    "goldCost": 40,
+    "successRate": 0.75
+  },
+  {
+    "id": "alchemy_calamus",
+    "name": "炼制清暑丹",
+    "skill": "alchemy",
+    "level": 7,
+    "description": "用菖蒲炼制的清热丹药",
+    "materials": [
+      {
+        "itemId": "item_calamus",
+        "quantity": 3
+      },
+      {
+        "itemId": "item_herb",
+        "quantity": 2
+      }
+    ],
+    "result": {
+      "itemId": "item_cleanse_pill",
+      "quantity": 1
+    },
+    "exp": 50,
+    "goldCost": 25,
+    "successRate": 0.8
+  },
+  {
+    "id": "alchemy_hp_large",
+    "name": "炼制大还丹",
+    "skill": "alchemy",
+    "level": 10,
+    "description": "炼制极品疗伤圣药",
+    "materials": [
+      {
+        "itemId": "item_ginseng",
+        "quantity": 3
+      },
+      {
+        "itemId": "item_desert_herb",
+        "quantity": 2
+      }
+    ],
+    "result": {
+      "itemId": "item_hp_potion_large",
+      "quantity": 1
+    },
+    "exp": 80,
+    "goldCost": 50,
+    "successRate": 0.7
+  },
+  {
+    "id": "alchemy_mp_large",
+    "name": "炼制大回气丹",
+    "skill": "alchemy",
+    "level": 12,
+    "description": "炼制极品回气圣药",
+    "materials": [
+      {
+        "itemId": "item_ginseng",
+        "quantity": 2
+      },
+      {
+        "itemId": "item_snow_lotus",
+        "quantity": 1
+      },
+      {
+        "itemId": "item_desert_herb",
+        "quantity": 1
+      }
+    ],
+    "result": {
+      "itemId": "item_mp_potion_large",
+      "quantity": 1
+    },
+    "exp": 90,
+    "goldCost": 50,
+    "successRate": 0.7
+  },
+  {
+    "id": "alchemy_spirit",
+    "name": "炼制凝神丹",
+    "skill": "alchemy",
+    "level": 14,
+    "description": "用雪莲+石斛炼制的凝神丹药",
+    "materials": [
+      {
+        "itemId": "item_snow_lotus",
+        "quantity": 1
+      },
+      {
+        "itemId": "item_dendrobium",
+        "quantity": 2
+      }
+    ],
+    "result": {
+      "itemId": "item_spirit_pill",
+      "quantity": 1
+    },
+    "exp": 100,
+    "goldCost": 60,
+    "successRate": 0.65
+  },
+  {
+    "id": "alchemy_strength",
+    "name": "炼制力量丹",
+    "skill": "alchemy",
+    "level": 15,
+    "description": "用黑灵芝炼制的力量丹药",
+    "materials": [
+      {
+        "itemId": "item_swamp_herb",
+        "quantity": 2
+      },
+      {
+        "itemId": "item_bear_gall",
+        "quantity": 1
+      }
+    ],
+    "result": {
+      "itemId": "item_strength_pill",
+      "quantity": 1
+    },
+    "exp": 110,
+    "goldCost": 80,
+    "successRate": 0.6
+  },
+  {
+    "id": "alchemy_antidote_plus",
+    "name": "炼制万灵解毒丹",
+    "skill": "alchemy",
+    "level": 16,
+    "description": "用黑灵芝+菖蒲炼制的万能解毒丹",
+    "materials": [
+      {
+        "itemId": "item_swamp_herb",
+        "quantity": 2
+      },
+      {
+        "itemId": "item_calamus",
+        "quantity": 3
+      },
+      {
+        "itemId": "item_snake_venom",
+        "quantity": 2
+      }
+    ],
+    "result": {
+      "itemId": "item_poison_antidote_pill",
+      "quantity": 1
+    },
+    "exp": 120,
+    "goldCost": 90,
+    "successRate": 0.55
+  },
+  {
+    "id": "alchemy_fortify",
+    "name": "炼制铁骨壮体丹",
+    "skill": "alchemy",
+    "level": 18,
+    "description": "用凤凰草+虎骨炼制的壮体灵丹",
+    "materials": [
+      {
+        "itemId": "item_phoenix_herb",
+        "quantity": 1
+      },
+      {
+        "itemId": "item_tiger_bone",
+        "quantity": 3
+      }
+    ],
+    "result": {
+      "itemId": "item_fortify_pill",
+      "quantity": 1
+    },
+    "exp": 150,
+    "goldCost": 120,
+    "successRate": 0.5
+  },
+  {
+    "id": "alchemy_enlighten",
+    "name": "炼制开悟丹",
+    "skill": "alchemy",
+    "level": 20,
+    "description": "用凤凰草+雪莲炼制的开悟灵丹",
+    "materials": [
+      {
+        "itemId": "item_phoenix_herb",
+        "quantity": 1
+      },
+      {
+        "itemId": "item_snow_lotus",
+        "quantity": 2
+      }
+    ],
+    "result": {
+      "itemId": "item_enlighten_pill",
+      "quantity": 1
+    },
+    "exp": 180,
+    "goldCost": 150,
+    "successRate": 0.45
+  }
 ]
