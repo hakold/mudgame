@@ -8602,5 +8602,378 @@
     },
     "stackable": true,
     "maxStack": 10
+  },
+  {
+    "id": "item_angelica",
+    "name": "当归",
+    "type": "material",
+    "description": "补血活血的常用药材",
+    "price": 25,
+    "sellPrice": 10
+  },
+  {
+    "id": "item_astragalus",
+    "name": "黄芪",
+    "type": "material",
+    "description": "补气固表的良药",
+    "price": 30,
+    "sellPrice": 12
+  },
+  {
+    "id": "item_fleeceflower",
+    "name": "何首乌",
+    "type": "material",
+    "description": "乌发养血的珍贵药材",
+    "price": 55,
+    "sellPrice": 22
+  },
+  {
+    "id": "item_antler",
+    "name": "鹿茸",
+    "type": "material",
+    "description": "补肾壮阳的珍贵药材",
+    "price": 100,
+    "sellPrice": 40
+  },
+  {
+    "id": "item_snow_lotus_superior",
+    "name": "天山雪莲",
+    "type": "material",
+    "description": "生长于天山之巅的极品雪莲",
+    "price": 130,
+    "sellPrice": 50
+  },
+  {
+    "id": "item_lingzhi_ancient",
+    "name": "千年灵芝",
+    "type": "material",
+    "description": "千年方能长成的灵芝王",
+    "price": 180,
+    "sellPrice": 70
+  },
+  {
+    "id": "item_dragon_blood_resin",
+    "name": "血竭",
+    "type": "material",
+    "description": "活血化瘀的树脂药材",
+    "price": 150,
+    "sellPrice": 60
+  },
+  {
+    "id": "item_dragon_bone_herb",
+    "name": "龙骨草",
+    "type": "material",
+    "description": "传说中的龙骨化石旁的奇草",
+    "price": 200,
+    "sellPrice": 80
+  },
+  {
+    "id": "item_nine_turn_herb",
+    "name": "九转还魂草",
+    "type": "material",
+    "description": "九转方能成形的还魂灵草",
+    "price": 300,
+    "sellPrice": 120
+  },
+  {
+    "id": "item_crane_herb",
+    "name": "仙鹤草",
+    "type": "material",
+    "description": "仙鹤啄食的灵草，传说可延年益寿",
+    "price": 400,
+    "sellPrice": 160
+  },
+  {
+    "id": "item_tin_ore_new",
+    "name": "锡矿石",
+    "type": "material",
+    "description": "可炼锡的矿石",
+    "price": 10,
+    "sellPrice": 4
+  },
+  {
+    "id": "item_lead_ore_new",
+    "name": "铅矿石",
+    "type": "material",
+    "description": "沉重的铅色矿石",
+    "price": 15,
+    "sellPrice": 6
+  },
+  {
+    "id": "item_cinnabar_ore",
+    "name": "朱砂矿",
+    "type": "material",
+    "description": "鲜红的朱砂矿石，可入药",
+    "price": 35,
+    "sellPrice": 14
+  },
+  {
+    "id": "item_magnetite_ore",
+    "name": "磁铁矿石",
+    "type": "material",
+    "description": "天然带磁性的铁矿石",
+    "price": 40,
+    "sellPrice": 16
+  },
+  {
+    "id": "item_sapphire_ore",
+    "name": "蓝宝石矿",
+    "type": "material",
+    "description": "蕴含蓝色宝石的原矿",
+    "price": 90,
+    "sellPrice": 36
+  },
+  {
+    "id": "item_ruby_ore",
+    "name": "红宝石矿",
+    "type": "material",
+    "description": "蕴含红色宝石的原矿",
+    "price": 110,
+    "sellPrice": 44
+  },
+  {
+    "id": "item_purple_gold_ore",
+    "name": "紫金矿",
+    "type": "material",
+    "description": "传说中帝王专属的紫金矿石",
+    "price": 250,
+    "sellPrice": 100
+  },
+  {
+    "id": "item_dragon_scale_ore",
+    "name": "龙鳞石",
+    "type": "material",
+    "description": "布满鳞片纹路的奇石，坚不可摧",
+    "price": 350,
+    "sellPrice": 140
+  },
+  {
+    "id": "item_crucian",
+    "name": "鲫鱼",
+    "type": "material",
+    "description": "常见的淡水鲫鱼，煲汤鲜美",
+    "price": 8,
+    "sellPrice": 3
+  },
+  {
+    "id": "item_loach",
+    "name": "泥鳅",
+    "type": "material",
+    "description": "滑溜的泥鳅，可红烧",
+    "price": 12,
+    "sellPrice": 5
+  },
+  {
+    "id": "item_catfish",
+    "name": "鲶鱼",
+    "type": "material",
+    "description": "体型硕大的鲶鱼",
+    "price": 22,
+    "sellPrice": 9
+  },
+  {
+    "id": "item_mandarin_fish",
+    "name": "鳜鱼",
+    "type": "material",
+    "description": "桃花流水鳜鱼肥",
+    "price": 30,
+    "sellPrice": 12
+  },
+  {
+    "id": "item_softshell_turtle",
+    "name": "甲鱼",
+    "type": "material",
+    "description": "滋补养生的甲鱼",
+    "price": 55,
+    "sellPrice": 22
+  },
+  {
+    "id": "item_eel",
+    "name": "鳗鱼",
+    "type": "material",
+    "description": "油滑肥美的鳗鱼",
+    "price": 45,
+    "sellPrice": 18
+  },
+  {
+    "id": "item_pufferfish",
+    "name": "河豚",
+    "type": "material",
+    "description": "鲜美但有毒，需高手烹饪",
+    "price": 65,
+    "sellPrice": 25
+  },
+  {
+    "id": "item_dragon_fish",
+    "name": "龙鱼",
+    "type": "material",
+    "description": "形似小龙的稀有鱼种",
+    "price": 150,
+    "sellPrice": 60
+  },
+  {
+    "id": "item_pearl_oyster",
+    "name": "珍珠蚌",
+    "type": "material",
+    "description": "内含珍珠的蚌，可剖取珍珠",
+    "price": 120,
+    "sellPrice": 48
+  },
+  {
+    "id": "item_golden_carp",
+    "name": "金鲤鱼",
+    "type": "material",
+    "description": "传说中的金色鲤鱼，跃过龙门即为龙",
+    "price": 300,
+    "sellPrice": 120
+  },
+  {
+    "id": "item_blood_pill",
+    "name": "气血丹",
+    "type": "consumable",
+    "description": "补气血的丹药，恢复300HP和200MP",
+    "price": 80,
+    "effect": {
+      "hpRestore": 300,
+      "mpRestore": 200
+    },
+    "stackable": true,
+    "maxStack": 20
+  },
+  {
+    "id": "item_vitality_pill",
+    "name": "回春丹",
+    "type": "consumable",
+    "description": "恢复800HP的强力丹药",
+    "price": 200,
+    "effect": {
+      "hpRestore": 800
+    },
+    "stackable": true,
+    "maxStack": 15
+  },
+  {
+    "id": "item_immortal_pill",
+    "name": "不死仙丹",
+    "type": "consumable",
+    "description": "传说可起死回生的仙丹，恢复全部HP和MP",
+    "price": 500,
+    "effect": {
+      "hpRestore": 9999,
+      "mpRestore": 9999
+    },
+    "stackable": true,
+    "maxStack": 5
+  },
+  {
+    "id": "item_crucian_soup",
+    "name": "鲫鱼汤",
+    "type": "consumable",
+    "description": "鲜美鲫鱼汤，恢复200HP",
+    "price": 30,
+    "effect": {
+      "hpRestore": 200
+    },
+    "stackable": true,
+    "maxStack": 20
+  },
+  {
+    "id": "item_braised_eel",
+    "name": "红烧鳗鱼",
+    "type": "consumable",
+    "description": "油香四溢的红烧鳗鱼，恢复450HP",
+    "price": 65,
+    "effect": {
+      "hpRestore": 450
+    },
+    "stackable": true,
+    "maxStack": 20
+  },
+  {
+    "id": "item_turtle_soup",
+    "name": "甲鱼汤",
+    "type": "consumable",
+    "description": "大补的甲鱼汤，恢复500HP和300MP",
+    "price": 90,
+    "effect": {
+      "hpRestore": 500,
+      "mpRestore": 300
+    },
+    "stackable": true,
+    "maxStack": 15
+  },
+  {
+    "id": "item_dragon_fish_feast",
+    "name": "龙鱼宴",
+    "type": "consumable",
+    "description": "龙鱼烹制的盛宴，临时提升全属性5点持续60分钟",
+    "price": 200,
+    "effect": {
+      "allBoost": 5,
+      "duration": 3600
+    },
+    "stackable": true,
+    "maxStack": 5
+  },
+  {
+    "id": "item_golden_carp_feast",
+    "name": "金鲤跃龙门",
+    "type": "consumable",
+    "description": "金鲤鱼烹制的绝世佳肴，临时大幅提升属性",
+    "price": 400,
+    "effect": {
+      "allBoost": 10,
+      "duration": 3600
+    },
+    "stackable": true,
+    "maxStack": 3
+  },
+  {
+    "id": "item_lead_block",
+    "name": "铅块",
+    "type": "material",
+    "description": "纯铅熔铸的铅块",
+    "price": 25,
+    "sellPrice": 10
+  },
+  {
+    "id": "item_cinnabar_powder",
+    "name": "朱砂粉",
+    "type": "material",
+    "description": "研磨后的朱砂粉末，可制药",
+    "price": 45,
+    "sellPrice": 18
+  },
+  {
+    "id": "item_magnetite_bar",
+    "name": "磁铁棒",
+    "type": "material",
+    "description": "精炼后的磁铁，可用于特殊锻造",
+    "price": 55,
+    "sellPrice": 22
+  },
+  {
+    "id": "item_adamantite_ingot",
+    "name": "精金锭",
+    "type": "material",
+    "description": "精金炼制的超级金属锭",
+    "price": 180,
+    "sellPrice": 70
+  },
+  {
+    "id": "item_purple_gold_ingot",
+    "name": "紫金锭",
+    "type": "material",
+    "description": "紫金炼制的帝王级金属",
+    "price": 350,
+    "sellPrice": 140
+  },
+  {
+    "id": "item_dragon_scale_ingot",
+    "name": "龙鳞钢",
+    "type": "material",
+    "description": "龙鳞石炼成的顶级锻造材料",
+    "price": 500,
+    "sellPrice": 200
   }
 ]

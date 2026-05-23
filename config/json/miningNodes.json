@@ -128,5 +128,189 @@
     ],
     "respawnSeconds": 3600,
     "description": "从天而降的陨铁，锻造神兵的材料"
+  },
+  {
+    "id": "mine_village_quarry",
+    "roomId": "village_field",
+    "name": "石灰石矿",
+    "level": 2,
+    "itemId": "item_limestone",
+    "quantity": [
+      1,
+      3
+    ],
+    "respawnSeconds": 200,
+    "description": "村外的石灰石矿"
+  },
+  {
+    "id": "mine_mountain_temple",
+    "roomId": "mountain_temple",
+    "name": "锡矿脉",
+    "level": 4,
+    "itemId": "item_tin_ore_new",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 300,
+    "description": "青云观旁的锡矿脉"
+  },
+  {
+    "id": "mine_desert_ruins",
+    "roomId": "desert_ruins",
+    "name": "铅矿脉",
+    "level": 6,
+    "itemId": "item_lead_ore_new",
+    "quantity": [
+      1,
+      3
+    ],
+    "respawnSeconds": 350,
+    "description": "古城遗址中的铅矿"
+  },
+  {
+    "id": "mine_snow_cave2",
+    "roomId": "snow_cave",
+    "name": "朱砂矿",
+    "level": 7,
+    "itemId": "item_cinnabar_ore",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 400,
+    "description": "冰洞中的朱砂矿"
+  },
+  {
+    "id": "mine_mountain_peak",
+    "roomId": "mountain_peak",
+    "name": "磁铁矿",
+    "level": 9,
+    "itemId": "item_magnetite_ore",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 450,
+    "description": "山顶的磁铁矿石"
+  },
+  {
+    "id": "mine_underground_entrance",
+    "roomId": "underground_entrance",
+    "name": "精金矿",
+    "level": 11,
+    "itemId": "item_adamantite_ore",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 600,
+    "description": "地下迷宫入口的精金矿脉"
+  },
+  {
+    "id": "mine_crystal_cave_sapphire",
+    "roomId": "crystal_cave",
+    "name": "蓝宝石矿",
+    "level": 13,
+    "itemId": "item_sapphire_ore",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 700,
+    "description": "水晶洞中的蓝宝石矿"
+  },
+  {
+    "id": "mine_volcano_lair",
+    "roomId": "volcano_lair",
+    "name": "红宝石矿",
+    "level": 14,
+    "itemId": "item_ruby_ore",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 750,
+    "description": "火山巢穴中的红宝石矿"
+  },
+  {
+    "id": "mine_desert_entrance",
+    "roomId": "desert_entrance",
+    "name": "紫金矿",
+    "level": 20,
+    "itemId": "item_purple_gold_ore",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 1200,
+    "description": "沙漠中的紫金矿脉"
+  },
+  {
+    "id": "mine_dragon_shrine",
+    "roomId": "jiao_shrine",
+    "name": "龙鳞石",
+    "level": 22,
+    "itemId": "item_dragon_scale_ore",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 1800,
+    "description": "蛟祭坛中的龙鳞石"
+  },
+  {
+    "id": "mine_rare_underground",
+    "roomId": "underground_city",
+    "name": "精金矿脉",
+    "level": 24,
+    "itemId": "item_adamantite_ore",
+    "quantity": [
+      2,
+      3
+    ],
+    "respawnSeconds": 2400,
+    "description": "地下城深处的精金富矿",
+    "rarity": "rare"
+  },
+  {
+    "id": "mine_rare_volcano",
+    "roomId": "volcano_crater",
+    "name": "熔岩金矿",
+    "level": 27,
+    "itemId": "item_gold_ore",
+    "quantity": [
+      3,
+      5
+    ],
+    "respawnSeconds": 3600,
+    "description": "火山口中的熔岩金矿，极为丰饶",
+    "rarity": "epic"
+  },
+  {
+    "id": "mine_island_cave",
+    "roomId": "island_cave",
+    "name": "银砂矿",
+    "level": 10,
+    "itemId": "item_silver_ore",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 500,
+    "description": "仙人洞府中的银砂矿"
+  },
+  {
+    "id": "mine_forest_cave",
+    "roomId": "forest_cave",
+    "name": "铜蓝矿",
+    "level": 8,
+    "itemId": "item_copper_ore",
+    "quantity": [
+      1,
+      3
+    ],
+    "respawnSeconds": 400,
+    "description": "神秘洞穴中的铜蓝矿"
   }
 ]

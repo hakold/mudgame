@@ -154,5 +154,189 @@
     ],
     "respawnSeconds": 1200,
     "description": "传说中凤凰栖息的灵草，千年难遇"
+  },
+  {
+    "id": "herb_mountain_temple",
+    "roomId": "mountain_temple",
+    "name": "当归丛",
+    "level": 6,
+    "itemId": "item_angelica",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 250,
+    "description": "青云观后山的当归丛"
+  },
+  {
+    "id": "herb_swamp_deep",
+    "roomId": "swamp_deep",
+    "name": "黄芪",
+    "level": 9,
+    "itemId": "item_astragalus",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 300,
+    "description": "沼泽深处的野生黄芪"
+  },
+  {
+    "id": "herb_forest_clearing",
+    "roomId": "forest_clearing",
+    "name": "何首乌",
+    "level": 11,
+    "itemId": "item_fleeceflower",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 400,
+    "description": "林间空地的何首乌藤"
+  },
+  {
+    "id": "herb_mountain_peak_herb2",
+    "roomId": "mountain_peak",
+    "name": "牛黄草",
+    "level": 13,
+    "itemId": "item_bezoar",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 500,
+    "description": "山顶峭壁上的牛黄草"
+  },
+  {
+    "id": "herb_island_forest",
+    "roomId": "island_forest",
+    "name": "麝香草",
+    "level": 14,
+    "itemId": "item_musk",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 550,
+    "description": "仙岛密林中的麝香草"
+  },
+  {
+    "id": "herb_deep_forest2",
+    "roomId": "deep_forest",
+    "name": "鹿茸菇",
+    "level": 15,
+    "itemId": "item_antler",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 600,
+    "description": "密林深处的鹿茸菇"
+  },
+  {
+    "id": "herb_snow_pass",
+    "roomId": "snow_pass",
+    "name": "天山雪莲",
+    "level": 16,
+    "itemId": "item_snow_lotus_superior",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 800,
+    "description": "雪山关隘上的天山雪莲"
+  },
+  {
+    "id": "herb_ancient_tree",
+    "roomId": "ancient_tree",
+    "name": "千年灵芝",
+    "level": 17,
+    "itemId": "item_lingzhi_ancient",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 1000,
+    "description": "千年古树下的灵芝王"
+  },
+  {
+    "id": "herb_desert_entrance",
+    "roomId": "desert_entrance",
+    "name": "血竭树",
+    "level": 18,
+    "itemId": "item_dragon_blood_resin",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 700,
+    "description": "沙漠边缘的血竭树，树脂可入药"
+  },
+  {
+    "id": "herb_phoenix_peak2",
+    "roomId": "phoenix_peak",
+    "name": "龙骨草",
+    "level": 19,
+    "itemId": "item_dragon_bone_herb",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 900,
+    "description": "凤凰峰上的龙骨草"
+  },
+  {
+    "id": "herb_heaven_gate",
+    "roomId": "heaven_gate",
+    "name": "九转还魂草",
+    "level": 22,
+    "itemId": "item_nine_turn_herb",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 1500,
+    "description": "天门旁的九转还魂草，极为罕见"
+  },
+  {
+    "id": "herb_starlit_bridge",
+    "roomId": "starlit_bridge",
+    "name": "仙鹤草",
+    "level": 25,
+    "itemId": "item_crane_herb",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 1800,
+    "description": "星桥上仙鹤啄食的灵草"
+  },
+  {
+    "id": "herb_rare_forest",
+    "roomId": "forest_deep",
+    "name": "百年人参",
+    "level": 23,
+    "itemId": "item_ginseng",
+    "quantity": [
+      2,
+      3
+    ],
+    "respawnSeconds": 1800,
+    "description": "深林中的百年老参，极为罕见",
+    "rarity": "rare"
+  },
+  {
+    "id": "herb_rare_snow",
+    "roomId": "snow_field",
+    "name": "冰晶雪莲",
+    "level": 28,
+    "itemId": "item_snow_lotus",
+    "quantity": [
+      2,
+      3
+    ],
+    "respawnSeconds": 2400,
+    "description": "极寒之地绽放的冰晶雪莲",
+    "rarity": "epic"
   }
 ]

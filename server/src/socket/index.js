@@ -1675,8 +1675,10 @@ function socketHandler(io) {
     // ==================== 锻造系统 ====================
     
     // 获取锻造配方
-    socket.on('get_forge_recipes', () => {
-      const recipes = craftService.getRecipesBySkill('forging', 99);
+    socket.on('get_forge_recipes', async () => {
+      const skills = await craftService.getLifeSkills(user._id);
+      const level = (skills.forging?.level) || 1;
+      const recipes = craftService.getRecipesBySkill('forging', level + 2);
       socket.emit('forge_recipes', { recipes });
     });
 
@@ -1714,9 +1716,9 @@ function socketHandler(io) {
     // ==================== 生活技能：三系采集 + 三系制造 ====================
 
     // 查看可采集资源（三系合并）
-    socket.on('list_gathering_nodes', () => {
+    socket.on('list_gathering_nodes', async () => {
       const roomId = user.location.roomId;
-      const nodes = craftService.getAllGatheringNodes(roomId);
+      const nodes = await craftService.getAllGatheringNodes(roomId, user._id);
       socket.emit('gathering_nodes', { roomId, nodes });
     });
 
@@ -1733,8 +1735,10 @@ function socketHandler(io) {
     });
 
     // 查看炼药配方
-    socket.on('list_alchemy_recipes', () => {
-      const recipes = craftService.getRecipesBySkill('alchemy', 99);
+    socket.on('list_alchemy_recipes', async () => {
+      const skills = await craftService.getLifeSkills(user._id);
+      const level = (skills.alchemy?.level) || 1;
+      const recipes = craftService.getRecipesBySkill('alchemy', level + 2); // show upcoming 2 levels
       socket.emit('alchemy_recipes', { recipes });
     });
 
@@ -1764,8 +1768,10 @@ function socketHandler(io) {
     });
 
     // 查看烹饪配方
-    socket.on('list_cooking_recipes', () => {
-      const recipes = craftService.getRecipesBySkill('cooking', 99);
+    socket.on('list_cooking_recipes', async () => {
+      const skills = await craftService.getLifeSkills(user._id);
+      const level = (skills.cooking?.level) || 1;
+      const recipes = craftService.getRecipesBySkill('cooking', level + 2);
       socket.emit('cooking_recipes', { recipes });
     });
 

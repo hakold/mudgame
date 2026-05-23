@@ -128,5 +128,189 @@
     ],
     "respawnSeconds": 250,
     "description": "沙滩上的螃蟹"
+  },
+  {
+    "id": "fish_village_pond",
+    "roomId": "village_field",
+    "name": "村塘钓点",
+    "level": 2,
+    "itemId": "item_crucian",
+    "quantity": [
+      1,
+      3
+    ],
+    "respawnSeconds": 150,
+    "description": "村外池塘，鲫鱼成群"
+  },
+  {
+    "id": "fish_swamp",
+    "roomId": "swamp_deep",
+    "name": "沼泽钓点",
+    "level": 4,
+    "itemId": "item_loach",
+    "quantity": [
+      1,
+      3
+    ],
+    "respawnSeconds": 180,
+    "description": "沼泽水塘的泥鳅"
+  },
+  {
+    "id": "fish_mountain_spring",
+    "roomId": "mountain_spring",
+    "name": "山泉钓点",
+    "level": 7,
+    "itemId": "item_catfish",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 250,
+    "description": "山泉中的鲶鱼"
+  },
+  {
+    "id": "fish_forest_waterfall",
+    "roomId": "forest_waterfall",
+    "name": "瀑布钓点",
+    "level": 9,
+    "itemId": "item_mandarin_fish",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 300,
+    "description": "瀑布下的鳜鱼"
+  },
+  {
+    "id": "fish_lake_village",
+    "roomId": "lake_village",
+    "name": "渔村钓点",
+    "level": 11,
+    "itemId": "item_softshell_turtle",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 400,
+    "description": "渔村水域的甲鱼"
+  },
+  {
+    "id": "fish_canyon_deep",
+    "roomId": "canyon_deep",
+    "name": "峡谷钓点",
+    "level": 13,
+    "itemId": "item_eel",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 350,
+    "description": "峡谷深水中的鳗鱼"
+  },
+  {
+    "id": "fish_desert_oasis",
+    "roomId": "desert_oasis",
+    "name": "绿洲钓点",
+    "level": 14,
+    "itemId": "item_pufferfish",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 450,
+    "description": "绿洲中的河豚，鲜美但有毒"
+  },
+  {
+    "id": "fish_underwater_cave",
+    "roomId": "underwater_cave",
+    "name": "水下洞穴钓点",
+    "level": 16,
+    "itemId": "item_dragon_fish",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 600,
+    "description": "水下洞穴中的龙鱼"
+  },
+  {
+    "id": "fish_island_beach2",
+    "roomId": "island_beach",
+    "name": "珍珠贝场",
+    "level": 17,
+    "itemId": "item_pearl_oyster",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 550,
+    "description": "仙岛海滩的珍珠贝场"
+  },
+  {
+    "id": "fish_mirror_lake",
+    "roomId": "mirror_lake",
+    "name": "镜湖钓点",
+    "level": 20,
+    "itemId": "item_golden_carp",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 900,
+    "description": "镜湖中的金鲤鱼，传说跃过龙门化龙"
+  },
+  {
+    "id": "fish_rare_river",
+    "roomId": "river_bank",
+    "name": "鲤鱼王",
+    "level": 22,
+    "itemId": "item_golden_carp",
+    "quantity": [
+      1,
+      1
+    ],
+    "respawnSeconds": 1800,
+    "description": "河中出现了一条金鳞闪闪的鲤鱼王！",
+    "rarity": "rare"
+  },
+  {
+    "id": "fish_rare_lake",
+    "roomId": "lake_island",
+    "name": "湖心神鲤",
+    "level": 26,
+    "itemId": "item_golden_carp",
+    "quantity": [
+      2,
+      3
+    ],
+    "respawnSeconds": 3600,
+    "description": "湖心深处惊现金色神鲤群！",
+    "rarity": "epic"
+  },
+  {
+    "id": "fish_city_bridge",
+    "roomId": "city_bridge",
+    "name": "桥下钓点",
+    "level": 6,
+    "itemId": "item_crab",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 250,
+    "description": "石桥下的螃蟹"
+  },
+  {
+    "id": "fish_lakeside2",
+    "roomId": "lakeside",
+    "name": "浅滩钓点",
+    "level": 3,
+    "itemId": "item_bass",
+    "quantity": [
+      1,
+      2
+    ],
+    "respawnSeconds": 200,
+    "description": "湖畔浅滩的鲈鱼"
   }
 ]

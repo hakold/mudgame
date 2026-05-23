@@ -110,5 +110,193 @@
     "exp": 20,
     "goldCost": 5,
     "successRate": 0.9
+  },
+  {
+    "id": "forge_bronze",
+    "name": "炼制青铜锭",
+    "skill": "forging",
+    "level": 2,
+    "description": "铜锡合炼的青铜锭",
+    "materials": [
+      {
+        "itemId": "item_copper_ore",
+        "quantity": 2
+      },
+      {
+        "itemId": "item_tin_ore_new",
+        "quantity": 1
+      }
+    ],
+    "result": {
+      "itemId": "item_bronze_ingot",
+      "quantity": 1
+    },
+    "exp": 18,
+    "goldCost": 5,
+    "successRate": 0.9
+  },
+  {
+    "id": "forge_lead",
+    "name": "炼制铅块",
+    "skill": "forging",
+    "level": 4,
+    "description": "纯铅熔铸",
+    "materials": [
+      {
+        "itemId": "item_lead_ore_new",
+        "quantity": 3
+      }
+    ],
+    "result": {
+      "itemId": "item_lead_block",
+      "quantity": 1
+    },
+    "exp": 22,
+    "goldCost": 5,
+    "successRate": 0.92
+  },
+  {
+    "id": "forge_cinnabar",
+    "name": "研磨朱砂粉",
+    "skill": "forging",
+    "level": 7,
+    "description": "将朱砂矿研磨成粉",
+    "materials": [
+      {
+        "itemId": "item_cinnabar_ore",
+        "quantity": 2
+      }
+    ],
+    "result": {
+      "itemId": "item_cinnabar_powder",
+      "quantity": 1
+    },
+    "exp": 35,
+    "goldCost": 10,
+    "successRate": 0.85
+  },
+  {
+    "id": "forge_magnetite",
+    "name": "精炼磁铁棒",
+    "skill": "forging",
+    "level": 10,
+    "description": "精炼磁铁矿石",
+    "materials": [
+      {
+        "itemId": "item_magnetite_ore",
+        "quantity": 2
+      },
+      {
+        "itemId": "item_steel_ingot",
+        "quantity": 1
+      }
+    ],
+    "result": {
+      "itemId": "item_magnetite_bar",
+      "quantity": 1
+    },
+    "exp": 45,
+    "goldCost": 20,
+    "successRate": 0.75
+  },
+  {
+    "id": "forge_adamantite",
+    "name": "炼制精金锭",
+    "skill": "forging",
+    "level": 13,
+    "description": "精金矿的终极炼化",
+    "materials": [
+      {
+        "itemId": "item_adamantite_ore",
+        "quantity": 2
+      },
+      {
+        "itemId": "item_lava_rock",
+        "quantity": 2
+      }
+    ],
+    "result": {
+      "itemId": "item_adamantite_ingot",
+      "quantity": 1
+    },
+    "exp": 70,
+    "goldCost": 40,
+    "successRate": 0.6
+  },
+  {
+    "id": "forge_purple_gold",
+    "name": "炼制紫金锭",
+    "skill": "forging",
+    "level": 16,
+    "description": "紫金矿炼制的帝王金属",
+    "materials": [
+      {
+        "itemId": "item_purple_gold_ore",
+        "quantity": 1
+      },
+      {
+        "itemId": "item_mythril_ingot",
+        "quantity": 1
+      }
+    ],
+    "result": {
+      "itemId": "item_purple_gold_ingot",
+      "quantity": 1
+    },
+    "exp": 90,
+    "goldCost": 60,
+    "successRate": 0.5
+  },
+  {
+    "id": "forge_dragon_scale",
+    "name": "炼制龙鳞钢",
+    "skill": "forging",
+    "level": 20,
+    "description": "龙鳞石炼成的顶级锻造材料",
+    "materials": [
+      {
+        "itemId": "item_dragon_scale_ore",
+        "quantity": 1
+      },
+      {
+        "itemId": "item_meteorite_ingot",
+        "quantity": 1
+      }
+    ],
+    "result": {
+      "itemId": "item_dragon_scale_ingot",
+      "quantity": 1
+    },
+    "exp": 130,
+    "goldCost": 100,
+    "successRate": 0.4
+  },
+  {
+    "id": "forge_dragon_scale_plus",
+    "name": "炼制龙鳞钢(稳)",
+    "skill": "forging",
+    "level": 25,
+    "description": "加入陨铁提高成功率的龙鳞钢炼制",
+    "materials": [
+      {
+        "itemId": "item_dragon_scale_ore",
+        "quantity": 1
+      },
+      {
+        "itemId": "item_meteorite_iron",
+        "quantity": 2
+      },
+      {
+        "itemId": "item_purple_gold_ingot",
+        "quantity": 1
+      }
+    ],
+    "result": {
+      "itemId": "item_dragon_scale_ingot",
+      "quantity": 1
+    },
+    "exp": 200,
+    "goldCost": 150,
+    "successRate": 0.6
   }
 ]

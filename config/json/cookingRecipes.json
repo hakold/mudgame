@@ -310,5 +310,177 @@
     "exp": 200,
     "goldCost": 100,
     "successRate": 0.4
+  },
+  {
+    "id": "cook_crucian_soup",
+    "name": "鲫鱼汤",
+    "skill": "cooking",
+    "level": 3,
+    "description": "鲜美的鲫鱼汤",
+    "materials": [
+      {
+        "itemId": "item_crucian",
+        "quantity": 2
+      },
+      {
+        "itemId": "item_bamboo_shoot",
+        "quantity": 1
+      }
+    ],
+    "result": {
+      "itemId": "item_crucian_soup",
+      "quantity": 1
+    },
+    "exp": 25,
+    "goldCost": 3,
+    "successRate": 0.9
+  },
+  {
+    "id": "cook_braised_catfish",
+    "name": "红烧鲶鱼",
+    "skill": "cooking",
+    "level": 8,
+    "description": "肥美的红烧鲶鱼",
+    "materials": [
+      {
+        "itemId": "item_catfish",
+        "quantity": 2
+      },
+      {
+        "itemId": "item_herb",
+        "quantity": 2
+      }
+    ],
+    "result": {
+      "itemId": "item_braised_fish",
+      "quantity": 1
+    },
+    "exp": 50,
+    "goldCost": 10,
+    "successRate": 0.8
+  },
+  {
+    "id": "cook_mandarin_steam",
+    "name": "清蒸鳜鱼",
+    "skill": "cooking",
+    "level": 11,
+    "description": "桃花流水鳜鱼肥",
+    "materials": [
+      {
+        "itemId": "item_mandarin_fish",
+        "quantity": 2
+      },
+      {
+        "itemId": "item_calamus",
+        "quantity": 1
+      }
+    ],
+    "result": {
+      "itemId": "item_steamed_fish",
+      "quantity": 2
+    },
+    "exp": 65,
+    "goldCost": 15,
+    "successRate": 0.75
+  },
+  {
+    "id": "cook_turtle_soup",
+    "name": "甲鱼汤",
+    "skill": "cooking",
+    "level": 14,
+    "description": "大补的甲鱼汤",
+    "materials": [
+      {
+        "itemId": "item_softshell_turtle",
+        "quantity": 1
+      },
+      {
+        "itemId": "item_ginseng",
+        "quantity": 2
+      }
+    ],
+    "result": {
+      "itemId": "item_turtle_soup",
+      "quantity": 1
+    },
+    "exp": 95,
+    "goldCost": 30,
+    "successRate": 0.65
+  },
+  {
+    "id": "cook_braised_eel",
+    "name": "红烧鳗鱼",
+    "skill": "cooking",
+    "level": 17,
+    "description": "油香四溢的红烧鳗鱼",
+    "materials": [
+      {
+        "itemId": "item_eel",
+        "quantity": 2
+      },
+      {
+        "itemId": "item_herb",
+        "quantity": 3
+      }
+    ],
+    "result": {
+      "itemId": "item_braised_eel",
+      "quantity": 1
+    },
+    "exp": 120,
+    "goldCost": 40,
+    "successRate": 0.55
+  },
+  {
+    "id": "cook_dragon_fish_feast",
+    "name": "龙鱼宴",
+    "skill": "cooking",
+    "level": 20,
+    "description": "龙鱼烹制的全属性宴席",
+    "materials": [
+      {
+        "itemId": "item_dragon_fish",
+        "quantity": 1
+      },
+      {
+        "itemId": "item_pearl_oyster",
+        "quantity": 2
+      }
+    ],
+    "result": {
+      "itemId": "item_dragon_fish_feast",
+      "quantity": 1
+    },
+    "exp": 160,
+    "goldCost": 80,
+    "successRate": 0.45
+  },
+  {
+    "id": "cook_golden_carp",
+    "name": "金鲤跃龙门",
+    "skill": "cooking",
+    "level": 25,
+    "description": "金鲤鱼烹制的绝世佳肴",
+    "materials": [
+      {
+        "itemId": "item_golden_carp",
+        "quantity": 1
+      },
+      {
+        "itemId": "item_phoenix_herb",
+        "quantity": 1
+      },
+      {
+        "itemId": "item_snow_lotus",
+        "quantity": 1
+      }
+    ],
+    "result": {
+      "itemId": "item_golden_carp_feast",
+      "quantity": 1
+    },
+    "exp": 250,
+    "goldCost": 150,
+    "successRate": 0.3
   }
 ]

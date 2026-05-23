@@ -46,17 +46,35 @@ function getNodeCooldown(skillType, nodeId) {
 
 // ==================== 采集 ====================
 
-// 获取房间内所有采集点（三系合并）
-function getAllGatheringNodes(roomId) {
+// 获取房间内所有采集点（三系合并，含可用性和熟练度信息）
+async function getAllGatheringNodes(roomId, userId) {
   const allNodes = [];
   for (const n of herbNodes) {
-    if (n.roomId === roomId) allNodes.push({ ...n, skillType: 'herb', icon: '🌿' });
+    if (n.roomId === roomId) {
+      const userLevel = userId ? await getLifeSkillLevel(userId, 'herb') : 1;
+      allNodes.push({ ...n, skillType: 'herb', icon: '🌿', 
+        available: isNodeAvailable('herb', n.id),
+        cooldownRemaining: getNodeCooldown('herb', n.id),
+        canGather: userLevel >= n.level, userLevel });
+    }
   }
   for (const n of miningNodes) {
-    if (n.roomId === roomId) allNodes.push({ ...n, skillType: 'mining', icon: '⛏️' });
+    if (n.roomId === roomId) {
+      const userLevel = userId ? await getLifeSkillLevel(userId, 'mining') : 1;
+      allNodes.push({ ...n, skillType: 'mining', icon: '⛏️',
+        available: isNodeAvailable('mining', n.id),
+        cooldownRemaining: getNodeCooldown('mining', n.id),
+        canGather: userLevel >= n.level, userLevel });
+    }
   }
   for (const n of fishingNodes) {
-    if (n.roomId === roomId) allNodes.push({ ...n, skillType: 'fishing', icon: '🎣' });
+    if (n.roomId === roomId) {
+      const userLevel = userId ? await getLifeSkillLevel(userId, 'fishing') : 1;
+      allNodes.push({ ...n, skillType: 'fishing', icon: '🎣',
+        available: isNodeAvailable('fishing', n.id),
+        cooldownRemaining: getNodeCooldown('fishing', n.id),
+        canGather: userLevel >= n.level, userLevel });
+    }
   }
   return allNodes;
 }
@@ -81,9 +99,20 @@ async function gather(userId, skillType, nodeId) {
     return { error: `采集点尚未刷新，还需等待 ${remaining} 秒` };
   }
 
+  // P7-2d: 熟练度门槛
+  const userLevel = await getLifeSkillLevel(userId, skillType);
+  if (userLevel < node.level) {
+    return { error: `需要${skillType === 'herb' ? '采药' : skillType === 'mining' ? '挖矿' : '钓鱼'}Lv${node.level}，当前Lv${userLevel}` };
+  }
+
   // 随机数量
   const [min, max] = node.quantity;
   const quantity = Math.floor(Math.random() * (max - min + 1)) + min;
+
+  // 稀有节点额外奖励
+  let bonusExp = 0;
+  if (node.rarity === 'rare') bonusExp = quantity * 10;
+  if (node.rarity === 'epic') bonusExp = quantity * 25;
 
   // 设置冷却
   getCooldownMap(skillType).set(nodeId, Date.now() + node.respawnSeconds * 1000);
@@ -98,6 +127,10 @@ async function gather(userId, skillType, nodeId) {
     await Inventory.create({ userId, itemId: node.itemId, quantity });
   }
 
+  // 采集经验
+  const gatherExp = quantity * 2 + bonusExp;
+  await addLifeSkillExp(userId, skillType, gatherExp);
+
   return {
     success: true,
     skillType,
@@ -106,7 +139,9 @@ async function gather(userId, skillType, nodeId) {
     itemId: node.itemId,
     itemName: itemConfig?.name || node.itemId,
     quantity,
-    cooldownSeconds: node.respawnSeconds
+    cooldownSeconds: node.respawnSeconds,
+    expGained: gatherExp,
+    rarity: node.rarity || 'common'
   };
 }
 
@@ -128,6 +163,13 @@ function getRecipe(skillType, recipeId) {
 async function performCraft(userId, skillType, recipeId, userGold) {
   const recipe = getRecipe(skillType, recipeId);
   if (!recipe) return { error: '配方不存在' };
+
+  // P7-2d: 熟练度门槛
+  const userLevel = await getLifeSkillLevel(userId, skillType);
+  if (userLevel < recipe.level) {
+    const skillNames = { alchemy: '炼药', cooking: '烹饪', forging: '锻造' };
+    return { error: `需要${skillNames[skillType] || skillType}Lv${recipe.level}，当前Lv${userLevel}` };
+  }
 
   if (userGold < recipe.goldCost) {
     return { error: `金币不足，需要 ${recipe.goldCost} 金币` };
@@ -231,6 +273,11 @@ async function getLifeSkills(userId) {
   } catch (e) {
     return {};
   }
+}
+
+async function getLifeSkillLevel(userId, skillType) {
+  const skills = await getLifeSkills(userId);
+  return (skills[skillType]?.level) || 1;
 }
 
 // ==================== 导出 ====================

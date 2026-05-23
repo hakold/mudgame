@@ -342,5 +342,205 @@
     "exp": 180,
     "goldCost": 150,
     "successRate": 0.45
+  },
+  {
+    "id": "alchemy_blood_pill",
+    "name": "炼制气血丹",
+    "skill": "alchemy",
+    "level": 3,
+    "description": "用当归+草药炼制的补血丹药",
+    "materials": [
+      {
+        "itemId": "item_angelica",
+        "quantity": 2
+      },
+      {
+        "itemId": "item_herb",
+        "quantity": 2
+      }
+    ],
+    "result": {
+      "itemId": "item_blood_pill",
+      "quantity": 1
+    },
+    "exp": 25,
+    "goldCost": 15,
+    "successRate": 0.88
+  },
+  {
+    "id": "alchemy_vitality",
+    "name": "炼制回春丹",
+    "skill": "alchemy",
+    "level": 9,
+    "description": "用黄芪+灵芝炼制的回春圣药",
+    "materials": [
+      {
+        "itemId": "item_astragalus",
+        "quantity": 2
+      },
+      {
+        "itemId": "item_mushroom",
+        "quantity": 2
+      }
+    ],
+    "result": {
+      "itemId": "item_vitality_pill",
+      "quantity": 1
+    },
+    "exp": 55,
+    "goldCost": 35,
+    "successRate": 0.7
+  },
+  {
+    "id": "alchemy_speed_pill",
+    "name": "炼制疾风丹",
+    "skill": "alchemy",
+    "level": 11,
+    "description": "用何首乌+牛黄炼制的疾风丹药",
+    "materials": [
+      {
+        "itemId": "item_fleeceflower",
+        "quantity": 1
+      },
+      {
+        "itemId": "item_bezoar",
+        "quantity": 1
+      }
+    ],
+    "result": {
+      "itemId": "item_speed_pill",
+      "quantity": 1
+    },
+    "exp": 70,
+    "goldCost": 45,
+    "successRate": 0.65
+  },
+  {
+    "id": "alchemy_defense_pill",
+    "name": "炼制铁壁丹",
+    "skill": "alchemy",
+    "level": 13,
+    "description": "用牛黄+麝香炼制的防御丹药",
+    "materials": [
+      {
+        "itemId": "item_bezoar",
+        "quantity": 1
+      },
+      {
+        "itemId": "item_musk",
+        "quantity": 1
+      }
+    ],
+    "result": {
+      "itemId": "item_defense_pill",
+      "quantity": 1
+    },
+    "exp": 85,
+    "goldCost": 55,
+    "successRate": 0.6
+  },
+  {
+    "id": "alchemy_intelligence_pill",
+    "name": "炼制聪慧丹",
+    "skill": "alchemy",
+    "level": 17,
+    "description": "用千年灵芝+石斛炼制的聪慧丹药",
+    "materials": [
+      {
+        "itemId": "item_lingzhi_ancient",
+        "quantity": 1
+      },
+      {
+        "itemId": "item_dendrobium",
+        "quantity": 2
+      }
+    ],
+    "result": {
+      "itemId": "item_intelligence_pill",
+      "quantity": 1
+    },
+    "exp": 130,
+    "goldCost": 100,
+    "successRate": 0.5
+  },
+  {
+    "id": "alchemy_constitution_pill",
+    "name": "炼制金刚丹",
+    "skill": "alchemy",
+    "level": 19,
+    "description": "用龙骨草+鹿茸炼制的金刚体丹",
+    "materials": [
+      {
+        "itemId": "item_dragon_bone_herb",
+        "quantity": 1
+      },
+      {
+        "itemId": "item_antler",
+        "quantity": 2
+      }
+    ],
+    "result": {
+      "itemId": "item_constitution_pill",
+      "quantity": 1
+    },
+    "exp": 160,
+    "goldCost": 130,
+    "successRate": 0.45
+  },
+  {
+    "id": "alchemy_immortal",
+    "name": "炼制不死仙丹",
+    "skill": "alchemy",
+    "level": 22,
+    "description": "用九转还魂草+凤凰草炼制的绝世仙丹",
+    "materials": [
+      {
+        "itemId": "item_nine_turn_herb",
+        "quantity": 1
+      },
+      {
+        "itemId": "item_phoenix_herb",
+        "quantity": 1
+      }
+    ],
+    "result": {
+      "itemId": "item_immortal_pill",
+      "quantity": 1
+    },
+    "exp": 250,
+    "goldCost": 200,
+    "successRate": 0.35
+  },
+  {
+    "id": "alchemy_immortal_plus",
+    "name": "炼制不死仙丹(稳)",
+    "skill": "alchemy",
+    "level": 25,
+    "description": "用仙鹤草+九转还魂草+凤凰草炼制，成功率更高",
+    "materials": [
+      {
+        "itemId": "item_crane_herb",
+        "quantity": 1
+      },
+      {
+        "itemId": "item_nine_turn_herb",
+        "quantity": 1
+      },
+      {
+        "itemId": "item_phoenix_herb",
+        "quantity": 1
+      },
+      {
+        "itemId": "item_snow_lotus_superior",
+        "quantity": 1
+      }
+    ],
+    "result": {
+      "itemId": "item_immortal_pill",
+      "quantity": 2
+    },
+    "exp": 350,
+    "goldCost": 300,
+    "successRate": 0.5
   }
 ]

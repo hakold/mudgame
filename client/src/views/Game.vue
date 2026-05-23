@@ -844,14 +844,21 @@
 
           <!-- 三系采集 -->
           <div v-if="['herb','mining','fishing'].includes(lifeView)">
-            <div v-for="node in filteredGatherNodes(lifeView)" :key="node.id" class="gather-node">
-              <div class="gather-name">{{ node.icon || '' }} {{ node.name }}</div>
+            <div v-for="node in filteredGatherNodes(lifeView)" :key="node.id" class="gather-node" :class="{ 'gather-locked': !node.canGather }">
+              <div class="gather-name">{{ node.icon || '' }} {{ node.name }} 
+                <span v-if="node.rarity === 'rare'" style="color:#4fc3f7">稀有</span>
+                <span v-if="node.rarity === 'epic'" style="color:#c084fc">史诗</span>
+              </div>
               <div class="gather-desc">{{ node.description }}</div>
               <div class="gather-meta">
-                <span v-if="node.level">需{{ lifeView === 'herb' ? '采药' : lifeView === 'mining' ? '挖矿' : '钓鱼' }}Lv{{ node.level }}</span>
+                <span v-if="node.level">需{{ lifeView === 'herb' ? '采药' : lifeView === 'mining' ? '挖矿' : '钓鱼' }}Lv{{ node.level }}
+                  <span v-if="!node.canGather" style="color:#f66">(你Lv{{ node.userLevel }})</span>
+                </span>
                 <span v-if="node.cooldownRemaining > 0" style="color:#f66">冷却 {{ node.cooldownRemaining }}秒</span>
               </div>
-              <button class="forge-btn" :disabled="node.cooldownRemaining > 0" @click="gameStore.gather(lifeView, node.id)">采集</button>
+              <button class="forge-btn" :disabled="!node.available || !node.canGather || node.cooldownRemaining > 0" @click="gameStore.gather(lifeView, node.id)">
+                {{ !node.canGather ? '🔒 等级不足' : node.cooldownRemaining > 0 ? '冷却中...' : '采集' }}
+              </button>
             </div>
             <div v-if="!filteredGatherNodes(lifeView).length" class="empty-hint">当前房间没有{{ lifeView === 'herb' ? '采药' : lifeView === 'mining' ? '矿脉' : '钓点' }}</div>
           </div>
