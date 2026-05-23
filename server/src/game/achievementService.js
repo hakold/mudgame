@@ -51,6 +51,18 @@ class AchievementService {
       case 'trades_completed':
         met = (stats.trades || 0) >= condition.value;
         break;
+      case 'dungeons_completed':
+        met = (stats.dungeonsCompleted || 0) >= condition.value;
+        break;
+      case 'crafting_count':
+        met = (stats.craftingCount || 0) >= condition.value;
+        break;
+      case 'checkin_streak':
+        met = (stats.checkinStreak || 0) >= condition.value;
+        break;
+      case 'gang_joined':
+        met = !!stats.gangJoined;
+        break;
     }
 
     if (!met) return null;

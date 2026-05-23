@@ -142,5 +142,85 @@
     "category": "social",
     "condition": { "type": "trades_completed", "value": 1 },
     "rewards": { "exp": 100 }
+  },
+  {
+    "id": "ach_dungeon_1",
+    "name": "初探秘境",
+    "description": "完成第一次副本",
+    "category": "combat",
+    "condition": { "type": "dungeons_completed", "value": 1 },
+    "rewards": { "exp": 200, "title": "秘境行者" }
+  },
+  {
+    "id": "ach_dungeon_10",
+    "name": "秘境常客",
+    "description": "完成10次副本",
+    "category": "combat",
+    "condition": { "type": "dungeons_completed", "value": 10 },
+    "rewards": { "exp": 1000, "gold": 500 }
+  },
+  {
+    "id": "ach_craft_5",
+    "name": "能工巧匠",
+    "description": "制造5次物品（锻造/炼药/烹饪）",
+    "category": "crafting",
+    "condition": { "type": "crafting_count", "value": 5 },
+    "rewards": { "exp": 300 }
+  },
+  {
+    "id": "ach_craft_25",
+    "name": "天工开物",
+    "description": "制造25次物品",
+    "category": "crafting",
+    "condition": { "type": "crafting_count", "value": 25 },
+    "rewards": { "exp": 1000, "title": "天工开物" }
+  },
+  {
+    "id": "ach_checkin_3",
+    "name": "三日之约",
+    "description": "连续签到3天",
+    "category": "daily",
+    "condition": { "type": "checkin_streak", "value": 3 },
+    "rewards": { "exp": 100, "gold": 50 }
+  },
+  {
+    "id": "ach_checkin_7",
+    "name": "七日之约",
+    "description": "连续签到7天",
+    "category": "daily",
+    "condition": { "type": "checkin_streak", "value": 7 },
+    "rewards": { "exp": 500, "gold": 200, "title": "七日之约" }
+  },
+  {
+    "id": "ach_gang_create",
+    "name": "开宗立派",
+    "description": "创建一个帮派",
+    "category": "social",
+    "condition": { "type": "gang_joined" },
+    "rewards": { "exp": 300, "title": "一帮之主" }
+  },
+  {
+    "id": "ach_level_80",
+    "name": "江湖至尊",
+    "description": "达到80级",
+    "category": "level",
+    "condition": { "type": "level", "value": 80 },
+    "rewards": { "exp": 10000, "gold": 10000, "title": "江湖至尊" }
+  },
+  {
+    "id": "ach_rich_50000",
+    "name": "富可敌国",
+    "description": "累计获得50000金币",
+    "category": "wealth",
+    "condition": { "type": "gold_earned", "value": 50000 },
+    "rewards": { "exp": 2000, "title": "富可敌国" }
+  },
+  {
+    "id": "ach_explorer_all",
+    "name": "踏遍山河",
+    "description": "探索50个不同房间",
+    "category": "exploration",
+    "condition": { "type": "rooms_visited", "value": 50 },
+    "rewards": { "exp": 2000, "title": "踏遍山河" }
   }
 ]

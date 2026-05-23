@@ -523,10 +523,13 @@ function socketHandler(io) {
       }
 
       freshUser.revive();
+      freshUser.stats = freshUser.stats || {};
+      freshUser.stats.deaths = (freshUser.stats.deaths || 0) + 1;
       await freshUser.save();
 
       // 同步socket user引用
       user.status = freshUser.status;
+      user.stats = freshUser.stats;
       user.hp = freshUser.hp;
       user.mp = freshUser.mp;
       user.location = freshUser.location;
@@ -1504,6 +1507,11 @@ function socketHandler(io) {
             itemName: resultItem?.name || recipe.resultItemId,
             message: `锻造成功！获得了 ${resultItem?.name || recipe.resultItemId}` 
           });
+          // 更新制造统计
+          user.stats = user.stats || {};
+          user.stats.craftingCount = (user.stats.craftingCount || 0) + 1;
+          await user.save();
+          checkAndAwardAchievements(user._id);
         } else if (recipe.type === 'upgrade') {
           // 查找符合条件的装备进行升级
           const targetItem = await Inventory.findOne({
@@ -1589,6 +1597,11 @@ function socketHandler(io) {
         await user.save();
         socket.emit('alchemy_success', result);
         socket.emit('system_message', { content: `炼药成功！获得了 ${result.resultItemName}×${result.quantity}` });
+        // 更新制造统计
+        user.stats = user.stats || {};
+        user.stats.craftingCount = (user.stats.craftingCount || 0) + 1;
+        await user.save();
+        checkAndAwardAchievements(user._id);
       } else {
         user.gold -= result.goldCost;
         await user.save();
@@ -1617,6 +1630,11 @@ function socketHandler(io) {
         await user.save();
         socket.emit('cooking_success', result);
         socket.emit('system_message', { content: `烹饪成功！获得了 ${result.resultItemName}×${result.quantity}` });
+        // 更新制造统计
+        user.stats = user.stats || {};
+        user.stats.craftingCount = (user.stats.craftingCount || 0) + 1;
+        await user.save();
+        checkAndAwardAchievements(user._id);
       } else {
         user.gold -= result.goldCost;
         await user.save();
@@ -1647,8 +1665,16 @@ function socketHandler(io) {
       if (result.error) {
         return socket.emit('error', { message: result.error });
       }
-      socket.emit('daily_checkin_success', result);
+      socket.emit('daily_checkin_result', result);
       socket.emit('system_message', { content: `签到成功！连续签到 ${result.streak} 天，获得经验 ${result.reward.exp}、金币 ${result.reward.gold}` });
+      // 更新签到统计并检查成就
+      if (user) {
+        user.stats = user.stats || {};
+        user.stats.checkinStreak = result.streak;
+        user.stats.goldEarned = (user.stats.goldEarned || 0) + (result.reward?.gold || 0);
+        await user.save();
+        checkAndAwardAchievements(user._id);
+      }
       const status = await dailyService.getDailyStatus(user._id);
       socket.emit('daily_status', status);
     });
@@ -1777,6 +1803,15 @@ function socketHandler(io) {
         const completeResult = await instanceService.completeDungeon(user._id, dungeonId);
         socket.emit('dungeon_completed', completeResult);
         socket.emit('system_message', { content: `副本通关！获得经验 ${completeResult.rewards.exp}、金币 ${completeResult.rewards.gold}` });
+        // 更新统计
+        const freshUser = await User.findById(user._id);
+        if (freshUser) {
+          freshUser.stats = freshUser.stats || {};
+          freshUser.stats.dungeonsCompleted = (freshUser.stats.dungeonsCompleted || 0) + 1;
+          freshUser.stats.goldEarned = (freshUser.stats.goldEarned || 0) + (completeResult.rewards?.gold || 0);
+          await freshUser.save();
+          checkAndAwardAchievements(user._id);
+        }
         return;
       }
       socket.emit('dungeon_wave', result);
@@ -1808,6 +1843,11 @@ function socketHandler(io) {
       }
       socket.emit('gang_created', result);
       io.emit('system_message', { content: `${user.characterName} 创建了帮派「${result.gang.name}」！` });
+      // 更新帮派统计
+      user.stats = user.stats || {};
+      user.stats.gangJoined = true;
+      await user.save();
+      checkAndAwardAchievements(user._id);
     });
 
     // 搜索帮派
@@ -2992,7 +3032,11 @@ async function checkAndAwardAchievements(userId) {
       level: user.level || 1,
       faction: user.faction,
       factionRank: user.factionRank,
-      deaths: user.stats.deaths || 0
+      deaths: user.stats.deaths || 0,
+      dungeonsCompleted: user.stats.dungeonsCompleted || 0,
+      craftingCount: user.stats.craftingCount || 0,
+      checkinStreak: user.stats.checkinStreak || 0,
+      gangJoined: user.stats.gangJoined || false
     };
     const newAchievements = await achievementService.checkAllAchievements(user._id, stats);
     if (newAchievements.length === 0) return;
