@@ -138,6 +138,8 @@ class BattleService {
     participant.baseDefense = participant.defense || 0;
     participant.baseDodge = participant.dodge || 0;
     participant.baseDexterity = participant.dexterity || 0;
+    participant._baseMaxHp = participant.maxHp || 0;  // 保存原始最大HP
+    participant._baseMaxMp = participant.maxMp || 0;  // 保存原始最大MP
     participant.statusEffects = [];
     participant.statusSummary = [];
     participant.reflectDamage = 0;
@@ -170,6 +172,12 @@ class BattleService {
     participant.dexterity = Math.max(1, (participant.baseDexterity || 0) + (modifiers.dexterity || 0));
     participant.dodge = Math.max(0, (participant.baseDodge || 0) + (modifiers.dodge || 0) + Math.floor((modifiers.dexterity || 0) / 2));
     participant.reflectDamage = Math.max(0, modifiers.reflectDamage || 0);
+    // 体质影响最大生命值 (每点体质+10HP)
+    const conBonus = (modifiers.constitution || 0) * 10;
+    participant.maxHp = (participant._baseMaxHp || participant.maxHp || participant.hp || 100) + conBonus;
+    // 悟性影响最大内力值 (每点悟性+8MP)
+    const intBonus = (modifiers.intelligence || 0) * 8;
+    participant.maxMp = (participant._baseMaxMp || participant.maxMp || participant.mp || 50) + intBonus;
     participant.statusSummary = (participant.statusEffects || []).map(effect => ({
       type: effect.type,
       name: effect.name,
