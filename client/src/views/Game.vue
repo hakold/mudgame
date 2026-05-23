@@ -719,8 +719,9 @@
               <div class="dungeon-meta">
                 <span v-if="d.requireLevel">需等级 {{ d.requireLevel }}</span>
                 <span v-if="d.dailyLimit > 0">每日 {{ d.dailyLimit }} 次</span>
+                <span v-if="d.onCooldown" style="color:#f66">冷却 {{ d.cooldownRemaining }}分钟</span>
               </div>
-              <button class="forge-btn" @click="enterDungeonByType(d)">进入副本</button>
+              <button class="forge-btn" @click="enterDungeonByType(d)" :disabled="d.onCooldown">{{ d.onCooldown ? '冷却中...' : '进入副本' }}</button>
             </div>
             <div v-if="!gameStore.dungeons.length" class="empty-hint">暂无副本</div>
           </div>

@@ -11,6 +11,9 @@ const craftService = require('../game/craftService');
 const dailyService = require('../game/dailyService');
 const auctionService = require('../game/auctionService');
 const instanceService = require('../game/instanceService');
+
+// P6: 副本战斗上下文 { battleId: { type:'tower'|'stealth'|'drift', dungeonId, ... } }
+const dungeonBattleContexts = new Map();
 const gangService = require('../game/gangService');
 const actionLogService = require('../game/actionLogService');
 const { checkSocketRate } = require('../middleware/rateLimiter');
@@ -427,6 +430,87 @@ function socketHandler(io) {
       }    });
     
     // ==================== 战斗相关 ====================
+
+    // P6: 副本战斗结束处理
+    async function handleDungeonBattleEnd(battle, result) {
+      const ctx = dungeonBattleContexts.get(battle.battleId);
+      if (!ctx) return false;
+      dungeonBattleContexts.delete(battle.battleId);
+
+      const isWin = result.battle?.winner?.userId && 
+        result.battle.winner.userId.toString() === user._id.toString();
+
+      if (ctx.type === 'tower') {
+        if (isWin) {
+          // 胜利 → 推进楼层
+          const floorResult = await instanceService.completeTowerFloor(user._id, ctx.dungeonId);
+          if (floorResult.error) {
+            socket.emit('error', { message: floorResult.error });
+          } else if (floorResult.complete) {
+            socket.emit('tower_completed', floorResult);
+            socket.emit('system_message', { content: floorResult.message });
+          } else {
+            socket.emit('tower_floor_cleared', floorResult);
+            socket.emit('system_message', { content: floorResult.message });
+            // 自动请求下一层信息
+            setTimeout(() => {
+              const nextFloor = instanceService.getTowerFloor(user._id, ctx.dungeonId);
+              if (!nextFloor.error) socket.emit('tower_floor', nextFloor);
+            }, 300);
+          }
+        } else {
+          // 失败 → 敲锣退出，领取已累积奖励
+          const exitResult = await instanceService.exitTower(user._id, ctx.dungeonId);
+          socket.emit('tower_exited', exitResult);
+          socket.emit('system_message', { content: '战斗失败！敲锣收功，领取已累积的奖励。' });
+        }
+        return true;
+      }
+
+      if (ctx.type === 'stealth') {
+        const stealthState = instanceService.getStealthState(ctx.battleId);
+        if (stealthState) {
+          if (!isWin) {
+            stealthState.detections += 1;
+            if (stealthState.detections >= stealthState.maxDetections) {
+              socket.emit('stealth_failed', { message: '被巡逻僧兵击败，看破次数耗尽！' });
+              socket.emit('system_message', { content: '被巡逻僧兵击败，押入戒律院！藏经阁探索失败。' });
+            } else {
+              socket.emit('stealth_detected', {
+                detections: stealthState.detections,
+                maxDetections: stealthState.maxDetections,
+                message: `被巡逻僧兵击败！剩余看破次数：${stealthState.maxDetections - stealthState.detections}`
+              });
+              socket.emit('system_message', { content: `被巡逻僧兵击败！剩余看破次数：${stealthState.maxDetections - stealthState.detections}` });
+            }
+          }
+          // If won, just continue — no special event needed
+        }
+        return true;
+      }
+
+      if (ctx.type === 'drift') {
+        const driftState = instanceService.getDriftState(ctx.battleId);
+        if (driftState) {
+          if (isWin) {
+            driftState.banditsKilled += 1;
+            socket.emit('system_message', { content: '击败水贼！继续航行。' });
+          } else {
+            // Lost to bandits → drift failed early
+            socket.emit('drift_completed', {
+              distance: driftState.distance,
+              totalItems: driftState.itemsFound.length,
+              banditsKilled: driftState.banditsKilled,
+              message: '被水贼击败！漂流到此结束，部分宝物丢失。'
+            });
+            socket.emit('system_message', { content: '被水贼击败！漂流提前结束。' });
+          }
+        }
+        return true;
+      }
+
+      return false;
+    }
     
     // 开始战斗
     socket.on('battle_start', async (data) => {
@@ -490,6 +574,9 @@ function socketHandler(io) {
         if (autoResult.battle.status === 'ended' || autoResult.battle.status === 'fled') {
           io.to(battleRoom).emit('battle_ended', autoResult);
           io.in(battleRoom).socketsLeave(battleRoom);
+
+          // P6: 副本战斗上下文处理
+          await handleDungeonBattleEnd(battle, autoResult);
 
           // 从DB同步最新用户状态
           const synced = await User.findById(user._id, 'status hp mp exp gold level freePoints stats').lean();
@@ -580,6 +667,9 @@ function socketHandler(io) {
 
         if (turnResult.battle.status === 'ended' || turnResult.battle.status === 'fled') {
           io.to(roomName).emit('battle_ended', turnResult);
+
+          // P6: 副本战斗上下文处理
+          await handleDungeonBattleEnd(battle, turnResult);
 
           // 从DB同步最新用户状态（endBattle已更新status/hp/mp/exp/gold）
           const synced = await User.findById(user._id, 'status hp mp exp gold level freePoints stats').lean();
@@ -1909,8 +1999,10 @@ function socketHandler(io) {
     // ==================== 副本系统 ====================
 
     // 查看副本列表
-    socket.on('list_dungeons', () => {
-      const allDungeons = instanceService.getAllDungeons().map(d => ({
+    socket.on('list_dungeons', async () => {
+      const allDungeons = instanceService.getAllDungeons().map(d => {
+        const cd = instanceService.checkCooldown(user._id, d.id);
+        return {
         id: d.id,
         name: d.name,
         type: d.type,
@@ -1918,8 +2010,12 @@ function socketHandler(io) {
         requireLevel: d.requireLevel,
         requireItem: d.requireItem,
         dailyLimit: d.dailyLimit,
-        entryRoomId: d.entryRoomId
-      }));
+        entryRoomId: d.entryRoomId,
+        cdMinutes: d.cdMinutes || 0,
+        onCooldown: cd?.onCooldown || false,
+        cooldownRemaining: cd?.remainingMinutes || 0
+      };
+    });
       socket.emit('dungeons_list', { dungeons: allDungeons });
     });
 
@@ -1984,17 +2080,58 @@ function socketHandler(io) {
       socket.emit('tower_floor', result);
     });
 
-    // 完成一层塔（击败当前层怪物后调用）
+    // 挑战本层（开始战斗）
     socket.on('tower_floor_complete', async (data) => {
       const { dungeonId } = data;
-      const result = await instanceService.completeTowerFloor(user._id, dungeonId);
-      if (result.error) return socket.emit('error', { message: result.error });
-      if (result.complete) {
-        socket.emit('tower_completed', result);
-        socket.emit('system_message', { content: result.message });
-      } else {
-        socket.emit('tower_floor_cleared', result);
-        socket.emit('system_message', { content: result.message });
+      const floorInfo = instanceService.getTowerFloor(user._id, dungeonId);
+      if (floorInfo.error) return socket.emit('error', { message: floorInfo.error });
+      if (floorInfo.exited) return socket.emit('error', { message: '已退出万安塔' });
+
+      const monsterId = floorInfo.monsters?.[0]?.monsterId;
+      if (!monsterId) return socket.emit('error', { message: '本层没有怪物' });
+
+      try {
+        // 检查玩家状态
+        await user.save(); // 确保战斗前状态已持久化
+        const battle = await battleService.startBattle(user._id, monsterId, 'pve');
+        battle._dungeonMeta = { type: 'tower', dungeonId, floor: floorInfo.floor };
+
+        const battleRoom = `battle:${battle.battleId}`;
+        battle._roomName = battleRoom;
+        battle._dungeonMeta = { type: 'tower', dungeonId };
+        dungeonBattleContexts.set(battle.battleId, { type: 'tower', dungeonId });
+        socket.join(battleRoom);
+        socket.emit('battle_started', battle);
+
+        // 自动处理怪物回合
+        let autoResult = { battle };
+        let autoCount = 0;
+        while (autoResult.battle.status === 'active' && autoCount < 10) {
+          const nextActor = battleService.getCurrentParticipant(battle.battleId);
+          if (!nextActor?.isMonster) break;
+
+          const monsterAction = battleService.chooseAutomatedAction(battle.battleId);
+          const release = await battleService.acquireLock(battle.battleId);
+          try {
+            autoResult = await battleService.executeTurn(battle.battleId, monsterAction.action, monsterAction.skillId);
+          } finally {
+            battleService.releaseLock(battle.battleId, release);
+          }
+          io.to(battleRoom).emit('battle_update', autoResult);
+          autoCount++;
+        }
+
+        if (autoResult.battle.status === 'ended' || autoResult.battle.status === 'fled') {
+          io.to(battleRoom).emit('battle_ended', autoResult);
+          io.in(battleRoom).socketsLeave(battleRoom);
+          // 同步用户状态
+          const synced = await User.findById(user._id, 'status hp mp exp gold level freePoints stats').lean();
+          if (synced) Object.assign(user, synced);
+          // 处理副本逻辑
+          await handleDungeonBattleEnd(battle, autoResult);
+        }
+      } catch (error) {
+        socket.emit('error', { message: error.message });
       }
     });
 
@@ -2019,9 +2156,15 @@ function socketHandler(io) {
     });
 
     // 潜行移动
-    socket.on('stealth_move', (data) => {
+    socket.on('stealth_move', async (data) => {
       const { battleId } = data;
+      const stealthState = instanceService.getStealthState(battleId);
+      const dungeon = instanceService.getDungeon(stealthState?.dungeonId);
       const result = instanceService.moveStealth(battleId);
+      // 注入怪物ID供战斗使用
+      if (result.type === 'detected' && dungeon?.patrolMonsterId) {
+        data.monsterId = dungeon.patrolMonsterId;
+      }
       if (result.error) return socket.emit('error', { message: result.error });
 
       switch (result.type) {
@@ -2031,6 +2174,37 @@ function socketHandler(io) {
         case 'detected':
           socket.emit('stealth_detected', result);
           socket.emit('system_message', { content: result.message });
+          // P6: 遭遇巡逻僧兵 → 进入战斗
+          if (data.monsterId) {
+            try {
+              const battle = await battleService.startBattle(user._id, data.monsterId, 'pve');
+              const bRoom = `battle:${battle.battleId}`;
+              battle._roomName = bRoom;
+              dungeonBattleContexts.set(battle.battleId, { type: 'stealth', battleId: data.battleId });
+              socket.join(bRoom);
+              socket.emit('battle_started', battle);
+              // 怪物先手自动回合
+              let sr = { battle };
+              let ac = 0;
+              while (sr.battle.status === 'active' && ac < 10) {
+                const na = battleService.getCurrentParticipant(battle.battleId);
+                if (!na?.isMonster) break;
+                const ma = battleService.chooseAutomatedAction(battle.battleId);
+                const rel = await battleService.acquireLock(battle.battleId);
+                try { sr = await battleService.executeTurn(battle.battleId, ma.action, ma.skillId); }
+                finally { battleService.releaseLock(battle.battleId, rel); }
+                io.to(bRoom).emit('battle_update', sr);
+                ac++;
+              }
+              if (sr.battle.status === 'ended' || sr.battle.status === 'fled') {
+                io.to(bRoom).emit('battle_ended', sr);
+                io.in(bRoom).socketsLeave(bRoom);
+                await handleDungeonBattleEnd(battle, sr);
+              }
+            } catch (e) {
+              socket.emit('error', { message: '战斗初始化失败: ' + e.message });
+            }
+          }
           break;
         case 'found_item':
           socket.emit('stealth_item_found', result);
@@ -2063,7 +2237,7 @@ function socketHandler(io) {
     });
 
     // 船控指令
-    socket.on('drift_command', (data) => {
+    socket.on('drift_command', async (data) => {
       const { battleId, command } = data;
       const result = instanceService.shipNavigate(battleId, command);
       if (result.error) return socket.emit('error', { message: result.error });
@@ -2071,8 +2245,42 @@ function socketHandler(io) {
       if (result.returned) {
         socket.emit('drift_completed', result);
         socket.emit('system_message', { content: result.message });
+        // P6: 设置漂流CD
+        instanceService.setDungeonCooldown(user._id, result.dungeonId || data.dungeonId);
       } else if (result.encounter) {
         socket.emit('drift_encounter', result);
+        // P6: 遭遇水贼 → 进入战斗
+        const enc = result.encounter;
+        if (enc.monsterId) {
+          try {
+            const battle = await battleService.startBattle(user._id, enc.monsterId, 'pve');
+            const bRoom = `battle:${battle.battleId}`;
+            battle._roomName = bRoom;
+            dungeonBattleContexts.set(battle.battleId, { type: 'drift', battleId: data.battleId });
+            socket.join(bRoom);
+            socket.emit('battle_started', battle);
+            // 怪物先手自动回合
+            let dr = { battle };
+            let dc = 0;
+            while (dr.battle.status === 'active' && dc < 10) {
+              const na = battleService.getCurrentParticipant(battle.battleId);
+              if (!na?.isMonster) break;
+              const ma = battleService.chooseAutomatedAction(battle.battleId);
+              const rel = await battleService.acquireLock(battle.battleId);
+              try { dr = await battleService.executeTurn(battle.battleId, ma.action, ma.skillId); }
+              finally { battleService.releaseLock(battle.battleId, rel); }
+              io.to(bRoom).emit('battle_update', dr);
+              dc++;
+            }
+            if (dr.battle.status === 'ended' || dr.battle.status === 'fled') {
+              io.to(bRoom).emit('battle_ended', dr);
+              io.in(bRoom).socketsLeave(bRoom);
+              await handleDungeonBattleEnd(battle, dr);
+            }
+          } catch (e) {
+            socket.emit('error', { message: '水贼战斗初始化失败: ' + e.message });
+          }
+        }
       } else {
         socket.emit('drift_navigated', result);
         socket.emit('system_message', { content: result.message });

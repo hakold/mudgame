@@ -418,6 +418,94 @@ test('Dungeons — drift modes and bandits are valid', () => {
   }
 });
 
+// ========== P6-2: 副本战斗集成 + CD ==========
+
+test('Dungeons — CD check for tower (15 min)', () => {
+  const instanceService = require('../server/src/game/instanceService');
+  const testUserId = 'test_tower_cd_user';
+  
+  // Fresh start: no CD
+  const cd1 = instanceService.checkCooldown(testUserId, 'dungeon_wanan_tower');
+  assert(cd1 === null, 'No CD on first check');
+  
+  // Set CD
+  instanceService.setDungeonCooldown(testUserId, 'dungeon_wanan_tower');
+  
+  // Check: should be on CD
+  const cd2 = instanceService.checkCooldown(testUserId, 'dungeon_wanan_tower');
+  assert(cd2 !== null, 'On CD after setting');
+  assert(cd2.onCooldown === true, 'onCooldown flag set');
+  assert(cd2.remainingMinutes > 0, 'Has remaining minutes');
+  assert(cd2.cdMinutes === 15, 'Tower CD is 15 minutes');
+});
+
+test('Dungeons — CD check for drift (120 min)', () => {
+  const instanceService = require('../server/src/game/instanceService');
+  const testUserId = 'test_drift_cd_user';
+  
+  instanceService.setDungeonCooldown(testUserId, 'dungeon_poyang_drift');
+  
+  const cd = instanceService.checkCooldown(testUserId, 'dungeon_poyang_drift');
+  assert(cd !== null, 'On CD');
+  assert(cd.cdMinutes === 120, 'Drift CD is 120 minutes');
+});
+
+test('Dungeons — CD not set for dungeons without cdMinutes', () => {
+  const instanceService = require('../server/src/game/instanceService');
+  const testUserId = 'test_no_cd_user';
+  
+  instanceService.setDungeonCooldown(testUserId, 'dungeon_bandit_cave');
+  
+  // Bandit cave has no cdMinutes → checkCooldown should return null
+  const cd = instanceService.checkCooldown(testUserId, 'dungeon_bandit_cave');
+  assert(cd === null, 'No CD for dungeons without cdMinutes config');
+});
+
+test('Dungeons — stealth patrol monster exists', () => {
+  const dungeons = require('../server/src/game/instanceService').dungeons;
+  const monsters = JSON.parse(require('fs').readFileSync(
+    require('path').join(__dirname, '..', 'config', 'json', 'monsters.json'), 'utf8'
+  ));
+  const stealth = dungeons.find(d => d.id === 'dungeon_scripture_pavilion');
+  assert(stealth, '藏经阁 exists');
+  
+  const monsterIds = new Set(monsters.map(m => m.id));
+  assert(monsterIds.has(stealth.patrolMonsterId), 
+    `Patrol monster ${stealth.patrolMonsterId} exists in monsters.json`);
+  
+  // Layer 2 boss monster
+  assert(monsterIds.has(stealth.mazeLayers[1].bossMonsterId),
+    `Layer 2 boss ${stealth.mazeLayers[1].bossMonsterId} exists`);
+});
+
+test('Dungeons — drift water bandit monsters exist', () => {
+  const dungeons = require('../server/src/game/instanceService').dungeons;
+  const monsters = JSON.parse(require('fs').readFileSync(
+    require('path').join(__dirname, '..', 'config', 'json', 'monsters.json'), 'utf8'
+  ));
+  const drift = dungeons.find(d => d.id === 'dungeon_poyang_drift');
+  const monsterIds = new Set(monsters.map(m => m.id));
+  
+  for (const wb of drift.waterBandits) {
+    assert(monsterIds.has(wb.monsterId), 
+      `Water bandit ${wb.monsterId} exists in monsters.json`);
+  }
+});
+
+test('Dungeons — tower floor monsters exist', () => {
+  const dungeons = require('../server/src/game/instanceService').dungeons;
+  const monsters = JSON.parse(require('fs').readFileSync(
+    require('path').join(__dirname, '..', 'config', 'json', 'monsters.json'), 'utf8'
+  ));
+  const tower = dungeons.find(d => d.id === 'dungeon_wanan_tower');
+  const monsterIds = new Set(monsters.map(m => m.id));
+  
+  for (const floor of tower.floors) {
+    assert(monsterIds.has(floor.monsterId), 
+      `Floor ${floor.floor} monster ${floor.monsterId} exists`);
+  }
+});
+
 // ========== 运行 ==========
 function runAll() {
   console.log('=== Game Logic Tests ===\n');

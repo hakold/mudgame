@@ -15,6 +15,33 @@ const stealthStates = new Map();
 // 鄱阳湖漂流状态 { battleId: { userId, dungeonId, mode, distance, banditsKilled, anchored, returned, itemsFound } }
 const driftStates = new Map();
 
+// 副本冷却追踪 { userId: { dungeonId: lastEndedAt } }
+const dungeonCooldowns = new Map();
+
+function getDungeonCooldown(userId, dungeonId) {
+  const userCooldowns = dungeonCooldowns.get(userId);
+  if (!userCooldowns || !userCooldowns[dungeonId]) return null;
+  return userCooldowns[dungeonId];
+}
+
+function setDungeonCooldown(userId, dungeonId) {
+  if (!dungeonCooldowns.has(userId)) dungeonCooldowns.set(userId, {});
+  dungeonCooldowns.get(userId)[dungeonId] = Date.now();
+}
+
+function checkCooldown(userId, dungeonId) {
+  const dungeon = getDungeon(dungeonId);
+  if (!dungeon?.cdMinutes) return null; // no CD configured
+  const lastEnded = getDungeonCooldown(userId, dungeonId);
+  if (!lastEnded) return null; // never ran before
+  const elapsed = (Date.now() - lastEnded) / 60000; // in minutes
+  if (elapsed < dungeon.cdMinutes) {
+    const remaining = Math.ceil(dungeon.cdMinutes - elapsed);
+    return { onCooldown: true, remainingMinutes: remaining, cdMinutes: dungeon.cdMinutes };
+  }
+  return null; // CD expired
+}
+
 function getDungeon(dungeonId) {
   return dungeons.find(d => d.id === dungeonId) || null;
 }
@@ -73,6 +100,12 @@ async function enterDungeon(userId, dungeonId) {
   }
   if (state[dungeonId].runsToday >= dungeon.dailyLimit) {
     return { error: `今日次数已用完 (${dungeon.dailyLimit}/${dungeon.dailyLimit})` };
+  }
+
+  // 检查CD
+  const cdCheck = checkCooldown(userId, dungeonId);
+  if (cdCheck?.onCooldown) {
+    return { error: `副本冷却中，还需等待 ${cdCheck.remainingMinutes} 分钟` };
   }
 
   state[dungeonId].runsToday += 1;
@@ -166,6 +199,9 @@ async function completeDungeon(userId, dungeonId) {
   const state = getPlayerInstance(userId);
   delete state[dungeonId];
 
+  // 设置冷却
+  setDungeonCooldown(userId, dungeonId);
+
   return { success: true, dungeon: dungeon.name, rewards: result };
 }
 
@@ -257,6 +293,7 @@ async function completeTowerFloor(userId, dungeonId) {
       await user.save();
     }
     delete state[dungeonId];
+    setDungeonCooldown(userId, dungeonId);
     return { complete: true, floor: currentFloor, message: '恭喜登顶万安塔！获得塔顶秘宝。' };
   }
 
@@ -301,6 +338,7 @@ async function exitTower(userId, dungeonId) {
   }
 
   delete state[dungeonId];
+  setDungeonCooldown(userId, dungeonId);
   return {
     floor: currentFloor,
     rewards: { exp: totalExp, gold: totalPot, renown: totalRenown },
@@ -603,5 +641,9 @@ module.exports = {
   // Drift
   startDrift,
   getDriftState,
-  shipNavigate
+  shipNavigate,
+  // CD
+  checkCooldown,
+  getDungeonCooldown,
+  setDungeonCooldown
 };
