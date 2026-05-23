@@ -703,6 +703,26 @@ function socketHandler(io) {
           return socket.emit('error', { message: `等级不足，学习「${skill.name}」需要Lv${skill.requireLevel}` });
         }
 
+        // 门派限制检查
+        if (itemConfig.factionId || skill.factionId) {
+          const requiredFaction = itemConfig.factionId || skill.factionId;
+          if (requiredFaction !== 'general' && user.faction !== requiredFaction) {
+            const factionConfig = getFaction(requiredFaction);
+            return socket.emit('error', { message: `此功法书为${factionConfig?.name || requiredFaction}专属，你尚未加入该门派，无法领悟其中奥妙。` });
+          }
+        }
+
+        // 门派等级限制检查
+        if (itemConfig.requireFactionRank) {
+          const rankOrder = { 'disciple': 0, 'deacon': 1, 'elder': 2, 'leader': 3 };
+          const requiredRank = rankOrder[itemConfig.requireFactionRank] || 0;
+          const currentRank = rankOrder[user.factionRank] || 0;
+          if (currentRank < requiredRank) {
+            const rankLabels = { 'disciple': '弟子', 'deacon': '执事', 'elder': '长老', 'leader': '掌门' };
+            return socket.emit('error', { message: `此功法书需要门派等级达到${rankLabels[itemConfig.requireFactionRank] || itemConfig.requireFactionRank}才能领悟。` });
+          }
+        }
+
         // 概率判定
         const successRate = itemConfig.successRate || 0.5;
         const success = Math.random() < successRate;

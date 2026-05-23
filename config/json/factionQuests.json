@@ -17,7 +17,8 @@
       "exp": 300,
       "gold": 100,
       "factionReputation": 20,
-      "factionContribution": 15
+      "factionContribution": 15,
+      "items": []
     },
     "dailyReset": true,
     "minFactionRank": "disciple"
@@ -39,7 +40,8 @@
       "exp": 500,
       "gold": 200,
       "factionReputation": 30,
-      "factionContribution": 15
+      "factionContribution": 15,
+      "items": []
     },
     "dailyReset": true,
     "minFactionRank": "disciple"
@@ -62,7 +64,8 @@
       "exp": 300,
       "gold": 100,
       "factionReputation": 20,
-      "factionContribution": 15
+      "factionContribution": 15,
+      "items": []
     },
     "dailyReset": true,
     "minFactionRank": "disciple"
@@ -84,7 +87,8 @@
       "exp": 500,
       "gold": 200,
       "factionReputation": 30,
-      "factionContribution": 15
+      "factionContribution": 15,
+      "items": []
     },
     "dailyReset": true,
     "minFactionRank": "disciple"
@@ -106,7 +110,8 @@
       "exp": 300,
       "gold": 100,
       "factionReputation": 20,
-      "factionContribution": 15
+      "factionContribution": 15,
+      "items": []
     },
     "dailyReset": true
   },
@@ -127,7 +132,8 @@
       "exp": 300,
       "gold": 150,
       "factionReputation": 20,
-      "factionContribution": 15
+      "factionContribution": 15,
+      "items": []
     },
     "dailyReset": true
   },
@@ -148,7 +154,8 @@
       "exp": 600,
       "gold": 300,
       "factionReputation": 40,
-      "factionContribution": 15
+      "factionContribution": 15,
+      "items": []
     },
     "dailyReset": true
   },
@@ -169,7 +176,8 @@
       "exp": 500,
       "gold": 250,
       "factionReputation": 35,
-      "factionContribution": 15
+      "factionContribution": 15,
+      "items": []
     },
     "dailyReset": true
   },
@@ -199,7 +207,8 @@
       "exp": 200,
       "gold": 100,
       "factionReputation": 50,
-      "factionContribution": 10
+      "factionContribution": 10,
+      "items": []
     },
     "minFactionRank": "disciple"
   },
@@ -229,7 +238,8 @@
       "exp": 200,
       "gold": 100,
       "factionReputation": 50,
-      "factionContribution": 10
+      "factionContribution": 10,
+      "items": []
     },
     "minFactionRank": "disciple"
   },
@@ -259,7 +269,8 @@
       "exp": 200,
       "gold": 100,
       "factionReputation": 50,
-      "factionContribution": 10
+      "factionContribution": 10,
+      "items": []
     },
     "minFactionRank": "disciple"
   },
@@ -289,7 +300,8 @@
       "exp": 200,
       "gold": 100,
       "factionReputation": 50,
-      "factionContribution": 10
+      "factionContribution": 10,
+      "items": []
     },
     "minFactionRank": "disciple"
   },
@@ -319,7 +331,8 @@
       "exp": 400,
       "gold": 200,
       "factionReputation": 80,
-      "factionContribution": 10
+      "factionContribution": 10,
+      "items": []
     },
     "minFactionRank": "disciple"
   },
@@ -349,7 +362,8 @@
       "exp": 500,
       "gold": 300,
       "factionReputation": 100,
-      "factionContribution": 10
+      "factionContribution": 10,
+      "items": []
     },
     "minFactionRank": "disciple"
   },
@@ -375,7 +389,10 @@
       "exp": 1000,
       "gold": 500,
       "factionReputation": 150,
-      "factionContribution": 25
+      "factionContribution": 25,
+      "items": [
+        "skill_book_shaolin_staff"
+      ]
     },
     "minFactionRank": "disciple"
   },
@@ -401,7 +418,10 @@
       "exp": 1000,
       "gold": 500,
       "factionReputation": 150,
-      "factionContribution": 25
+      "factionContribution": 25,
+      "items": [
+        "skill_book_wudang_xinfa"
+      ]
     },
     "minFactionRank": "disciple"
   },
@@ -427,7 +447,10 @@
       "exp": 1000,
       "gold": 500,
       "factionReputation": 150,
-      "factionContribution": 25
+      "factionContribution": 25,
+      "items": [
+        "skill_book_emei_xinfa"
+      ]
     },
     "minFactionRank": "disciple"
   },
@@ -453,7 +476,10 @@
       "exp": 1000,
       "gold": 500,
       "factionReputation": 150,
-      "factionContribution": 25
+      "factionContribution": 25,
+      "items": [
+        "skill_book_gaibang_xinfa"
+      ]
     },
     "minFactionRank": "disciple"
   },
@@ -479,7 +505,10 @@
       "exp": 1500,
       "gold": 800,
       "factionReputation": 200,
-      "factionContribution": 25
+      "factionContribution": 25,
+      "items": [
+        "skill_book_mingjiao_xinfa"
+      ]
     },
     "minFactionRank": "disciple"
   },
@@ -505,7 +534,10 @@
       "exp": 2000,
       "gold": 1000,
       "factionReputation": 250,
-      "factionContribution": 25
+      "factionContribution": 25,
+      "items": [
+        "skill_book_xiaoyao_xinfa"
+      ]
     },
     "minFactionRank": "disciple"
   },
@@ -531,7 +563,10 @@
       "exp": 3000,
       "gold": 2000,
       "factionReputation": 300,
-      "factionContribution": 25
+      "factionContribution": 25,
+      "items": [
+        "skill_book_shaolin_staff"
+      ]
     },
     "minFactionRank": "deacon"
   },
@@ -557,7 +592,10 @@
       "exp": 3000,
       "gold": 2000,
       "factionReputation": 300,
-      "factionContribution": 25
+      "factionContribution": 25,
+      "items": [
+        "skill_book_wudang_xinfa"
+      ]
     },
     "minFactionRank": "deacon"
   },
@@ -583,7 +621,10 @@
       "exp": 3000,
       "gold": 2000,
       "factionReputation": 300,
-      "factionContribution": 25
+      "factionContribution": 25,
+      "items": [
+        "skill_book_emei_xinfa"
+      ]
     },
     "minFactionRank": "deacon"
   },
@@ -609,7 +650,10 @@
       "exp": 3000,
       "gold": 2000,
       "factionReputation": 300,
-      "factionContribution": 25
+      "factionContribution": 25,
+      "items": [
+        "skill_book_gaibang_xinfa"
+      ]
     },
     "minFactionRank": "deacon"
   },
@@ -635,7 +679,10 @@
       "exp": 5000,
       "gold": 3000,
       "factionReputation": 500,
-      "factionContribution": 25
+      "factionContribution": 25,
+      "items": [
+        "skill_book_mingjiao_xinfa"
+      ]
     },
     "minFactionRank": "deacon"
   },
@@ -661,7 +708,10 @@
       "exp": 5000,
       "gold": 3000,
       "factionReputation": 500,
-      "factionContribution": 25
+      "factionContribution": 25,
+      "items": [
+        "skill_book_xiaoyao_xinfa"
+      ]
     },
     "minFactionRank": "deacon"
   },
@@ -682,7 +732,10 @@
       "exp": 10000,
       "gold": 5000,
       "factionReputation": 800,
-      "factionContribution": 25
+      "factionContribution": 25,
+      "items": [
+        "skill_book_shaolin_staff"
+      ]
     },
     "minFactionRank": "elder"
   },
@@ -703,7 +756,10 @@
       "exp": 10000,
       "gold": 5000,
       "factionReputation": 800,
-      "factionContribution": 25
+      "factionContribution": 25,
+      "items": [
+        "skill_book_wudang_xinfa"
+      ]
     },
     "minFactionRank": "elder"
   },
@@ -724,7 +780,10 @@
       "exp": 10000,
       "gold": 5000,
       "factionReputation": 800,
-      "factionContribution": 25
+      "factionContribution": 25,
+      "items": [
+        "skill_book_emei_xinfa"
+      ]
     },
     "minFactionRank": "elder"
   },
@@ -745,7 +804,10 @@
       "exp": 10000,
       "gold": 5000,
       "factionReputation": 800,
-      "factionContribution": 25
+      "factionContribution": 25,
+      "items": [
+        "skill_book_gaibang_xinfa"
+      ]
     },
     "minFactionRank": "elder"
   },
@@ -766,7 +828,10 @@
       "exp": 20000,
       "gold": 10000,
       "factionReputation": 1500,
-      "factionContribution": 25
+      "factionContribution": 25,
+      "items": [
+        "skill_book_mingjiao_xinfa"
+      ]
     },
     "minFactionRank": "elder"
   },
@@ -787,7 +852,10 @@
       "exp": 20000,
       "gold": 10000,
       "factionReputation": 1500,
-      "factionContribution": 25
+      "factionContribution": 25,
+      "items": [
+        "skill_book_xiaoyao_xinfa"
+      ]
     },
     "minFactionRank": "elder"
   },
@@ -808,7 +876,8 @@
       "exp": 500,
       "gold": 200,
       "factionReputation": 30,
-      "factionContribution": 15
+      "factionContribution": 15,
+      "items": []
     },
     "dailyReset": true,
     "minFactionRank": "disciple"
@@ -830,7 +899,8 @@
       "exp": 500,
       "gold": 250,
       "factionReputation": 35,
-      "factionContribution": 15
+      "factionContribution": 15,
+      "items": []
     },
     "dailyReset": true,
     "minFactionRank": "disciple"
@@ -856,7 +926,8 @@
       "exp": 350,
       "gold": 150,
       "factionReputation": 25,
-      "factionContribution": 15
+      "factionContribution": 15,
+      "items": []
     },
     "dailyReset": true,
     "minFactionRank": "disciple"
@@ -882,7 +953,8 @@
       "exp": 350,
       "gold": 150,
       "factionReputation": 25,
-      "factionContribution": 15
+      "factionContribution": 15,
+      "items": []
     },
     "dailyReset": true,
     "minFactionRank": "disciple"
@@ -908,7 +980,8 @@
       "exp": 800,
       "gold": 400,
       "factionReputation": 50,
-      "factionContribution": 15
+      "factionContribution": 15,
+      "items": []
     },
     "dailyReset": true,
     "minFactionRank": "deacon"
@@ -934,7 +1007,8 @@
       "exp": 400,
       "gold": 200,
       "factionReputation": 30,
-      "factionContribution": 15
+      "factionContribution": 15,
+      "items": []
     },
     "dailyReset": true,
     "minFactionRank": "disciple"
@@ -961,7 +1035,10 @@
       "exp": 800,
       "gold": 400,
       "factionReputation": 60,
-      "factionContribution": 20
+      "factionContribution": 20,
+      "items": [
+        "skill_book_shaolin_fist"
+      ]
     },
     "minFactionRank": "disciple"
   },
@@ -987,7 +1064,10 @@
       "exp": 800,
       "gold": 400,
       "factionReputation": 60,
-      "factionContribution": 20
+      "factionContribution": 20,
+      "items": [
+        "skill_book_wudang_fist"
+      ]
     },
     "minFactionRank": "disciple"
   },
@@ -1018,7 +1098,10 @@
       "exp": 1500,
       "gold": 800,
       "factionReputation": 100,
-      "factionContribution": 20
+      "factionContribution": 20,
+      "items": [
+        "skill_book_mingjiao_qiankun"
+      ]
     },
     "minFactionRank": "disciple"
   },
@@ -1040,7 +1123,8 @@
       "exp": 200,
       "gold": 80,
       "factionReputation": 15,
-      "factionContribution": 12
+      "factionContribution": 12,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_shaolin_monk"
@@ -1063,7 +1147,8 @@
       "exp": 300,
       "gold": 120,
       "factionReputation": 20,
-      "factionContribution": 15
+      "factionContribution": 15,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_shaolin_monk"
@@ -1086,7 +1171,8 @@
       "exp": 400,
       "gold": 160,
       "factionReputation": 25,
-      "factionContribution": 18
+      "factionContribution": 18,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_shaolin_monk"
@@ -1109,7 +1195,8 @@
       "exp": 500,
       "gold": 200,
       "factionReputation": 30,
-      "factionContribution": 21
+      "factionContribution": 21,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_shaolin_monk"
@@ -1132,7 +1219,8 @@
       "exp": 200,
       "gold": 80,
       "factionReputation": 15,
-      "factionContribution": 12
+      "factionContribution": 12,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_wudang_taoist"
@@ -1155,7 +1243,8 @@
       "exp": 300,
       "gold": 120,
       "factionReputation": 20,
-      "factionContribution": 15
+      "factionContribution": 15,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_wudang_taoist"
@@ -1178,7 +1267,8 @@
       "exp": 400,
       "gold": 160,
       "factionReputation": 25,
-      "factionContribution": 18
+      "factionContribution": 18,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_wudang_taoist"
@@ -1201,7 +1291,8 @@
       "exp": 500,
       "gold": 200,
       "factionReputation": 30,
-      "factionContribution": 21
+      "factionContribution": 21,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_wudang_taoist"
@@ -1224,7 +1315,8 @@
       "exp": 200,
       "gold": 80,
       "factionReputation": 15,
-      "factionContribution": 12
+      "factionContribution": 12,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_emei_nun"
@@ -1247,7 +1339,8 @@
       "exp": 300,
       "gold": 120,
       "factionReputation": 20,
-      "factionContribution": 15
+      "factionContribution": 15,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_emei_nun"
@@ -1270,7 +1363,8 @@
       "exp": 400,
       "gold": 160,
       "factionReputation": 25,
-      "factionContribution": 18
+      "factionContribution": 18,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_emei_nun"
@@ -1293,7 +1387,8 @@
       "exp": 500,
       "gold": 200,
       "factionReputation": 30,
-      "factionContribution": 21
+      "factionContribution": 21,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_emei_nun"
@@ -1316,7 +1411,8 @@
       "exp": 200,
       "gold": 80,
       "factionReputation": 15,
-      "factionContribution": 12
+      "factionContribution": 12,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_beggar_elder"
@@ -1339,7 +1435,8 @@
       "exp": 300,
       "gold": 120,
       "factionReputation": 20,
-      "factionContribution": 15
+      "factionContribution": 15,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_beggar_elder"
@@ -1362,7 +1459,8 @@
       "exp": 400,
       "gold": 160,
       "factionReputation": 25,
-      "factionContribution": 18
+      "factionContribution": 18,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_beggar_elder"
@@ -1385,7 +1483,8 @@
       "exp": 500,
       "gold": 200,
       "factionReputation": 30,
-      "factionContribution": 21
+      "factionContribution": 21,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_beggar_elder"
@@ -1408,7 +1507,8 @@
       "exp": 200,
       "gold": 80,
       "factionReputation": 15,
-      "factionContribution": 12
+      "factionContribution": 12,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_ming_cultist"
@@ -1431,7 +1531,8 @@
       "exp": 300,
       "gold": 120,
       "factionReputation": 20,
-      "factionContribution": 15
+      "factionContribution": 15,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_ming_cultist"
@@ -1454,7 +1555,8 @@
       "exp": 400,
       "gold": 160,
       "factionReputation": 25,
-      "factionContribution": 18
+      "factionContribution": 18,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_ming_cultist"
@@ -1477,7 +1579,8 @@
       "exp": 500,
       "gold": 200,
       "factionReputation": 30,
-      "factionContribution": 21
+      "factionContribution": 21,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_ming_cultist"
@@ -1500,7 +1603,8 @@
       "exp": 200,
       "gold": 80,
       "factionReputation": 15,
-      "factionContribution": 12
+      "factionContribution": 12,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_xiaoyao_elder"
@@ -1523,7 +1627,8 @@
       "exp": 300,
       "gold": 120,
       "factionReputation": 20,
-      "factionContribution": 15
+      "factionContribution": 15,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_xiaoyao_elder"
@@ -1546,7 +1651,8 @@
       "exp": 400,
       "gold": 160,
       "factionReputation": 25,
-      "factionContribution": 18
+      "factionContribution": 18,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_xiaoyao_elder"
@@ -1569,7 +1675,8 @@
       "exp": 500,
       "gold": 200,
       "factionReputation": 30,
-      "factionContribution": 21
+      "factionContribution": 21,
+      "items": []
     },
     "cooldown": 86400,
     "npcGiverId": "npc_xiaoyao_elder"

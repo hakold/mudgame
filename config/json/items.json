@@ -2700,7 +2700,9 @@
     "skillId": "skill_shaolin_fist",
     "successRate": 0.6,
     "price": 800,
-    "sellPrice": 320
+    "sellPrice": 320,
+    "factionId": "shaolin",
+    "contributionCost": 30
   },
   {
     "id": "skill_book_shaolin_staff",
@@ -2710,7 +2712,10 @@
     "skillId": "skill_shaolin_staff",
     "successRate": 0.55,
     "price": 1200,
-    "sellPrice": 480
+    "sellPrice": 480,
+    "factionId": "shaolin",
+    "requireFactionRank": "disciple",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_shaolin_palm",
@@ -2720,7 +2725,9 @@
     "skillId": "skill_shaolin_palm",
     "successRate": 0.5,
     "price": 2000,
-    "sellPrice": 800
+    "sellPrice": 800,
+    "factionId": "shaolin",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_golden_bell",
@@ -2730,7 +2737,10 @@
     "skillId": "skill_golden_bell",
     "successRate": 0.45,
     "price": 3000,
-    "sellPrice": 1200
+    "sellPrice": 1200,
+    "factionId": "shaolin",
+    "requireFactionRank": "disciple",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_lion_roar",
@@ -2740,7 +2750,10 @@
     "skillId": "skill_lion_roar",
     "successRate": 0.4,
     "price": 4000,
-    "sellPrice": 1600
+    "sellPrice": 1600,
+    "factionId": "shaolin",
+    "requireFactionRank": "deacon",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_yijinjing",
@@ -2750,7 +2763,9 @@
     "skillId": "skill_yijinjing",
     "successRate": 0.3,
     "price": 8000,
-    "sellPrice": 3200
+    "sellPrice": 3200,
+    "factionId": "shaolin",
+    "contributionCost": 100
   },
   {
     "id": "skill_book_damo_sword",
@@ -2760,7 +2775,10 @@
     "skillId": "skill_damo_sword",
     "successRate": 0.35,
     "price": 8000,
-    "sellPrice": 3200
+    "sellPrice": 3200,
+    "factionId": "shaolin",
+    "requireFactionRank": "elder",
+    "contributionCost": 100
   },
   {
     "id": "skill_book_xisuijing",
@@ -2770,7 +2788,10 @@
     "skillId": "skill_xisuijing",
     "successRate": 0.25,
     "price": 12000,
-    "sellPrice": 4800
+    "sellPrice": 4800,
+    "factionId": "shaolin",
+    "requireFactionRank": "elder",
+    "contributionCost": 100
   },
   {
     "id": "skill_book_shaolin_divine",
@@ -2780,7 +2801,10 @@
     "skillId": "skill_shaolin_divine",
     "successRate": 0.15,
     "price": 30000,
-    "sellPrice": 12000
+    "sellPrice": 12000,
+    "factionId": "shaolin",
+    "requireFactionRank": "leader",
+    "contributionCost": 200
   },
   {
     "id": "skill_book_wudang_xinfa",
@@ -2790,7 +2814,10 @@
     "skillId": "skill_wudang_xinfa",
     "successRate": 0.6,
     "price": 800,
-    "sellPrice": 320
+    "sellPrice": 320,
+    "factionId": "wudang",
+    "requireFactionRank": "disciple",
+    "contributionCost": 30
   },
   {
     "id": "skill_book_wudang_fist",
@@ -2800,7 +2827,9 @@
     "skillId": "skill_wudang_fist",
     "successRate": 0.55,
     "price": 1200,
-    "sellPrice": 480
+    "sellPrice": 480,
+    "factionId": "wudang",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_wudang_sword",
@@ -2810,7 +2839,9 @@
     "skillId": "skill_wudang_sword",
     "successRate": 0.5,
     "price": 2000,
-    "sellPrice": 800
+    "sellPrice": 800,
+    "factionId": "wudang",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_liangyi_sword",
@@ -2820,7 +2851,10 @@
     "skillId": "skill_liangyi_sword",
     "successRate": 0.45,
     "price": 3500,
-    "sellPrice": 1400
+    "sellPrice": 1400,
+    "factionId": "wudang",
+    "requireFactionRank": "disciple",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_tiyunzong",
@@ -2830,7 +2864,9 @@
     "skillId": "skill_tiyunzong",
     "successRate": 0.4,
     "price": 5000,
-    "sellPrice": 2000
+    "sellPrice": 2000,
+    "factionId": "wudang",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_taiji_jin",
@@ -2840,7 +2876,10 @@
     "skillId": "skill_taiji_jin",
     "successRate": 0.35,
     "price": 6000,
-    "sellPrice": 2400
+    "sellPrice": 2400,
+    "factionId": "wudang",
+    "requireFactionRank": "deacon",
+    "contributionCost": 100
   },
   {
     "id": "skill_book_chunyang",
@@ -2850,7 +2889,10 @@
     "skillId": "skill_chunyang",
     "successRate": 0.3,
     "price": 8000,
-    "sellPrice": 3200
+    "sellPrice": 3200,
+    "factionId": "wudang",
+    "requireFactionRank": "elder",
+    "contributionCost": 100
   },
   {
     "id": "skill_book_zhenwu_sword",
@@ -2860,7 +2902,10 @@
     "skillId": "skill_zhenwu_sword",
     "successRate": 0.15,
     "price": 30000,
-    "sellPrice": 12000
+    "sellPrice": 12000,
+    "factionId": "wudang",
+    "requireFactionRank": "leader",
+    "contributionCost": 200
   },
   {
     "id": "skill_book_emei_xinfa",
@@ -2870,7 +2915,10 @@
     "skillId": "skill_emei_xinfa",
     "successRate": 0.6,
     "price": 800,
-    "sellPrice": 320
+    "sellPrice": 320,
+    "factionId": "emei",
+    "requireFactionRank": "disciple",
+    "contributionCost": 30
   },
   {
     "id": "skill_book_emei_sword",
@@ -2880,7 +2928,9 @@
     "skillId": "skill_emei_sword",
     "successRate": 0.55,
     "price": 1200,
-    "sellPrice": 480
+    "sellPrice": 480,
+    "factionId": "emei",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_jiuyang",
@@ -2890,7 +2940,9 @@
     "skillId": "skill_jiuyang",
     "successRate": 0.45,
     "price": 3000,
-    "sellPrice": 1200
+    "sellPrice": 1200,
+    "factionId": "emei",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_yunv_sword",
@@ -2900,7 +2952,10 @@
     "skillId": "skill_yunv_sword",
     "successRate": 0.45,
     "price": 2500,
-    "sellPrice": 1000
+    "sellPrice": 1000,
+    "factionId": "emei",
+    "requireFactionRank": "disciple",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_jinding_light",
@@ -2910,7 +2965,10 @@
     "skillId": "skill_jinding_light",
     "successRate": 0.35,
     "price": 5000,
-    "sellPrice": 2000
+    "sellPrice": 2000,
+    "factionId": "emei",
+    "requireFactionRank": "deacon",
+    "contributionCost": 100
   },
   {
     "id": "skill_book_emei_thorn",
@@ -2920,7 +2978,10 @@
     "skillId": "skill_emei_thorn",
     "successRate": 0.4,
     "price": 5000,
-    "sellPrice": 2000
+    "sellPrice": 2000,
+    "factionId": "emei",
+    "requireFactionRank": "deacon",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_mercy_palm",
@@ -2930,7 +2991,10 @@
     "skillId": "skill_mercy_palm",
     "successRate": 0.35,
     "price": 6000,
-    "sellPrice": 2400
+    "sellPrice": 2400,
+    "factionId": "emei",
+    "requireFactionRank": "elder",
+    "contributionCost": 100
   },
   {
     "id": "skill_book_jiutian_xuangong",
@@ -2940,7 +3004,10 @@
     "skillId": "skill_jiutian_xuangong",
     "successRate": 0.25,
     "price": 12000,
-    "sellPrice": 4800
+    "sellPrice": 4800,
+    "factionId": "emei",
+    "requireFactionRank": "elder",
+    "contributionCost": 100
   },
   {
     "id": "skill_book_emei_divine",
@@ -2950,7 +3017,10 @@
     "skillId": "skill_emei_divine",
     "successRate": 0.15,
     "price": 30000,
-    "sellPrice": 12000
+    "sellPrice": 12000,
+    "factionId": "emei",
+    "requireFactionRank": "leader",
+    "contributionCost": 200
   },
   {
     "id": "skill_book_gaibang_xinfa",
@@ -2960,7 +3030,10 @@
     "skillId": "skill_gaibang_xinfa",
     "successRate": 0.6,
     "price": 800,
-    "sellPrice": 320
+    "sellPrice": 320,
+    "factionId": "beggar",
+    "requireFactionRank": "disciple",
+    "contributionCost": 30
   },
   {
     "id": "skill_book_gaibang_stick",
@@ -2970,7 +3043,9 @@
     "skillId": "skill_gaibang_stick",
     "successRate": 0.55,
     "price": 1500,
-    "sellPrice": 600
+    "sellPrice": 600,
+    "factionId": "beggar",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_lotus_palm",
@@ -2980,7 +3055,10 @@
     "skillId": "skill_lotus_palm",
     "successRate": 0.5,
     "price": 2000,
-    "sellPrice": 800
+    "sellPrice": 800,
+    "factionId": "beggar",
+    "requireFactionRank": "disciple",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_drunken_fist",
@@ -2990,7 +3068,10 @@
     "skillId": "skill_drunken_fist",
     "successRate": 0.45,
     "price": 3500,
-    "sellPrice": 1400
+    "sellPrice": 1400,
+    "factionId": "beggar",
+    "requireFactionRank": "disciple",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_gaibang_formation",
@@ -3000,7 +3081,10 @@
     "skillId": "skill_gaibang_formation",
     "successRate": 0.4,
     "price": 5000,
-    "sellPrice": 2000
+    "sellPrice": 2000,
+    "factionId": "beggar",
+    "requireFactionRank": "deacon",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_xianglong",
@@ -3010,7 +3094,9 @@
     "skillId": "skill_xianglong",
     "successRate": 0.35,
     "price": 12000,
-    "sellPrice": 4800
+    "sellPrice": 4800,
+    "factionId": "beggar",
+    "contributionCost": 100
   },
   {
     "id": "skill_book_kanglong",
@@ -3020,7 +3106,10 @@
     "skillId": "skill_kanglong",
     "successRate": 0.25,
     "price": 18000,
-    "sellPrice": 7200
+    "sellPrice": 7200,
+    "factionId": "beggar",
+    "requireFactionRank": "elder",
+    "contributionCost": 100
   },
   {
     "id": "skill_book_dragon_subdue",
@@ -3030,7 +3119,10 @@
     "skillId": "skill_dragon_subdue",
     "successRate": 0.15,
     "price": 35000,
-    "sellPrice": 14000
+    "sellPrice": 14000,
+    "factionId": "beggar",
+    "requireFactionRank": "leader",
+    "contributionCost": 200
   },
   {
     "id": "skill_book_mingjiao_xinfa",
@@ -3040,7 +3132,10 @@
     "skillId": "skill_mingjiao_xinfa",
     "successRate": 0.6,
     "price": 1000,
-    "sellPrice": 400
+    "sellPrice": 400,
+    "factionId": "mingjiao",
+    "requireFactionRank": "disciple",
+    "contributionCost": 30
   },
   {
     "id": "skill_book_blazing_blade",
@@ -3050,7 +3145,10 @@
     "skillId": "skill_blazing_blade",
     "successRate": 0.55,
     "price": 2000,
-    "sellPrice": 800
+    "sellPrice": 800,
+    "factionId": "mingjiao",
+    "requireFactionRank": "disciple",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_mingjiao_fire",
@@ -3060,7 +3158,9 @@
     "skillId": "skill_mingjiao_fire",
     "successRate": 0.5,
     "price": 3500,
-    "sellPrice": 1400
+    "sellPrice": 1400,
+    "factionId": "mingjiao",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_holy_flame_order",
@@ -3070,7 +3170,10 @@
     "skillId": "skill_holy_flame_order",
     "successRate": 0.4,
     "price": 5000,
-    "sellPrice": 2000
+    "sellPrice": 2000,
+    "factionId": "mingjiao",
+    "requireFactionRank": "deacon",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_fenyin_bu",
@@ -3080,7 +3183,10 @@
     "skillId": "skill_fenyin_bu",
     "successRate": 0.45,
     "price": 5000,
-    "sellPrice": 2000
+    "sellPrice": 2000,
+    "factionId": "mingjiao",
+    "requireFactionRank": "deacon",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_mingjiao_qiankun",
@@ -3090,7 +3196,9 @@
     "skillId": "skill_mingjiao_qiankun",
     "successRate": 0.3,
     "price": 12000,
-    "sellPrice": 4800
+    "sellPrice": 4800,
+    "factionId": "mingjiao",
+    "contributionCost": 100
   },
   {
     "id": "skill_book_light_fist",
@@ -3100,7 +3208,10 @@
     "skillId": "skill_light_fist",
     "successRate": 0.35,
     "price": 8000,
-    "sellPrice": 3200
+    "sellPrice": 3200,
+    "factionId": "mingjiao",
+    "requireFactionRank": "elder",
+    "contributionCost": 100
   },
   {
     "id": "skill_book_burn_heaven",
@@ -3110,7 +3221,10 @@
     "skillId": "skill_burn_heaven",
     "successRate": 0.15,
     "price": 35000,
-    "sellPrice": 14000
+    "sellPrice": 14000,
+    "factionId": "mingjiao",
+    "requireFactionRank": "leader",
+    "contributionCost": 200
   },
   {
     "id": "skill_book_xiaoyao_xinfa",
@@ -3120,7 +3234,10 @@
     "skillId": "skill_xiaoyao_xinfa",
     "successRate": 0.6,
     "price": 2000,
-    "sellPrice": 800
+    "sellPrice": 800,
+    "factionId": "xiaoyao",
+    "requireFactionRank": "disciple",
+    "contributionCost": 30
   },
   {
     "id": "skill_book_lingbo_weibu",
@@ -3130,7 +3247,10 @@
     "skillId": "skill_lingbo_weibu",
     "successRate": 0.4,
     "price": 5000,
-    "sellPrice": 2000
+    "sellPrice": 2000,
+    "factionId": "xiaoyao",
+    "requireFactionRank": "disciple",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_xiaoyao_sword",
@@ -3140,7 +3260,10 @@
     "skillId": "skill_xiaoyao_sword",
     "successRate": 0.5,
     "price": 4000,
-    "sellPrice": 1600
+    "sellPrice": 1600,
+    "factionId": "xiaoyao",
+    "requireFactionRank": "deacon",
+    "contributionCost": 60
   },
   {
     "id": "skill_book_beiming",
@@ -3150,7 +3273,10 @@
     "skillId": "skill_beiming",
     "successRate": 0.3,
     "price": 8000,
-    "sellPrice": 3200
+    "sellPrice": 3200,
+    "factionId": "xiaoyao",
+    "requireFactionRank": "deacon",
+    "contributionCost": 100
   },
   {
     "id": "skill_book_tianshan_liuyang",
@@ -3160,7 +3286,10 @@
     "skillId": "skill_tianshan_liuyang",
     "successRate": 0.25,
     "price": 12000,
-    "sellPrice": 4800
+    "sellPrice": 4800,
+    "factionId": "xiaoyao",
+    "requireFactionRank": "elder",
+    "contributionCost": 100
   },
   {
     "id": "skill_book_bahuang",
@@ -3170,7 +3299,10 @@
     "skillId": "skill_bahuang",
     "successRate": 0.1,
     "price": 50000,
-    "sellPrice": 20000
+    "sellPrice": 20000,
+    "factionId": "xiaoyao",
+    "requireFactionRank": "leader",
+    "contributionCost": 200
   },
   {
     "id": "skill_book_rare_xianglong",
@@ -3180,7 +3312,9 @@
     "skillId": "skill_xianglong",
     "successRate": 0.2,
     "price": 50000,
-    "sellPrice": 20000
+    "sellPrice": 20000,
+    "factionId": "beggar",
+    "contributionCost": 100
   },
   {
     "id": "skill_book_rare_qiankun",
@@ -3190,7 +3324,9 @@
     "skillId": "skill_mingjiao_qiankun",
     "successRate": 0.2,
     "price": 50000,
-    "sellPrice": 20000
+    "sellPrice": 20000,
+    "factionId": "mingjiao",
+    "contributionCost": 100
   },
   {
     "id": "skill_book_rare_bahuang",
@@ -3200,7 +3336,10 @@
     "skillId": "skill_bahuang",
     "successRate": 0.15,
     "price": 80000,
-    "sellPrice": 32000
+    "sellPrice": 32000,
+    "factionId": "xiaoyao",
+    "requireFactionRank": "leader",
+    "contributionCost": 200
   },
   {
     "id": "skill_book_rare_damo",
@@ -3210,7 +3349,10 @@
     "skillId": "skill_damo_sword",
     "successRate": 0.25,
     "price": 40000,
-    "sellPrice": 16000
+    "sellPrice": 16000,
+    "factionId": "shaolin",
+    "requireFactionRank": "elder",
+    "contributionCost": 100
   },
   {
     "id": "skill_book_rare_zhenwu",
@@ -3220,7 +3362,10 @@
     "skillId": "skill_zhenwu_sword",
     "successRate": 0.2,
     "price": 50000,
-    "sellPrice": 20000
+    "sellPrice": 20000,
+    "factionId": "wudang",
+    "requireFactionRank": "leader",
+    "contributionCost": 100
   },
   {
     "id": "item_rum",
