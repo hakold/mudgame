@@ -3,11 +3,211 @@ const { getMonstersInRoom, getSkill, getItem } = require('../game');
 const { v4: uuidv4 } = require('uuid');
 const roomDropsService = require('./roomDropsService');
 
+// 战斗系统常量
+const MAX_ROUNDS = 50;             // 最大回合数，超过平局
+const MAX_AUTO_TURNS = 10;         // 单次自动回合上限（防止怪物AI无限循环）
+const BATTLE_TIMEOUT_MS = 120000;  // 战斗超时 2分钟无活动自动结束
+const PVP_DISCONNECT_GRACE_MS = 30000; // PvP掉线宽限期 30秒
+const STALE_CLEANUP_MS = 30000;    // 定时清理间隔 30秒
+const VALID_ACTIONS = ['attack', 'skill', 'defend', 'flee'];
+
 class BattleService {
   constructor(io, redis) {
     this.io = io;
     this.redis = redis;
-    this.activeBattles = new Map();  // 存储进行中的战斗
+    this.activeBattles = new Map();          // 进行中的战斗
+    this.battleLocks = new Map();            // 战斗互斥锁
+    this.disconnectProtection = new Map();   // PvP掉线保护池: battleId -> { userId, disconnectedAt }
+    this._cleanupTimer = null;
+  }
+
+  // ========== 战斗锁（防止并发回合） ==========
+  _getLock(battleId) {
+    if (!this.battleLocks.has(battleId)) {
+      this.battleLocks.set(battleId, Promise.resolve());
+    }
+    return this.battleLocks.get(battleId);
+  }
+
+  _setLock(battleId, lock) {
+    this.battleLocks.set(battleId, lock);
+  }
+
+  async acquireLock(battleId) {
+    const currentLock = this._getLock(battleId);
+    let release;
+    const newLock = new Promise(resolve => { release = resolve; });
+    this._setLock(battleId, newLock);
+    await currentLock;
+    return release;
+  }
+
+  releaseLock(battleId, release) {
+    if (release) release();
+  }
+
+  // ========== 输入校验 ==========
+  validateAction(action, skillId, attacker) {
+    if (!VALID_ACTIONS.includes(action)) {
+      return `无效的战斗行动: ${action}`;
+    }
+    if (action === 'skill') {
+      if (!skillId) {
+        return '使用技能需要指定技能ID';
+      }
+      const skill = (attacker.skills || []).find(s => s.id === skillId);
+      if (!skill) {
+        return '你没有学会该技能';
+      }
+    }
+    if (attacker.hp <= 0) {
+      return '你已经无法战斗';
+    }
+    return null; // 校验通过
+  }
+
+  // ========== 超时/过期检测 ==========
+  _touchBattle(battle) {
+    battle._lastActivity = Date.now();
+  }
+
+  isBattleStale(battle) {
+    if (!battle._lastActivity) return false;
+    return Date.now() - battle._lastActivity > BATTLE_TIMEOUT_MS;
+  }
+
+  // ========== 清理过期战斗 ==========
+  cleanupStaleBattles() {
+    const staleIds = [];
+    for (const [id, battle] of this.activeBattles) {
+      if (this.isBattleStale(battle)) {
+        staleIds.push(id);
+      }
+    }
+    for (const id of staleIds) {
+      this.forceEndBattle(id, 'timeout');
+    }
+    return staleIds.length;
+  }
+
+  startCleanupTimer() {
+    if (this._cleanupTimer) return;
+    this._cleanupTimer = setInterval(() => {
+      this.cleanupStaleBattles();
+    }, STALE_CLEANUP_MS);
+    this._cleanupTimer.unref(); // 不阻止进程退出
+  }
+
+  stopCleanupTimer() {
+    if (this._cleanupTimer) {
+      clearInterval(this._cleanupTimer);
+      this._cleanupTimer = null;
+    }
+  }
+
+  // ========== 强制结束战斗 ==========
+  forceEndBattle(battleId, reason = 'force') {
+    const battle = this.activeBattles.get(battleId);
+    if (!battle || battle.status === 'ended' || battle.status === 'fled') return null;
+
+    battle.status = 'ended';
+    battle._forceEndReason = reason;
+
+    // 确定胜者：PvP中掉线方判负
+    if (reason === 'disconnect' || reason === 'timeout') {
+      const protection = this.disconnectProtection.get(battleId);
+      if (protection && battle.type === 'pvp') {
+        const disconnectedParticipant = battle.participants.find(
+          p => p.userId?.toString() === protection.userId.toString()
+        );
+        const otherParticipant = battle.participants.find(
+          p => p.userId?.toString() !== protection.userId.toString()
+        );
+        if (disconnectedParticipant && otherParticipant) {
+          battle.winner = otherParticipant;
+          battle.loser = disconnectedParticipant;
+          disconnectedParticipant.hp = 0;
+        }
+      }
+    }
+
+    // 无明确胜者：随机选一个活着的人，或都算输
+    if (!battle.winner) {
+      const alive = battle.participants.filter(p => p.hp > 0);
+      if (alive.length === 1) {
+        battle.winner = alive[0];
+        battle.loser = battle.participants.find(p => p !== alive[0]);
+      }
+    }
+
+    // 强制保存结束
+    this.endBattle(battleId).catch(() => {});
+    this.disconnectProtection.delete(battleId);
+    this.battleLocks.delete(battleId);
+
+    // 通知房间内所有人战斗结束
+    if (this.io && battle._roomName) {
+      this.io.to(battle._roomName).emit('battle_ended', {
+        battle,
+        result: { message: reason === 'timeout' ? '战斗超时，自动结束' : '战斗被迫结束' }
+      });
+      this.io.in(battle._roomName).socketsLeave(battle._roomName);
+    }
+
+    return battle;
+  }
+
+  // ========== PvP掉线保护 ==========
+  startDisconnectProtection(battleId, userId) {
+    this.disconnectProtection.set(battleId, {
+      userId: userId.toString(),
+      disconnectedAt: Date.now(),
+      autoAction: 'defend'
+    });
+  }
+
+  cancelDisconnectProtection(battleId) {
+    return this.disconnectProtection.delete(battleId);
+  }
+
+  isDisconnectProtectionExpired(battleId) {
+    const protection = this.disconnectProtection.get(battleId);
+    if (!protection) return true;
+    return Date.now() - protection.disconnectedAt > PVP_DISCONNECT_GRACE_MS;
+  }
+
+  handleDisconnectedTurn(battleId) {
+    const protection = this.disconnectProtection.get(battleId);
+    if (!protection) return null;
+
+    const battle = this.activeBattles.get(battleId);
+    if (!battle || battle.status !== 'active') return null;
+
+    const currentActor = battle.turnOrder[battle.currentTurn];
+    if (!currentActor || currentActor.userId?.toString() !== protection.userId) {
+      return null; // 不是掉线玩家的回合
+    }
+
+    // 宽限期已过 → 强制结束
+    if (this.isDisconnectProtectionExpired(battleId)) {
+      return this.forceEndBattle(battleId, 'disconnect');
+    }
+
+    // 宽限期内 → 自动防御
+    return { autoAction: 'defend' };
+  }
+
+  // ========== 工具方法 ==========
+  getActiveBattleCount() {
+    return this.activeBattles.size;
+  }
+
+  getStaleBattleCount() {
+    let count = 0;
+    for (const battle of this.activeBattles.values()) {
+      if (this.isBattleStale(battle)) count++;
+    }
+    return count;
   }
 
   clamp(value, min, max) {
@@ -560,6 +760,7 @@ class BattleService {
     
     // 存储战斗
     this.activeBattles.set(battleId, battle);
+    this._touchBattle(battle);
     
     // 更新玩家状态
     user.status = 'fighting';
@@ -647,9 +848,30 @@ class BattleService {
     if (battle.status !== 'active') {
       throw new Error('战斗已结束');
     }
+
+    // 回合上限检查
+    if (battle.currentRound >= MAX_ROUNDS) {
+      battle.status = 'ended';
+      battle._forceEndReason = 'max_rounds';
+      await this.endBattle(battleId);
+      return {
+        battle,
+        result: { message: `战斗超过${MAX_ROUNDS}回合，自动结束（平局）`, round: battle.currentRound },
+        rewards: null
+      };
+    }
     
     const attacker = battle.turnOrder[battle.currentTurn];
     const defender = battle.participants.find(p => p !== attacker);
+
+    // 输入校验
+    const validationError = this.validateAction(action, skillId, attacker);
+    if (validationError) {
+      throw new Error(validationError);
+    }
+
+    // 更新活动时间戳
+    this._touchBattle(battle);
     
     let result = {
       round: battle.currentRound,

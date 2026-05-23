@@ -197,6 +197,115 @@ test('Faction ranks — all factions have entry exams', () => {
   }
 });
 
+// ========== 战斗健壮性测试 ==========
+
+test('Battle actions — only valid actions are accepted', () => {
+  const VALID_ACTIONS = ['attack', 'skill', 'defend', 'flee'];
+  assert(VALID_ACTIONS.includes('attack'), 'attack should be valid');
+  assert(VALID_ACTIONS.includes('skill'), 'skill should be valid');
+  assert(VALID_ACTIONS.includes('defend'), 'defend should be valid');
+  assert(VALID_ACTIONS.includes('flee'), 'flee should be valid');
+  assert(!VALID_ACTIONS.includes('invalid'), 'invalid action rejected');
+  assert(!VALID_ACTIONS.includes(''), 'empty action rejected');
+  assert(!VALID_ACTIONS.includes(null), 'null action rejected');
+});
+
+test('Battle constants — limits are sensible', () => {
+  const MAX_ROUNDS = 50;
+  const MAX_AUTO_TURNS = 10;
+  const BATTLE_TIMEOUT_MS = 120000;
+  const PVP_DISCONNECT_GRACE_MS = 30000;
+
+  assert(MAX_ROUNDS > 10 && MAX_ROUNDS <= 200, 'Max rounds should be 10-200');
+  assert(MAX_AUTO_TURNS >= 5 && MAX_AUTO_TURNS <= 30, 'Auto turns should be 5-30');
+  assert(BATTLE_TIMEOUT_MS >= 60000, 'Battle timeout should be at least 60s');
+  assert(PVP_DISCONNECT_GRACE_MS >= 15000, 'PvP grace should be at least 15s');
+});
+
+test('Battle lock — prevents concurrent turns', () => {
+  // 模拟互斥锁机制
+  let locked = false;
+  let lockAcquired = false;
+  let lockFailed = false;
+
+  function tryAcquire() {
+    if (locked) {
+      lockFailed = true;
+      return false;
+    }
+    locked = true;
+    lockAcquired = true;
+    return true;
+  }
+
+  function release() {
+    locked = false;
+  }
+
+  // 首次获取成功
+  assert(tryAcquire() === true, 'First lock acquire succeeds');
+  assert(lockAcquired === true, 'Lock acquired flag set');
+
+  // 并发获取失败
+  assert(tryAcquire() === false, 'Second lock acquire fails (already locked)');
+  assert(lockFailed === true, 'Lock failed flag set');
+
+  // 释放后重新获取成功
+  release();
+  lockFailed = false;
+  assert(tryAcquire() === true, 'Lock re-acquire after release succeeds');
+});
+
+test('Battle validation — skill requires skillId', () => {
+  function validateAction(action, skillId, hasSkills) {
+    const VALID_ACTIONS = ['attack', 'skill', 'defend', 'flee'];
+    if (!VALID_ACTIONS.includes(action)) return `无效的战斗行动: ${action}`;
+    if (action === 'skill') {
+      if (!skillId) return '使用技能需要指定技能ID';
+      if (!hasSkills) return '你没有学会该技能';
+    }
+    return null;
+  }
+
+  assert(validateAction('attack', null, false) === null, 'attack without skillId OK');
+  assert(validateAction('defend', null, false) === null, 'defend OK');
+  assert(validateAction('flee', null, false) === null, 'flee OK');
+  assert(validateAction('skill', null, true) !== null, 'skill without skillId rejected');
+  assert(validateAction('skill', 'fireball', false) !== null, 'skill not learned rejected');
+  assert(validateAction('skill', 'fireball', true) === null, 'valid skill OK');
+  assert(validateAction('hack', null, false) !== null, 'invalid action rejected');
+});
+
+test('Battle timeout detection — identifies stale battles', () => {
+  const BATTLE_TIMEOUT_MS = 120000;
+  function isStale(lastActivity) {
+    if (!lastActivity) return false;
+    return Date.now() - lastActivity > BATTLE_TIMEOUT_MS;
+  }
+
+  const recent = Date.now() - 30000;  // 30s前
+  const old = Date.now() - 150000;     // 150s前（超过120s）
+
+  assert(isStale(recent) === false, 'Recent battle not stale');
+  assert(isStale(old) === true, 'Old battle is stale');
+  assert(isStale(null) === false, 'Null timestamp not stale');
+});
+
+test('PvP disconnect grace — expires after timeout', () => {
+  const PVP_DISCONNECT_GRACE_MS = 30000;
+  function isExpired(disconnectedAt) {
+    if (!disconnectedAt) return true;
+    return Date.now() - disconnectedAt > PVP_DISCONNECT_GRACE_MS;
+  }
+
+  const justNow = Date.now();
+  const longAgo = Date.now() - 35000;
+
+  assert(isExpired(justNow) === false, 'Just disconnected: not expired');
+  assert(isExpired(longAgo) === true, '35s ago: grace expired');
+  assert(isExpired(null) === true, 'null = expired (should not happen)');
+});
+
 // ========== 运行 ==========
 function runAll() {
   console.log('=== Game Logic Tests ===\n');

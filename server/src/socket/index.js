@@ -27,6 +27,7 @@ const SERVICE_LABELS = {
 };
 
 // 方向中文映射
+const PVP_DISCONNECT_GRACE_SECONDS = 30;
 const DIR_LABELS = {
   north: '北', south: '南', east: '东', west: '西',
   up: '上', down: '下', in: '进', out: '出', back: '返回',
@@ -120,6 +121,24 @@ function socketHandler(io) {
   
   // 创建战斗服务
   const battleService = new BattleService(io);
+
+  // 启动战斗过期清理定时器
+  battleService.startCleanupTimer();
+
+  // 服务器启动时：重置所有残留的战斗状态
+  (async function recoverFightingStatus() {
+    try {
+      const result = await User.updateMany(
+        { status: 'fighting' },
+        { $set: { status: 'online' } }
+      );
+      if (result.modifiedCount > 0) {
+        console.log(`[Battle] 启动恢复：重置了 ${result.modifiedCount} 个卡在战斗中的玩家状态`);
+      }
+    } catch (err) {
+      console.error('[Battle] 启动恢复失败:', err.message);
+    }
+  })();
 
   // 初始化任务进度服务
   questProgressService.init(io);
@@ -256,6 +275,51 @@ function socketHandler(io) {
       }
     }, 60000); // 每60秒
 
+    // ========== PvP掉线重连恢复 ==========
+    // 检查是否有该玩家的掉线保护，有则恢复战斗
+    (async function checkDisconnectRecovery() {
+      for (const [battleId, protection] of battleService.disconnectProtection) {
+        if (protection.userId === user._id.toString()) {
+          const battle = battleService.getBattle(battleId);
+          if (battle && battle.status === 'active') {
+            // 取消掉线保护
+            battleService.cancelDisconnectProtection(battleId);
+            // 恢复玩家状态
+            user.status = 'fighting';
+            await user.save();
+            // 重新加入战斗房间
+            const battleRoom = `battle:${battleId}`;
+            socket.join(battleRoom);
+            socket.emit('battle_reconnected', { battleId, battle: {
+              battleId: battle.battleId,
+              type: battle.type,
+              currentRound: battle.currentRound,
+              status: battle.status,
+              participants: battle.participants.map(p => ({
+                name: p.name,
+                hp: p.hp,
+                maxHp: p.maxHp,
+                mp: p.mp,
+                maxMp: p.maxMp,
+                statusEffects: p.statusSummary || [],
+                isMonster: p.isMonster || false
+              })),
+              turnOrder: battle.turnOrder.map(p => p.name)
+            }});
+            // 通知对手
+            io.to(battleRoom).emit('system_message', {
+              content: `✅ ${user.characterName} 已重新连接，战斗继续`
+            });
+            console.log(`[Battle] PvP重连: ${user.characterName} → ${battleId}`);
+          } else {
+            // 战斗已结束，清理保护
+            battleService.cancelDisconnectProtection(battleId);
+          }
+          return;
+        }
+      }
+    })();
+
     // ==================== 房间相关 ====================
     
     // 查看房间
@@ -371,6 +435,7 @@ function socketHandler(io) {
       try {
         const battle = await battleService.startBattle(user._id, targetId, type || 'pve');
         const battleRoom = `battle:${battle.battleId}`;
+        battle._roomName = battleRoom;  // 记录房间名，供超时清理使用
         socket.join(battleRoom);
         socket.emit('battle_started', battle);
 
@@ -383,19 +448,43 @@ function socketHandler(io) {
           }
         }
 
-        // 如果当前回合是怪物（怪物先手），自动处理怪物回合
+        // 如果当前回合是怪物（怪物先手），自动处理怪物回合（上限MAX_AUTO_TURNS）
         let autoResult = { battle };
-        while (autoResult.battle.status === 'active') {
+        let autoTurnCount = 0;
+        while (autoResult.battle.status === 'active' && autoTurnCount < 10) {
+          // PvP断线保护：掉线方回合自动防御
+          if (type === 'pvp') {
+            const dcAction = battleService.handleDisconnectedTurn(battle.battleId);
+            if (dcAction?.autoAction) {
+              const release = await battleService.acquireLock(battle.battleId);
+              try {
+                autoResult = await battleService.executeTurn(battle.battleId, dcAction.autoAction);
+              } finally {
+                battleService.releaseLock(battle.battleId, release);
+              }
+              io.to(battleRoom).emit('battle_update', autoResult);
+              autoTurnCount++;
+              continue;
+            }
+            if (dcAction?.battle?.status === 'ended') break;
+          }
+
           const nextActor = battleService.getCurrentParticipant(battle.battleId);
           if (!nextActor?.isMonster) break;
 
           const monsterAction = battleService.chooseAutomatedAction(battle.battleId);
-          autoResult = await battleService.executeTurn(
-            battle.battleId,
-            monsterAction.action,
-            monsterAction.skillId
-          );
+          const release = await battleService.acquireLock(battle.battleId);
+          try {
+            autoResult = await battleService.executeTurn(
+              battle.battleId,
+              monsterAction.action,
+              monsterAction.skillId
+            );
+          } finally {
+            battleService.releaseLock(battle.battleId, release);
+          }
           io.to(battleRoom).emit('battle_update', autoResult);
+          autoTurnCount++;
         }
 
         if (autoResult.battle.status === 'ended' || autoResult.battle.status === 'fled') {
@@ -438,22 +527,55 @@ function socketHandler(io) {
           return socket.emit('error', { message: '还没轮到你行动' });
         }
 
-        let turnResult = await battleService.executeTurn(battleId, action, skillId);
+        // 获取战斗锁（防止并发回合）
+        const release = await battleService.acquireLock(battleId);
+        let turnResult;
+        try {
+          turnResult = await battleService.executeTurn(battleId, action, skillId);
+        } finally {
+          battleService.releaseLock(battleId, release);
+        }
+
         io.to(roomName).emit('battle_update', turnResult);
 
-        while (turnResult.battle.status === 'active') {
+        // 自动处理怪物回合 + PvP掉线保护（上限10次）
+        let autoCount = 0;
+        while (turnResult.battle.status === 'active' && autoCount < 10) {
+          // PvP断线保护
+          if (battle.type === 'pvp') {
+            const dcAction = battleService.handleDisconnectedTurn(battleId);
+            if (dcAction?.autoAction) {
+              const dcRelease = await battleService.acquireLock(battleId);
+              try {
+                turnResult = await battleService.executeTurn(battleId, dcAction.autoAction);
+              } finally {
+                battleService.releaseLock(battleId, dcRelease);
+              }
+              io.to(roomName).emit('battle_update', turnResult);
+              autoCount++;
+              continue;
+            }
+            if (dcAction?.battle?.status === 'ended') break;
+          }
+
           const nextActor = battleService.getCurrentParticipant(battleId);
           if (!nextActor?.isMonster) {
             break;
           }
 
           const monsterAction = battleService.chooseAutomatedAction(battleId);
-          turnResult = await battleService.executeTurn(
-            battleId,
-            monsterAction.action,
-            monsterAction.skillId
-          );
+          const monRelease = await battleService.acquireLock(battleId);
+          try {
+            turnResult = await battleService.executeTurn(
+              battleId,
+              monsterAction.action,
+              monsterAction.skillId
+            );
+          } finally {
+            battleService.releaseLock(battleId, monRelease);
+          }
           io.to(roomName).emit('battle_update', turnResult);
+          autoCount++;
         }
 
         if (turnResult.battle.status === 'ended' || turnResult.battle.status === 'fled') {
@@ -3030,21 +3152,39 @@ function socketHandler(io) {
       user.status = 'offline';
       await user.save();
       
-      // 如果在战斗中，强制玩家逃跑
+      // 如果在战斗中，处理不同情况
       const battleId = battleService.isInBattle(user._id);
       if (battleId) {
         const battle = battleService.getBattle(battleId);
         if (battle && battle.status === 'active') {
-          // 确保轮到玩家行动，而非怪物
-          const playerIdx = battle.turnOrder.findIndex(
-            p => p.userId?.toString() === user._id.toString()
-          );
-          if (playerIdx >= 0) {
-            battle.currentTurn = playerIdx;
+          if (battle.type === 'pvp') {
+            // PvP战斗：启动掉线保护，给对方30秒宽限期
+            battleService.startDisconnectProtection(battleId, user._id);
+            const opponent = battle.participants.find(
+              p => p.userId?.toString() !== user._id.toString()
+            );
+            const battleRoom = `battle:${battleId}`;
+            io.to(battleRoom).emit('system_message', {
+              content: `⚠️ ${user.characterName} 已断开连接，${PVP_DISCONNECT_GRACE_SECONDS}秒内重连可恢复战斗，否则判负`
+            });
+            console.log(`[Battle] PvP掉线保护: ${user.characterName} → ${battleId}, 宽限期${PVP_DISCONNECT_GRACE_SECONDS}秒`);
+          } else {
+            // PvE战斗：直接逃跑
+            const playerIdx = battle.turnOrder.findIndex(
+              p => p.userId?.toString() === user._id.toString()
+            );
+            if (playerIdx >= 0) {
+              battle.currentTurn = playerIdx;
+            }
+            try {
+              const turnResult = await battleService.executeTurn(battleId, 'flee');
+              io.to(`battle:${battleId}`).emit('battle_ended', turnResult);
+              io.in(`battle:${battleId}`).socketsLeave(`battle:${battleId}`);
+            } catch (err) {
+              // 逃跑失败，强制结束
+              battleService.forceEndBattle(battleId, 'disconnect');
+            }
           }
-          const turnResult = await battleService.executeTurn(battleId, 'flee');
-          io.to(`battle:${battleId}`).emit('battle_ended', turnResult);
-          io.in(`battle:${battleId}`).socketsLeave(`battle:${battleId}`);
         }
       }
     });
