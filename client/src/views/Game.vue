@@ -442,6 +442,11 @@
         <button class="menu-tab" :class="{ active: activeTab === 'online' }" @click="activeTab = 'online'; loadOnlinePlayers()">在线</button>
         <button class="menu-tab" :class="{ active: activeTab === 'achievements' }" @click="activeTab = 'achievements'; loadAchievements()">成就</button>
         <button class="menu-tab" :class="{ active: activeTab === 'forge' }" @click="activeTab = 'forge'; loadForgeRecipes()">锻造</button>
+        <button class="menu-tab" :class="{ active: activeTab === 'dungeons' }" @click="activeTab = 'dungeons'; gameStore.loadDungeons()">副本</button>
+        <button class="menu-tab" :class="{ active: activeTab === 'gangs' }" @click="activeTab = 'gangs'; gameStore.searchGangs(''); gameStore.loadGangInfo()">帮派</button>
+        <button class="menu-tab" :class="{ active: activeTab === 'auction' }" @click="activeTab = 'auction'; gameStore.searchAuctions(''); gameStore.loadMyAuctions()">拍卖</button>
+        <button class="menu-tab" :class="{ active: activeTab === 'life' }" @click="activeTab = 'life'; gameStore.loadGatheringNodes(); gameStore.loadAlchemyRecipes(); gameStore.loadCookingRecipes()">生活</button>
+        <button class="menu-tab" :class="{ active: activeTab === 'daily' }" @click="activeTab = 'daily'; gameStore.loadDailyStatus()">每日</button>
         <button v-if="currentRoomServices.some(s => ['shop','buy_item','buy_weapon','buy_armor','sell_item'].includes(s))" class="menu-tab" :class="{ active: activeTab === 'shop' }" @click="activeTab = 'shop'; loadShopItems()">商店</button>
       </div>
       
@@ -622,6 +627,232 @@
           <div v-if="!gameStore.forgeRecipes.length" class="empty-hint">暂无锻造配方</div>
         </div>
 
+        <!-- 副本 -->
+        <div v-if="activeTab === 'dungeons'">
+          <!-- 副本中 -->
+          <div v-if="gameStore.currentDungeon" class="dungeon-active">
+            <div class="dungeon-header">
+              <span class="dungeon-name">⚔️ {{ gameStore.currentDungeon.dungeonName }}</span>
+              <span class="dungeon-wave" v-if="gameStore.currentDungeon.currentWave">第 {{ gameStore.currentDungeon.currentWave }}/{{ gameStore.currentDungeon.totalWaves }} 波</span>
+            </div>
+            <div v-if="gameStore.dungeonWave" class="dungeon-wave-info">
+              <div class="dungeon-monster" v-for="m in (gameStore.dungeonWave.monsters || [])" :key="m.id">
+                <span class="monster-name">{{ m.name }}</span>
+                <span class="monster-lv">Lv{{ m.level }}</span>
+              </div>
+            </div>
+            <div class="dungeon-actions">
+              <button v-if="gameStore.currentDungeon.currentWave && gameStore.dungeonWave" class="forge-btn" @click="gameStore.dungeonWaveComplete(gameStore.currentDungeon.dungeonId)">击败当前波次</button>
+              <button v-if="!gameStore.dungeonWave && gameStore.currentDungeon.currentWave" class="forge-btn" @click="gameStore.dungeonNextWave(gameStore.currentDungeon.dungeonId)">下一波</button>
+              <button class="btn btn-secondary" @click="gameStore.leaveDungeon(gameStore.currentDungeon.dungeonId)">退出副本</button>
+            </div>
+          </div>
+          <!-- 副本列表 -->
+          <div v-else>
+            <div v-for="d in gameStore.dungeons" :key="d.id" class="dungeon-item">
+              <div class="dungeon-header">
+                <span class="dungeon-name">{{ d.name }}</span>
+                <span class="dungeon-type">{{ d.type === 'trial' ? '试炼' : d.type === 'explore' ? '探索' : 'BOSS' }}</span>
+              </div>
+              <div class="dungeon-desc">{{ d.description }}</div>
+              <div class="dungeon-meta">
+                <span v-if="d.requireLevel">需等级 {{ d.requireLevel }}</span>
+                <span v-if="d.dailyLimit > 0">今日剩余 {{ d.dailyLimit }} 次</span>
+              </div>
+              <button class="forge-btn" @click="gameStore.enterDungeon(d.id)">进入副本</button>
+            </div>
+            <div v-if="!gameStore.dungeons.length" class="empty-hint">暂无副本</div>
+          </div>
+        </div>
+
+        <!-- 帮派 -->
+        <div v-if="activeTab === 'gangs'">
+          <!-- 已加入帮派 -->
+          <div v-if="gameStore.myGang" class="gang-info">
+            <div class="gang-name">🏠 {{ gameStore.myGang.name }}</div>
+            <div class="gang-desc" v-if="gameStore.myGang.description">{{ gameStore.myGang.description }}</div>
+            <div class="gang-stats">
+              <span>等级 {{ gameStore.myGang.level || 1 }}</span>
+              <span>成员 {{ gameStore.myGang.memberCount }}人</span>
+              <span>资金 {{ gameStore.myGang.funds || 0 }}</span>
+            </div>
+            <div class="gang-member-section">
+              <div class="section-title">成员</div>
+              <div v-for="m in (gameStore.myGang.members || [])" :key="m.userId" class="gang-member">
+                <span>{{ m.name || m.userId }}</span>
+                <span class="gang-role">{{ m.role }}</span>
+                <span v-if="m.contribution !== undefined">贡献 {{ m.contribution }}</span>
+              </div>
+            </div>
+            <div class="gang-actions">
+              <input v-model="gangDonateGold" type="number" min="0" placeholder="金币" class="gang-input" />
+              <button class="forge-btn" @click="gangDoDonate">捐献</button>
+              <button class="btn btn-secondary" @click="gameStore.leaveGang()">退出帮派</button>
+            </div>
+            <!-- 帮派仓库 -->
+            <div v-if="gameStore.myGang.warehouse && gameStore.myGang.warehouse.length" class="gang-warehouse">
+              <div class="section-title">帮派仓库</div>
+              <div v-for="item in gameStore.myGang.warehouse" :key="item.itemId" class="gang-wh-item">
+                <span>{{ item.name || item.itemId }} x{{ item.quantity }}</span>
+                <button class="forge-btn small" @click="gameStore.gangWithdraw(item.itemId, 1)">取出</button>
+              </div>
+            </div>
+          </div>
+          <!-- 未加入帮派 -->
+          <div v-else>
+            <div class="gang-search">
+              <input v-model="gangSearchQuery" placeholder="搜索帮派..." class="gang-input" @keyup.enter="gameStore.searchGangs(gangSearchQuery)" />
+              <button class="forge-btn" @click="gameStore.searchGangs(gangSearchQuery)">搜索</button>
+            </div>
+            <div v-if="gameStore.gangs.length" class="gang-list">
+              <div v-for="g in gameStore.gangs" :key="g.id || g.name" class="gang-item">
+                <div class="gang-name">{{ g.name }}</div>
+                <div class="gang-desc">{{ g.description }}</div>
+                <div class="gang-stats"><span>等级 {{ g.level || 1 }}</span><span>成员 {{ g.memberCount }}人</span></div>
+                <button class="forge-btn" @click="gameStore.joinGang(g.name)">加入</button>
+              </div>
+            </div>
+            <!-- 创建帮派 -->
+            <div class="gang-create-section">
+              <div class="section-title">创建帮派（需5级+1000金币）</div>
+              <input v-model="newGangName" placeholder="帮派名称" class="gang-input" />
+              <input v-model="newGangDesc" placeholder="帮派宗旨" class="gang-input" />
+              <button class="forge-btn" @click="createGangAction">创建</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 拍卖行 -->
+        <div v-if="activeTab === 'auction'">
+          <div class="auction-tabs">
+            <button class="menu-tab" :class="{ active: auctionView === 'list' }" @click="auctionView = 'list'; gameStore.searchAuctions('')">市场</button>
+            <button class="menu-tab" :class="{ active: auctionView === 'my' }" @click="auctionView = 'my'; gameStore.loadMyAuctions()">我的</button>
+            <button class="menu-tab" :class="{ active: auctionView === 'sell' }" @click="auctionView = 'sell'">出售</button>
+          </div>
+          <!-- 市场列表 -->
+          <div v-if="auctionView === 'list'">
+            <div v-for="item in gameStore.auctions.listings" :key="item.id || item._id" class="auction-item">
+              <div class="auction-name">{{ item.itemName }}</div>
+              <div class="auction-detail">
+                <span>💰 {{ item.price }}金 x{{ item.quantity }}</span>
+                <span>卖家: {{ item.sellerName }}</span>
+              </div>
+              <button class="forge-btn" @click="gameStore.buyAuction(item._id || item.id)">购买</button>
+            </div>
+            <div v-if="!gameStore.auctions.listings.length" class="empty-hint">暂无商品</div>
+          </div>
+          <!-- 我的挂单 -->
+          <div v-if="auctionView === 'my'">
+            <div v-for="item in gameStore.auctions.myListings" :key="item.id || item._id" class="auction-item">
+              <div class="auction-name">{{ item.itemName }}</div>
+              <div class="auction-detail"><span>💰 {{ item.price }}金 x{{ item.quantity }}</span></div>
+              <button class="btn btn-secondary" @click="gameStore.cancelAuction(item._id || item.id)">下架</button>
+            </div>
+            <div v-if="!gameStore.auctions.myListings.length" class="empty-hint">暂无挂单</div>
+          </div>
+          <!-- 出售 -->
+          <div v-if="auctionView === 'sell'">
+            <div class="auction-sell-form">
+              <select v-model="auctionItemId" class="auction-select">
+                <option value="">选择物品...</option>
+                <option v-for="item in gameStore.inventory" :key="item.itemId || item._id" :value="item.itemId">{{ item.name || item.itemId }} x{{ item.quantity }}</option>
+              </select>
+              <input v-model.number="auctionQuantity" type="number" min="1" placeholder="数量" class="gang-input" />
+              <input v-model.number="auctionPrice" type="number" min="1" placeholder="单价(金币)" class="gang-input" />
+              <select v-model="auctionDuration" class="auction-select">
+                <option :value="24">24小时</option>
+                <option :value="48">48小时</option>
+                <option :value="72">72小时</option>
+              </select>
+              <button class="forge-btn" @click="createAuctionAction">上架 (5%手续费)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 生活技能 -->
+        <div v-if="activeTab === 'life'">
+          <div class="life-tabs">
+            <button class="menu-tab" :class="{ active: lifeView === 'gather' }" @click="lifeView = 'gather'; gameStore.loadGatheringNodes()">采集</button>
+            <button class="menu-tab" :class="{ active: lifeView === 'alchemy' }" @click="lifeView = 'alchemy'; gameStore.loadAlchemyRecipes()">炼药</button>
+            <button class="menu-tab" :class="{ active: lifeView === 'cooking' }" @click="lifeView = 'cooking'; gameStore.loadCookingRecipes()">烹饪</button>
+          </div>
+          <!-- 采集 -->
+          <div v-if="lifeView === 'gather'">
+            <div v-for="node in gameStore.gatheringNodes" :key="node.id" class="gather-node">
+              <div class="gather-name">{{ node.name }}</div>
+              <div class="gather-desc">{{ node.description }}</div>
+              <div class="gather-meta">
+                <span v-if="node.levelRequired">需采集等级 {{ node.levelRequired }}</span>
+              </div>
+              <button class="forge-btn" @click="gameStore.gather(node.id)">采集</button>
+            </div>
+            <div v-if="!gameStore.gatheringNodes.length" class="empty-hint">当前房间没有采集点</div>
+          </div>
+          <!-- 炼药 -->
+          <div v-if="lifeView === 'alchemy'">
+            <div v-for="r in gameStore.alchemyRecipes" :key="r.id" class="craft-recipe">
+              <div class="craft-name">{{ r.name }}</div>
+              <div class="craft-desc">{{ r.description }}</div>
+              <div class="craft-cost">
+                <span v-if="r.cost?.gold">💰{{ r.cost.gold }}金</span>
+                <span v-for="m in (r.cost?.materials || [])" :key="m.itemId">{{ m.itemId }}x{{ m.quantity }}</span>
+              </div>
+              <button class="forge-btn" @click="gameStore.alchemy(r.id)">炼制</button>
+            </div>
+            <div v-if="!gameStore.alchemyRecipes.length" class="empty-hint">暂无炼药配方</div>
+          </div>
+          <!-- 烹饪 -->
+          <div v-if="lifeView === 'cooking'">
+            <div v-for="r in gameStore.cookingRecipes" :key="r.id" class="craft-recipe">
+              <div class="craft-name">{{ r.name }}</div>
+              <div class="craft-desc">{{ r.description }}</div>
+              <div class="craft-cost">
+                <span v-if="r.cost?.gold">💰{{ r.cost.gold }}金</span>
+                <span v-for="m in (r.cost?.materials || [])" :key="m.itemId">{{ m.itemId }}x{{ m.quantity }}</span>
+              </div>
+              <button class="forge-btn" @click="gameStore.cooking(r.id)">烹饪</button>
+            </div>
+            <div v-if="!gameStore.cookingRecipes.length" class="empty-hint">暂无烹饪配方</div>
+          </div>
+        </div>
+
+        <!-- 每日活跃 -->
+        <div v-if="activeTab === 'daily'">
+          <!-- 签到 -->
+          <div class="daily-section">
+            <div class="section-title">📅 每日签到</div>
+            <div class="daily-checkin-info" v-if="gameStore.dailyStatus">
+              <span>连续签到 {{ gameStore.dailyStatus.checkinStreak || 0 }} 天</span>
+              <span v-if="gameStore.dailyStatus.checkedInToday">✅ 今日已签到</span>
+            </div>
+            <button class="forge-btn" :disabled="gameStore.dailyStatus?.checkedInToday" @click="gameStore.dailyCheckin()">
+              {{ gameStore.dailyStatus?.checkedInToday ? '✅ 已签到' : '签到' }}
+            </button>
+          </div>
+          <!-- 每日任务 -->
+          <div class="daily-section" v-if="gameStore.dailyStatus?.dailyTasks">
+            <div class="section-title">📋 每日任务</div>
+            <div v-for="task in gameStore.dailyStatus.dailyTasks" :key="task.taskId || task.id" class="daily-task">
+              <div class="task-name">{{ task.name || task.taskId }}</div>
+              <div class="task-progress">{{ task.progress || 0 }}/{{ task.target || 1 }}</div>
+              <button v-if="task.progress >= task.target && !task.claimed" class="forge-btn small" @click="gameStore.claimDailyTask(task.taskId || task.id)">领取</button>
+              <span v-if="task.claimed" class="task-done">✅</span>
+            </div>
+          </div>
+          <!-- 活跃度奖励 -->
+          <div class="daily-section" v-if="gameStore.dailyStatus?.activityPoints !== undefined">
+            <div class="section-title">⭐ 活跃度 {{ gameStore.dailyStatus.activityPoints }}/100</div>
+            <div class="activity-rewards">
+              <button v-if="gameStore.dailyStatus.activityPoints >= 30 && !gameStore.dailyStatus.reward30Claimed" class="forge-btn" @click="gameStore.claimActivityReward(30)">领取30活跃奖励</button>
+              <span v-else-if="gameStore.dailyStatus.reward30Claimed" class="task-done">✅ 30奖励已领</span>
+              <button v-if="gameStore.dailyStatus.activityPoints >= 60 && !gameStore.dailyStatus.reward60Claimed" class="forge-btn" @click="gameStore.claimActivityReward(60)">领取60活跃奖励</button>
+              <span v-else-if="gameStore.dailyStatus.reward60Claimed" class="task-done">✅ 60奖励已领</span>
+              <button v-if="gameStore.dailyStatus.activityPoints >= 100 && !gameStore.dailyStatus.reward100Claimed" class="forge-btn" @click="gameStore.claimActivityReward(100)">领取100活跃奖励</button>
+              <span v-else-if="gameStore.dailyStatus.reward100Claimed" class="task-done">✅ 100奖励已领</span>
+            </div>
+          </div>
+        </div>
+
         <!-- 商店 -->
         <div v-if="activeTab === 'shop'">
           <button class="item-btn" @click="loadShopItems" style="margin-bottom:8px">刷新商品</button>
@@ -661,6 +892,18 @@ const showChatMode = ref(false)
 const tradeGoldInput = ref(0)
 const tradeItemSelect = ref('')
 const shopItems = ref([])
+
+// Phase 7-8 UI state
+const gangSearchQuery = ref('')
+const newGangName = ref('')
+const newGangDesc = ref('')
+const gangDonateGold = ref(0)
+const auctionView = ref('list')
+const auctionItemId = ref('')
+const auctionQuantity = ref(1)
+const auctionPrice = ref(100)
+const auctionDuration = ref(48)
+const lifeView = ref('gather')
 
 // 计算属性
 const isDead = computed(() => gameStore.isDead || (gameStore.user?.hp?.current <= 0 && !gameStore.battle))
@@ -1244,6 +1487,27 @@ function loadForgeRecipes() {
 
 function forge(recipeId) {
   gameStore.forge(recipeId)
+}
+
+// Phase 7-8 helper functions
+function gangDoDonate() {
+  gameStore.gangDonate(gangDonateGold.value || 0)
+  gangDonateGold.value = 0
+}
+function createGangAction() {
+  if (newGangName.value.trim()) {
+    gameStore.createGang(newGangName.value.trim(), newGangDesc.value.trim())
+    newGangName.value = ''
+    newGangDesc.value = ''
+  }
+}
+function createAuctionAction() {
+  if (auctionItemId.value && auctionQuantity.value > 0 && auctionPrice.value > 0) {
+    gameStore.createAuction(auctionItemId.value, auctionQuantity.value, auctionPrice.value, auctionDuration.value)
+    auctionItemId.value = ''
+    auctionQuantity.value = 1
+    auctionPrice.value = 100
+  }
 }
 
 function loadShopItems() {

@@ -29,6 +29,18 @@ export const useGameStore = defineStore('game', () => {
   const achievements = ref({ achieved: [], available: [] })
   const forgeRecipes = ref([])
   const timeInfo = ref(null)
+  // Phase 7-8: 副本/帮派/拍卖行/生活技能/每日活跃
+  const dungeons = ref([])
+  const currentDungeon = ref(null)
+  const dungeonWave = ref(null)
+  const gangs = ref([])
+  const myGang = ref(null)
+  const auctions = ref({ listings: [], myListings: [] })
+  const gatheringNodes = ref([])
+  const alchemyRecipes = ref([])
+  const cookingRecipes = ref([])
+  const dailyStatus = ref(null)
+  const activityRewards = ref([])
   
   // 计算属性
   const isLoggedIn = computed(() => !!token.value && !!user.value)
@@ -401,6 +413,132 @@ export const useGameStore = defineStore('game', () => {
     
     socket.value.on('time_info', (data) => {
       timeInfo.value = data
+    })
+
+    // ===== Phase 7-8: 副本 =====
+    socket.value.on('dungeons_list', (data) => {
+      dungeons.value = data.dungeons || []
+    })
+    socket.value.on('dungeon_entered', (data) => {
+      currentDungeon.value = data
+      addMessage('system', `进入副本「${data.dungeonName}」！`)
+    })
+    socket.value.on('dungeon_wave', (data) => {
+      dungeonWave.value = data
+      addMessage('battle', `第 ${data.wave} 波敌人出现！`)
+    })
+    socket.value.on('dungeon_completed', async (data) => {
+      addMessage('success', `副本「${data.dungeonName}」通关！`)
+      if (data.rewards) {
+        const parts = []
+        if (data.rewards.exp) parts.push(`经验+${data.rewards.exp}`)
+        if (data.rewards.gold) parts.push(`金币+${data.rewards.gold}`)
+        addMessage('success', `奖励: ${parts.join(', ')}`)
+      }
+      currentDungeon.value = null
+      dungeonWave.value = null
+      await Promise.all([refreshCurrentUser(), loadInventory()])
+    })
+    socket.value.on('dungeon_left', async (data) => {
+      addMessage('system', data.message || '已退出副本')
+      currentDungeon.value = null
+      dungeonWave.value = null
+    })
+
+    // ===== Phase 7-8: 帮派 =====
+    socket.value.on('gang_created', (data) => {
+      myGang.value = data.gang
+      addMessage('success', `帮派「${data.gang.name}」创建成功！`)
+    })
+    socket.value.on('gang_search_result', (data) => {
+      gangs.value = data.gangs || []
+    })
+    socket.value.on('gang_joined', async (data) => {
+      addMessage('success', data.message || '加入帮派成功')
+      await loadGangInfo()
+    })
+    socket.value.on('gang_left', (data) => {
+      myGang.value = null
+      addMessage('system', data.message || '已退出帮派')
+    })
+    socket.value.on('gang_info', (data) => {
+      myGang.value = data
+    })
+    socket.value.on('gang_donation_complete', (data) => {
+      addMessage('success', `捐献成功！贡献 +${data.contributionGained}`)
+    })
+    socket.value.on('gang_withdraw_complete', (data) => {
+      addMessage('success', `从帮派仓库取出: ${data.itemName}×${data.quantity}`)
+    })
+
+    // ===== Phase 7-8: 拍卖行 =====
+    socket.value.on('auction_search_result', (data) => {
+      auctions.value = { ...auctions.value, listings: data.listings || [] }
+    })
+    socket.value.on('auction_my_listings', (data) => {
+      auctions.value = { ...auctions.value, myListings: data.listings || [] }
+    })
+    socket.value.on('auction_created', async (data) => {
+      addMessage('success', `已上架 ${data.itemName}，单价 ${data.price} 金币`)
+      await loadInventory()
+    })
+    socket.value.on('auction_bought', async (data) => {
+      addMessage('success', `购买了 ${data.itemName}，花费 ${data.price} 金币`)
+      await Promise.all([refreshCurrentUser(), loadInventory()])
+    })
+    socket.value.on('auction_cancelled', async (data) => {
+      addMessage('system', data.message || '已下架')
+      await loadInventory()
+    })
+
+    // ===== Phase 7-8: 生活技能 =====
+    socket.value.on('gathering_nodes', (data) => {
+      gatheringNodes.value = data.nodes || []
+    })
+    socket.value.on('gather_success', async (data) => {
+      addMessage('success', `采集成功: ${data.itemName || data.itemId}×${data.quantity || 1}`)
+      await Promise.all([refreshCurrentUser(), loadInventory()])
+    })
+    socket.value.on('gather_failed', (data) => {
+      addMessage('error', data.message || '采集失败')
+    })
+    socket.value.on('alchemy_recipes', (data) => {
+      alchemyRecipes.value = data.recipes || []
+    })
+    socket.value.on('alchemy_success', async (data) => {
+      addMessage('success', data.message || '炼药成功！')
+      await Promise.all([refreshCurrentUser(), loadInventory()])
+    })
+    socket.value.on('alchemy_failed', (data) => {
+      addMessage('error', data.message || '炼药失败')
+    })
+    socket.value.on('cooking_recipes', (data) => {
+      cookingRecipes.value = data.recipes || []
+    })
+    socket.value.on('cooking_success', async (data) => {
+      addMessage('success', data.message || '烹饪成功！')
+      await Promise.all([refreshCurrentUser(), loadInventory()])
+    })
+    socket.value.on('cooking_failed', (data) => {
+      addMessage('error', data.message || '烹饪失败')
+    })
+
+    // ===== Phase 7-8: 每日活跃 =====
+    socket.value.on('daily_status', (data) => {
+      dailyStatus.value = data
+    })
+    socket.value.on('daily_checkin_result', (data) => {
+      addMessage('success', data.message || `签到成功！连续签到 ${data.streak} 天`)
+      dailyStatus.value = { ...dailyStatus.value, ...data }
+      refreshCurrentUser()
+    })
+    socket.value.on('daily_task_claimed', async (data) => {
+      addMessage('success', data.message || '每日任务奖励已领取')
+      await refreshCurrentUser()
+    })
+    socket.value.on('activity_reward_claimed', async (data) => {
+      addMessage('success', data.message || '活跃度奖励已领取')
+      await refreshCurrentUser()
     })
 
     socket.value.on('achievement_unlocked', (data) => {
@@ -1036,6 +1174,100 @@ export const useGameStore = defineStore('game', () => {
     }
   }
   
+  // ===== Phase 7-8: 副本 =====
+  function loadDungeons() {
+    if (socket.value) socket.value.emit('list_dungeons')
+  }
+  function enterDungeon(dungeonId) {
+    if (socket.value) socket.value.emit('enter_dungeon', { dungeonId })
+  }
+  function dungeonNextWave(dungeonId) {
+    if (socket.value) socket.value.emit('dungeon_next_wave', { dungeonId })
+  }
+  function dungeonWaveComplete(dungeonId) {
+    if (socket.value) socket.value.emit('dungeon_wave_complete', { dungeonId })
+  }
+  function leaveDungeon(dungeonId) {
+    if (socket.value) socket.value.emit('leave_dungeon', { dungeonId })
+  }
+
+  // ===== Phase 7-8: 帮派 =====
+  function createGang(name, description) {
+    if (socket.value) socket.value.emit('gang_create', { name, description })
+  }
+  function searchGangs(query) {
+    if (socket.value) socket.value.emit('gang_search', { query: query || '' })
+  }
+  function joinGang(gangName) {
+    if (socket.value) socket.value.emit('gang_join', { gangName })
+  }
+  function leaveGang() {
+    if (socket.value) socket.value.emit('gang_leave')
+  }
+  function loadGangInfo() {
+    if (socket.value) socket.value.emit('gang_info')
+  }
+  function gangDonate(gold, itemId, itemQuantity) {
+    if (socket.value) socket.value.emit('gang_donate', { gold, itemId, itemQuantity })
+  }
+  function gangWithdraw(itemId, quantity) {
+    if (socket.value) socket.value.emit('gang_withdraw', { itemId, quantity })
+  }
+  function sendGangChat(content) {
+    if (socket.value) socket.value.emit('chat_gang', { content })
+  }
+
+  // ===== Phase 7-8: 拍卖行 =====
+  function searchAuctions(query) {
+    if (socket.value) socket.value.emit('auction_search', { query: query || '' })
+  }
+  function loadMyAuctions() {
+    if (socket.value) socket.value.emit('auction_my_listings')
+  }
+  function createAuction(itemId, quantity, price, duration) {
+    if (socket.value) socket.value.emit('auction_create', { itemId, quantity, price, duration: duration || 48 })
+  }
+  function buyAuction(listingId) {
+    if (socket.value) socket.value.emit('auction_buy', { listingId })
+  }
+  function cancelAuction(listingId) {
+    if (socket.value) socket.value.emit('auction_cancel', { listingId })
+  }
+
+  // ===== Phase 7-8: 生活技能 =====
+  function loadGatheringNodes() {
+    if (socket.value) socket.value.emit('list_gathering_nodes')
+  }
+  function gather(nodeId) {
+    if (socket.value) socket.value.emit('gather', { nodeId })
+  }
+  function loadAlchemyRecipes() {
+    if (socket.value) socket.value.emit('list_alchemy_recipes')
+  }
+  function alchemy(recipeId) {
+    if (socket.value) socket.value.emit('alchemy', { recipeId })
+  }
+  function loadCookingRecipes() {
+    if (socket.value) socket.value.emit('list_cooking_recipes')
+  }
+  function cooking(recipeId) {
+    if (socket.value) socket.value.emit('cooking', { recipeId })
+  }
+
+  // ===== Phase 7-8: 每日活跃 =====
+  function loadDailyStatus() {
+    if (socket.value) socket.value.emit('get_daily_status')
+  }
+  function dailyCheckin() {
+    if (socket.value) socket.value.emit('daily_checkin')
+  }
+  function claimDailyTask(taskId) {
+    if (socket.value) socket.value.emit('claim_daily_task', { taskId })
+  }
+  function claimActivityReward(level) {
+    if (socket.value) socket.value.emit('claim_activity_reward', { level })
+  }
+  
   return {
     // 状态
     token,
@@ -1062,6 +1294,18 @@ export const useGameStore = defineStore('game', () => {
     achievements,
     forgeRecipes,
     timeInfo,
+    // Phase 7-8 状态
+    dungeons,
+    currentDungeon,
+    dungeonWave,
+    gangs,
+    myGang,
+    auctions,
+    gatheringNodes,
+    alchemyRecipes,
+    cookingRecipes,
+    dailyStatus,
+    activityRewards,
     // 计算属性
     isLoggedIn,
     isGM,
@@ -1102,6 +1346,35 @@ export const useGameStore = defineStore('game', () => {
     loadAchievements,
     loadForgeRecipes,
     forge,
-    getTimeInfo
+    getTimeInfo,
+    // Phase 7-8 方法
+    loadDungeons,
+    enterDungeon,
+    dungeonNextWave,
+    dungeonWaveComplete,
+    leaveDungeon,
+    createGang,
+    searchGangs,
+    joinGang,
+    leaveGang,
+    loadGangInfo,
+    gangDonate,
+    gangWithdraw,
+    sendGangChat,
+    searchAuctions,
+    loadMyAuctions,
+    createAuction,
+    buyAuction,
+    cancelAuction,
+    loadGatheringNodes,
+    gather,
+    loadAlchemyRecipes,
+    alchemy,
+    loadCookingRecipes,
+    cooking,
+    loadDailyStatus,
+    dailyCheckin,
+    claimDailyTask,
+    claimActivityReward
   }
 })
