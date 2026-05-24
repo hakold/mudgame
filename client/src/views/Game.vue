@@ -106,6 +106,22 @@
         <div class="quest-dialog">
           <div class="quest-dialog-title">【{{ gameStore.npcDialog.npc.name }}】</div>
           <div class="quest-dialog-message">{{ gameStore.npcDialog.message }}</div>
+          <!-- NPC服务按钮 -->
+          <div v-if="gameStore.npcDialog.npc?.services?.length" class="npc-services-row">
+            <button v-for="svc in gameStore.npcDialog.npc.services" :key="svc"
+              class="npc-service-btn"
+              @click="useNPCServices(svc)">
+              {{ svc === 'shop' || svc === 'buy_item' || svc === 'buy_weapon' || svc === 'buy_armor' ? '🏪 商店' :
+                 svc === 'repair' ? '🔧 修理' :
+                 svc === 'sell_item' ? '💰 出售' :
+                 svc === 'train' || svc === 'learn_skill' ? '📚 学习' :
+                 svc === 'rest' ? '🛏️ 休息' :
+                 svc === 'rumor' ? '💬 打听' :
+                 svc === 'forge_weapon' ? '🔨 锻造' :
+                 svc === 'faction' || svc === 'exchange' ? '⚡ 门派' :
+                 '🔹 ' + svc }}
+            </button>
+          </div>
           <!-- 可交任务 -->
           <div v-if="gameStore.npcDialog.completableQuests?.length" class="quest-offer-list">
             <div class="quest-offer-title completable">✅ 可交任务：</div>
@@ -1386,6 +1402,24 @@ function getQuestObjectives(quest) {
 
     return { key, label, current, target, done: current >= target }
   })
+}
+
+// NPC服务按钮处理
+function useNPCServices(svc) {
+  gameStore.npcDialog = null
+  if (['shop', 'buy_item', 'buy_weapon', 'buy_armor'].includes(svc)) {
+    activeTab.value = 'shop'
+    loadShopItems()
+  } else if (svc === 'repair') {
+    gameStore.sendCommand('repair')
+  } else if (svc === 'sell_item') {
+    activeTab.value = 'shop'
+    loadShopItems()
+  } else if (svc === 'forge_weapon') {
+    activeTab.value = 'life'
+  } else {
+    gameStore.sendCommand(svc)
+  }
 }
 
 function acceptQuest(questId) {
@@ -2695,6 +2729,31 @@ onUnmounted(() => {
 @keyframes pulse-glow {
   0%, 100% { box-shadow: 0 0 5px rgba(233,69,96,0.4); }
   50% { box-shadow: 0 0 20px rgba(233,69,96,0.8); }
+}
+
+
+/* NPC 服务按钮 */
+.npc-services-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #333;
+}
+.npc-service-btn {
+  padding: 5px 12px;
+  background: rgba(74, 158, 255, 0.15);
+  border: 1px solid rgba(74, 158, 255, 0.3);
+  color: #4a9eff;
+  border-radius: 6px;
+  font-size: 0.82em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.npc-service-btn:hover {
+  background: rgba(74, 158, 255, 0.3);
+  border-color: rgba(74, 158, 255, 0.6);
 }
 
 </style>

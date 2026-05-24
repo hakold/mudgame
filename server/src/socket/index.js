@@ -352,7 +352,7 @@ function socketHandler(io) {
       }
       helpLines.push('【任务】quests | talk <NPC_ID> | 在任务面板领取奖励');
       helpLines.push('【社交】who | say <内容> | trade <玩家> | pvp <玩家>');
-      helpLines.push('【门派】factions | faction join <门派ID> | faction leave');
+      helpLines.push('【门派】faction | faction join <门派ID> | faction leave');
       helpLines.push('【系统】help | rumor | where | time');
       if (user.freePoints > 0) {
         helpLines.push(`💡 你有 ${user.freePoints} 可分配属性点，点击左侧属性旁的 + 分配`);
@@ -2894,18 +2894,22 @@ function socketHandler(io) {
       }
 
       // 返回NPC对话信息
+      // 合并房间服务和NPC服务（商店类NPC需要）
+      const mergedServices = [...new Set([...(npc.services || []), ...(room.services || [])])];
       socket.emit('npc_dialog', {
         npc: {
           id: npc.id,
           name: npc.name,
           description: npc.description,
           type: npc.type,
-          services: npc.services,
+          services: mergedServices,
+          shopType: npc.shopType || room.shopType,
           items: npc.items,
           skills: npc.skills,
           quests: npc.quests
         },
         roomServices: room.services || [],
+        roomShopType: room.shopType,
         message: dialog,
         availableQuests,
         acceptedQuests,

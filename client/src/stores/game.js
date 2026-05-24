@@ -354,6 +354,11 @@ export const useGameStore = defineStore('game', () => {
       addMessage('success', `属性点分配成功！${data.statName || data.stat} +${data.pointsAllocated || data.amount || 1}`)
       await refreshCurrentUser()
     })
+
+    socket.value.on('user_updated', (data) => {
+      // 服务器推送用户状态更新（如升级后属性点变化）
+      if (data && data._id) user.value = data
+    })
     
     socket.value.on('battle_logs', (data) => {
       // 存储战斗日志列表供UI使用
