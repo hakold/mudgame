@@ -4842,5 +4842,239 @@
       "greeting": "时间是最公平的——每个人每天都只有十二个时辰。",
       "rumor": "永恒守卫守护着时光之巅的秘密。击败它，你可以在这里永远修炼下去。"
     }
+  },
+  {
+    "id": "npc_village_carter",
+    "name": "门派传送车夫",
+    "description": "专门负责将侠客送往各大门派的马车夫",
+    "roomId": "village_center",
+    "type": "teleport",
+    "services": [
+      "teleport"
+    ],
+    "dialogues": {
+      "greeting": [
+        "想去哪个门派？我可以送你一程，每次100金币。"
+      ],
+      "teleport": "请选择目的地"
+    },
+    "teleportDestinations": [
+      {
+        "id": "shaolin",
+        "name": "少林寺",
+        "roomId": "shaolin_gate",
+        "cost": 100
+      },
+      {
+        "id": "wudang",
+        "name": "武当山",
+        "roomId": "wudang_gate",
+        "cost": 100
+      },
+      {
+        "id": "emei",
+        "name": "峨眉派",
+        "roomId": "emei_gate",
+        "cost": 100
+      },
+      {
+        "id": "gaibang",
+        "name": "丐帮总舵",
+        "roomId": "gaibang_gate",
+        "cost": 100
+      },
+      {
+        "id": "mingjiao",
+        "name": "明教光明顶",
+        "roomId": "mingjiao_gate",
+        "cost": 100
+      },
+      {
+        "id": "xiaoyao",
+        "name": "逍遥派",
+        "roomId": "xiaoyao_gate",
+        "cost": 100
+      }
+    ]
+  },
+  {
+    "id": "npc_carter_shaolin",
+    "name": "门派传送轿夫",
+    "description": "在此等候的轿夫，可以送侠客去往别处。",
+    "roomId": "shaolin_gate",
+    "type": "teleport",
+    "services": [
+      "teleport"
+    ],
+    "dialogues": {
+      "greeting": [
+        "客官要坐轿子去哪里？"
+      ],
+      "teleport": "请选择目的地"
+    },
+    "teleportDestinations": [
+      {
+        "id": "village",
+        "name": "新手村",
+        "roomId": "village_center",
+        "cost": 100
+      },
+      {
+        "id": "city",
+        "name": "洛阳城",
+        "roomId": "city_center",
+        "cost": 150
+      }
+    ]
+  },
+  {
+    "id": "npc_carter_wudang",
+    "name": "门派传送轿夫",
+    "description": "在此等候的轿夫，可以送侠客去往别处。",
+    "roomId": "wudang_gate",
+    "type": "teleport",
+    "services": [
+      "teleport"
+    ],
+    "dialogues": {
+      "greeting": [
+        "客官要坐轿子去哪里？"
+      ],
+      "teleport": "请选择目的地"
+    },
+    "teleportDestinations": [
+      {
+        "id": "village",
+        "name": "新手村",
+        "roomId": "village_center",
+        "cost": 100
+      },
+      {
+        "id": "city",
+        "name": "洛阳城",
+        "roomId": "city_center",
+        "cost": 150
+      }
+    ]
+  },
+  {
+    "id": "npc_carter_emei",
+    "name": "门派传送轿夫",
+    "description": "在此等候的轿夫，可以送侠客去往别处。",
+    "roomId": "emei_gate",
+    "type": "teleport",
+    "services": [
+      "teleport"
+    ],
+    "dialogues": {
+      "greeting": [
+        "客官要坐轿子去哪里？"
+      ],
+      "teleport": "请选择目的地"
+    },
+    "teleportDestinations": [
+      {
+        "id": "village",
+        "name": "新手村",
+        "roomId": "village_center",
+        "cost": 100
+      },
+      {
+        "id": "city",
+        "name": "洛阳城",
+        "roomId": "city_center",
+        "cost": 150
+      }
+    ]
+  },
+  {
+    "id": "npc_carter_gaibang",
+    "name": "门派传送轿夫",
+    "description": "在此等候的轿夫，可以送侠客去往别处。",
+    "roomId": "gaibang_gate",
+    "type": "teleport",
+    "services": [
+      "teleport"
+    ],
+    "dialogues": {
+      "greeting": [
+        "客官要坐轿子去哪里？"
+      ],
+      "teleport": "请选择目的地"
+    },
+    "teleportDestinations": [
+      {
+        "id": "village",
+        "name": "新手村",
+        "roomId": "village_center",
+        "cost": 100
+      },
+      {
+        "id": "city",
+        "name": "洛阳城",
+        "roomId": "city_center",
+        "cost": 150
+      }
+    ]
+  },
+  {
+    "id": "npc_carter_mingjiao",
+    "name": "门派传送轿夫",
+    "description": "在此等候的轿夫，可以送侠客去往别处。",
+    "roomId": "mingjiao_gate",
+    "type": "teleport",
+    "services": [
+      "teleport"
+    ],
+    "dialogues": {
+      "greeting": [
+        "客官要坐轿子去哪里？"
+      ],
+      "teleport": "请选择目的地"
+    },
+    "teleportDestinations": [
+      {
+        "id": "village",
+        "name": "新手村",
+        "roomId": "village_center",
+        "cost": 100
+      },
+      {
+        "id": "city",
+        "name": "洛阳城",
+        "roomId": "city_center",
+        "cost": 150
+      }
+    ]
+  },
+  {
+    "id": "npc_carter_xiaoyao",
+    "name": "门派传送轿夫",
+    "description": "在此等候的轿夫，可以送侠客去往别处。",
+    "roomId": "xiaoyao_gate",
+    "type": "teleport",
+    "services": [
+      "teleport"
+    ],
+    "dialogues": {
+      "greeting": [
+        "客官要坐轿子去哪里？"
+      ],
+      "teleport": "请选择目的地"
+    },
+    "teleportDestinations": [
+      {
+        "id": "village",
+        "name": "新手村",
+        "roomId": "village_center",
+        "cost": 100
+      },
+      {
+        "id": "city",
+        "name": "洛阳城",
+        "roomId": "city_center",
+        "cost": 150
+      }
+    ]
   }
 ]

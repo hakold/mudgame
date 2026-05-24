@@ -102,7 +102,33 @@
     <!-- 中央面板 - 游戏内容 -->
     <div class="center-panel">
       <!-- NPC任务对话框 -->
-      <div class="quest-overlay" v-if="gameStore.npcDialog">
+      
+      <!-- 地图弹窗 -->
+      <div class="quest-overlay" v-if="showMap" @click.self="showMap = false">
+        <div class="quest-dialog" style="max-width: 420px;">
+          <div class="quest-dialog-title">🗺️ 当前位置</div>
+          <div class="quest-dialog-message">
+            <div style="font-size: 1.1em; margin-bottom: 8px;">📍 {{ gameStore.currentRoom?.name || gameStore.currentRoom?.id || '未知' }}</div>
+            <div style="color: #aaa; font-size: 0.85em; margin-bottom: 12px;">{{ gameStore.currentRoom?.description || '' }}</div>
+          </div>
+          <!-- 出口 -->
+          <div class="quest-offer-list">
+            <div class="quest-offer-title">🚪 可移动方向</div>
+            <div v-if="gameStore.currentRoom?.exits" style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+              <button v-for="(target, dir) in gameStore.currentRoom.exits" :key="dir"
+                class="quick-btn map-dir-btn"
+                @click="gameStore.sendCommand('go ' + dir); showMap = false">
+                {{ getDirectionEmoji(dir) }} {{ dirDisplayName(dir) }}
+                <span style="font-size:0.7em;color:#888;display:block">{{ roomDisplayName(target) }}</span>
+              </button>
+            </div>
+            <div v-else class="empty-hint">此处无路可走</div>
+          </div>
+          <button class="quest-close-btn" @click="showMap = false">关闭</button>
+        </div>
+      </div>
+
+<div class="quest-overlay" v-if="gameStore.npcDialog">
         <div class="quest-dialog">
           <div class="quest-dialog-title">【{{ gameStore.npcDialog.npc.name }}】</div>
           <div class="quest-dialog-message">{{ gameStore.npcDialog.message }}</div>
@@ -327,7 +353,7 @@
                 @click="interactNpc(npc.id)"
                 :title="'点击与' + npc.name + '对话'"
               >
-                🧑 {{ npc.name }}
+                🧑 {{ npc.name }}<span v-if="hasNpcQuest(npc)" class="npc-quest-icon" :class="{ 'quest-completed': isNpcQuestDone(npc) }">{{ isNpcQuestDone(npc) ? '✅' : '❗' }}</span>
               </div>
               <div v-if="!gameStore.currentRoom.npcs?.length" class="entity-item">无</div>
             </div>
@@ -436,7 +462,7 @@
       <div class="quick-actions">
         <button class="quick-btn" @click="showChatMode = !showChatMode">💬 {{ showChatMode ? '命令' : '聊天' }}</button>
         <button class="quick-btn" @click="quickCommand('look')">👁️ 查看</button>
-        <button class="quick-btn" @click="quickCommand('where')">📍 位置</button>
+        <button class="quick-btn" @click="showMap = true">🗺️ 地图</button>
         <button class="quick-btn" @click="quickCommand('status')">📊 状态</button>
       </div>
       <div class="quick-actions">
@@ -602,7 +628,7 @@
             </div>
             <div class="online-player-meta">
               <span v-if="player.faction" class="online-player-faction">{{ getFactionName(player.faction) }}</span>
-              <span class="online-player-room">{{ player.location?.roomId || '' }}</span>
+              <span class="online-player-room">{{ roomDisplayName(player.location?.roomId || '') }}</span>
             </div>
           </div>
           <div v-if="!gameStore.onlinePlayers.length" class="empty-hint">暂无其他玩家在线</div>
@@ -1033,6 +1059,24 @@
 </template>
 
 <script setup>
+
+// ===== 本地化翻译映射 =====
+const roomNames = {"village_center": "村庄广场", "village_inn": "客栈", "village_blacksmith": "铁匠铺", "village_shop": "杂货铺", "village_training": "练武场", "forest_entrance": "森林入口", "forest_deep": "森林深处", "forest_clearing": "林间空地", "forest_cave": "神秘洞穴", "city_gate": "城门", "city_square": "城市广场", "city_tavern": "醉仙楼", "city_market": "集市", "city_arena": "竞技场", "city_guild": "侠客公会", "mountain_path": "山道", "mountain_peak": "山顶", "mountain_temple": "青云观", "desert_entrance": "荒漠入口", "desert_oasis": "绿洲", "desert_ruins": "古城遗址", "desert_tomb": "地下陵墓", "snow_pass": "雪山关隘", "snow_village": "雪村", "snow_cave": "冰洞", "snow_palace": "冰宫", "swamp_entrance": "沼泽边缘", "swamp_deep": "沼泽深处", "swamp_island": "沼泽孤岛", "swamp_lair": "毒蛟巢穴", "island_beach": "仙岛海滩", "island_forest": "仙岛密林", "island_peak": "仙岛山顶", "island_cave": "仙人洞府", "underground_entrance": "迷宫入口", "underground_hall": "中央大厅", "underground_prison": "囚牢区", "underground_treasure": "宝藏室", "volcano_base": "火山脚下", "volcano_crater": "火山口", "volcano_lair": "火蛟巢穴", "volcano_forge": "熔火锻造", "palace_gate": "宫门", "palace_courtyard": "御花园", "palace_hall": "金銮殿", "palace_garden": "后花园", "palace_library": "皇家藏书阁", "demon_portal": "魔域入口", "demon_fortress": "魔族堡垒", "demon_arena": "魔族竞技场", "demon_throne": "魔王殿", "forest_path": "林间小径", "deep_forest": "密林深处", "village_field": "村外田野", "river_bank": "河边", "dark_cave": "黑暗洞窟", "snow_field": "雪原", "bamboo_grove": "竹林", "shaolin_temple": "少林寺", "shaolin_pagoda": "少林塔林", "wudang_peak": "武当山", "wudang_hall": "武当真武殿", "emei_temple": "峨眉金顶", "emei_hall": "峨眉万法堂", "mingjiao_hall": "明教光明顶", "mingjiao_sanctum": "明教密殿", "xiaoyao_valley": "逍遥谷", "xiaoyao_pavilion": "逍遥阁", "gaibang_hq": "丐帮总舵", "gaibang_hall": "丐帮议事厅", "forest_waterfall": "林中瀑布", "herbalist_hut": "药师草庐", "city_docks": "洛阳码头", "city_residential": "民居区", "city_temple": "城隍庙", "city_bridge": "石桥", "mountain_cliff": "山崖", "mountain_spring": "山泉", "mountain_bridge": "铁索桥", "sky_path": "天路", "heaven_gate": "天之门", "celestial_palace": "天宫", "desert_bazaar": "沙漠集市", "desert_pyramid": "金字塔", "pyramid_interior": "金字塔内", "pyramid_tomb": "法老之墓", "graveyard_entrance": "乱葬岗", "graveyard_deep": "墓地深处", "crypt": "地下墓穴", "lakeside": "湖畔", "lake_village": "渔村", "lake_island": "湖心岛", "underwater_cave": "水下洞穴", "cave_network": "地下洞穴", "bandit_camp": "山贼营地", "bandit_stronghold": "山贼山寨", "canyon_entrance": "峡谷入口", "canyon_deep": "峡谷深处", "canyon_cross": "峡谷岔路", "canyon_abyss": "深渊谷底", "crystal_cave": "水晶洞", "city_rich": "富人区", "auction_house": "拍卖行", "city_slums": "贫民窟", "gambling_den": "地下赌坊", "tea_house": "清风茶楼", "ancient_tree": "万年古树", "tree_canopy": "树冠之上", "cloud_sea": "云海", "hot_springs": "山间温泉", "coastal_cliff": "海崖", "pirate_cove": "海盗湾", "pirate_ship": "幽灵海盗船", "captain_cabin": "船长室", "ancient_battlefield": "古战场", "secret_garden": "秘境花园", "snow_peak": "雪山顶", "snow_monastery": "雪寺", "swamp_village": "沼泽村落", "swamp_altar": "沼泽祭坛", "demon_prison": "魔族监狱", "demon_treasury": "魔族宝库", "plains": "草原", "plains_camp": "游牧营地", "plains_lake": "草原湖泊", "plains_ruins": "草原遗迹", "mushroom_forest": "蘑菇林", "wind_valley": "风之谷", "bamboo_temple": "竹林禅院", "bamboo_hall": "禅院武堂", "dragon_graveyard": "龙墓", "jiao_shrine": "龙神殿", "rainbow_bridge": "彩虹桥", "fire_shrine": "炎之殿", "water_shrine": "水之殿", "mirror_lake": "镜湖", "phoenix_peak": "凤凰台", "phoenix_nest": "凤凰巢", "time_tower": "时光塔", "time_tower_top": "时光之巅", "shadow_realm": "暗影界", "shadow_throne": "暗影王座", "xuankong_temple": "悬空寺", "xuankong_hall": "悬空大殿", "underground_river": "地下暗河", "abyss_waterfall": "深渊瀑布", "thunder_peak": "雷霆峰", "thunder_shrine": "雷神殿", "mist_valley": "迷雾谷", "jade_palace": "玉虚宫", "starlit_bridge": "星光桥", "void_edge": "虚空边缘", "jiao_palace": "海底水府", "coral_garden": "珊瑚园", "dragon_throne_room": "龙王殿", "sky_bazaar": "云中集市", "underground_city": "地下城", "underground_market": "地下集市", "opera_house": "梨园", "observatory": "观星台", "cherry_garden": "樱园", "lava_tubes": "熔岩通道", "volcano_core": "地核之心", "warrior_tombs": "侠客陵", "city_center": "洛阳城中心", "city_north": "洛阳北街", "city_south": "洛阳南街", "city_east": "洛阳东街", "city_west": "洛阳西街", "shaolin_gate": "少林寺山门", "wudang_gate": "武当山山门", "emei_gate": "峨眉派山门", "gaibang_gate": "丐帮总舵入口", "mingjiao_gate": "明教光明顶入口", "xiaoyao_gate": "逍遥派入口"}
+const dirNames = {"north": "北", "south": "南", "east": "东", "west": "西", "northwest": "西北", "northeast": "东北", "southwest": "西南", "southeast": "东南", "up": "上", "down": "下", "enter": "进入", "out": "离开"}
+function roomDisplayName(roomId) {
+  return roomNames[roomId] || roomId
+}
+function dirDisplayName(dir) {
+  return dirNames[dir] || dir
+}
+function getRoomDisplayName(room) {
+  if (typeof room === 'string') return roomDisplayName(room)
+  if (room?.name) return room.name
+  return room?.id ? roomDisplayName(room.id) : '未知'
+}
+const statLabels = { strength: '力量', dexterity: '敏捷', constitution: '体质', intelligence: '悟性', charisma: '根骨' }
+const RANK_LABELS = { disciple: '弟子', deacon: '执事', elder: '长老', leader: '掌门' }
+function rankLabel(rank) { return RANK_LABELS[rank] || rank }
 import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { useGameStore } from '../stores/game'
@@ -1066,6 +1110,7 @@ const lifeView = ref('herb')
 // 计算属性
 const isDead = computed(() => gameStore.isDead || (gameStore.user?.hp?.current <= 0 && !gameStore.battle))
 const freePoints = computed(() => gameStore.user?.freePoints || gameStore.user?.attributePoints || 0)
+const showMap = ref(false)
 
 const factionRankLabel = computed(() => {
   const rank = gameStore.user?.factionRank
@@ -1293,6 +1338,33 @@ function sendCommand() {
   // 命令模式
   gameStore.sendCommand(cmd)
   command.value = ''
+}
+
+function hasNpcQuest(npc) {
+  // Check if any active quest targets this NPC or if NPC has quests
+  const quests = gameStore.npcDialog?.npc?.quests
+  if (quests?.length) {
+    // Check if any are completable, available, or accepted
+    const allQuests = [
+      ...(gameStore.npcDialog?.completableQuests || []),
+      ...(gameStore.npcDialog?.availableQuests || []),
+      ...(gameStore.npcDialog?.acceptedQuests || [])
+    ]
+    return quests.some(qId => allQuests.some(q => q.id === qId))
+  }
+  return npc.quests?.length > 0
+}
+function isNpcQuestDone(npc) {
+  if (!npc.quests?.length) return false
+  return npc.quests.every(qId => 
+    gameStore.npcDialog?.completableQuests?.some(q => q.id === qId)
+  )
+}
+function getDirectionEmoji(dir) {
+  const map = { north: '⬆️', south: '⬇️', east: '➡️', west: '⬅️',
+    northwest: '↖️', northeast: '↗️', southwest: '↙️', southeast: '↘️',
+    up: '⬆️', down: '⬇️', enter: '🚪', out: '🚪' }
+  return map[dir] || '🔹'
 }
 
 function quickCommand(cmd) {
@@ -2754,6 +2826,25 @@ onUnmounted(() => {
 .npc-service-btn:hover {
   background: rgba(74, 158, 255, 0.3);
   border-color: rgba(74, 158, 255, 0.6);
+}
+
+
+/* 地图弹窗方向按钮 */
+.map-dir-btn {
+  padding: 8px 10px;
+  font-size: 0.85em;
+  text-align: left;
+  line-height: 1.3;
+  width: 100%;
+}
+/* NPC 任务指示图标 */
+.npc-quest-icon {
+  font-size: 0.7em;
+  margin-left: 4px;
+  opacity: 0.8;
+}
+.npc-quest-icon.quest-completed {
+  opacity: 0.4;
 }
 
 </style>

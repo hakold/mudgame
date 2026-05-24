@@ -1,0 +1,279 @@
+# 侠客行 MUD 中英文翻译对照表
+
+## 房间名称 (Room Names)
+
+| abyss_waterfall | 深渊瀑布 |
+| ancient_battlefield | 古战场 |
+| ancient_tree | 万年古树 |
+| auction_house | 拍卖行 |
+| bamboo_grove | 竹林 |
+| bamboo_hall | 禅院武堂 |
+| bamboo_temple | 竹林禅院 |
+| bandit_camp | 山贼营地 |
+| bandit_stronghold | 山贼山寨 |
+| canyon_abyss | 深渊谷底 |
+| canyon_cross | 峡谷岔路 |
+| canyon_deep | 峡谷深处 |
+| canyon_entrance | 峡谷入口 |
+| captain_cabin | 船长室 |
+| cave_network | 地下洞穴 |
+| celestial_palace | 天宫 |
+| cherry_garden | 樱园 |
+| city_arena | 竞技场 |
+| city_bridge | 石桥 |
+| city_center | 洛阳城中心 |
+| city_docks | 洛阳码头 |
+| city_east | 洛阳东街 |
+| city_gate | 城门 |
+| city_guild | 侠客公会 |
+| city_market | 集市 |
+| city_north | 洛阳北街 |
+| city_residential | 民居区 |
+| city_rich | 富人区 |
+| city_slums | 贫民窟 |
+| city_south | 洛阳南街 |
+| city_square | 城市广场 |
+| city_tavern | 醉仙楼 |
+| city_temple | 城隍庙 |
+| city_west | 洛阳西街 |
+| cloud_sea | 云海 |
+| coastal_cliff | 海崖 |
+| coral_garden | 珊瑚园 |
+| crypt | 地下墓穴 |
+| crystal_cave | 水晶洞 |
+| dark_cave | 黑暗洞窟 |
+| deep_forest | 密林深处 |
+| demon_arena | 魔族竞技场 |
+| demon_fortress | 魔族堡垒 |
+| demon_portal | 魔域入口 |
+| demon_prison | 魔族监狱 |
+| demon_throne | 魔王殿 |
+| demon_treasury | 魔族宝库 |
+| desert_bazaar | 沙漠集市 |
+| desert_entrance | 荒漠入口 |
+| desert_oasis | 绿洲 |
+| desert_pyramid | 金字塔 |
+| desert_ruins | 古城遗址 |
+| desert_tomb | 地下陵墓 |
+| dragon_graveyard | 龙墓 |
+| dragon_throne_room | 龙王殿 |
+| emei_gate | 峨眉派山门 |
+| emei_hall | 峨眉万法堂 |
+| emei_temple | 峨眉金顶 |
+| fire_shrine | 炎之殿 |
+| forest_cave | 神秘洞穴 |
+| forest_clearing | 林间空地 |
+| forest_deep | 森林深处 |
+| forest_entrance | 森林入口 |
+| forest_path | 林间小径 |
+| forest_waterfall | 林中瀑布 |
+| gaibang_gate | 丐帮总舵入口 |
+| gaibang_hall | 丐帮议事厅 |
+| gaibang_hq | 丐帮总舵 |
+| gambling_den | 地下赌坊 |
+| graveyard_deep | 墓地深处 |
+| graveyard_entrance | 乱葬岗 |
+| heaven_gate | 天之门 |
+| herbalist_hut | 药师草庐 |
+| hot_springs | 山间温泉 |
+| island_beach | 仙岛海滩 |
+| island_cave | 仙人洞府 |
+| island_forest | 仙岛密林 |
+| island_peak | 仙岛山顶 |
+| jade_palace | 玉虚宫 |
+| jiao_palace | 海底水府 |
+| jiao_shrine | 龙神殿 |
+| lake_island | 湖心岛 |
+| lake_village | 渔村 |
+| lakeside | 湖畔 |
+| lava_tubes | 熔岩通道 |
+| mingjiao_gate | 明教光明顶入口 |
+| mingjiao_hall | 明教光明顶 |
+| mingjiao_sanctum | 明教密殿 |
+| mirror_lake | 镜湖 |
+| mist_valley | 迷雾谷 |
+| mountain_bridge | 铁索桥 |
+| mountain_cliff | 山崖 |
+| mountain_path | 山道 |
+| mountain_peak | 山顶 |
+| mountain_spring | 山泉 |
+| mountain_temple | 青云观 |
+| mushroom_forest | 蘑菇林 |
+| observatory | 观星台 |
+| opera_house | 梨园 |
+| palace_courtyard | 御花园 |
+| palace_garden | 后花园 |
+| palace_gate | 宫门 |
+| palace_hall | 金銮殿 |
+| palace_library | 皇家藏书阁 |
+| phoenix_nest | 凤凰巢 |
+| phoenix_peak | 凤凰台 |
+| pirate_cove | 海盗湾 |
+| pirate_ship | 幽灵海盗船 |
+| plains | 草原 |
+| plains_camp | 游牧营地 |
+| plains_lake | 草原湖泊 |
+| plains_ruins | 草原遗迹 |
+| pyramid_interior | 金字塔内 |
+| pyramid_tomb | 法老之墓 |
+| rainbow_bridge | 彩虹桥 |
+| river_bank | 河边 |
+| secret_garden | 秘境花园 |
+| shadow_realm | 暗影界 |
+| shadow_throne | 暗影王座 |
+| shaolin_gate | 少林寺山门 |
+| shaolin_pagoda | 少林塔林 |
+| shaolin_temple | 少林寺 |
+| sky_bazaar | 云中集市 |
+| sky_path | 天路 |
+| snow_cave | 冰洞 |
+| snow_field | 雪原 |
+| snow_monastery | 雪寺 |
+| snow_palace | 冰宫 |
+| snow_pass | 雪山关隘 |
+| snow_peak | 雪山顶 |
+| snow_village | 雪村 |
+| starlit_bridge | 星光桥 |
+| swamp_altar | 沼泽祭坛 |
+| swamp_deep | 沼泽深处 |
+| swamp_entrance | 沼泽边缘 |
+| swamp_island | 沼泽孤岛 |
+| swamp_lair | 毒蛟巢穴 |
+| swamp_village | 沼泽村落 |
+| tea_house | 清风茶楼 |
+| thunder_peak | 雷霆峰 |
+| thunder_shrine | 雷神殿 |
+| time_tower | 时光塔 |
+| time_tower_top | 时光之巅 |
+| tree_canopy | 树冠之上 |
+| underground_city | 地下城 |
+| underground_entrance | 迷宫入口 |
+| underground_hall | 中央大厅 |
+| underground_market | 地下集市 |
+| underground_prison | 囚牢区 |
+| underground_river | 地下暗河 |
+| underground_treasure | 宝藏室 |
+| underwater_cave | 水下洞穴 |
+| village_blacksmith | 铁匠铺 |
+| village_center | 村庄广场 |
+| village_field | 村外田野 |
+| village_inn | 客栈 |
+| village_shop | 杂货铺 |
+| village_training | 练武场 |
+| void_edge | 虚空边缘 |
+| volcano_base | 火山脚下 |
+| volcano_core | 地核之心 |
+| volcano_crater | 火山口 |
+| volcano_forge | 熔火锻造 |
+| volcano_lair | 火蛟巢穴 |
+| warrior_tombs | 侠客陵 |
+| water_shrine | 水之殿 |
+| wind_valley | 风之谷 |
+| wudang_gate | 武当山山门 |
+| wudang_hall | 武当真武殿 |
+| wudang_peak | 武当山 |
+| xiaoyao_gate | 逍遥派入口 |
+| xiaoyao_pavilion | 逍遥阁 |
+| xiaoyao_valley | 逍遥谷 |
+| xuankong_hall | 悬空大殿 |
+| xuankong_temple | 悬空寺 |
+
+## 方向 (Directions)
+
+| 英文 | 中文 |
+|------|------|
+| north | 北 |
+| south | 南 |
+| east | 东 |
+| west | 西 |
+| northwest | 西北 |
+| northeast | 东北 |
+| southwest | 西南 |
+| southeast | 东南 |
+| up | 上 |
+| down | 下 |
+| enter | 进入 |
+| out | 离开 |
+
+## 属性 (Attributes)
+
+| 英文 | 中文 |
+|------|------|
+| strength | 力量 |
+| dexterity | 敏捷 |
+| constitution | 体质 |
+| intelligence | 悟性 |
+| charisma | 根骨 |
+
+## UI 标签 (UI Labels)
+
+| 英文 | 中文 |
+|------|------|
+| NPC | 非玩家角色 |
+| HP | 气血 |
+| MP | 内力 |
+| EXP | 经验 |
+| Gold | 金币 |
+| Level | 等级 |
+| Status | 状态 |
+| online | 在线 |
+| offline | 离线 |
+| fighting | 战斗中 |
+| dead | 死亡 |
+
+## 物品类型 (Item Types)
+
+| 英文 | 中文 |
+|------|------|
+| weapon | 武器 |
+| armor | 防具 |
+| equipment | 装备 |
+| consumable | 消耗品 |
+| material | 材料 |
+| skill_book | 功法书 |
+| gift | 礼包 |
+
+## 服务类型 (Service Types)
+
+| 英文 | 中文 |
+|------|------|
+| shop | 商店 |
+| buy_weapon | 买武器 |
+| buy_armor | 买防具 |
+| buy_item | 买物品 |
+| sell_item | 卖物品 |
+| repair | 修理 |
+| rest | 休息 |
+| train | 修炼 |
+| learn_skill | 学技能 |
+| teleport | 传送 |
+| rumor | 打听消息 |
+| forge_weapon | 锻造武器 |
+
+## 命令 (Commands)
+
+| 英文 | 中文说明 |
+|------|---------|
+| look/l | 查看 |
+| who | 在线玩家 |
+| help | 帮助 |
+| inv/i | 背包 |
+| move/go | 移动 |
+| kill/attack | 攻击 |
+| skill | 使用技能 |
+| flee | 逃跑 |
+| rest | 休息 |
+| shop | 商店列表 |
+| buy | 购买 |
+| sell | 出售 |
+| use | 使用物品 |
+| equip | 装备物品 |
+| unequip | 卸下装备 |
+| pickup | 拾取物品 |
+| talk | 对话NPC |
+| faction | 门派相关 |
+| quest | 任务 |
+| rumor | 打听消息 |
+| trade | 交易 |
+| pvp | 切磋 |
+| train | 加点 |

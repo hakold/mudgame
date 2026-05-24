@@ -1051,6 +1051,10 @@ export const useGameStore = defineStore('game', () => {
           addMessage('error', '无法获取当前位置信息')
         }
         break
+      case 'teleport':
+        // teleport <npcId> <destinationId>
+        socket.value.emit('teleport', { npcId: args[0], destinationId: args[1] })
+        break
       default:
         addMessage('error', `未知命令: ${cmd}`)
     }

@@ -27,7 +27,7 @@ const SERVICE_LABELS = {
   sell_item: '出售', repair: '修理', train: '训练', learn_skill: '学习技能',
   meditate: '冥想', water: '饮水', pvp: '竞技', quest: '任务', ranking: '排行榜',
   bank: '钱庄', storage: '仓库', guide: '向导', exchange: '贡献兑换', travel: '出行',
-  fortune: '算命', forge_weapon: '锻造', drink: '饮酒'
+  fortune: '算命', forge_weapon: '锻造', drink: '饮酒', teleport: '传送'
 };
 
 // 方向中文映射
@@ -3411,6 +3411,88 @@ function socketHandler(io) {
 
       // 任务进度：训练属性
       questProgressService.checkProgress(user._id, { type: 'train' }).catch(() => {});
+    });
+
+    // ==================== 传送系统 ====================
+
+    socket.on('teleport', async (data) => {
+      const { npcId, destinationId } = data || {};
+
+      if (!npcId || !destinationId) {
+        return socket.emit('error', { message: '请指定NPC和目的地' });
+      }
+
+      // 查找当前房间的NPC
+      const room = getRoom(user.location.roomId);
+      if (!room) {
+        return socket.emit('error', { message: '当前位置无效' });
+      }
+
+      const npcs = getNpcsInRoom(room.id);
+      const npc = npcs.find(n => n.id === npcId);
+
+      if (!npc) {
+        return socket.emit('error', { message: '此NPC不在当前房间' });
+      }
+
+      // 检查NPC是否为传送类型
+      if (npc.type !== 'teleport' && !npc.services?.includes('teleport')) {
+        return socket.emit('error', { message: '此NPC不提供传送服务' });
+      }
+
+      // 检查传送目标
+      const teleportDestinations = npc.teleportDestinations;
+      if (!teleportDestinations || !Array.isArray(teleportDestinations)) {
+        return socket.emit('error', { message: '此NPC没有可用的传送目的地' });
+      }
+
+      const destination = teleportDestinations.find(d => d.id === destinationId);
+      if (!destination) {
+        return socket.emit('error', { message: '无效的目的地' });
+      }
+
+      // 检查目标房间是否存在
+      const targetRoom = getRoom(destination.roomId);
+      if (!targetRoom) {
+        return socket.emit('error', { message: '目的地不存在' });
+      }
+
+      // 检查金币
+      const cost = destination.cost || 0;
+      if (user.gold < cost) {
+        return socket.emit('error', {
+          message: `金币不足！传送需要 ${cost} 金币，你当前有 ${user.gold} 金币。`
+        });
+      }
+
+      // 扣金币
+      user.gold -= cost;
+      await user.save();
+
+      // 移动玩家
+      const oldRoomId = user.location.roomId;
+      removeFromRoom(oldRoomId, socket.id);
+      io.to(`room:${oldRoomId}`).emit('player_left', { name: user.characterName });
+      io.to(`room:${oldRoomId}`).emit('room_info', getRoomDescription(oldRoomId));
+
+      user.location.roomId = destination.roomId;
+      await user.save();
+      addToRoom(destination.roomId, socket.id, user.characterName);
+
+      // 通知新房间
+      const roomInfo = getRoomDescription(destination.roomId);
+      socket.emit('room_info', roomInfo);
+      io.to(`room:${destination.roomId}`).emit('player_entered', {
+        name: user.characterName
+      });
+
+      const dirLabel = SERVICE_LABELS.teleport || '传送';
+      socket.emit('system_message', {
+        content: `🚗 ${npc.name}将你送到了「${destination.name}」！花费了 ${cost} 金币（剩余 ${user.gold} 金币）。`
+      });
+
+      // 任务进度：探访地点
+      questProgressService.checkProgress(user._id, { type: 'visit', target: destination.roomId }).catch(() => {});
     });
     
     // 分配自由属性点
