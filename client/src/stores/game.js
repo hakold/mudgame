@@ -53,7 +53,7 @@ export const useGameStore = defineStore('game', () => {
   const isAdmin = computed(() => user.value?.role === 'admin')
   
   // API基础URL
-  const apiBase = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
+  const apiBase = import.meta.env.VITE_API_URL || '/api'
   
   // 设置axios默认配置
   axios.defaults.baseURL = apiBase
@@ -144,7 +144,7 @@ export const useGameStore = defineStore('game', () => {
   function connectSocket() {
     if (socket.value) return
     
-    const socketUrl = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3000'
+    const socketUrl = import.meta.env.VITE_SOCKET_URL || '' // 相对路径走 Vite 代理
     socket.value = io(socketUrl, {
       auth: { token: token.value }
     })
