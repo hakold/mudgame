@@ -40,6 +40,9 @@ async function getOrCreateDaily(userId) {
       daily.dailyTasks = new Map();
       daily.dailyTasksClaimed = new Map();
       daily.activityRewardsClaimed = [];
+      // 重置 v2 每日活跃任务
+      daily.dailyV2Tasks = { checkedIn: false, fished: false, herbed: false, crafted: false };
+      daily.dailyRewardClaimed = false;
       daily.date = today;
       // 签到：如果昨天签到了就保留连签，否则重置
       const yesterday = new Date();
@@ -73,6 +76,9 @@ async function checkIn(userId) {
 
   daily.lastCheckInDate = new Date();
   daily.checkInStreak = Math.min(daily.checkInStreak + 1, 7);
+  // 标记 v2 每日活跃：签到完成
+  if (!daily.dailyV2Tasks) daily.dailyV2Tasks = { checkedIn: false, fished: false, herbed: false, crafted: false };
+  daily.dailyV2Tasks.checkedIn = true;
   await daily.save();
 
   const rewardIdx = (daily.checkInStreak - 1) % 7;
@@ -202,6 +208,83 @@ async function getDailyStatus(userId) {
   };
 }
 
+// ==================== 简化每日活跃 v2 ====================
+
+// 检查是否所有四项活跃任务完成
+function allV2TasksDone(daily) {
+  const tasks = daily.dailyV2Tasks || {};
+  return tasks.checkedIn && tasks.fished && tasks.herbed && tasks.crafted;
+}
+
+// 获取 v2 每日活跃状态
+async function getDailyV2Status(userId) {
+  const daily = await getOrCreateDaily(userId);
+  const tasks = daily.dailyV2Tasks || { checkedIn: false, fished: false, herbed: false, crafted: false };
+  return {
+    tasks: {
+      checkedIn: tasks.checkedIn,
+      fished: tasks.fished,
+      herbed: tasks.herbed,
+      crafted: tasks.crafted
+    },
+    allDone: tasks.checkedIn && tasks.fished && tasks.herbed && tasks.crafted,
+    rewardClaimed: !!daily.dailyRewardClaimed,
+    streak: daily.checkInStreak
+  };
+}
+
+// 标记生活技能采集：钓鱼 / 采药
+async function markLifeSkillProgress(userId, skillType) {
+  const daily = await getOrCreateDaily(userId);
+  if (!daily.dailyV2Tasks) daily.dailyV2Tasks = { checkedIn: false, fished: false, herbed: false, crafted: false };
+  let updated = false;
+
+  if (skillType === 'fishing' && !daily.dailyV2Tasks.fished) {
+    daily.dailyV2Tasks.fished = true;
+    updated = true;
+  } else if (skillType === 'herb' && !daily.dailyV2Tasks.herbed) {
+    daily.dailyV2Tasks.herbed = true;
+    updated = true;
+  }
+
+  if (updated) await daily.save();
+  return daily;
+}
+
+// 标记制造技能：锻造/制药/烹饪 (三选一，任一完成就算)
+async function markCraftProgress(userId) {
+  const daily = await getOrCreateDaily(userId);
+  if (!daily.dailyV2Tasks) daily.dailyV2Tasks = { checkedIn: false, fished: false, herbed: false, crafted: false };
+
+  if (!daily.dailyV2Tasks.crafted) {
+    daily.dailyV2Tasks.crafted = true;
+    await daily.save();
+  }
+  return daily;
+}
+
+// 领取每日活跃宝箱奖励
+async function claimDailyV2Reward(userId) {
+  const daily = await getOrCreateDaily(userId);
+  const tasks = daily.dailyV2Tasks || { checkedIn: false, fished: false, herbed: false, crafted: false };
+
+  if (!tasks.checkedIn) return { error: '尚未完成签到' };
+  if (!tasks.fished) return { error: '尚未完成钓鱼' };
+  if (!tasks.herbed) return { error: '尚未完成采药' };
+  if (!tasks.crafted) return { error: '尚未完成制造（锻造/制药/烹饪任选其一）' };
+  if (daily.dailyRewardClaimed) return { error: '今日宝箱已领取' };
+
+  daily.dailyRewardClaimed = true;
+  await daily.save();
+
+  return {
+    success: true,
+    chestItemId: 'item_daily_chest',
+    chestName: '每日活跃宝箱',
+    message: '🎉 今日活跃任务全部完成！获得「每日活跃宝箱」×1'
+  };
+}
+
 module.exports = {
   checkIn,
   getDailyTasks,
@@ -212,5 +295,10 @@ module.exports = {
   getOrCreateDaily,
   dailyTaskDefs,
   activityRewards,
-  checkInRewards
+  checkInRewards,
+  // v2 methods
+  getDailyV2Status,
+  markLifeSkillProgress,
+  markCraftProgress,
+  claimDailyV2Reward
 };

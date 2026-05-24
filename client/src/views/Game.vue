@@ -446,7 +446,7 @@
         <button class="menu-tab" :class="{ active: activeTab === 'gangs' }" @click="activeTab = 'gangs'; gameStore.searchGangs(''); gameStore.loadGangInfo()">帮派</button>
         <button class="menu-tab" :class="{ active: activeTab === 'auction' }" @click="activeTab = 'auction'; gameStore.searchAuctions(''); gameStore.loadMyAuctions()">拍卖</button>
         <button class="menu-tab" :class="{ active: activeTab === 'life' }" @click="activeTab = 'life'; gameStore.loadGatheringNodes(); gameStore.loadAlchemyRecipes(); gameStore.loadCookingRecipes()">生活</button>
-        <button class="menu-tab" :class="{ active: activeTab === 'daily' }" @click="activeTab = 'daily'; gameStore.loadDailyStatus()">每日</button>
+        <button class="menu-tab" :class="{ active: activeTab === 'daily' }" @click="activeTab = 'daily'; gameStore.loadDailyStatus(); gameStore.loadDailyV2Status()">每日</button>
         <button v-if="currentRoomServices.some(s => ['shop','buy_item','buy_weapon','buy_armor','sell_item'].includes(s))" class="menu-tab" :class="{ active: activeTab === 'shop' }" @click="activeTab = 'shop'; loadShopItems()">商店</button>
       </div>
       
@@ -906,11 +906,63 @@
           </div>
         </div>
 
-        <!-- 每日活跃 -->
+                <!-- 每日活跃 -->
         <div v-if="activeTab === 'daily'">
-          <!-- 签到 -->
+          <!-- ===== 简化每日活跃 v2 ===== -->
+          <div class="daily-section daily-v2-card" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); border: 2px solid #e94560; border-radius: 12px; padding: 16px; margin-bottom: 12px;">
+            <div class="section-title" style="color: #e94560; margin-bottom: 12px;">🎯 每日活跃（简版）</div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <span style="font-size: 0.85em; color: #aaa;">连续签到 {{ gameStore.dailyV2Status?.streak || 0 }} 天</span>
+            </div>
+            <!-- 四项活跃任务 -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 14px;">
+              <div :class="['v2-task-chip', gameStore.dailyV2Status?.tasks?.checkedIn ? 'v2-done' : '']">
+                <span class="v2-task-icon">{{ gameStore.dailyV2Status?.tasks?.checkedIn ? '✅' : '⬜' }}</span>
+                <span>📅 签到</span>
+                <button v-if="!gameStore.dailyV2Status?.tasks?.checkedIn"
+                  class="v2-do-btn" @click="gameStore.dailyCheckin(); gameStore.loadDailyV2Status()">去签到</button>
+                <span v-else class="v2-done-label">已完成</span>
+              </div>
+              <div :class="['v2-task-chip', gameStore.dailyV2Status?.tasks?.fished ? 'v2-done' : '']">
+                <span class="v2-task-icon">{{ gameStore.dailyV2Status?.tasks?.fished ? '✅' : '⬜' }}</span>
+                <span>🎣 钓鱼1次</span>
+                <span v-if="gameStore.dailyV2Status?.tasks?.fished" class="v2-done-label">已完成</span>
+                <span v-else style="font-size:0.7em;color:#888">去池塘边钓</span>
+              </div>
+              <div :class="['v2-task-chip', gameStore.dailyV2Status?.tasks?.herbed ? 'v2-done' : '']">
+                <span class="v2-task-icon">{{ gameStore.dailyV2Status?.tasks?.herbed ? '✅' : '⬜' }}</span>
+                <span>🌿 采药1次</span>
+                <span v-if="gameStore.dailyV2Status?.tasks?.herbed" class="v2-done-label">已完成</span>
+                <span v-else style="font-size:0.7em;color:#888">去野外采</span>
+              </div>
+              <div :class="['v2-task-chip', gameStore.dailyV2Status?.tasks?.crafted ? 'v2-done' : '']">
+                <span class="v2-task-icon">{{ gameStore.dailyV2Status?.tasks?.crafted ? '✅' : '⬜' }}</span>
+                <span>🔨 打造1次</span>
+                <span v-if="gameStore.dailyV2Status?.tasks?.crafted" class="v2-done-label">已完成</span>
+                <span v-else style="font-size:0.7em;color:#888">锻造/炼药/烹饪</span>
+              </div>
+            </div>
+            <!-- 领取按钮 -->
+            <div style="text-align: center;">
+              <button v-if="!gameStore.dailyV2Status?.rewardClaimed && gameStore.dailyV2Status?.allDone"
+                class="forge-btn" style="background: linear-gradient(135deg, #e94560, #c23152); color: #fff; padding: 10px 30px; font-size: 1em; animation: pulse-glow 2s infinite;"
+                @click="gameStore.claimDailyV2Reward()">
+                🎁 领取活跃宝箱
+              </button>
+              <button v-else-if="gameStore.dailyV2Status?.rewardClaimed"
+                class="forge-btn" style="background: #444; color: #888;" disabled>
+                ✅ 今日宝箱已领取
+              </button>
+              <button v-else
+                class="forge-btn" style="background: #444; color: #888;" disabled>
+                🔒 完成4项活跃任务后领取
+              </button>
+            </div>
+          </div>
+
+          <!-- ===== 旧版签到/任务/活跃 ===== -->
           <div class="daily-section">
-            <div class="section-title">📅 每日签到</div>
+            <div class="section-title">📅 每日签到（详情）</div>
             <div class="daily-checkin-info" v-if="gameStore.dailyStatus">
               <span>连续签到 {{ gameStore.dailyStatus.checkinStreak || 0 }} 天</span>
               <span v-if="gameStore.dailyStatus.checkedInToday">✅ 今日已签到</span>
@@ -2601,4 +2653,48 @@ onUnmounted(() => {
 }
 .time-display { color: #4fc3f7; }
 .weather-display { color: #fbbf24; }
+
+/* ===== 简化每日活跃 v2 ===== */
+.v2-task-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.3s;
+  font-size: 0.85em;
+}
+.v2-task-chip.v2-done {
+  background: rgba(76,175,80,0.15);
+  border-color: rgba(76,175,80,0.3);
+}
+.v2-task-icon {
+  font-size: 0.9em;
+}
+.v2-do-btn {
+  margin-left: auto;
+  padding: 2px 8px;
+  background: #e94560;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.75em;
+  cursor: pointer;
+}
+.v2-do-btn:hover {
+  background: #ff6b81;
+}
+.v2-done-label {
+  margin-left: auto;
+  font-size: 0.75em;
+  color: #4caf50;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px rgba(233,69,96,0.4); }
+  50% { box-shadow: 0 0 20px rgba(233,69,96,0.8); }
+}
+
 </style>

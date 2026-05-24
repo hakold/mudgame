@@ -44,6 +44,7 @@ export const useGameStore = defineStore('game', () => {
   const alchemyRecipes = ref([])
   const cookingRecipes = ref([])
   const dailyStatus = ref(null)
+  const dailyV2Status = ref(null)
   const activityRewards = ref([])
   
   // 计算属性
@@ -630,6 +631,19 @@ export const useGameStore = defineStore('game', () => {
       addMessage('success', data.message || '活跃度奖励已领取')
       await refreshCurrentUser()
     })
+
+    // ===== 简化每日活跃 v2 =====
+    socket.value.on('daily_v2_status', (data) => {
+      dailyV2Status.value = data
+    })
+    socket.value.on('daily_v2_reward_claimed', async (data) => {
+      addMessage('success', `🎉 每日活跃奖励已领取！获得「${data.chestName}」×1，请在背包中使用打开`)
+      await refreshCurrentUser()
+    })
+
+    // item_used 扩展：送礼包开启消息
+    const origItemUsed = socket.value.listeners('item_used')
+    // 保留原有 item_used 逻辑，系统消息由 server 直接发
 
     socket.value.on('achievement_unlocked', (data) => {
       addMessage('achievement', `🏆 成就解锁: ${data.name} - ${data.description}`)
@@ -1384,6 +1398,12 @@ export const useGameStore = defineStore('game', () => {
   function claimActivityReward(level) {
     if (socket.value) socket.value.emit('claim_activity_reward', { level })
   }
+  function loadDailyV2Status() {
+    if (socket.value) socket.value.emit('get_daily_v2_status')
+  }
+  function claimDailyV2Reward() {
+    if (socket.value) socket.value.emit('claim_daily_v2_reward')
+  }
   
   return {
     // 状态
@@ -1426,6 +1446,7 @@ export const useGameStore = defineStore('game', () => {
     alchemyRecipes,
     cookingRecipes,
     dailyStatus,
+    dailyV2Status,
     activityRewards,
     // 计算属性
     isLoggedIn,
@@ -1504,6 +1525,8 @@ export const useGameStore = defineStore('game', () => {
     loadDailyStatus,
     dailyCheckin,
     claimDailyTask,
-    claimActivityReward
+    claimActivityReward,
+    loadDailyV2Status,
+    claimDailyV2Reward,
   }
 })

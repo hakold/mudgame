@@ -8975,5 +8975,175 @@
     "description": "龙鳞石炼成的顶级锻造材料",
     "price": 500,
     "sellPrice": 200
+  },
+  {
+    "id": "item_daily_chest",
+    "name": "每日活跃宝箱",
+    "type": "gift",
+    "subtype": "chest",
+    "rarity": "rare",
+    "description": "完成每日活跃任务获得的奖励宝箱，打开可获得随机道具。",
+    "giftPoolId": "pool_daily_reward",
+    "price": 0,
+    "stackable": true,
+    "maxStack": 99
+  },
+  {
+    "id": "item_lucky_chest",
+    "name": "幸运宝箱",
+    "type": "gift",
+    "subtype": "chest",
+    "rarity": "epic",
+    "description": "散发金色光芒的宝箱，内含稀有奖励。",
+    "giftPoolId": "pool_lucky_chest",
+    "price": 0,
+    "stackable": true,
+    "maxStack": 99
+  },
+  {
+    "id": "item_newbie_gift",
+    "name": "新手礼包",
+    "type": "gift",
+    "subtype": "package",
+    "rarity": "common",
+    "description": "初入江湖的新手礼包，内含基础修炼资源和药品。",
+    "giftPoolId": "pool_daily_reward",
+    "price": 0,
+    "stackable": true,
+    "maxStack": 1
+  },
+  {
+    "id": "item_exp_small",
+    "name": "小修炼心得",
+    "type": "consumable",
+    "subtype": "exp_item",
+    "rarity": "common",
+    "description": "记录着浅显武学心得的残页，使用可获得50点经验。",
+    "effects": [
+      {
+        "type": "exp",
+        "value": 50
+      }
+    ],
+    "price": 30,
+    "stackable": true,
+    "maxStack": 99
+  },
+  {
+    "id": "item_exp_medium",
+    "name": "中修炼心得",
+    "type": "consumable",
+    "subtype": "exp_item",
+    "rarity": "uncommon",
+    "description": "记载了内功修炼要诀的书页，使用可获得200点经验。",
+    "effects": [
+      {
+        "type": "exp",
+        "value": 200
+      }
+    ],
+    "price": 100,
+    "stackable": true,
+    "maxStack": 99
+  },
+  {
+    "id": "item_exp_large",
+    "name": "大修炼心得",
+    "type": "consumable",
+    "subtype": "exp_item",
+    "rarity": "rare",
+    "description": "某位高手撰写的心得体悟，使用可获得800点经验。",
+    "effects": [
+      {
+        "type": "exp",
+        "value": 800
+      }
+    ],
+    "price": 400,
+    "stackable": true,
+    "maxStack": 99
+  },
+  {
+    "id": "item_exp_epic",
+    "name": "绝世修炼心得",
+    "type": "consumable",
+    "subtype": "exp_item",
+    "rarity": "epic",
+    "description": "传说中绝世高手的毕生心法总结，使用可获得3000点经验。",
+    "effects": [
+      {
+        "type": "exp",
+        "value": 3000
+      }
+    ],
+    "price": 1500,
+    "stackable": true,
+    "maxStack": 99
+  },
+  {
+    "id": "item_heal_pack",
+    "name": "疗伤包",
+    "type": "consumable",
+    "subtype": "potion",
+    "rarity": "common",
+    "description": "装有金创药和回气丹的疗伤包裹，恢复100气血和50内力。",
+    "effects": [
+      {
+        "type": "heal_hp",
+        "value": 100
+      },
+      {
+        "type": "heal_mp",
+        "value": 50
+      }
+    ],
+    "price": 60,
+    "stackable": true,
+    "maxStack": 99
+  },
+  {
+    "id": "item_gold_pouch",
+    "name": "金袋",
+    "type": "consumable",
+    "subtype": "gold_item",
+    "rarity": "uncommon",
+    "description": "沉甸甸的钱袋，使用可获得300金币。",
+    "effects": [
+      {
+        "type": "gold",
+        "value": 300
+      }
+    ],
+    "price": 0,
+    "stackable": true,
+    "maxStack": 99
+  },
+  {
+    "id": "item_gold_bag",
+    "name": "金元宝",
+    "type": "consumable",
+    "subtype": "gold_item",
+    "rarity": "rare",
+    "description": "黄澄澄的金元宝，使用可获得1000金币。",
+    "effects": [
+      {
+        "type": "gold",
+        "value": 1000
+      }
+    ],
+    "price": 0,
+    "stackable": true,
+    "maxStack": 99
+  },
+  {
+    "id": "item_legend_ore",
+    "name": "传说矿石",
+    "type": "material",
+    "subtype": "ore",
+    "rarity": "epic",
+    "description": "蕴含天地灵气的珍稀矿石，可用于锻造神兵利器。",
+    "price": 500,
+    "stackable": true,
+    "maxStack": 99
   }
 ]

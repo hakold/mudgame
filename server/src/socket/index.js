@@ -9,6 +9,7 @@ const achievementService = require('../game/achievementService');
 const weatherTimeService = require('../game/weatherTimeService');
 const craftService = require('../game/craftService');
 const dailyService = require('../game/dailyService');
+const giftService = require('../game/giftService');
 const auctionService = require('../game/auctionService');
 const instanceService = require('../game/instanceService');
 
@@ -109,7 +110,7 @@ function guardSocket(socket, user, eventName, data) {
   }
 
   // 4. 反作弊记录
-  if (!['look', 'who', 'help', 'get_time', 'list_factions', 'list_learnable_skills', 'list_faction_quests', 'list_gathering_nodes', 'list_alchemy_recipes', 'list_cooking_recipes', 'get_forge_recipes', 'get_achievements', 'get_daily_status', 'shop_list', 'get_battle_logs', 'get_battle_detail', 'auction_search', 'auction_my_listings', 'list_dungeons', 'gang_search', 'gang_info'].includes(eventName)) {
+  if (!['look', 'who', 'help', 'get_time', 'list_factions', 'list_learnable_skills', 'list_faction_quests', 'list_gathering_nodes', 'list_alchemy_recipes', 'list_cooking_recipes', 'get_forge_recipes', 'get_achievements', 'get_daily_status', 'get_daily_v2_status', 'shop_list', 'get_battle_logs', 'get_battle_detail', 'auction_search', 'auction_my_listings', 'list_dungeons', 'gang_search', 'gang_info'].includes(eventName)) {
     antiCheatService.recordAction(user._id, eventName);
   }
 
@@ -874,31 +875,67 @@ function socketHandler(io) {
       
       // 根据物品类型处理
       if (itemConfig.type === 'consumable') {
-        // 消耗品
+        // ===== 消耗品 =====
+        // 先检查特殊效果（exp / gold）
+        let hasSpecialEffect = false;
         if (itemConfig.effects) {
           for (const effect of itemConfig.effects) {
-            if (effect.type === 'heal_hp') {
-              user.hp.current = Math.min(user.hp.current + effect.value, user.hp.max);
-            } else if (effect.type === 'heal_mp') {
-              user.mp.current = Math.min(user.mp.current + effect.value, user.mp.max);
+            if (effect.type === 'exp') {
+              hasSpecialEffect = true;
+              const result = await giftService.useExpItem(user._id, item, itemConfig, effect.value);
+              socket.emit('item_used', { item: itemConfig, expGained: result.expGained, level: result.level, leveledUp: result.leveledUp, hp: user.hp, mp: user.mp });
+              socket.emit('system_message', { content: result.message });
+              if (result.leveledUp) {
+                socket.emit('user_updated', user);
+              }
+              break;
+            } else if (effect.type === 'gold') {
+              hasSpecialEffect = true;
+              const result = await giftService.useGoldItem(user._id, item, itemConfig, effect.value);
+              socket.emit('item_used', { item: itemConfig, goldGained: result.goldGained, currentGold: result.currentGold });
+              socket.emit('system_message', { content: result.message });
+              break;
             }
           }
         }
-        
-        item.quantity -= 1;
-        if (item.quantity <= 0) {
-          await Inventory.deleteOne({ _id: inventoryId });
-        } else {
-          await item.save();
+
+        if (!hasSpecialEffect) {
+          // 传统消耗品（hp/mp）
+          if (itemConfig.effects) {
+            for (const effect of itemConfig.effects) {
+              if (effect.type === 'heal_hp') {
+                user.hp.current = Math.min(user.hp.current + effect.value, user.hp.max);
+              } else if (effect.type === 'heal_mp') {
+                user.mp.current = Math.min(user.mp.current + effect.value, user.mp.max);
+              }
+            }
+          }
+
+          item.quantity -= 1;
+          if (item.quantity <= 0) {
+            await Inventory.deleteOne({ _id: inventoryId });
+          } else {
+            await item.save();
+          }
+
+          await user.save();
+
+          socket.emit('item_used', {
+            item: itemConfig,
+            hp: user.hp,
+            mp: user.mp
+          });
         }
-        
-        await user.save();
-        
-        socket.emit('item_used', {
-          item: itemConfig,
-          hp: user.hp,
-          mp: user.mp
-        });
+      } else if (itemConfig.type === 'gift') {
+        // ===== 礼包（宝箱/礼包）=====
+        const result = await giftService.openGift(user._id, item, itemConfig);
+        if (result.error) {
+          return socket.emit('error', { message: result.error });
+        }
+        socket.emit('item_used', { item: itemConfig, giftReward: result.reward });
+        socket.emit('system_message', { content: result.message });
+        const items = await Inventory.find({ userId: user._id });
+        socket.emit('inventory_updated', items);
       } else if (itemConfig.type === 'skill_book') {
         // 功法书：概率学会技能
         const skillId = itemConfig.skillId;
@@ -1703,6 +1740,8 @@ function socketHandler(io) {
         await user.save();
         checkAndAwardAchievements(user._id);
         dailyService.updateDailyTaskProgress(user._id, 'craft').catch(() => {});
+        // v2 每日活跃：制造追踪
+        dailyService.markCraftProgress(user._id).catch(() => {});
       } else {
         user.gold -= result.goldCost;
         await user.save();
@@ -1730,6 +1769,8 @@ function socketHandler(io) {
       socket.emit('gather_success', result);
       socket.emit('system_message', { content: `采集成功！获得了 ${result.itemName}×${result.quantity}` });
       dailyService.updateDailyTaskProgress(user._id, 'gather').catch(() => {});
+      // v2 每日活跃：钓鱼/采药追踪
+      dailyService.markLifeSkillProgress(user._id, skillType).catch(() => {});
       const items = await Inventory.find({ userId: user._id });
       socket.emit('inventory_updated', items);
     });
@@ -1757,6 +1798,8 @@ function socketHandler(io) {
         await user.save();
         checkAndAwardAchievements(user._id);
         dailyService.updateDailyTaskProgress(user._id, 'craft').catch(() => {});
+        // v2 每日活跃：制造追踪
+        dailyService.markCraftProgress(user._id).catch(() => {});
       } else {
         user.gold -= result.goldCost;
         await user.save();
@@ -1790,6 +1833,8 @@ function socketHandler(io) {
         await user.save();
         checkAndAwardAchievements(user._id);
         dailyService.updateDailyTaskProgress(user._id, 'craft').catch(() => {});
+        // v2 每日活跃：制造追踪
+        dailyService.markCraftProgress(user._id).catch(() => {});
       } else {
         user.gold -= result.goldCost;
         await user.save();
@@ -1864,6 +1909,39 @@ function socketHandler(io) {
       socket.emit('system_message', { content: `活跃度奖励领取成功！获得经验 ${result.reward.exp}、金币 ${result.reward.gold}` });
       const status = await dailyService.getDailyStatus(user._id);
       socket.emit('daily_status', status);
+    });
+
+    // ===== 简化每日活跃 v2（签到+钓鱼+采药+制造 → 活跃宝箱）=====
+
+    // 获取 v2 每日活跃状态
+    socket.on('get_daily_v2_status', async () => {
+      const status = await dailyService.getDailyV2Status(user._id);
+      socket.emit('daily_v2_status', status);
+    });
+
+    // 领取每日活跃宝箱
+    socket.on('claim_daily_v2_reward', async () => {
+      const result = await dailyService.claimDailyV2Reward(user._id);
+      if (result.error) {
+        return socket.emit('error', { message: result.error });
+      }
+      // 发放宝箱到背包
+      const existing = await Inventory.findOne({ userId: user._id, itemId: result.chestItemId, isEquipped: false });
+      if (existing) {
+        existing.quantity += 1;
+        await existing.save();
+      } else {
+        await Inventory.create({ userId: user._id, itemId: result.chestItemId, quantity: 1 });
+      }
+      socket.emit('daily_v2_reward_claimed', {
+        chestItemId: result.chestItemId,
+        chestName: result.chestName
+      });
+      socket.emit('system_message', { content: result.message });
+      const items = await Inventory.find({ userId: user._id });
+      socket.emit('inventory_updated', items);
+      const status = await dailyService.getDailyV2Status(user._id);
+      socket.emit('daily_v2_status', status);
     });
 
     // ==================== 拍卖行系统 ====================

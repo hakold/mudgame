@@ -1,0 +1,93 @@
+[
+  {
+    "id": "pool_daily_reward",
+    "name": "每日活跃奖池",
+    "description": "完成每日活跃任务后可获得随机宝箱，开出以下道具之一",
+    "draws": [
+      {
+        "itemId": "item_exp_medium",
+        "name": "中修炼心得",
+        "probability": 0.25,
+        "minQuantity": 1,
+        "maxQuantity": 2
+      },
+      {
+        "itemId": "item_heal_pack",
+        "name": "疗伤包",
+        "probability": 0.25,
+        "minQuantity": 1,
+        "maxQuantity": 3
+      },
+      {
+        "itemId": "item_gold_pouch",
+        "name": "金袋",
+        "probability": 0.2,
+        "minQuantity": 1,
+        "maxQuantity": 1
+      },
+      {
+        "itemId": "item_exp_large",
+        "name": "大修炼心得",
+        "probability": 0.15,
+        "minQuantity": 1,
+        "maxQuantity": 1
+      },
+      {
+        "itemId": "item_strength_pill",
+        "name": "力量丹",
+        "probability": 0.1,
+        "minQuantity": 1,
+        "maxQuantity": 1
+      },
+      {
+        "itemId": "item_lucky_chest",
+        "name": "幸运宝箱",
+        "probability": 0.05,
+        "minQuantity": 1,
+        "maxQuantity": 1
+      }
+    ]
+  },
+  {
+    "id": "pool_lucky_chest",
+    "name": "幸运奖池",
+    "description": "幸运宝箱中的稀有奖励",
+    "draws": [
+      {
+        "itemId": "item_exp_epic",
+        "name": "绝世修炼心得",
+        "probability": 0.3,
+        "minQuantity": 1,
+        "maxQuantity": 1
+      },
+      {
+        "itemId": "item_gold_bag",
+        "name": "金元宝",
+        "probability": 0.25,
+        "minQuantity": 1,
+        "maxQuantity": 3
+      },
+      {
+        "itemId": "item_strength_pill",
+        "name": "力量丹",
+        "probability": 0.2,
+        "minQuantity": 2,
+        "maxQuantity": 5
+      },
+      {
+        "itemId": "item_exp_epic",
+        "name": "绝世修炼心得",
+        "probability": 0.15,
+        "minQuantity": 1,
+        "maxQuantity": 1
+      },
+      {
+        "itemId": "item_legend_ore",
+        "name": "传说矿石",
+        "probability": 0.1,
+        "minQuantity": 1,
+        "maxQuantity": 1
+      }
+    ]
+  }
+]
