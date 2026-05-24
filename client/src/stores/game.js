@@ -681,8 +681,14 @@ export const useGameStore = defineStore('game', () => {
       if (data.roomServices && data.roomServices.length > 0) {
         addMessage('system', `可用服务: ${data.roomServices.join(', ')}`)
       }
-      // 存储NPC对话数据用于显示可接任务UI
-      if (data.availableQuests && data.availableQuests.length > 0) {
+      // 存储NPC对话数据用于显示交互面板
+      // 只要有任何交互内容（已完成任务/进行中任务/可接任务/服务/兑换）就展示面板
+      const hasQuests = (data.availableQuests?.length > 0) ||
+                        (data.completableQuests?.length > 0) ||
+                        (data.acceptedQuests?.length > 0)
+      const hasServices = data.npc?.services?.length > 0
+      const hasExchange = data.factionExchangeInfo && !data.factionExchangeInfo.noFaction
+      if (hasQuests || hasServices || hasExchange) {
         npcDialog.value = data
       } else {
         npcDialog.value = null
