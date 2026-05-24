@@ -2906,7 +2906,8 @@ function socketHandler(io) {
           shopType: npc.shopType || room.shopType,
           items: npc.items,
           skills: npc.skills,
-          quests: npc.quests
+          quests: npc.quests,
+          teleportDestinations: npc.teleportDestinations || null
         },
         roomServices: room.services || [],
         roomShopType: room.shopType,

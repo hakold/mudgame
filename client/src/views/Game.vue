@@ -145,8 +145,23 @@
                  svc === 'rumor' ? '💬 打听' :
                  svc === 'forge_weapon' ? '🔨 锻造' :
                  svc === 'faction' || svc === 'exchange' ? '⚡ 门派' :
+                 svc === 'teleport' ? '🚗 传送' :
                  '🔹 ' + svc }}
             </button>
+          </div>
+          <!-- 传送目的地 -->
+          <div v-if="gameStore.npcDialog.npc?.teleportDestinations?.length" class="quest-offer-list">
+            <div class="quest-offer-title teleport">🚗 选择目的地：</div>
+            <div v-for="dest in gameStore.npcDialog.npc.teleportDestinations" :key="dest.id"
+              class="quest-offer-item"
+              style="border-left: 3px solid #6366f1;">
+              <div class="quest-offer-info">
+                <div class="quest-offer-name">{{ dest.name }}</div>
+                <div class="quest-offer-rewards">💰 {{ dest.cost }} 金币</div>
+              </div>
+              <button class="quest-accept-btn teleport-btn"
+                @click="doTeleport(gameStore.npcDialog.npc.id, dest.id)">前往</button>
+            </div>
           </div>
           <!-- 可交任务 -->
           <div v-if="gameStore.npcDialog.completableQuests?.length" class="quest-offer-list">
@@ -198,7 +213,7 @@
               >接受</button>
             </div>
           </div>
-          <div v-if="!gameStore.npcDialog.availableQuests.length && !gameStore.npcDialog.acceptedQuests?.length && !gameStore.npcDialog.completableQuests?.length" class="quest-offer-empty">该NPC暂无适合你的任务</div>
+          <div v-if="!gameStore.npcDialog.availableQuests.length && !gameStore.npcDialog.acceptedQuests?.length && !gameStore.npcDialog.completableQuests?.length && !gameStore.npcDialog.npc?.teleportDestinations?.length" class="quest-offer-empty">该NPC暂无适合你的任务</div>
           <!-- 门派贡献兑换 -->
           <div v-if="gameStore.npcDialog.factionExchangeInfo" class="faction-exchange-section">
             <div v-if="gameStore.npcDialog.factionExchangeInfo.noFaction" class="exchange-hint">
@@ -1489,8 +1504,9 @@ function useNPCServices(svc) {
     loadShopItems()
   } else if (svc === 'forge_weapon') {
     activeTab.value = 'life'
-  } else {
-    gameStore.sendCommand(svc)
+  } else if (svc === 'teleport') {
+    // 传送目的地直接显示在下方
+    return
   }
 }
 
@@ -1503,6 +1519,11 @@ function completeQuest(questId) {
   gameStore.socket?.emit('complete_quest', { questId })
   gameStore.npcDialog = null
 }
+function doTeleport(npcId, destinationId) {
+  gameStore.socket?.emit('teleport', { npcId, destinationId })
+  gameStore.npcDialog = null
+}
+
 
 function exchangeSkill(skillId) {
   gameStore.socket?.emit('faction_exchange', { skillId })
