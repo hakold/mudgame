@@ -355,6 +355,10 @@
       {
         "direction": "west",
         "roomId": "bamboo_grove"
+      },
+      {
+        "direction": "east",
+        "roomId": "emei_gate"
       }
     ],
     "features": [
@@ -1272,7 +1276,7 @@
     "exits": [
       {
         "direction": "west",
-        "roomId": "mountain_temple"
+        "roomId": "emei_gate"
       },
       {
         "direction": "east",
@@ -3760,7 +3764,7 @@
       },
       {
         "direction": "west",
-        "roomId": "mountain_temple"
+        "roomId": "mountain_path"
       }
     ],
     "features": [

@@ -161,7 +161,7 @@ const validators = {
 
   accept_quest: (data) => {
     const questId = safeId(data.questId);
-    if (!questId || !getQuest(questId)) return '任务不存在';
+    if (!questId || (!getQuest(questId) && !getFactionQuest(questId))) return '任务不存在';
     return null;
   },
   complete_quest: (data) => {

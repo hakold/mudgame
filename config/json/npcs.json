@@ -270,7 +270,6 @@
     "type": "trainer",
     "roomId": "shaolin_temple",
     "services": [
-      "train",
       "learn_skill"
     ],
     "skills": [
@@ -285,7 +284,6 @@
     "type": "trainer",
     "roomId": "wudang_peak",
     "services": [
-      "train",
       "learn_skill"
     ],
     "skills": [
@@ -300,7 +298,6 @@
     "type": "trainer",
     "roomId": "emei_temple",
     "services": [
-      "train",
       "learn_skill"
     ],
     "skills": [
@@ -315,7 +312,6 @@
     "type": "trainer",
     "roomId": "city_tavern",
     "services": [
-      "train",
       "learn_skill"
     ],
     "skills": [
@@ -400,7 +396,6 @@
     "roomId": "volcano_forge",
     "type": "trainer",
     "services": [
-      "train",
       "learn_skill"
     ],
     "skills": [
@@ -426,7 +421,6 @@
     "roomId": "island_cave",
     "type": "trainer",
     "services": [
-      "train",
       "learn_skill"
     ],
     "skills": [
@@ -737,7 +731,6 @@
     "roomId": "shaolin_temple",
     "type": "trainer",
     "services": [
-      "train",
       "learn_skill"
     ],
     "skills": [
@@ -782,7 +775,6 @@
     "roomId": "wudang_peak",
     "type": "trainer",
     "services": [
-      "train",
       "learn_skill"
     ],
     "skills": [
@@ -826,7 +818,6 @@
     "roomId": "emei_temple",
     "type": "trainer",
     "services": [
-      "train",
       "learn_skill"
     ],
     "skills": [
@@ -873,7 +864,6 @@
     "roomId": "gaibang_hq",
     "type": "trainer",
     "services": [
-      "train",
       "learn_skill"
     ],
     "skills": [
@@ -1248,7 +1238,6 @@
     "roomId": "celestial_palace",
     "type": "trainer",
     "services": [
-      "train",
       "learn_skill"
     ],
     "skills": [
@@ -1648,8 +1637,7 @@
     "roomId": "palace_library",
     "type": "trainer",
     "services": [
-      "learn_skill",
-      "train"
+      "learn_skill"
     ],
     "skills": [
       "skill_jiuyang",
@@ -2663,8 +2651,7 @@
     "type": "trainer",
     "services": [
       "learn_skill",
-      "meditate",
-      "train"
+      "meditate"
     ],
     "skills": [
       "skill_ice_strike",
@@ -3160,8 +3147,7 @@
     "type": "trainer",
     "services": [
       "meditate",
-      "learn_skill",
-      "train"
+      "learn_skill"
     ],
     "skills": [
       "skill_meditation",
@@ -3431,8 +3417,7 @@
     "type": "trainer",
     "services": [
       "meditate",
-      "learn_skill",
-      "train"
+      "learn_skill"
     ],
     "skills": [
       "skill_tiyunzong",
@@ -3490,7 +3475,6 @@
     "type": "trainer",
     "services": [
       "learn_skill",
-      "train",
       "meditate"
     ],
     "skills": [

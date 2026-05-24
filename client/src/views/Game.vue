@@ -103,26 +103,44 @@
     <div class="center-panel">
       <!-- NPC任务对话框 -->
       
-      <!-- 地图弹窗 -->
+      <!-- 地图弹窗 (2格范围) -->
       <div class="quest-overlay" v-if="showMap" @click.self="showMap = false">
-        <div class="quest-dialog" style="max-width: 420px;">
-          <div class="quest-dialog-title">🗺️ 当前位置</div>
-          <div class="quest-dialog-message">
-            <div style="font-size: 1.1em; margin-bottom: 8px;">📍 {{ gameStore.currentRoom?.name || gameStore.currentRoom?.id || '未知' }}</div>
-            <div style="color: #aaa; font-size: 0.85em; margin-bottom: 12px;">{{ gameStore.currentRoom?.description || '' }}</div>
+        <div class="quest-dialog" style="max-width: 520px;">
+          <div class="quest-dialog-title">🗺️ 周边地图</div>
+          <div class="quest-dialog-message" style="margin-bottom: 8px;">
+            <span style="color: #fbbf24; font-size: 1em;">📍 {{ mapInfo?.center?.name || gameStore.currentRoom?.name || '当前位置' }}</span>
+            <span style="color: #666; font-size: 0.8em; margin-left: 8px;">方圆2步</span>
           </div>
-          <!-- 出口 -->
-          <div class="quest-offer-list">
-            <div class="quest-offer-title">🚪 可移动方向</div>
-            <div v-if="gameStore.currentRoom?.exits" style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
-              <button v-for="(target, dir) in gameStore.currentRoom.exits" :key="dir"
-                class="quick-btn map-dir-btn"
-                @click="gameStore.sendCommand('go ' + dir); showMap = false">
-                {{ getDirectionEmoji(dir) }} {{ dirDisplayName(dir) }}
-                <span style="font-size:0.7em;color:#888;display:block">{{ roomDisplayName(target) }}</span>
+          <!-- 一步可达 -->
+          <div class="quest-offer-list" style="margin-bottom: 6px;">
+            <div class="quest-offer-title" style="font-size: 0.85em; border-color: #fbbf24;">🚪 一步可达</div>
+            <div v-if="mapInfo?.center?.exits?.length || gameStore.currentRoom?.exits" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4px;">
+              <button v-for="exit in (mapInfo?.center?.exits || gameStore.currentRoom?.exits)" :key="exit.roomId"
+                class="quick-btn map-dir-btn" style="padding: 4px 6px; font-size: 0.85em;"
+                @click="gameStore.sendCommand('go ' + exit.direction); showMap = false">
+                {{ exit.label || dirDisplayName(exit.direction) }}
+                <span style="font-size: 0.7em; color: #888; display: block;">{{ exit.roomName || roomDisplayName(exit.roomId) }}</span>
               </button>
             </div>
             <div v-else class="empty-hint">此处无路可走</div>
+          </div>
+          <!-- 两步可达 -->
+          <div v-if="mapInfo?.adjacent?.length" class="quest-offer-list">
+            <div class="quest-offer-title" style="font-size: 0.85em; border-color: #a78bfa;">👣 两步可达</div>
+            <div v-for="adj in mapInfo.adjacent" :key="adj.roomId" style="margin-bottom: 6px;">
+              <div style="font-size: 0.8em; color: #a78bfa; margin-bottom: 3px;">
+                → {{ adj.directionLabel }} <span style="color: #e2e8f0;">{{ adj.roomName }}</span>
+              </div>
+              <div v-if="adj.exits.length" style="display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding-left: 10px;">
+                <button v-for="ex in adj.exits" :key="ex.roomId"
+                  class="quick-btn map-dir-btn" style="padding: 3px 6px; font-size: 0.75em;"
+                  @click="gameStore.sendCommand('go ' + adj.direction); showMap = false">
+                  {{ ex.label || ex.direction }}
+                  <span style="font-size: 0.65em; color: #888; display: block;">{{ ex.roomName }}</span>
+                </button>
+              </div>
+              <div v-else style="font-size: 0.7em; color: #555; padding-left: 10px;">无路可走</div>
+            </div>
           </div>
           <button class="quest-close-btn" @click="showMap = false">关闭</button>
         </div>
@@ -146,6 +164,16 @@
                  svc === 'forge_weapon' ? '🔨 锻造' :
                  svc === 'faction' || svc === 'exchange' ? '⚡ 门派' :
                  svc === 'teleport' ? '🚗 传送' :
+                 svc === 'meditate' ? '🧘 冥想' :
+                 svc === 'guide' ? '📖 指引' :
+                 svc === 'water' ? '💧 饮水' :
+                 svc === 'fortune' ? '🔮 算命' :
+                 svc === 'pvp' ? '⚔️ 竞技' :
+                 svc === 'bank' ? '🏦 银行' :
+                 svc === 'storage' ? '📦 储物' :
+                 svc === 'travel' ? '🧭 旅行' :
+                 svc === 'ranking' ? '🏆 排行' :
+                 svc === 'gathering' ? '🌿 采集' :
                  '🔹 ' + svc }}
             </button>
           </div>
@@ -421,9 +449,9 @@
         </div>
         
         <div class="battle-actions">
-          <button class="battle-btn attack" @click="battleAction('attack')" :disabled="!isPlayerTurn">攻击</button>
-          <button class="battle-btn" @click="battleAction('defend')" :disabled="!isPlayerTurn">防御</button>
-          <button class="battle-btn" @click="battleAction('flee')" :disabled="!isPlayerTurn">逃跑</button>
+          <button class="battle-btn attack" @click="battleAction('attack')" :disabled="!isPlayerTurn || battleCooldown">攻击</button>
+          <button class="battle-btn" @click="battleAction('defend')" :disabled="!isPlayerTurn || battleCooldown">防御</button>
+          <button class="battle-btn" @click="battleAction('flee')" :disabled="!isPlayerTurn || battleCooldown">逃跑</button>
         </div>
 
         <div class="battle-skills" v-if="playerBattleSkills.length">
@@ -431,7 +459,7 @@
             v-for="skill in playerBattleSkills"
             :key="skill.id"
             class="battle-btn skill"
-            :disabled="!isPlayerTurn || !canUseBattleSkill(skill)"
+            :disabled="!isPlayerTurn || !canUseBattleSkill(skill) || battleCooldown"
             @click="battleAction('skill', skill.id)"
           >
             {{ skill.name }} (MP {{ skill.mpCost || 0 }})
@@ -477,7 +505,7 @@
       <div class="quick-actions">
         <button class="quick-btn" @click="showChatMode = !showChatMode">💬 {{ showChatMode ? '命令' : '聊天' }}</button>
         <button class="quick-btn" @click="quickCommand('look')">👁️ 查看</button>
-        <button class="quick-btn" @click="showMap = true">🗺️ 地图</button>
+        <button class="quick-btn" @click="showMap = true; gameStore.socket?.emit('get_map_info')">🗺️ 地图</button>
         <button class="quick-btn" @click="quickCommand('status')">📊 状态</button>
       </div>
       <div class="quick-actions">
@@ -485,6 +513,9 @@
         <button class="quick-btn" @click="quickCommand('inventory')">🎒 背包</button>
         <button class="quick-btn" @click="quickCommand('skills')">⚔️ 技能</button>
         <button class="quick-btn" @click="quickCommand('quests')">📜 任务</button>
+        <button class="quick-btn" @click="showAchievements = true; loadAchievements()">🏆 成就</button>
+        <button class="quick-btn" @click="showBattleLog = true; loadBattleLogs()">📊 战报</button>
+        <button class="quick-btn" @click="showFullSkills = true">⚔️ 技能</button>
         <button v-if="hasFactionNpc" class="quick-btn" @click="quickCommand('faction')">🏯 门派</button>
       </div>
     </div>
@@ -495,16 +526,14 @@
         <button class="menu-tab" :class="{ active: activeTab === 'inventory' }" @click="activeTab = 'inventory'">背包</button>
         <button class="menu-tab" :class="{ active: activeTab === 'skills' }" @click="activeTab = 'skills'">技能</button>
         <button class="menu-tab" :class="{ active: activeTab === 'quests' }" @click="activeTab = 'quests'">任务</button>
-        <button class="menu-tab" :class="{ active: activeTab === 'battlelog' }" @click="activeTab = 'battlelog'">战报</button>
         <button class="menu-tab" :class="{ active: activeTab === 'online' }" @click="activeTab = 'online'; loadOnlinePlayers()">在线</button>
-        <button class="menu-tab" :class="{ active: activeTab === 'achievements' }" @click="activeTab = 'achievements'; loadAchievements()">成就</button>
         <button class="menu-tab" :class="{ active: activeTab === 'forge' }" @click="activeTab = 'forge'; loadForgeRecipes()">锻造</button>
         <button class="menu-tab" :class="{ active: activeTab === 'dungeons' }" @click="activeTab = 'dungeons'; gameStore.loadDungeons()">副本</button>
         <button class="menu-tab" :class="{ active: activeTab === 'gangs' }" @click="activeTab = 'gangs'; gameStore.searchGangs(''); gameStore.loadGangInfo()">帮派</button>
         <button class="menu-tab" :class="{ active: activeTab === 'auction' }" @click="activeTab = 'auction'; gameStore.searchAuctions(''); gameStore.loadMyAuctions()">拍卖</button>
         <button class="menu-tab" :class="{ active: activeTab === 'life' }" @click="activeTab = 'life'; gameStore.loadGatheringNodes(); gameStore.loadAlchemyRecipes(); gameStore.loadCookingRecipes()">生活</button>
         <button class="menu-tab" :class="{ active: activeTab === 'daily' }" @click="activeTab = 'daily'; gameStore.loadDailyStatus(); gameStore.loadDailyV2Status()">每日</button>
-        <button v-if="currentRoomServices.some(s => ['shop','buy_item','buy_weapon','buy_armor','sell_item'].includes(s))" class="menu-tab" :class="{ active: activeTab === 'shop' }" @click="activeTab = 'shop'; loadShopItems()">商店</button>
+        <button v-if="currentRoomServices.some(s => ['shop','buy_item','buy_weapon','buy_armor','sell_item'].includes(s))" class="menu-tab" @click="showShop = true; loadShopItems()">商店</button>
       </div>
       
       <div class="menu-content">
@@ -546,88 +575,65 @@
           <div v-if="!inventory.length" class="empty-hint">背包空空如也</div>
         </div>
 
-        <!-- 技能 -->
+        <!-- 已装配技能 -->
         <div v-if="activeTab === 'skills'">
-          <div v-for="skill in skills" :key="skill._id" class="skill-item">
-            <div class="item-header">
-              <span class="item-name">{{ getSkillName(skill.skillId) }}</span>
+          <div class="equipment-slots" style="margin-bottom:10px">
+            <div class="equip-slots-title">⚔️ 已装配技能</div>
+            <div v-for="skill in skills" :key="skill._id" class="equip-slot-row">
+              <span class="equip-slot-label">{{ getSkillName(skill.skillId) }}</span>
               <span class="skill-level">Lv{{ skill.level }}</span>
-            </div>
-            <div class="item-detail">{{ getSkillDescription(skill.skillId) }}</div>
-            <div class="skill-exp-bar">
-              <div class="skill-exp-fill" :style="{ width: skillExpPercent(skill) + '%' }"></div>
-              <span class="skill-exp-text">{{ skill.exp || 0 }}/{{ (skill.level || 1) * 100 }}</span>
-            </div>
-            <div class="skill-meta">
-              <span v-if="getSkillMpCost(skill.skillId)">MP {{ getSkillMpCost(skill.skillId) }}</span>
-              <span v-if="getSkillType(skill.skillId)" class="skill-type-tag">{{ getSkillTypeLabel(skill.skillId) }}</span>
             </div>
           </div>
           <div v-if="!skills.length" class="empty-hint">尚未学习任何技能</div>
+          <button class="forge-btn" style="width:100%;margin-top:8px" @click="showFullSkills = true">📖 查看全部技能</button>
         </div>
 
         <!-- 任务 -->
         <div v-if="activeTab === 'quests'">
-          <div v-for="quest in quests" :key="quest._id" class="quest-item">
-            <div class="item-header">
-              <span class="item-name">{{ getQuestName(quest.questId) }}</span>
-              <span class="quest-status" :class="questStatusClass(quest.status)">{{ questStatus(quest.status) }}</span>
-            </div>
-            <div v-if="quest.status !== 'completed'" class="quest-objectives">
-              <div v-for="obj in getQuestObjectives(quest)" :key="obj.key" class="quest-objective">
-                <span :class="{ 'objective-done': obj.done }">{{ obj.label }} {{ obj.current }}/{{ obj.target }}</span>
+          <!-- 进行中的任务 -->
+          <div v-if="quests.filter(q => q.status === 'accepted' || q.status === 'in_progress').length" class="quest-section">
+            <div class="quest-section-title">📋 已领取任务</div>
+            <div v-for="quest in quests.filter(q => q.status === 'accepted' || q.status === 'in_progress')" :key="quest._id" class="quest-item active-quest">
+              <div class="item-header">
+                <span class="item-name">{{ getQuestName(quest.questId) }}</span>
+                <span class="quest-status" :class="questStatusClass(quest.status)">{{ questStatus(quest.status) }}</span>
               </div>
-            </div>
-            <div v-if="quest.status === 'completed' && !quest.rewardClaimed" class="quest-reward-info">
-              {{ getQuestRewardText(quest.questId) }}
-            </div>
-            <button v-if="quest.status === 'completed' && !quest.rewardClaimed && !needNpcHandIn(quest.questId)" class="quest-reward-btn" @click="claimQuestReward(quest.questId)">领取奖励</button>
-            <span v-if="quest.status === 'completed' && !quest.rewardClaimed && needNpcHandIn(quest.questId)" class="hand-in-hint">📍 需要找 {{ getHandInNpcName(quest.questId) }} 交接任务</span>
-            <div v-if="quest.status === 'completed' && quest.rewardClaimed" class="reward-claimed">已领取奖励</div>
-          </div>
-          <div v-if="!quests.length" class="empty-hint">没有进行中的任务</div>
-        </div>
-
-        <!-- 战斗日志 -->
-        <div v-if="activeTab === 'battlelog'">
-          <button class="item-btn" @click="loadBattleLogs" style="margin-bottom:8px">刷新战报</button>
-          <div v-if="gameStore.battleLogDetail" class="battle-log-detail">
-            <button class="item-btn" @click="gameStore.battleLogDetail = null" style="margin-bottom:8px">← 返回列表</button>
-            <div class="log-detail-header">{{ gameStore.battleLogDetail.monster?.name || '战斗记录' }}</div>
-            <div class="log-detail-result" :class="battleLogWon(gameStore.battleLogDetail) ? 'victory' : 'defeat'">
-              {{ battleLogWon(gameStore.battleLogDetail) ? '🏆 胜利' : '💀 失败' }}
-            </div>
-            <div v-if="gameStore.battleLogDetail.result?.expGained" class="log-detail-info">
-              经验 +{{ gameStore.battleLogDetail.result.expGained }}
-            </div>
-            <div v-if="gameStore.battleLogDetail.result?.goldGained" class="log-detail-info">
-              金币 +{{ gameStore.battleLogDetail.result.goldGained }}
-            </div>
-            <div v-if="gameStore.battleLogDetail.result?.deathPenalty" class="log-detail-info penalty">
-              💀 死亡惩罚: 经验 -{{ gameStore.battleLogDetail.result.deathPenalty.expLost || 0 }}, 金币 -{{ gameStore.battleLogDetail.result.deathPenalty.goldLost || 0 }}
-            </div>
-            <div v-if="gameStore.battleLogDetail.rounds?.length" class="log-turns">
-              <div v-for="(turn, i) in gameStore.battleLogDetail.rounds" :key="i" class="log-turn">
-                回合{{ turn.round || i+1 }}: {{ formatLogTurn(turn) }}
+              <div v-if="quest.description" class="quest-desc">{{ quest.description }}</div>
+              <div class="quest-objectives">
+                <div v-for="obj in getQuestObjectives(quest)" :key="obj.key" class="quest-objective">
+                  <span :class="{ 'objective-done': obj.done }">{{ obj.label }} {{ obj.current }}/{{ obj.target }}</span>
+                </div>
               </div>
             </div>
           </div>
-          <div v-else>
-            <div v-for="log in gameStore.battleLogList" :key="log._id" class="battle-log-item" @click="loadBattleLogDetail(log.battleId || log._id)">
-              <div class="log-header">
-                <span class="log-monster">{{ log.monster?.name || '战斗' }}</span>
-                <span class="log-result" :class="battleLogWon(log) ? 'victory' : 'defeat'">
-                  {{ battleLogWon(log) ? '胜' : '败' }}
-                </span>
+          <!-- 已完成待交的任务 -->
+          <div v-if="quests.filter(q => q.status === 'completed' && !q.rewardClaimed).length" class="quest-section">
+            <div class="quest-section-title">✅ 已完成待领奖</div>
+            <div v-for="quest in quests.filter(q => q.status === 'completed' && !q.rewardClaimed)" :key="quest._id" class="quest-item completed-quest">
+              <div class="item-header">
+                <span class="item-name">{{ getQuestName(quest.questId) }}</span>
+                <span class="quest-status completed">已完成</span>
               </div>
-              <div class="log-meta">
-                <span v-if="log.result?.expGained">经验+{{ log.result.expGained }}</span>
-                <span v-if="log.result?.goldGained">金币+{{ log.result.goldGained }}</span>
-                <span class="log-time">{{ formatLogTime(log.endedAt) }}</span>
+              <div class="quest-reward-info">{{ getQuestRewardText(quest.questId) }}</div>
+              <button v-if="!needNpcHandIn(quest.questId)" class="quest-reward-btn" @click="claimQuestReward(quest.questId)">领取奖励</button>
+              <span v-if="needNpcHandIn(quest.questId)" class="hand-in-hint">📍 需要找「{{ getHandInNpcName(quest.questId) }}」交接任务</span>
+            </div>
+          </div>
+          <!-- 已完成的任务 -->
+          <div v-if="quests.filter(q => q.status === 'completed' && q.rewardClaimed).length" class="quest-section">
+            <div class="quest-section-title collapsed" @click="showCompletedQuests = !showCompletedQuests">
+              🏆 已完成任务 ({{ quests.filter(q => q.status === 'completed' && q.rewardClaimed).length }}) {{ showCompletedQuests ? '▲' : '▼' }}
+            </div>
+            <div v-if="showCompletedQuests">
+              <div v-for="quest in quests.filter(q => q.status === 'completed' && q.rewardClaimed)" :key="quest._id" class="quest-item done-quest">
+                <div class="item-header">
+                  <span class="item-name done">{{ getQuestName(quest.questId) }}</span>
+                  <span class="reward-claimed">已领奖</span>
+                </div>
               </div>
             </div>
-            <div v-if="!gameStore.battleLogList.length" class="empty-hint">暂无战斗记录</div>
           </div>
+          <div v-if="!quests.length" class="empty-hint">暂无任务记录</div>
         </div>
 
         <!-- 在线玩家 -->
@@ -649,23 +655,7 @@
           <div v-if="!gameStore.onlinePlayers.length" class="empty-hint">暂无其他玩家在线</div>
         </div>
 
-        <!-- 成就 -->
-        <div v-if="activeTab === 'achievements'">
-          <div v-for="ach in gameStore.achievements.available" :key="ach.id" class="achievement-item" :class="{ achieved: isAchieved(ach.id) }">
-            <div class="ach-header">
-              <span class="ach-icon">{{ isAchieved(ach.id) ? '🏆' : '🔒' }}</span>
-              <span class="ach-name">{{ ach.name }}</span>
-            </div>
-            <div class="ach-desc">{{ ach.description }}</div>
-            <div class="ach-rewards" v-if="ach.rewards">
-              <span v-if="ach.rewards.exp">经验+{{ ach.rewards.exp }}</span>
-              <span v-if="ach.rewards.gold">金币+{{ ach.rewards.gold }}</span>
-              <span v-if="ach.rewards.title" class="ach-title">称号: {{ ach.rewards.title }}</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 锻造 -->
+<!-- 锻造 -->
         <div v-if="activeTab === 'forge'">
           <div v-for="recipe in gameStore.forgeRecipes" :key="recipe.id" class="forge-recipe-item">
             <div class="forge-header">
@@ -1052,9 +1042,12 @@
           </div>
         </div>
 
-        <!-- 商店 -->
-        <div v-if="activeTab === 'shop'">
-          <button class="item-btn" @click="loadShopItems" style="margin-bottom:8px">刷新商品</button>
+        <!-- 商店弹窗 -->
+      <div class="quest-overlay" v-if="showShop" @click.self="showShop = false">
+        <div class="quest-dialog" style="max-width:420px">
+          <div class="quest-dialog-title">🏪 商店</div>
+          <div class="quest-dialog-message" style="margin-bottom:8px;">{{ gameStore.currentRoom?.name }}</div>
+          <button class="item-btn" @click="loadShopItems" style="margin-bottom:6px;width:100%">刷新商品</button>
           <div v-for="item in shopItems" :key="item.id" class="inventory-item">
             <div class="item-header">
               <span class="item-name">{{ item.name }}</span>
@@ -1064,12 +1057,85 @@
             <div class="item-stats" v-if="item.stats">
               <span v-for="(val, key) in item.stats" :key="key">{{ statLabel(key) }}+{{ val }} </span>
             </div>
-            <button class="forge-btn" @click="buyItem(item.id)">购买</button>
+            <button class="forge-btn" @click="buyItem(item.id); showShop = false">购买</button>
           </div>
           <div v-if="!shopItems.length" class="empty-hint">当前房间没有商店</div>
+          <button class="quest-close-btn" @click="showShop = false">关闭</button>
         </div>
       </div>
     </div>
+  </div>
+
+      <!-- 成就弹窗 -->
+      <div class="quest-overlay" v-if="showAchievements" @click.self="showAchievements = false">
+        <div class="quest-dialog" style="max-width:420px">
+          <div class="quest-dialog-title">🏆 成就</div>
+          <div v-for="ach in (achievements?.achieved || [])" :key="ach.id" class="quest-item" style="border-left:3px solid #fbbf24">
+            <div class="item-header">
+              <span class="item-name" style="color:#fbbf24">🏆 {{ ach.name }}</span>
+            </div>
+            <div class="item-detail">{{ ach.description }}</div>
+          </div>
+          <div v-for="ach in (achievements?.available || [])" :key="ach.id" class="quest-item" style="border-left:3px solid #4b5563">
+            <div class="item-header">
+              <span class="item-name" style="color:#9ca3af">🔒 {{ ach.name }}</span>
+            </div>
+            <div class="item-detail">{{ ach.description }}</div>
+          </div>
+          <div v-if="!achievements?.achieved?.length && !achievements?.available?.length" class="empty-hint">暂无成就数据</div>
+          <button class="quest-close-btn" @click="showAchievements = false">关闭</button>
+        </div>
+      </div>
+
+      <!-- 战报弹窗 -->
+      <div class="quest-overlay" v-if="showBattleLog" @click.self="showBattleLog = false">
+        <div class="quest-dialog" style="max-width:440px">
+          <div class="quest-dialog-title">📊 战斗记录</div>
+          <button class="item-btn" @click="loadBattleLogs" style="margin-bottom:6px;width:100%">刷新战报</button>
+          <div v-if="gameStore.battleLogDetail" class="battle-log-detail">
+            <button class="item-btn" @click="gameStore.battleLogDetail = null" style="margin-bottom:6px">← 返回列表</button>
+            <div class="log-detail-header">{{ gameStore.battleLogDetail.monster?.name || '战斗记录' }}</div>
+            <div class="log-detail-result" :class="battleLogWon(gameStore.battleLogDetail) ? 'victory' : 'defeat'">{{ battleLogWon(gameStore.battleLogDetail) ? '🏆 胜利' : '💀 失败' }}</div>
+            <div v-if="gameStore.battleLogDetail.result?.expGained" class="log-detail-info">经验 +{{ gameStore.battleLogDetail.result.expGained }}</div>
+            <div v-if="gameStore.battleLogDetail.result?.goldGained" class="log-detail-info">金币 +{{ gameStore.battleLogDetail.result.goldGained }}</div>
+          </div>
+          <div v-else>
+            <div v-for="log in gameStore.battleLogList" :key="log._id" class="battle-log-item" @click="loadBattleLogDetail(log.battleId || log._id)">
+              <div class="log-header">
+                <span class="log-monster">{{ log.monster?.name || '战斗' }}</span>
+                <span class="log-result" :class="battleLogWon(log) ? 'victory' : 'defeat'">{{ battleLogWon(log) ? '🏆' : '💀' }}</span>
+              </div>
+              <div class="log-time">{{ new Date(log.endedAt).toLocaleTimeString() }}</div>
+            </div>
+            <div v-if="!gameStore.battleLogList.length" class="empty-hint">暂无战斗记录</div>
+          </div>
+          <button class="quest-close-btn" @click="showBattleLog = false">关闭</button>
+        </div>
+      </div>
+
+      <!-- 全部技能弹窗 -->
+      <div class="quest-overlay" v-if="showFullSkills" @click.self="showFullSkills = false">
+        <div class="quest-dialog" style="max-width:420px">
+          <div class="quest-dialog-title">⚔️ 全部技能</div>
+          <div v-for="skill in skills" :key="skill._id" class="skill-item">
+            <div class="item-header">
+              <span class="item-name">{{ getSkillName(skill.skillId) }}</span>
+              <span class="skill-level">Lv{{ skill.level }}</span>
+            </div>
+            <div class="item-detail">{{ getSkillDescription(skill.skillId) }}</div>
+            <div class="skill-exp-bar">
+              <div class="skill-exp-fill" :style="{ width: skillExpPercent(skill) + '%' }"></div>
+              <span class="skill-exp-text">{{ skill.exp || 0 }}/{{ (skill.level || 1) * 100 }}</span>
+            </div>
+            <div class="skill-meta">
+              <span v-if="getSkillMpCost(skill.skillId)">MP {{ getSkillMpCost(skill.skillId) }}</span>
+              <span v-if="getSkillType(skill.skillId)" class="skill-type-tag">{{ getSkillTypeLabel(skill.skillId) }}</span>
+            </div>
+          </div>
+          <div v-if="!skills.length" class="empty-hint">尚未学习任何技能</div>
+          <button class="quest-close-btn" @click="showFullSkills = false">关闭</button>
+        </div>
+      </div>
   </div>
 </template>
 
@@ -1126,6 +1192,12 @@ const lifeView = ref('herb')
 const isDead = computed(() => gameStore.isDead || (gameStore.user?.hp?.current <= 0 && !gameStore.battle))
 const freePoints = computed(() => gameStore.user?.freePoints || gameStore.user?.attributePoints || 0)
 const showMap = ref(false)
+const mapInfo = ref(null)
+const showCompletedQuests = ref(false)
+const showShop = ref(false)
+const showAchievements = ref(false)
+const showBattleLog = ref(false)
+const showFullSkills = ref(false)
 
 const factionRankLabel = computed(() => {
   const rank = gameStore.user?.factionRank
@@ -1410,7 +1482,12 @@ function useItem(item) {
   }
 }
 
+const battleCooldown = ref(false)
+
 function battleAction(action, skillId = null) {
+  if (battleCooldown.value) return
+  battleCooldown.value = true
+  setTimeout(() => { battleCooldown.value = false }, 1000)
   gameStore.battleAction(action, skillId)
 }
 
@@ -1495,18 +1572,26 @@ function getQuestObjectives(quest) {
 function useNPCServices(svc) {
   gameStore.npcDialog = null
   if (['shop', 'buy_item', 'buy_weapon', 'buy_armor'].includes(svc)) {
-    activeTab.value = 'shop'
+    showShop.value = true
     loadShopItems()
   } else if (svc === 'repair') {
     gameStore.sendCommand('repair')
   } else if (svc === 'sell_item') {
-    activeTab.value = 'shop'
+    showShop.value = true
     loadShopItems()
   } else if (svc === 'forge_weapon') {
     activeTab.value = 'life'
+  } else if (svc === 'meditate') {
+    gameStore.sendCommand('rest')
+  } else if (svc === 'learn_skill') {
+    activeTab.value = 'skills'
+    gameStore.socket?.emit('list_learnable_skills')
   } else if (svc === 'teleport') {
     // 传送目的地直接显示在下方
     return
+  } else {
+    // 其他服务：直接发送命令
+    gameStore.sendCommand(svc)
   }
 }
 

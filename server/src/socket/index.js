@@ -213,7 +213,7 @@ function socketHandler(io) {
     if (user.level <= 1 && !questCount) {
       tip = '💡 新手: 输入 talk npc_village_chief 与村长对话，接取第一个任务';
     } else if (!user.faction && user.level >= 5) {
-      tip = '💡 提示: 你还没有加入门派，输入 factions 查看门派列表，找到对应的NPC拜师学艺';
+      tip = '💡 提示: 你还没有加入门派，输入 faction 查看门派列表，找到对应的NPC拜师学艺';
     } else if (user.freePoints > 0) {
       tip = `💡 提示: 你有 ${user.freePoints} 点可分配属性，点击左侧面板属性旁的 + 号来提升实力`;
     } else if (questCount > 0) {
@@ -614,6 +614,15 @@ function socketHandler(io) {
         if (!currentActor?.userId || currentActor.userId.toString() !== user._id.toString()) {
           return socket.emit('error', { message: '还没轮到你行动' });
         }
+
+        // 服务端内置CD：相同玩家两次行动间隔至少1秒
+        const now = Date.now();
+        const lastActionTime = battle._lastPlayerActionTime?.[user._id.toString()] || 0;
+        if (now - lastActionTime < 1000) {
+          return socket.emit('error', { message: '操作太快，请稍后再试' });
+        }
+        if (!battle._lastPlayerActionTime) battle._lastPlayerActionTime = {};
+        battle._lastPlayerActionTime[user._id.toString()] = now;
 
         // 获取战斗锁（防止并发回合）
         const release = await battleService.acquireLock(battleId);
@@ -2924,6 +2933,33 @@ function socketHandler(io) {
       dailyService.updateDailyTaskProgress(user._id, 'talk').catch(() => {});
     });
     
+    // ==================== 指引服务 ====================
+    socket.on('guide', async () => {
+      const room = getRoom(user.location.roomId);
+      const roomExits = getRoomExits(room?.id) || [];
+
+      const hints = [];
+      // 当前房间指引
+      hints.push(`📍 你当前在「${room?.name || '未知'}」`);
+
+      // 出口指引
+      if (roomExits.length > 0) {
+        const exitNames = roomExits.map(e => {
+          const dirLabel = DIR_LABELS[e.direction] || e.direction;
+          return `${dirLabel}→${e.roomName}`;
+        });
+        hints.push(`🚪 可去: ${exitNames.join('、')}`);
+      }
+
+      // NPC指引
+      const npcs = getNpcsInRoom(room?.id) || [];
+      if (npcs.length > 0) {
+        hints.push(`👤 此处: ${npcs.map(n => n.name).join('、')}`);
+      }
+
+      socket.emit('system_message', { content: hints.join('\n') });
+    });
+
     // ==================== 打听消息 ====================
 
     socket.on('rumor', async () => {
@@ -3027,6 +3063,42 @@ function socketHandler(io) {
         hp: { current: newHp, max: maxHp },
         mp: { current: newMp, max: maxMp },
         fullRecovery: isInn
+      });
+    });
+
+    // ==================== 饮酒 ====================
+    socket.on('drink', async () => {
+      const room = getRoom(user.location.roomId);
+      if (!room?.services?.includes('drink')) {
+        return socket.emit('error', { message: '这里没有酒可以喝' });
+      }
+
+      const fresh = await User.findById(user._id, 'hp mp').lean();
+      if (!fresh) return;
+      const maxHp = fresh.hp?.max || user.hp.max;
+      const maxMp = fresh.mp?.max || user.mp.max;
+      const curHp = fresh.hp?.current ?? user.hp.current;
+      const curMp = fresh.mp?.current ?? user.mp.current;
+
+      // 饮酒恢复少量HP
+      const hpRecover = Math.floor(maxHp * 0.2);
+      const mpRecover = Math.floor(maxMp * 0.1);
+      const newHp = Math.min(curHp + hpRecover, maxHp);
+      const newMp = Math.min(curMp + mpRecover, maxMp);
+
+      await User.findByIdAndUpdate(user._id, { $set: { 'hp.current': newHp, 'mp.current': newMp } });
+      user.hp.current = newHp;
+      user.hp.max = maxHp;
+      user.mp.current = newMp;
+      user.mp.max = maxMp;
+
+      socket.emit('system_message', {
+        content: `你端起酒碗一饮而尽，只觉一股暖流涌遍全身。（恢复${hpRecover}生命 +${mpRecover}内力）`
+      });
+      socket.emit('rest_complete', {
+        hp: { current: newHp, max: maxHp },
+        mp: { current: newMp, max: maxMp },
+        fullRecovery: false
       });
     });
     
@@ -3495,7 +3567,50 @@ function socketHandler(io) {
       // 任务进度：探访地点
       questProgressService.checkProgress(user._id, { type: 'visit', target: destination.roomId }).catch(() => {});
     });
-    
+
+    // ==================== 地图信息 ====================
+    socket.on('get_map_info', async () => {
+      const centerRoom = getRoom(user.location.roomId);
+      if (!centerRoom) return socket.emit('error', { message: '当前位置无效' });
+
+      // 当前房间信息
+      const centerExits = getRoomExits(centerRoom.id).map(e => ({
+        ...e,
+        label: DIR_LABELS[e.direction] || e.direction
+      }));
+
+      // 2格内的所有相邻房间信息
+      const adjacent = [];
+      for (const exit of centerExits) {
+        const adjRoom = getRoom(exit.roomId);
+        if (!adjRoom) continue;
+        const adjExits = getRoomExits(adjRoom.id)
+          .filter(e => e.roomId !== centerRoom.id) // 排除回到当前房间的
+          .map(e => ({
+            ...e,
+            label: DIR_LABELS[e.direction] || e.direction,
+            roomName: getRoom(e.roomId)?.name || e.roomName || '未知'
+          }));
+        adjacent.push({
+          roomId: adjRoom.id,
+          roomName: adjRoom.name,
+          direction: exit.direction,
+          directionLabel: exit.label,
+          exits: adjExits
+        });
+      }
+
+      socket.emit('map_info', {
+        center: {
+          id: centerRoom.id,
+          name: centerRoom.name,
+          description: centerRoom.description,
+          exits: centerExits
+        },
+        adjacent
+      });
+    });
+
     // 分配自由属性点
     socket.on('allocate_points', async (data) => {
       const { stat, points = 1 } = data;
