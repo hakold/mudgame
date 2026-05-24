@@ -106,7 +106,7 @@
       <!-- 地图弹窗 (2格范围) -->
       <div class="quest-overlay" v-if="showMap" @click.self="showMap = false">
         <div class="quest-dialog" style="max-width: 520px;">
-          <div class="quest-dialog-title">🗺️ 周边地图</div>
+          <div class="quest-dialog-title">🗺️ 周边地图<button class="popup-x-btn" @click="showMap = false">✕</button></div>
           <div class="quest-dialog-message" style="margin-bottom: 8px;">
             <span style="color: #fbbf24; font-size: 1em;">📍 {{ mapInfo?.center?.name || gameStore.currentRoom?.name || '当前位置' }}</span>
             <span style="color: #666; font-size: 0.8em; margin-left: 8px;">方圆2步</span>
@@ -511,11 +511,16 @@
       <div class="quick-actions">
         <button class="quick-btn" @click="quickCommand('help')">❓ 帮助</button>
         <button class="quick-btn" @click="quickCommand('inventory')">🎒 背包</button>
-        <button class="quick-btn" @click="quickCommand('skills')">⚔️ 技能</button>
-        <button class="quick-btn" @click="quickCommand('quests')">📜 任务</button>
+        <button class="quick-btn" @click="showFullSkills = true">⚔️ 全部技能</button>
+        <button class="quick-btn" @click="showQuests = true; loadQuests()">📜 任务</button>
         <button class="quick-btn" @click="showAchievements = true; loadAchievements()">🏆 成就</button>
         <button class="quick-btn" @click="showBattleLog = true; loadBattleLogs()">📊 战报</button>
-        <button class="quick-btn" @click="showFullSkills = true">⚔️ 技能</button>
+      </div>
+      <div class="quick-actions">
+        <button class="quick-btn" @click="showForge = true; loadForgeRecipes()">🔨 锻造</button>
+        <button class="quick-btn" @click="showDungeons = true; gameStore.loadDungeons()">🏯 副本</button>
+        <button class="quick-btn" @click="showAuction = true; gameStore.searchAuctions(''); gameStore.loadMyAuctions()">🏪 拍卖</button>
+        <button class="quick-btn" @click="showLife = true; gameStore.loadGatheringNodes(); gameStore.loadAlchemyRecipes(); gameStore.loadCookingRecipes()">🌿 生活</button>
         <button v-if="hasFactionNpc" class="quick-btn" @click="quickCommand('faction')">🏯 门派</button>
       </div>
     </div>
@@ -526,13 +531,9 @@
         <button class="menu-tab" :class="{ active: activeTab === 'inventory' }" @click="activeTab = 'inventory'">背包</button>
         <button class="menu-tab" :class="{ active: activeTab === 'skills' }" @click="activeTab = 'skills'">技能</button>
         <button class="menu-tab" :class="{ active: activeTab === 'quests' }" @click="activeTab = 'quests'">任务</button>
-        <button class="menu-tab" :class="{ active: activeTab === 'online' }" @click="activeTab = 'online'; loadOnlinePlayers()">在线</button>
-        <button class="menu-tab" :class="{ active: activeTab === 'forge' }" @click="activeTab = 'forge'; loadForgeRecipes()">锻造</button>
-        <button class="menu-tab" :class="{ active: activeTab === 'dungeons' }" @click="activeTab = 'dungeons'; gameStore.loadDungeons()">副本</button>
-        <button class="menu-tab" :class="{ active: activeTab === 'gangs' }" @click="activeTab = 'gangs'; gameStore.searchGangs(''); gameStore.loadGangInfo()">帮派</button>
-        <button class="menu-tab" :class="{ active: activeTab === 'auction' }" @click="activeTab = 'auction'; gameStore.searchAuctions(''); gameStore.loadMyAuctions()">拍卖</button>
-        <button class="menu-tab" :class="{ active: activeTab === 'life' }" @click="activeTab = 'life'; gameStore.loadGatheringNodes(); gameStore.loadAlchemyRecipes(); gameStore.loadCookingRecipes()">生活</button>
         <button class="menu-tab" :class="{ active: activeTab === 'daily' }" @click="activeTab = 'daily'; gameStore.loadDailyStatus(); gameStore.loadDailyV2Status()">每日</button>
+        <button class="menu-tab" :class="{ active: activeTab === 'gangs' }" @click="activeTab = 'gangs'; gameStore.searchGangs(''); gameStore.loadGangInfo()">帮派</button>
+        <button class="menu-tab" :class="{ active: activeTab === 'online' }" @click="activeTab = 'online'; loadOnlinePlayers()">在线</button>
         <button v-if="currentRoomServices.some(s => ['shop','buy_item','buy_weapon','buy_armor','sell_item'].includes(s))" class="menu-tab" @click="showShop = true; loadShopItems()">商店</button>
       </div>
       
@@ -655,126 +656,7 @@
           <div v-if="!gameStore.onlinePlayers.length" class="empty-hint">暂无其他玩家在线</div>
         </div>
 
-<!-- 锻造 -->
-        <div v-if="activeTab === 'forge'">
-          <div v-for="recipe in gameStore.forgeRecipes" :key="recipe.id" class="forge-recipe-item">
-            <div class="forge-header">
-              <span class="forge-name">{{ recipe.name }}</span>
-              <span class="forge-rate">成功率 {{ Math.round((recipe.successRate || 1) * 100) }}%</span>
-            </div>
-            <div class="forge-desc">{{ recipe.description }}</div>
-            <div class="forge-cost">
-              <span v-if="recipe.cost?.gold">💰 {{ recipe.cost.gold }} 金币</span>
-              <span v-for="mat in (recipe.cost?.materials || [])" :key="mat.itemId">
-                {{ mat.itemId }} x{{ mat.quantity }}
-              </span>
-            </div>
-            <button class="forge-btn" @click="forge(recipe.id)">锻造</button>
-          </div>
-          <div v-if="!gameStore.forgeRecipes.length" class="empty-hint">暂无锻造配方</div>
-        </div>
-
-        <!-- 副本 -->
-        <div v-if="activeTab === 'dungeons'">
-          <!-- ===== 万安塔(爬塔)中 ===== -->
-          <div v-if="gameStore.towerState" class="dungeon-active">
-            <div class="dungeon-header">
-              <span class="dungeon-name">🏯 万安塔</span>
-              <span class="dungeon-wave">第 {{ gameStore.towerState.floor }}/{{ gameStore.towerState.totalFloors }} 层</span>
-            </div>
-            <div class="dungeon-desc">{{ gameStore.towerState.description }}</div>
-            <div class="dungeon-wave-info">
-              <div class="dungeon-monster" v-for="m in (gameStore.towerState.monsters || [])" :key="m.monsterId">
-                <span class="monster-name">{{ m.monsterId }}</span>
-                <span class="monster-lv">×{{ m.count }}</span>
-              </div>
-            </div>
-            <div class="dungeon-meta">
-              <span>当前累积奖励：经验+{{ gameStore.towerState.currentReward?.accumulatedExp || 0 }}</span>
-            </div>
-            <div class="dungeon-actions">
-              <button class="forge-btn" @click="gameStore.towerFloorComplete('dungeon_wanan_tower')">挑战本层</button>
-              <button class="forge-btn" style="background:#d4a017" @click="gameStore.towerExit('dungeon_wanan_tower')">🔔 敲锣收功</button>
-            </div>
-          </div>
-
-          <!-- ===== 藏经阁(潜行)中 ===== -->
-          <div v-else-if="gameStore.stealthState" class="dungeon-active">
-            <div class="dungeon-header">
-              <span class="dungeon-name">📜 藏经阁</span>
-              <span class="dungeon-wave">第 {{ gameStore.stealthState.layer?.number || 1 }} 层</span>
-            </div>
-            <div class="dungeon-desc">{{ gameStore.stealthState.layer?.description }}</div>
-            <div class="dungeon-wave-info">
-              <div>📍 位置：{{ gameStore.stealthState.position || 0 }}/{{ gameStore.stealthState.layer?.rooms }}</div>
-              <div>👁 看破：{{ gameStore.stealthState.detections || 0 }}/{{ gameStore.stealthState.maxDetections }}</div>
-              <div>⭐ 积分：{{ gameStore.stealthState.score || 0 }}</div>
-            </div>
-            <div class="dungeon-actions">
-              <button class="forge-btn" @click="gameStore.stealthMove(gameStore.stealthState.battleId)">前进一步</button>
-            </div>
-          </div>
-
-          <!-- ===== 鄱阳湖漂流(航海)中 ===== -->
-          <div v-else-if="gameStore.driftState" class="dungeon-active">
-            <div class="dungeon-header">
-              <span class="dungeon-name">⛵ 鄱阳湖漂流</span>
-              <span class="dungeon-wave">{{ gameStore.driftState.mode?.name }}</span>
-            </div>
-            <div class="dungeon-wave-info">
-              <div>📍 航程：{{ gameStore.driftState.distance }}/{{ gameStore.driftState.maxDistance }} 里</div>
-              <div v-if="gameStore.driftState.anchored">⚓ 已下锚</div>
-            </div>
-            <div class="dungeon-actions" style="flex-wrap:wrap">
-              <button class="forge-btn" @click="gameStore.driftCommand(gameStore.driftState.battleId, 'shengfan')">⛵ 升帆</button>
-              <button class="forge-btn" @click="gameStore.driftCommand(gameStore.driftState.battleId, 'huadong')">🛶 划桨</button>
-              <button class="forge-btn" @click="gameStore.driftCommand(gameStore.driftState.battleId, 'xiamao')">⚓ 下锚</button>
-              <button class="forge-btn" @click="gameStore.driftCommand(gameStore.driftState.battleId, 'fanhang')" :disabled="!gameStore.driftState.anchored">🏠 返航</button>
-              <button class="forge-btn" @click="gameStore.driftCommand(gameStore.driftState.battleId, 'tancha')">🔍 探查</button>
-              <button class="forge-btn" style="background:#888" @click="gameStore.driftCommand(gameStore.driftState.battleId, 'jiangfan')">降帆</button>
-              <button class="forge-btn" style="background:#888" @click="gameStore.driftCommand(gameStore.driftState.battleId, 'tingchuan')">停船</button>
-            </div>
-          </div>
-
-          <!-- ===== 旧副本(试炼/探索/BOSS)中 ===== -->
-          <div v-else-if="gameStore.currentDungeon" class="dungeon-active">
-            <div class="dungeon-header">
-              <span class="dungeon-name">⚔️ {{ gameStore.currentDungeon.dungeonName }}</span>
-              <span class="dungeon-wave" v-if="gameStore.currentDungeon.currentWave">第 {{ gameStore.currentDungeon.currentWave }}/{{ gameStore.currentDungeon.totalWaves }} 波</span>
-            </div>
-            <div v-if="gameStore.dungeonWave" class="dungeon-wave-info">
-              <div class="dungeon-monster" v-for="m in (gameStore.dungeonWave.monsters || [])" :key="m.id">
-                <span class="monster-name">{{ m.name }}</span>
-                <span class="monster-lv">Lv{{ m.level }}</span>
-              </div>
-            </div>
-            <div class="dungeon-actions">
-              <button v-if="gameStore.currentDungeon.currentWave && gameStore.dungeonWave" class="forge-btn" @click="gameStore.dungeonWaveComplete(gameStore.currentDungeon.dungeonId)">击败当前波次</button>
-              <button v-if="!gameStore.dungeonWave && gameStore.currentDungeon.currentWave" class="forge-btn" @click="gameStore.dungeonNextWave(gameStore.currentDungeon.dungeonId)">下一波</button>
-              <button class="btn btn-secondary" @click="gameStore.leaveDungeon(gameStore.currentDungeon.dungeonId)">退出副本</button>
-            </div>
-          </div>
-
-          <!-- ===== 副本列表 ===== -->
-          <div v-else>
-            <div v-for="d in gameStore.dungeons" :key="d.id" class="dungeon-item">
-              <div class="dungeon-header">
-                <span class="dungeon-name">{{ d.name }}</span>
-                <span class="dungeon-type">{{ typeLabel(d.type) }}</span>
-              </div>
-              <div class="dungeon-desc">{{ d.description }}</div>
-              <div class="dungeon-meta">
-                <span v-if="d.requireLevel">需等级 {{ d.requireLevel }}</span>
-                <span v-if="d.dailyLimit > 0">每日 {{ d.dailyLimit }} 次</span>
-                <span v-if="d.onCooldown" style="color:#f66">冷却 {{ d.cooldownRemaining }}分钟</span>
-              </div>
-              <button class="forge-btn" @click="enterDungeonByType(d)" :disabled="d.onCooldown">{{ d.onCooldown ? '冷却中...' : '进入副本' }}</button>
-            </div>
-            <div v-if="!gameStore.dungeons.length" class="empty-hint">暂无副本</div>
-          </div>
-        </div>
-
-        <!-- 帮派 -->
+<!-- 帮派 -->
         <div v-if="activeTab === 'gangs'">
           <!-- 已加入帮派 -->
           <div v-if="gameStore.myGang" class="gang-info">
@@ -831,129 +713,7 @@
           </div>
         </div>
 
-        <!-- 拍卖行 -->
-        <div v-if="activeTab === 'auction'">
-          <div class="auction-tabs">
-            <button class="menu-tab" :class="{ active: auctionView === 'list' }" @click="auctionView = 'list'; gameStore.searchAuctions('')">市场</button>
-            <button class="menu-tab" :class="{ active: auctionView === 'my' }" @click="auctionView = 'my'; gameStore.loadMyAuctions()">我的</button>
-            <button class="menu-tab" :class="{ active: auctionView === 'sell' }" @click="auctionView = 'sell'">出售</button>
-          </div>
-          <!-- 市场列表 -->
-          <div v-if="auctionView === 'list'">
-            <div v-for="item in gameStore.auctions.listings" :key="item.id || item._id" class="auction-item">
-              <div class="auction-name">{{ item.itemName }}</div>
-              <div class="auction-detail">
-                <span>💰 {{ item.price }}金 x{{ item.quantity }}</span>
-                <span>卖家: {{ item.sellerName }}</span>
-              </div>
-              <button class="forge-btn" @click="gameStore.buyAuction(item._id || item.id)">购买</button>
-            </div>
-            <div v-if="!gameStore.auctions.listings.length" class="empty-hint">暂无商品</div>
-          </div>
-          <!-- 我的挂单 -->
-          <div v-if="auctionView === 'my'">
-            <div v-for="item in gameStore.auctions.myListings" :key="item.id || item._id" class="auction-item">
-              <div class="auction-name">{{ item.itemName }}</div>
-              <div class="auction-detail"><span>💰 {{ item.price }}金 x{{ item.quantity }}</span></div>
-              <button class="btn btn-secondary" @click="gameStore.cancelAuction(item._id || item.id)">下架</button>
-            </div>
-            <div v-if="!gameStore.auctions.myListings.length" class="empty-hint">暂无挂单</div>
-          </div>
-          <!-- 出售 -->
-          <div v-if="auctionView === 'sell'">
-            <div class="auction-sell-form">
-              <select v-model="auctionItemId" class="auction-select">
-                <option value="">选择物品...</option>
-                <option v-for="item in gameStore.inventory" :key="item.itemId || item._id" :value="item.itemId">{{ item.name || item.itemId }} x{{ item.quantity }}</option>
-              </select>
-              <input v-model.number="auctionQuantity" type="number" min="1" placeholder="数量" class="gang-input" />
-              <input v-model.number="auctionPrice" type="number" min="1" placeholder="单价(金币)" class="gang-input" />
-              <select v-model="auctionDuration" class="auction-select">
-                <option :value="24">24小时</option>
-                <option :value="48">48小时</option>
-                <option :value="72">72小时</option>
-              </select>
-              <button class="forge-btn" @click="createAuctionAction">上架 (5%手续费)</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 生活技能 -->
-        <div v-if="activeTab === 'life'">
-          <div class="life-tabs">
-            <button class="menu-tab" :class="{ active: lifeView === 'herb' }" @click="lifeView = 'herb'; gameStore.loadGatheringNodes()">🌿采药</button>
-            <button class="menu-tab" :class="{ active: lifeView === 'mining' }" @click="lifeView = 'mining'; gameStore.loadGatheringNodes()">⛏️挖矿</button>
-            <button class="menu-tab" :class="{ active: lifeView === 'fishing' }" @click="lifeView = 'fishing'; gameStore.loadGatheringNodes()">🎣钓鱼</button>
-            <button class="menu-tab" :class="{ active: lifeView === 'alchemy' }" @click="lifeView = 'alchemy'; gameStore.loadAlchemyRecipes()">⚗️炼药</button>
-            <button class="menu-tab" :class="{ active: lifeView === 'cooking' }" @click="lifeView = 'cooking'; gameStore.loadCookingRecipes()">🍳烹饪</button>
-            <button class="menu-tab" :class="{ active: lifeView === 'forging' }" @click="lifeView = 'forging'; gameStore.loadForgeRecipes()">🔨锻造</button>
-          </div>
-
-          <!-- 三系采集 -->
-          <div v-if="['herb','mining','fishing'].includes(lifeView)">
-            <div v-for="node in filteredGatherNodes(lifeView)" :key="node.id" class="gather-node" :class="{ 'gather-locked': !node.canGather }">
-              <div class="gather-name">{{ node.icon || '' }} {{ node.name }} 
-                <span v-if="node.rarity === 'rare'" style="color:#4fc3f7">稀有</span>
-                <span v-if="node.rarity === 'epic'" style="color:#c084fc">史诗</span>
-              </div>
-              <div class="gather-desc">{{ node.description }}</div>
-              <div class="gather-meta">
-                <span v-if="node.level">需{{ lifeView === 'herb' ? '采药' : lifeView === 'mining' ? '挖矿' : '钓鱼' }}Lv{{ node.level }}
-                  <span v-if="!node.canGather" style="color:#f66">(你Lv{{ node.userLevel }})</span>
-                </span>
-                <span v-if="node.cooldownRemaining > 0" style="color:#f66">冷却 {{ node.cooldownRemaining }}秒</span>
-              </div>
-              <button class="forge-btn" :disabled="!node.available || !node.canGather || node.cooldownRemaining > 0" @click="gameStore.gather(lifeView, node.id)">
-                {{ !node.canGather ? '🔒 等级不足' : node.cooldownRemaining > 0 ? '冷却中...' : '采集' }}
-              </button>
-            </div>
-            <div v-if="!filteredGatherNodes(lifeView).length" class="empty-hint">当前房间没有{{ lifeView === 'herb' ? '采药' : lifeView === 'mining' ? '矿脉' : '钓点' }}</div>
-          </div>
-
-          <!-- 炼药 -->
-          <div v-if="lifeView === 'alchemy'">
-            <div v-for="r in gameStore.alchemyRecipes" :key="r.id" class="craft-recipe">
-              <div class="craft-name">{{ r.name }} <span class="craft-lv">Lv{{ r.level }}</span></div>
-              <div class="craft-desc">{{ r.description }}</div>
-              <div class="craft-cost">
-                <span v-if="r.goldCost">💰{{ r.goldCost }}金</span>
-                <span v-for="m in (r.materials || [])" :key="m.itemId">{{ getItemName(m.itemId) }}×{{ m.quantity }}</span>
-              </div>
-              <button class="forge-btn" @click="gameStore.alchemy(r.id)">炼制 ({{ (r.successRate*100).toFixed(0) }}%)</button>
-            </div>
-            <div v-if="!gameStore.alchemyRecipes.length" class="empty-hint">暂无炼药配方</div>
-          </div>
-
-          <!-- 烹饪 -->
-          <div v-if="lifeView === 'cooking'">
-            <div v-for="r in gameStore.cookingRecipes" :key="r.id" class="craft-recipe">
-              <div class="craft-name">{{ r.name }} <span class="craft-lv">Lv{{ r.level }}</span></div>
-              <div class="craft-desc">{{ r.description }}</div>
-              <div class="craft-cost">
-                <span v-if="r.goldCost">💰{{ r.goldCost }}金</span>
-                <span v-for="m in (r.materials || [])" :key="m.itemId">{{ getItemName(m.itemId) }}×{{ m.quantity }}</span>
-              </div>
-              <button class="forge-btn" @click="gameStore.cooking(r.id)">烹饪 ({{ (r.successRate*100).toFixed(0) }}%)</button>
-            </div>
-            <div v-if="!gameStore.cookingRecipes.length" class="empty-hint">暂无烹饪配方</div>
-          </div>
-
-          <!-- 锻造 -->
-          <div v-if="lifeView === 'forging'">
-            <div v-for="r in gameStore.forgeRecipes" :key="r.id" class="craft-recipe">
-              <div class="craft-name">{{ r.name }} <span class="craft-lv">Lv{{ r.level }}</span></div>
-              <div class="craft-desc">{{ r.description }}</div>
-              <div class="craft-cost">
-                <span v-if="r.goldCost">💰{{ r.goldCost }}金</span>
-                <span v-for="m in (r.materials || [])" :key="m.itemId">{{ getItemName(m.itemId) }}×{{ m.quantity }}</span>
-              </div>
-              <button class="forge-btn" @click="gameStore.forge(r.id)">锻造 ({{ (r.successRate*100).toFixed(0) }}%)</button>
-            </div>
-            <div v-if="!gameStore.forgeRecipes.length" class="empty-hint">暂无锻造配方</div>
-          </div>
-        </div>
-
-                <!-- 每日活跃 -->
+                        <!-- 每日活跃 -->
         <div v-if="activeTab === 'daily'">
           <!-- ===== 简化每日活跃 v2 ===== -->
           <div class="daily-section daily-v2-card" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); border: 2px solid #e94560; border-radius: 12px; padding: 16px; margin-bottom: 12px;">
@@ -1045,7 +805,7 @@
         <!-- 商店弹窗 -->
       <div class="quest-overlay" v-if="showShop" @click.self="showShop = false">
         <div class="quest-dialog" style="max-width:420px">
-          <div class="quest-dialog-title">🏪 商店</div>
+          <div class="quest-dialog-title">🏪 商店<button class="popup-x-btn" @click="showShop = false">✕</button></div>
           <div class="quest-dialog-message" style="margin-bottom:8px;">{{ gameStore.currentRoom?.name }}</div>
           <button class="item-btn" @click="loadShopItems" style="margin-bottom:6px;width:100%">刷新商品</button>
           <div v-for="item in shopItems" :key="item.id" class="inventory-item">
@@ -1069,7 +829,7 @@
       <!-- 成就弹窗 -->
       <div class="quest-overlay" v-if="showAchievements" @click.self="showAchievements = false">
         <div class="quest-dialog" style="max-width:420px">
-          <div class="quest-dialog-title">🏆 成就</div>
+          <div class="quest-dialog-title">🏆 成就<button class="popup-x-btn" @click="showAchievements = false">✕</button></div>
           <div v-for="ach in (achievements?.achieved || [])" :key="ach.id" class="quest-item" style="border-left:3px solid #fbbf24">
             <div class="item-header">
               <span class="item-name" style="color:#fbbf24">🏆 {{ ach.name }}</span>
@@ -1090,7 +850,7 @@
       <!-- 战报弹窗 -->
       <div class="quest-overlay" v-if="showBattleLog" @click.self="showBattleLog = false">
         <div class="quest-dialog" style="max-width:440px">
-          <div class="quest-dialog-title">📊 战斗记录</div>
+          <div class="quest-dialog-title">📊 战斗记录<button class="popup-x-btn" @click="showBattleLog = false">✕</button></div>
           <button class="item-btn" @click="loadBattleLogs" style="margin-bottom:6px;width:100%">刷新战报</button>
           <div v-if="gameStore.battleLogDetail" class="battle-log-detail">
             <button class="item-btn" @click="gameStore.battleLogDetail = null" style="margin-bottom:6px">← 返回列表</button>
@@ -1116,7 +876,7 @@
       <!-- 全部技能弹窗 -->
       <div class="quest-overlay" v-if="showFullSkills" @click.self="showFullSkills = false">
         <div class="quest-dialog" style="max-width:420px">
-          <div class="quest-dialog-title">⚔️ 全部技能</div>
+          <div class="quest-dialog-title">⚔️ 全部技能<button class="popup-x-btn" @click="showFullSkills = false">✕</button></div>
           <div v-for="skill in skills" :key="skill._id" class="skill-item">
             <div class="item-header">
               <span class="item-name">{{ getSkillName(skill.skillId) }}</span>
@@ -1137,6 +897,308 @@
         </div>
       </div>
   </div>
+
+      <!-- 任务弹窗 -->
+      <div class="quest-overlay" v-if="showQuests" @click.self="showQuests = false">
+        <div class="quest-dialog" style="max-width:460px">
+          <div class="quest-dialog-title">📜 任务<button class="popup-x-btn" @click="showQuests = false">✕</button></div>
+          <!-- 进行中的任务 -->
+          <div v-if="quests.filter(q => q.status === 'accepted' || q.status === 'in_progress').length" class="quest-section">
+            <div class="quest-section-title">📋 已领取任务</div>
+            <div v-for="quest in quests.filter(q => q.status === 'accepted' || q.status === 'in_progress')" :key="quest._id" class="quest-item active-quest">
+              <div class="item-header">
+                <span class="item-name">{{ getQuestName(quest.questId) }}</span>
+                <span class="quest-status" :class="questStatusClass(quest.status)">{{ questStatus(quest.status) }}</span>
+              </div>
+              <div v-if="quest.description" class="quest-desc">{{ quest.description }}</div>
+              <div class="quest-objectives">
+                <div v-for="obj in getQuestObjectives(quest)" :key="obj.key" class="quest-objective">
+                  <span :class="{ 'objective-done': obj.done }">{{ obj.label }} {{ obj.current }}/{{ obj.target }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 已完成待交的任务 -->
+          <div v-if="quests.filter(q => q.status === 'completed' && !q.rewardClaimed).length" class="quest-section">
+            <div class="quest-section-title">✅ 已完成待领奖</div>
+            <div v-for="quest in quests.filter(q => q.status === 'completed' && !q.rewardClaimed)" :key="quest._id" class="quest-item completed-quest">
+              <div class="item-header">
+                <span class="item-name">{{ getQuestName(quest.questId) }}</span>
+                <span class="quest-status completed">已完成</span>
+              </div>
+              <div class="quest-reward-info">{{ getQuestRewardText(quest.questId) }}</div>
+              <button v-if="!needNpcHandIn(quest.questId)" class="quest-reward-btn" @click="claimQuestReward(quest.questId)">领取奖励</button>
+              <span v-if="needNpcHandIn(quest.questId)" class="hand-in-hint">📍 需要找「{{ getHandInNpcName(quest.questId) }}」交接任务</span>
+            </div>
+          </div>
+          <!-- 已完成的任务 -->
+          <div v-if="quests.filter(q => q.status === 'completed' && q.rewardClaimed).length" class="quest-section">
+            <div class="quest-section-title collapsed" @click="showCompletedQuests = !showCompletedQuests">
+              🏆 已完成任务 ({{ quests.filter(q => q.status === 'completed' && q.rewardClaimed).length }}) {{ showCompletedQuests ? '▲' : '▼' }}
+            </div>
+            <div v-if="showCompletedQuests">
+              <div v-for="quest in quests.filter(q => q.status === 'completed' && q.rewardClaimed)" :key="quest._id" class="quest-item done-quest">
+                <div class="item-header">
+                  <span class="item-name done">{{ getQuestName(quest.questId) }}</span>
+                  <span class="reward-claimed">已领奖</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-if="!quests.length" class="empty-hint">暂无任务记录</div>
+          <button class="quest-close-btn" @click="showQuests = false">关闭</button>
+        </div>
+      </div>
+
+      <!-- 锻造弹窗 -->
+      <div class="quest-overlay" v-if="showForge" @click.self="showForge = false">
+        <div class="quest-dialog" style="max-width:420px">
+          <div class="quest-dialog-title">🔨 锻造<button class="popup-x-btn" @click="showForge = false">✕</button></div>
+          <div v-for="recipe in gameStore.forgeRecipes" :key="recipe.id" class="forge-recipe-item">
+            <div class="forge-header">
+              <span class="forge-name">{{ recipe.name }}</span>
+              <span class="forge-rate">成功率 {{ Math.round((recipe.successRate || 1) * 100) }}%</span>
+            </div>
+            <div class="forge-desc">{{ recipe.description }}</div>
+            <div class="forge-cost">
+              <span v-if="recipe.cost?.gold">💰 {{ recipe.cost.gold }} 金币</span>
+              <span v-for="mat in (recipe.cost?.materials || [])" :key="mat.itemId">
+                {{ mat.itemId }} x{{ mat.quantity }}
+              </span>
+            </div>
+            <button class="forge-btn" @click="forge(recipe.id)">锻造</button>
+          </div>
+          <div v-if="!gameStore.forgeRecipes.length" class="empty-hint">暂无锻造配方</div>
+          <button class="quest-close-btn" @click="showForge = false">关闭</button>
+        </div>
+      </div>
+
+      <!-- 副本弹窗 -->
+      <div class="quest-overlay" v-if="showDungeons" @click.self="showDungeons = false">
+        <div class="quest-dialog" style="max-width:460px">
+          <div class="quest-dialog-title">🏯 副本<button class="popup-x-btn" @click="showDungeons = false">✕</button></div>
+          <!-- 万安塔中 -->
+          <div v-if="gameStore.towerState" class="dungeon-active">
+            <div class="dungeon-header">
+              <span class="dungeon-name">🏯 万安塔</span>
+              <span class="dungeon-wave">第 {{ gameStore.towerState.floor }}/{{ gameStore.towerState.totalFloors }} 层</span>
+            </div>
+            <div class="dungeon-desc">{{ gameStore.towerState.description }}</div>
+            <div class="dungeon-wave-info">
+              <div class="dungeon-monster" v-for="m in (gameStore.towerState.monsters || [])" :key="m.monsterId">
+                <span class="monster-name">{{ m.monsterId }}</span>
+                <span class="monster-lv">×{{ m.count }}</span>
+              </div>
+            </div>
+            <div class="dungeon-meta">
+              <span>当前累积奖励：经验+{{ gameStore.towerState.currentReward?.accumulatedExp || 0 }}</span>
+            </div>
+            <div class="dungeon-actions">
+              <button class="forge-btn" @click="gameStore.towerFloorComplete('dungeon_wanan_tower')">挑战本层</button>
+              <button class="forge-btn" style="background:#d4a017" @click="gameStore.towerExit('dungeon_wanan_tower')">🔔 敲锣收功</button>
+            </div>
+          </div>
+          <!-- 藏经阁中 -->
+          <div v-else-if="gameStore.stealthState" class="dungeon-active">
+            <div class="dungeon-header">
+              <span class="dungeon-name">📜 藏经阁</span>
+              <span class="dungeon-wave">第 {{ gameStore.stealthState.layer?.number || 1 }} 层</span>
+            </div>
+            <div class="dungeon-desc">{{ gameStore.stealthState.layer?.description }}</div>
+            <div class="dungeon-wave-info">
+              <div>📍 位置：{{ gameStore.stealthState.position || 0 }}/{{ gameStore.stealthState.layer?.rooms }}</div>
+              <div>👁 看破：{{ gameStore.stealthState.detections || 0 }}/{{ gameStore.stealthState.maxDetections }}</div>
+              <div>⭐ 积分：{{ gameStore.stealthState.score || 0 }}</div>
+            </div>
+            <div class="dungeon-actions">
+              <button class="forge-btn" @click="gameStore.stealthMove(gameStore.stealthState.battleId)">前进一步</button>
+            </div>
+          </div>
+          <!-- 鄱阳湖漂流中 -->
+          <div v-else-if="gameStore.driftState" class="dungeon-active">
+            <div class="dungeon-header">
+              <span class="dungeon-name">⛵ 鄱阳湖漂流</span>
+              <span class="dungeon-wave">{{ gameStore.driftState.mode?.name }}</span>
+            </div>
+            <div class="dungeon-wave-info">
+              <div>📍 航程：{{ gameStore.driftState.distance }}/{{ gameStore.driftState.maxDistance }} 里</div>
+              <div v-if="gameStore.driftState.anchored">⚓ 已下锚</div>
+            </div>
+            <div class="dungeon-actions" style="flex-wrap:wrap">
+              <button class="forge-btn" @click="gameStore.driftCommand(gameStore.driftState.battleId, 'shengfan')">⛵ 升帆</button>
+              <button class="forge-btn" @click="gameStore.driftCommand(gameStore.driftState.battleId, 'huadong')">🛶 划桨</button>
+              <button class="forge-btn" @click="gameStore.driftCommand(gameStore.driftState.battleId, 'xiamao')">⚓ 下锚</button>
+              <button class="forge-btn" @click="gameStore.driftCommand(gameStore.driftState.battleId, 'fanhang')" :disabled="!gameStore.driftState.anchored">🏠 返航</button>
+              <button class="forge-btn" @click="gameStore.driftCommand(gameStore.driftState.battleId, 'tancha')">🔍 探查</button>
+              <button class="forge-btn" style="background:#888" @click="gameStore.driftCommand(gameStore.driftState.battleId, 'jiangfan')">降帆</button>
+              <button class="forge-btn" style="background:#888" @click="gameStore.driftCommand(gameStore.driftState.battleId, 'tingchuan')">停船</button>
+            </div>
+          </div>
+          <!-- 旧副本中 -->
+          <div v-else-if="gameStore.currentDungeon" class="dungeon-active">
+            <div class="dungeon-header">
+              <span class="dungeon-name">⚔️ {{ gameStore.currentDungeon.dungeonName }}</span>
+              <span class="dungeon-wave" v-if="gameStore.currentDungeon.currentWave">第 {{ gameStore.currentDungeon.currentWave }}/{{ gameStore.currentDungeon.totalWaves }} 波</span>
+            </div>
+            <div v-if="gameStore.dungeonWave" class="dungeon-wave-info">
+              <div class="dungeon-monster" v-for="m in (gameStore.dungeonWave.monsters || [])" :key="m.id">
+                <span class="monster-name">{{ m.name }}</span>
+                <span class="monster-lv">Lv{{ m.level }}</span>
+              </div>
+            </div>
+            <div class="dungeon-actions">
+              <button v-if="gameStore.currentDungeon.currentWave && gameStore.dungeonWave" class="forge-btn" @click="gameStore.dungeonWaveComplete(gameStore.currentDungeon.dungeonId)">击败当前波次</button>
+              <button v-if="!gameStore.dungeonWave && gameStore.currentDungeon.currentWave" class="forge-btn" @click="gameStore.dungeonNextWave(gameStore.currentDungeon.dungeonId)">下一波</button>
+              <button class="btn btn-secondary" @click="gameStore.leaveDungeon(gameStore.currentDungeon.dungeonId)">退出副本</button>
+            </div>
+          </div>
+          <!-- 副本列表 -->
+          <div v-else>
+            <div v-for="d in gameStore.dungeons" :key="d.id" class="dungeon-item">
+              <div class="dungeon-header">
+                <span class="dungeon-name">{{ d.name }}</span>
+                <span class="dungeon-type">{{ typeLabel(d.type) }}</span>
+              </div>
+              <div class="dungeon-desc">{{ d.description }}</div>
+              <div class="dungeon-meta">
+                <span v-if="d.requireLevel">需等级 {{ d.requireLevel }}</span>
+                <span v-if="d.dailyLimit > 0">每日 {{ d.dailyLimit }} 次</span>
+                <span v-if="d.onCooldown" style="color:#f66">冷却 {{ d.cooldownRemaining }}分钟</span>
+              </div>
+              <button class="forge-btn" @click="enterDungeonByType(d)" :disabled="d.onCooldown">{{ d.onCooldown ? '冷却中...' : '进入副本' }}</button>
+            </div>
+            <div v-if="!gameStore.dungeons.length" class="empty-hint">暂无副本</div>
+          </div>
+          <button class="quest-close-btn" @click="showDungeons = false">关闭</button>
+        </div>
+      </div>
+
+      <!-- 拍卖弹窗 -->
+      <div class="quest-overlay" v-if="showAuction" @click.self="showAuction = false">
+        <div class="quest-dialog" style="max-width:440px">
+          <div class="quest-dialog-title">🏪 拍卖行<button class="popup-x-btn" @click="showAuction = false">✕</button></div>
+          <div class="auction-tabs">
+            <button class="menu-tab" :class="{ active: auctionView === 'list' }" @click="auctionView = 'list'; gameStore.searchAuctions('')">市场</button>
+            <button class="menu-tab" :class="{ active: auctionView === 'my' }" @click="auctionView = 'my'; gameStore.loadMyAuctions()">我的</button>
+            <button class="menu-tab" :class="{ active: auctionView === 'sell' }" @click="auctionView = 'sell'">出售</button>
+          </div>
+          <!-- 市场列表 -->
+          <div v-if="auctionView === 'list'">
+            <div v-for="item in gameStore.auctions.listings" :key="item.id || item._id" class="auction-item">
+              <div class="auction-name">{{ item.itemName }}</div>
+              <div class="auction-detail">
+                <span>💰 {{ item.price }}金 x{{ item.quantity }}</span>
+                <span>卖家: {{ item.sellerName }}</span>
+              </div>
+              <button class="forge-btn" @click="gameStore.buyAuction(item._id || item.id)">购买</button>
+            </div>
+            <div v-if="!gameStore.auctions.listings.length" class="empty-hint">暂无商品</div>
+          </div>
+          <!-- 我的挂单 -->
+          <div v-if="auctionView === 'my'">
+            <div v-for="item in gameStore.auctions.myListings" :key="item.id || item._id" class="auction-item">
+              <div class="auction-name">{{ item.itemName }}</div>
+              <div class="auction-detail"><span>💰 {{ item.price }}金 x{{ item.quantity }}</span></div>
+              <button class="btn btn-secondary" @click="gameStore.cancelAuction(item._id || item.id)">下架</button>
+            </div>
+            <div v-if="!gameStore.auctions.myListings.length" class="empty-hint">暂无挂单</div>
+          </div>
+          <!-- 出售 -->
+          <div v-if="auctionView === 'sell'">
+            <div class="auction-sell-form">
+              <select v-model="auctionItemId" class="auction-select">
+                <option value="">选择物品...</option>
+                <option v-for="item in gameStore.inventory" :key="item.itemId || item._id" :value="item.itemId">{{ item.name || item.itemId }} x{{ item.quantity }}</option>
+              </select>
+              <input v-model.number="auctionQuantity" type="number" min="1" placeholder="数量" class="gang-input" />
+              <input v-model.number="auctionPrice" type="number" min="1" placeholder="单价(金币)" class="gang-input" />
+              <select v-model="auctionDuration" class="auction-select">
+                <option :value="24">24小时</option>
+                <option :value="48">48小时</option>
+                <option :value="72">72小时</option>
+              </select>
+              <button class="forge-btn" @click="createAuctionAction">上架 (5%手续费)</button>
+            </div>
+          </div>
+          <button class="quest-close-btn" @click="showAuction = false">关闭</button>
+        </div>
+      </div>
+
+      <!-- 生活弹窗 -->
+      <div class="quest-overlay" v-if="showLife" @click.self="showLife = false">
+        <div class="quest-dialog" style="max-width:440px">
+          <div class="quest-dialog-title">🌿 生活技能<button class="popup-x-btn" @click="showLife = false">✕</button></div>
+          <div class="life-tabs">
+            <button class="menu-tab" :class="{ active: lifeView === 'herb' }" @click="lifeView = 'herb'; gameStore.loadGatheringNodes()">🌿采药</button>
+            <button class="menu-tab" :class="{ active: lifeView === 'mining' }" @click="lifeView = 'mining'; gameStore.loadGatheringNodes()">⛏️挖矿</button>
+            <button class="menu-tab" :class="{ active: lifeView === 'fishing' }" @click="lifeView = 'fishing'; gameStore.loadGatheringNodes()">🎣钓鱼</button>
+            <button class="menu-tab" :class="{ active: lifeView === 'alchemy' }" @click="lifeView = 'alchemy'; gameStore.loadAlchemyRecipes()">⚗️炼药</button>
+            <button class="menu-tab" :class="{ active: lifeView === 'cooking' }" @click="lifeView = 'cooking'; gameStore.loadCookingRecipes()">🍳烹饪</button>
+            <button class="menu-tab" :class="{ active: lifeView === 'forging' }" @click="lifeView = 'forging'; gameStore.loadForgeRecipes()">🔨锻造</button>
+          </div>
+          <!-- 三系采集 -->
+          <div v-if="['herb','mining','fishing'].includes(lifeView)">
+            <div v-for="node in filteredGatherNodes(lifeView)" :key="node.id" class="gather-node" :class="{ 'gather-locked': !node.canGather }">
+              <div class="gather-name">{{ node.icon || '' }} {{ node.name }} 
+                <span v-if="node.rarity === 'rare'" style="color:#4fc3f7">稀有</span>
+                <span v-if="node.rarity === 'epic'" style="color:#c084fc">史诗</span>
+              </div>
+              <div class="gather-desc">{{ node.description }}</div>
+              <div class="gather-meta">
+                <span v-if="node.level">需{{ lifeView === 'herb' ? '采药' : lifeView === 'mining' ? '挖矿' : '钓鱼' }}Lv{{ node.level }}
+                  <span v-if="!node.canGather" style="color:#f66">(你Lv{{ node.userLevel }})</span>
+                </span>
+                <span v-if="node.cooldownRemaining > 0" style="color:#f66">冷却 {{ node.cooldownRemaining }}秒</span>
+              </div>
+              <button class="forge-btn" :disabled="!node.available || !node.canGather || node.cooldownRemaining > 0" @click="gameStore.gather(lifeView, node.id)">
+                {{ !node.canGather ? '🔒 等级不足' : node.cooldownRemaining > 0 ? '冷却中...' : '采集' }}
+              </button>
+            </div>
+            <div v-if="!filteredGatherNodes(lifeView).length" class="empty-hint">当前房间没有{{ lifeView === 'herb' ? '采药' : lifeView === 'mining' ? '矿脉' : '钓点' }}</div>
+          </div>
+          <!-- 炼药 -->
+          <div v-if="lifeView === 'alchemy'">
+            <div v-for="r in gameStore.alchemyRecipes" :key="r.id" class="craft-recipe">
+              <div class="craft-name">{{ r.name }} <span class="craft-lv">Lv{{ r.level }}</span></div>
+              <div class="craft-desc">{{ r.description }}</div>
+              <div class="craft-cost">
+                <span v-if="r.goldCost">💰{{ r.goldCost }}金</span>
+                <span v-for="m in (r.materials || [])" :key="m.itemId">{{ getItemName(m.itemId) }}×{{ m.quantity }}</span>
+              </div>
+              <button class="forge-btn" @click="gameStore.alchemy(r.id)">炼制 ({{ (r.successRate*100).toFixed(0) }}%)</button>
+            </div>
+            <div v-if="!gameStore.alchemyRecipes.length" class="empty-hint">暂无炼药配方</div>
+          </div>
+          <!-- 烹饪 -->
+          <div v-if="lifeView === 'cooking'">
+            <div v-for="r in gameStore.cookingRecipes" :key="r.id" class="craft-recipe">
+              <div class="craft-name">{{ r.name }} <span class="craft-lv">Lv{{ r.level }}</span></div>
+              <div class="craft-desc">{{ r.description }}</div>
+              <div class="craft-cost">
+                <span v-if="r.goldCost">💰{{ r.goldCost }}金</span>
+                <span v-for="m in (r.materials || [])" :key="m.itemId">{{ getItemName(m.itemId) }}×{{ m.quantity }}</span>
+              </div>
+              <button class="forge-btn" @click="gameStore.cooking(r.id)">烹饪 ({{ (r.successRate*100).toFixed(0) }}%)</button>
+            </div>
+            <div v-if="!gameStore.cookingRecipes.length" class="empty-hint">暂无烹饪配方</div>
+          </div>
+          <!-- 生活锻造 -->
+          <div v-if="lifeView === 'forging'">
+            <div v-for="r in gameStore.forgeRecipes" :key="r.id" class="craft-recipe">
+              <div class="craft-name">{{ r.name }} <span class="craft-lv">Lv{{ r.level }}</span></div>
+              <div class="craft-desc">{{ r.description }}</div>
+              <div class="craft-cost">
+                <span v-if="r.goldCost">💰{{ r.goldCost }}金</span>
+                <span v-for="m in (r.materials || [])" :key="m.itemId">{{ getItemName(m.itemId) }}×{{ m.quantity }}</span>
+              </div>
+              <button class="forge-btn" @click="gameStore.forge(r.id)">锻造 ({{ (r.successRate*100).toFixed(0) }}%)</button>
+            </div>
+            <div v-if="!gameStore.forgeRecipes.length" class="empty-hint">暂无锻造配方</div>
+          </div>
+          <button class="quest-close-btn" @click="showLife = false">关闭</button>
+        </div>
+      </div>
+
 </template>
 
 <script setup>
@@ -1198,6 +1260,11 @@ const showShop = ref(false)
 const showAchievements = ref(false)
 const showBattleLog = ref(false)
 const showFullSkills = ref(false)
+const showQuests = ref(false)
+const showForge = ref(false)
+const showDungeons = ref(false)
+const showAuction = ref(false)
+const showLife = ref(false)
 
 const factionRankLabel = computed(() => {
   const rank = gameStore.user?.factionRank
@@ -2239,6 +2306,30 @@ onUnmounted(() => {
   width: 90%;
   max-height: 70vh;
   overflow-y: auto;
+}
+.popup-x-btn {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid #555;
+  color: #aaa;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  line-height: 1;
+  padding: 0;
+}
+.popup-x-btn:hover {
+  background: rgba(255,80,80,0.3);
+  color: #fff;
+  border-color: #f66;
 }
 .quest-dialog-title {
   font-size: 20px;
