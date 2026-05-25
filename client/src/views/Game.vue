@@ -387,7 +387,7 @@
           </div>
           
           <div class="entity-group">
-            <div class="entity-title">NPC</div>
+            <div class="entity-title" style="margin-bottom:2px;font-size:12px">NPC</div>
             <div class="npc-panel">
               <div class="npc-grid">
                 <div 
@@ -3181,48 +3181,48 @@ onUnmounted(() => {
 /* NPC 卡片面板 */
 .npc-panel {
   background: #1a1a2e;
-  padding: 10px;
+  padding: 6px;
   border-radius: 3px;
 }
 .npc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px;
+  gap: 4px;
   min-height: 36px;
 }
 .npc-card {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  padding: 6px 8px;
+  gap: 3px;
+  padding: 4px 6px;
   background: #1a1a2e;
   border: 1px solid #3a3a5e;
-  border-radius: 6px;
+  border-radius: 4px;
   color: #4fc3f7;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 12px;
   transition: all 0.2s;
 }
 .npc-card:hover {
   background: #2a2a4e;
   border-color: #4fc3f7;
 }
-.npc-card-icon { font-size: 14px; }
+.npc-card-icon { font-size: 12px; }
 .npc-card-name { flex: 1; text-align: center; }
 .npc-empty {
   grid-column: 1 / -1;
   text-align: center;
   color: #555;
-  padding: 12px;
-  font-size: 13px;
+  padding: 8px;
+  font-size: 12px;
 }
 .npc-pagination {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: 8px;
-  margin-top: 8px;
+  gap: 6px;
+  margin-top: 4px;
 }
 .npc-page-btn {
   padding: 3px 8px;
