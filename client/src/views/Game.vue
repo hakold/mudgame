@@ -1117,122 +1117,123 @@
         </div>
       </div>
 
-      <!-- 每日活跃弹窗 -->
-      <div class="quest-overlay" v-if="showDaily" @click.self="showDaily = false">
-        <div class="quest-dialog" style="max-width:460px">
-          <div class="quest-dialog-title">📅 每日活跃<button class="popup-x-btn" @click="showDaily = false">✕</button></div>
-          <!-- 简化每日活跃 v2 -->
-          <div class="daily-section daily-v2-card" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); border: 2px solid #e94560; border-radius: 12px; padding: 14px; margin-bottom: 10px;">
-            <div style="font-size: 16px; color: #e94560; margin-bottom: 10px; font-weight: bold;">🎯 每日活跃（简版）</div>
-            <div style="font-size: 0.85em; color: #aaa; margin-bottom: 8px;">连续签到 {{ gameStore.dailyV2Status?.streak || 0 }} 天</div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 12px;">
-              <div :class="['v2-task-chip', gameStore.dailyV2Status?.tasks?.checkedIn ? 'v2-done' : '']">
-                <span class="v2-task-icon">{{ gameStore.dailyV2Status?.tasks?.checkedIn ? '✅' : '⬜' }}</span>
-                <span>📅 签到</span>
-                <button v-if="!gameStore.dailyV2Status?.tasks?.checkedIn" class="v2-do-btn" @click="gameStore.dailyCheckin(); gameStore.loadDailyV2Status()">去签到</button>
-                <span v-else class="v2-done-label">已完成</span>
-              </div>
-              <div :class="['v2-task-chip', gameStore.dailyV2Status?.tasks?.fished ? 'v2-done' : '']">
-                <span class="v2-task-icon">{{ gameStore.dailyV2Status?.tasks?.fished ? '✅' : '⬜' }}</span>
-                <span>🎣 钓鱼1次</span>
-                <span v-if="gameStore.dailyV2Status?.tasks?.fished" class="v2-done-label">已完成</span>
-                <span v-else style="font-size:0.7em;color:#888">去池塘边钓</span>
-              </div>
-              <div :class="['v2-task-chip', gameStore.dailyV2Status?.tasks?.herbed ? 'v2-done' : '']">
-                <span class="v2-task-icon">{{ gameStore.dailyV2Status?.tasks?.herbed ? '✅' : '⬜' }}</span>
-                <span>🌿 采药1次</span>
-                <span v-if="gameStore.dailyV2Status?.tasks?.herbed" class="v2-done-label">已完成</span>
-                <span v-else style="font-size:0.7em;color:#888">去野外采</span>
-              </div>
-              <div :class="['v2-task-chip', gameStore.dailyV2Status?.tasks?.crafted ? 'v2-done' : '']">
-                <span class="v2-task-icon">{{ gameStore.dailyV2Status?.tasks?.crafted ? '✅' : '⬜' }}</span>
-                <span>🔨 打造1次</span>
-                <span v-if="gameStore.dailyV2Status?.tasks?.crafted" class="v2-done-label">已完成</span>
-                <span v-else style="font-size:0.7em;color:#888">锻造/炼药/烹饪</span>
-              </div>
-            </div>
-            <div style="text-align: center;">
-              <button v-if="!gameStore.dailyV2Status?.rewardClaimed && gameStore.dailyV2Status?.allDone"
-                class="forge-btn" style="background: linear-gradient(135deg, #e94560, #c23152); color: #fff; padding: 10px 30px; font-size: 1em;"
-                @click="gameStore.claimDailyV2Reward()">🎁 领取活跃宝箱</button>
-              <button v-else-if="gameStore.dailyV2Status?.rewardClaimed"
-                class="forge-btn" style="background: #444; color: #888;" disabled>✅ 今日宝箱已领取</button>
-              <button v-else class="forge-btn" style="background: #444; color: #888;" disabled>🔒 完成4项活跃任务后领取</button>
-            </div>
-          </div>
-          <!-- 旧版签到/任务/活跃 -->
-          <div class="daily-section" style="margin-bottom:8px">
-            <div style="font-size:14px;color:#aaa;margin-bottom:6px">📅 每日签到（详情）</div>
-            <div v-if="gameStore.dailyStatus" style="display:flex;justify-content:space-between;align-items:center">
-              <span style="font-size:0.85em;color:#aaa">连续签到 {{ gameStore.dailyStatus.checkinStreak || 0 }} 天</span>
-              <button class="forge-btn" :disabled="gameStore.dailyStatus?.checkedInToday" @click="gameStore.dailyCheckin()" style="padding:4px 12px;font-size:0.85em">
-                {{ gameStore.dailyStatus?.checkedInToday ? '✅ 已签到' : '签到' }}
-              </button>
-            </div>
-          </div>
-          <button class="quest-close-btn" @click="showDaily = false">关闭</button>
-        </div>
-      </div>
 
-      <!-- 帮派弹窗 -->
-      <div class="quest-overlay" v-if="showGangs" @click.self="showGangs = false">
-        <div class="quest-dialog" style="max-width:460px">
-          <div class="quest-dialog-title">🏠 帮派<button class="popup-x-btn" @click="showGangs = false">✕</button></div>
-          <!-- 已加入帮派 -->
-          <div v-if="gameStore.myGang">
-            <div style="font-size:16px;color:#ffd700;margin-bottom:4px">🏠 {{ gameStore.myGang.name }}</div>
-            <div v-if="gameStore.myGang.description" style="color:#aaa;font-size:0.85em;margin-bottom:8px">{{ gameStore.myGang.description }}</div>
-            <div style="display:flex;gap:12px;color:#ccc;font-size:0.85em;margin-bottom:10px">
-              <span>等级 {{ gameStore.myGang.level || 1 }}</span>
-              <span>成员 {{ gameStore.myGang.memberCount }}人</span>
-              <span>资金 {{ gameStore.myGang.funds || 0 }}</span>
-            </div>
-            <div v-if="(gameStore.myGang.members || []).length" style="margin-bottom:10px">
-              <div style="font-size:13px;color:#aaa;margin-bottom:4px">成员</div>
-              <div v-for="m in (gameStore.myGang.members || [])" :key="m.userId" style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #222;font-size:0.85em">
-                <span>{{ m.name || m.userId }}</span>
-                <span style="color:#888">{{ m.role }}</span>
-              </div>
-            </div>
-            <div style="display:flex;gap:6px;margin-bottom:10px">
-              <input v-model="gangDonateGold" type="number" min="0" placeholder="金币" style="flex:1;padding:4px 8px;background:#1a1a2e;border:1px solid #333;border-radius:4px;color:#eee;font-size:13px" />
-              <button class="forge-btn" @click="gangDoDonate">捐献</button>
-              <button class="forge-btn" @click="gameStore.leaveGang()" style="background:#633">退出</button>
-            </div>
-            <div v-if="gameStore.myGang.warehouse && gameStore.myGang.warehouse.length" style="margin-bottom:8px">
-              <div style="font-size:13px;color:#aaa;margin-bottom:4px">帮派仓库</div>
-              <div v-for="item in gameStore.myGang.warehouse" :key="item.itemId" style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #222;font-size:0.85em">
-                <span>{{ item.name || item.itemId }} x{{ item.quantity }}</span>
-                <button class="forge-btn" style="padding:2px 8px;font-size:11px" @click="gameStore.gangWithdraw(item.itemId, 1)">取出</button>
-              </div>
-            </div>
+  <!-- 每日活跃弹窗 -->
+  <div class="quest-overlay" v-if="showDaily" @click.self="showDaily = false">
+    <div class="quest-dialog" style="max-width:460px">
+      <div class="quest-dialog-title">📅 每日活跃<button class="popup-x-btn" @click="showDaily = false">✕</button></div>
+      <!-- 简化每日活跃 v2 -->
+      <div class="daily-section daily-v2-card" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); border: 2px solid #e94560; border-radius: 12px; padding: 14px; margin-bottom: 10px;">
+        <div style="font-size: 16px; color: #e94560; margin-bottom: 10px; font-weight: bold;">🎯 每日活跃（简版）</div>
+        <div style="font-size: 0.85em; color: #aaa; margin-bottom: 8px;">连续签到 {{ gameStore.dailyV2Status?.streak || 0 }} 天</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 12px;">
+          <div :class="['v2-task-chip', gameStore.dailyV2Status?.tasks?.checkedIn ? 'v2-done' : '']">
+            <span class="v2-task-icon">{{ gameStore.dailyV2Status?.tasks?.checkedIn ? '✅' : '⬜' }}</span>
+            <span>📅 签到</span>
+            <button v-if="!gameStore.dailyV2Status?.tasks?.checkedIn" class="v2-do-btn" @click="gameStore.dailyCheckin(); gameStore.loadDailyV2Status()">去签到</button>
+            <span v-else class="v2-done-label">已完成</span>
           </div>
-          <!-- 未加入帮派 -->
-          <div v-else>
-            <div style="display:flex;gap:6px;margin-bottom:10px">
-              <input v-model="gangSearchQuery" placeholder="搜索帮派..." style="flex:1;padding:4px 8px;background:#1a1a2e;border:1px solid #333;border-radius:4px;color:#eee;font-size:13px" @keyup.enter="gameStore.searchGangs(gangSearchQuery)" />
-              <button class="forge-btn" @click="gameStore.searchGangs(gangSearchQuery)">搜索</button>
-            </div>
-            <div v-if="gameStore.gangs.length" style="margin-bottom:10px">
-              <div v-for="g in gameStore.gangs" :key="g.id || g.name" style="padding:8px;background:#1a1a2e;border-radius:4px;margin-bottom:6px">
-                <div style="font-size:14px;color:#ffd700">{{ g.name }}</div>
-                <div style="font-size:0.8em;color:#888;margin:2px 0">{{ g.description }}</div>
-                <div style="display:flex;justify-content:space-between;align-items:center">
-                  <span style="font-size:0.8em;color:#aaa">等级 {{ g.level || 1 }} · 成员 {{ g.memberCount }}人</span>
-                  <button class="forge-btn" style="padding:3px 10px;font-size:12px" @click="gameStore.joinGang(g.name)">加入</button>
-                </div>
-              </div>
-            </div>
-            <div style="padding:10px;background:#1a1a2e;border-radius:4px">
-              <div style="font-size:13px;color:#aaa;margin-bottom:6px">创建帮派（需5级+1000金币）</div>
-              <input v-model="newGangName" placeholder="帮派名称" style="width:100%;padding:4px 8px;background:#111;border:1px solid #333;border-radius:4px;color:#eee;font-size:13px;margin-bottom:6px" />
-              <input v-model="newGangDesc" placeholder="帮派宗旨" style="width:100%;padding:4px 8px;background:#111;border:1px solid #333;border-radius:4px;color:#eee;font-size:13px;margin-bottom:6px" />
-              <button class="forge-btn" @click="createGangAction">创建</button>
-            </div>
+          <div :class="['v2-task-chip', gameStore.dailyV2Status?.tasks?.fished ? 'v2-done' : '']">
+            <span class="v2-task-icon">{{ gameStore.dailyV2Status?.tasks?.fished ? '✅' : '⬜' }}</span>
+            <span>🎣 钓鱼1次</span>
+            <span v-if="gameStore.dailyV2Status?.tasks?.fished" class="v2-done-label">已完成</span>
+            <span v-else style="font-size:0.7em;color:#888">去池塘边钓</span>
           </div>
-          <button class="quest-close-btn" @click="showGangs = false">关闭</button>
+          <div :class="['v2-task-chip', gameStore.dailyV2Status?.tasks?.herbed ? 'v2-done' : '']">
+            <span class="v2-task-icon">{{ gameStore.dailyV2Status?.tasks?.herbed ? '✅' : '⬜' }}</span>
+            <span>🌿 采药1次</span>
+            <span v-if="gameStore.dailyV2Status?.tasks?.herbed" class="v2-done-label">已完成</span>
+            <span v-else style="font-size:0.7em;color:#888">去野外采</span>
+          </div>
+          <div :class="['v2-task-chip', gameStore.dailyV2Status?.tasks?.crafted ? 'v2-done' : '']">
+            <span class="v2-task-icon">{{ gameStore.dailyV2Status?.tasks?.crafted ? '✅' : '⬜' }}</span>
+            <span>🔨 打造1次</span>
+            <span v-if="gameStore.dailyV2Status?.tasks?.crafted" class="v2-done-label">已完成</span>
+            <span v-else style="font-size:0.7em;color:#888">锻造/炼药/烹饪</span>
+          </div>
+        </div>
+        <div style="text-align: center;">
+          <button v-if="!gameStore.dailyV2Status?.rewardClaimed && gameStore.dailyV2Status?.allDone"
+            class="forge-btn" style="background: linear-gradient(135deg, #e94560, #c23152); color: #fff; padding: 10px 30px; font-size: 1em;"
+            @click="gameStore.claimDailyV2Reward()">🎁 领取活跃宝箱</button>
+          <button v-else-if="gameStore.dailyV2Status?.rewardClaimed"
+            class="forge-btn" style="background: #444; color: #888;" disabled>✅ 今日宝箱已领取</button>
+          <button v-else class="forge-btn" style="background: #444; color: #888;" disabled>🔒 完成4项活跃任务后领取</button>
         </div>
       </div>
+      <!-- 旧版签到/任务/活跃 -->
+      <div class="daily-section" style="margin-bottom:8px">
+        <div style="font-size:14px;color:#aaa;margin-bottom:6px">📅 每日签到（详情）</div>
+        <div v-if="gameStore.dailyStatus" style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:0.85em;color:#aaa">连续签到 {{ gameStore.dailyStatus.checkinStreak || 0 }} 天</span>
+          <button class="forge-btn" :disabled="gameStore.dailyStatus?.checkedInToday" @click="gameStore.dailyCheckin()" style="padding:4px 12px;font-size:0.85em">
+            {{ gameStore.dailyStatus?.checkedInToday ? '✅ 已签到' : '签到' }}
+          </button>
+        </div>
+      </div>
+      <button class="quest-close-btn" @click="showDaily = false">关闭</button>
+    </div>
+  </div>
+
+  <!-- 帮派弹窗 -->
+  <div class="quest-overlay" v-if="showGangs" @click.self="showGangs = false">
+    <div class="quest-dialog" style="max-width:460px">
+      <div class="quest-dialog-title">🏠 帮派<button class="popup-x-btn" @click="showGangs = false">✕</button></div>
+      <!-- 已加入帮派 -->
+      <div v-if="gameStore.myGang">
+        <div style="font-size:16px;color:#ffd700;margin-bottom:4px">🏠 {{ gameStore.myGang.name }}</div>
+        <div v-if="gameStore.myGang.description" style="color:#aaa;font-size:0.85em;margin-bottom:8px">{{ gameStore.myGang.description }}</div>
+        <div style="display:flex;gap:12px;color:#ccc;font-size:0.85em;margin-bottom:10px">
+          <span>等级 {{ gameStore.myGang.level || 1 }}</span>
+          <span>成员 {{ gameStore.myGang.memberCount }}人</span>
+          <span>资金 {{ gameStore.myGang.funds || 0 }}</span>
+        </div>
+        <div v-if="(gameStore.myGang.members || []).length" style="margin-bottom:10px">
+          <div style="font-size:13px;color:#aaa;margin-bottom:4px">成员</div>
+          <div v-for="m in (gameStore.myGang.members || [])" :key="m.userId" style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #222;font-size:0.85em">
+            <span>{{ m.name || m.userId }}</span>
+            <span style="color:#888">{{ m.role }}</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:6px;margin-bottom:10px">
+          <input v-model="gangDonateGold" type="number" min="0" placeholder="金币" style="flex:1;padding:4px 8px;background:#1a1a2e;border:1px solid #333;border-radius:4px;color:#eee;font-size:13px" />
+          <button class="forge-btn" @click="gangDoDonate">捐献</button>
+          <button class="forge-btn" @click="gameStore.leaveGang()" style="background:#633">退出</button>
+        </div>
+        <div v-if="gameStore.myGang.warehouse && gameStore.myGang.warehouse.length" style="margin-bottom:8px">
+          <div style="font-size:13px;color:#aaa;margin-bottom:4px">帮派仓库</div>
+          <div v-for="item in gameStore.myGang.warehouse" :key="item.itemId" style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #222;font-size:0.85em">
+            <span>{{ item.name || item.itemId }} x{{ item.quantity }}</span>
+            <button class="forge-btn" style="padding:2px 8px;font-size:11px" @click="gameStore.gangWithdraw(item.itemId, 1)">取出</button>
+          </div>
+        </div>
+      </div>
+      <!-- 未加入帮派 -->
+      <div v-else>
+        <div style="display:flex;gap:6px;margin-bottom:10px">
+          <input v-model="gangSearchQuery" placeholder="搜索帮派..." style="flex:1;padding:4px 8px;background:#1a1a2e;border:1px solid #333;border-radius:4px;color:#eee;font-size:13px" @keyup.enter="gameStore.searchGangs(gangSearchQuery)" />
+          <button class="forge-btn" @click="gameStore.searchGangs(gangSearchQuery)">搜索</button>
+        </div>
+        <div v-if="gameStore.gangs.length" style="margin-bottom:10px">
+          <div v-for="g in gameStore.gangs" :key="g.id || g.name" style="padding:8px;background:#1a1a2e;border-radius:4px;margin-bottom:6px">
+            <div style="font-size:14px;color:#ffd700">{{ g.name }}</div>
+            <div style="font-size:0.8em;color:#888;margin:2px 0">{{ g.description }}</div>
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <span style="font-size:0.8em;color:#aaa">等级 {{ g.level || 1 }} · 成员 {{ g.memberCount }}人</span>
+              <button class="forge-btn" style="padding:3px 10px;font-size:12px" @click="gameStore.joinGang(g.name)">加入</button>
+            </div>
+          </div>
+        </div>
+        <div style="padding:10px;background:#1a1a2e;border-radius:4px">
+          <div style="font-size:13px;color:#aaa;margin-bottom:6px">创建帮派（需5级+1000金币）</div>
+          <input v-model="newGangName" placeholder="帮派名称" style="width:100%;padding:4px 8px;background:#111;border:1px solid #333;border-radius:4px;color:#eee;font-size:13px;margin-bottom:6px" />
+          <input v-model="newGangDesc" placeholder="帮派宗旨" style="width:100%;padding:4px 8px;background:#111;border:1px solid #333;border-radius:4px;color:#eee;font-size:13px;margin-bottom:6px" />
+          <button class="forge-btn" @click="createGangAction">创建</button>
+        </div>
+      </div>
+      <button class="quest-close-btn" @click="showGangs = false">关闭</button>
+    </div>
+  </div>
 
 </template>
 
