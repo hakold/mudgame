@@ -33,7 +33,9 @@
     "features": [
       "石碑",
       "公告栏"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "village_inn",
@@ -49,7 +51,9 @@
     "features": [
       "柜台",
       "休息室"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "village_blacksmith",
@@ -65,7 +69,9 @@
     "features": [
       "锻造台",
       "武器架"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "village_shop",
@@ -82,7 +88,9 @@
       "货架",
       "柜台"
     ],
-    "shopType": "general"
+    "shopType": "general",
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "village_training",
@@ -98,7 +106,9 @@
     "features": [
       "木桩",
       "靶子"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "forest_entrance",
@@ -118,7 +128,9 @@
     "features": [
       "路标",
       "枯树"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "forest_deep",
@@ -150,7 +162,9 @@
     "features": [
       "大树",
       "灌木丛"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "forest_clearing",
@@ -166,7 +180,9 @@
     "features": [
       "草地",
       "小溪"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "forest_cave",
@@ -186,7 +202,9 @@
     "features": [
       "石壁",
       "火把"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "city_gate",
@@ -206,7 +224,9 @@
     "features": [
       "城楼",
       "守卫"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "city_square",
@@ -238,7 +258,9 @@
     "features": [
       "喷泉",
       "公告板"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "city_tavern",
@@ -254,7 +276,9 @@
     "features": [
       "柜台",
       "酒桌"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "city_market",
@@ -271,7 +295,9 @@
       "摊位",
       "商铺"
     ],
-    "shopType": "general"
+    "shopType": "general",
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "city_arena",
@@ -287,7 +313,9 @@
     "features": [
       "擂台",
       "看台"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "city_guild",
@@ -303,7 +331,9 @@
     "features": [
       "柜台",
       "任务板"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "mountain_path",
@@ -331,7 +361,9 @@
     "features": [
       "石阶",
       "凉亭"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "mountain_peak",
@@ -351,7 +383,9 @@
     "features": [
       "观景台",
       "石碑"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "mountain_temple",
@@ -367,7 +401,9 @@
     "features": [
       "殿堂",
       "练功房"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "desert_entrance",
@@ -387,7 +423,9 @@
     "features": [
       "路碑",
       "枯骨"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "desert_oasis",
@@ -407,7 +445,9 @@
     "features": [
       "泉水",
       "椰枣树"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "desert_ruins",
@@ -427,7 +467,9 @@
     "features": [
       "断墙",
       "石柱"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "desert_tomb",
@@ -443,7 +485,9 @@
     "features": [
       "棺椁",
       "壁画"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "snow_pass",
@@ -467,7 +511,9 @@
     "features": [
       "关楼",
       "烽火台"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "snow_village",
@@ -491,7 +537,9 @@
     "features": [
       "帐篷",
       "篝火"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "snow_cave",
@@ -511,7 +559,9 @@
     "features": [
       "冰柱",
       "冰湖"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "snow_palace",
@@ -527,7 +577,9 @@
     "features": [
       "冰雕",
       "宝座"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "swamp_entrance",
@@ -547,7 +599,9 @@
     "features": [
       "枯树",
       "毒藤"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "swamp_deep",
@@ -567,7 +621,9 @@
     "features": [
       "泥潭",
       "毒雾"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "swamp_island",
@@ -587,7 +643,9 @@
     "features": [
       "茅屋",
       "草药"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "swamp_lair",
@@ -603,7 +661,9 @@
     "features": [
       "蛟骨",
       "宝箱"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "island_beach",
@@ -619,7 +679,9 @@
     "features": [
       "沙滩",
       "椰树"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "island_forest",
@@ -639,7 +701,9 @@
     "features": [
       "奇花",
       "灵草"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "island_peak",
@@ -659,7 +723,9 @@
     "features": [
       "观景台",
       "仙鹤"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "island_cave",
@@ -675,7 +741,9 @@
     "features": [
       "石床",
       "经书"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "underground_entrance",
@@ -695,7 +763,9 @@
     "features": [
       "石门",
       "符文"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "underground_hall",
@@ -719,7 +789,9 @@
     "features": [
       "石像",
       "火把"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "underground_prison",
@@ -735,7 +807,9 @@
     "features": [
       "铁栅栏",
       "骨架"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "underground_treasure",
@@ -751,7 +825,9 @@
     "features": [
       "宝箱",
       "机关"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "volcano_base",
@@ -771,7 +847,9 @@
     "features": [
       "熔岩",
       "硫磺"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "volcano_crater",
@@ -795,7 +873,9 @@
     "features": [
       "岩浆",
       "黑曜石"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "volcano_lair",
@@ -811,7 +891,9 @@
     "features": [
       "蛟鳞",
       "火焰"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "volcano_forge",
@@ -827,7 +909,9 @@
     "features": [
       "锻造台",
       "神器"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "palace_gate",
@@ -847,7 +931,9 @@
     "features": [
       "金门",
       "守卫"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "palace_courtyard",
@@ -875,7 +961,9 @@
     "features": [
       "花坛",
       "亭子"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "palace_hall",
@@ -891,7 +979,9 @@
     "features": [
       "龙椅",
       "金柱"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "palace_garden",
@@ -907,7 +997,9 @@
     "features": [
       "灵兽",
       "药材"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "palace_library",
@@ -923,7 +1015,9 @@
     "features": [
       "书架",
       "秘籍"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "demon_portal",
@@ -943,7 +1037,9 @@
     "features": [
       "黑门",
       "魔印"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "demon_fortress",
@@ -967,7 +1063,9 @@
     "features": [
       "魔塔",
       "黑曜石"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "demon_arena",
@@ -983,7 +1081,9 @@
     "features": [
       "擂台",
       "血池"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "demon_throne",
@@ -999,7 +1099,9 @@
     "features": [
       "魔座",
       "黑暗"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "forest_path",
@@ -1016,7 +1118,9 @@
         "roomId": "deep_forest"
       }
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "deep_forest",
@@ -1033,7 +1137,9 @@
         "roomId": "forest_cave"
       }
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "village_field",
@@ -1046,7 +1152,9 @@
         "roomId": "village_center"
       }
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "river_bank",
@@ -1059,7 +1167,9 @@
         "roomId": "village_center"
       }
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "dark_cave",
@@ -1072,7 +1182,9 @@
         "roomId": "deep_forest"
       }
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "snow_field",
@@ -1089,7 +1201,9 @@
         "roomId": "snow_cave"
       }
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "bamboo_grove",
@@ -1106,7 +1220,9 @@
         "roomId": "mountain_path"
       }
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "shaolin_temple",
@@ -1127,7 +1243,9 @@
       "大雄宝殿",
       "练武场",
       "藏经阁"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "shaolin_pagoda",
@@ -1145,7 +1263,9 @@
       "石碑",
       "铜人"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "wudang_peak",
@@ -1166,7 +1286,9 @@
       "紫霄宫",
       "太极广场",
       "剑池"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "wudang_hall",
@@ -1183,7 +1305,9 @@
       "真武像",
       "太极图",
       "武功秘籍"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "emei_temple",
@@ -1204,7 +1328,9 @@
       "金顶大殿",
       "练剑台",
       "药园"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "emei_hall",
@@ -1221,7 +1347,9 @@
       "武功壁画",
       "佛经",
       "剑谱"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "mingjiao_hall",
@@ -1242,7 +1370,9 @@
       "圣火坛",
       "光明大殿",
       "演武场"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "mingjiao_sanctum",
@@ -1259,7 +1389,9 @@
       "乾坤大挪移心法",
       "圣火令",
       "暗室"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "xiaoyao_valley",
@@ -1280,7 +1412,9 @@
       "桃花林",
       "清泉",
       "琴台"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "xiaoyao_pavilion",
@@ -1297,7 +1431,9 @@
       "武功秘籍",
       "棋盘",
       "茶室"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "gaibang_hq",
@@ -1318,7 +1454,9 @@
       "打狗棒",
       "酒坛",
       "练功场"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "gaibang_hall",
@@ -1335,7 +1473,9 @@
       "帮主画像",
       "伏蛟十八掌秘籍",
       "长老席"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "forest_waterfall",
@@ -1356,7 +1496,9 @@
       "瀑布",
       "深潭",
       "彩虹"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "herbalist_hut",
@@ -1373,7 +1515,9 @@
       "药架",
       "丹炉",
       "药圃"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "city_docks",
@@ -1394,7 +1538,9 @@
       "船只",
       "货物",
       "灯塔"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "city_residential",
@@ -1416,7 +1562,9 @@
       "小巷",
       "茶馆"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "city_temple",
@@ -1437,7 +1585,9 @@
       "神像",
       "香炉",
       "功德箱"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "city_bridge",
@@ -1459,7 +1609,9 @@
       "桥柱",
       "河景"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "mountain_cliff",
@@ -1481,7 +1633,9 @@
       "云海",
       "石碑"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "mountain_spring",
@@ -1502,7 +1656,9 @@
       "泉水",
       "温泉",
       "石台"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "mountain_bridge",
@@ -1524,7 +1680,9 @@
       "深渊",
       "云雾"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "sky_path",
@@ -1546,7 +1704,9 @@
       "星辰",
       "古道"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "heaven_gate",
@@ -1568,7 +1728,9 @@
       "神光",
       "守卫"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "celestial_palace",
@@ -1585,7 +1747,9 @@
       "仙殿",
       "神兵架",
       "天书阁"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "desert_bazaar",
@@ -1606,7 +1770,9 @@
       "帐篷",
       "摊位",
       "珠宝"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "desert_pyramid",
@@ -1628,7 +1794,9 @@
       "石像",
       "宝藏传说"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "pyramid_interior",
@@ -1649,7 +1817,9 @@
       "壁画",
       "通道",
       "陷阱"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "pyramid_tomb",
@@ -1667,7 +1837,9 @@
       "诅咒石碑",
       "宝藏"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "graveyard_entrance",
@@ -1689,7 +1861,9 @@
       "枯树",
       "乌鸦"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "graveyard_deep",
@@ -1711,7 +1885,9 @@
       "鬼火",
       "枯骨"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "crypt",
@@ -1729,7 +1905,9 @@
       "幽光",
       "古尸"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "lakeside",
@@ -1755,7 +1933,9 @@
       "渔船",
       "垂柳"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "lake_village",
@@ -1776,7 +1956,9 @@
       "渔网",
       "渔船",
       "珍珠"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "lake_island",
@@ -1797,7 +1979,9 @@
       "古亭",
       "石碑",
       "剑痕"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "underwater_cave",
@@ -1819,7 +2003,9 @@
       "珊瑚",
       "古老石刻"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "cave_network",
@@ -1845,7 +2031,9 @@
       "钟乳石",
       "暗河"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "bandit_camp",
@@ -1867,7 +2055,9 @@
       "守卫",
       "赃物"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "bandit_stronghold",
@@ -1884,7 +2074,9 @@
       "聚义厅",
       "宝库",
       "囚笼"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "canyon_entrance",
@@ -1906,7 +2098,9 @@
       "枯藤",
       "鹰巢"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "canyon_deep",
@@ -1931,7 +2125,9 @@
       "图腾",
       "地下河",
       "矿脉"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "canyon_cross",
@@ -1957,7 +2153,9 @@
       "岔路口",
       "风化石"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "canyon_abyss",
@@ -1975,7 +2173,9 @@
       "远古化石",
       "深渊"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "crystal_cave",
@@ -1996,7 +2196,9 @@
       "水晶柱",
       "宝石矿",
       "荧光"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "city_rich",
@@ -2018,7 +2220,9 @@
       "庭院",
       "石狮"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "auction_house",
@@ -2035,7 +2239,9 @@
       "拍卖台",
       "展品柜",
       "竞价牌"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "city_slums",
@@ -2061,7 +2267,9 @@
       "暗巷",
       "乞丐"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "gambling_den",
@@ -2078,7 +2286,9 @@
       "赌桌",
       "骰子",
       "筹码"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "tea_house",
@@ -2099,7 +2309,9 @@
       "茶台",
       "古琴",
       "字画"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "ancient_tree",
@@ -2124,7 +2336,9 @@
       "巨树",
       "树屋",
       "古藤"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "tree_canopy",
@@ -2145,7 +2359,9 @@
       "全景",
       "鸟巢",
       "神果"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "cloud_sea",
@@ -2166,7 +2382,9 @@
       "云海",
       "日出",
       "仙鹤"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "hot_springs",
@@ -2187,7 +2405,9 @@
       "温泉",
       "石池",
       "竹林"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "coastal_cliff",
@@ -2209,7 +2429,9 @@
       "灯塔",
       "海鸟"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "pirate_cove",
@@ -2230,7 +2452,9 @@
       "海盗船",
       "宝藏箱",
       "酒桶"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "pirate_ship",
@@ -2252,7 +2476,9 @@
       "宝箱",
       "桅杆"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "captain_cabin",
@@ -2270,7 +2496,9 @@
       "铁箱",
       "海盗日志"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "ancient_battlefield",
@@ -2292,7 +2520,9 @@
       "骸骨",
       "战旗"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "secret_garden",
@@ -2314,7 +2544,9 @@
       "清泉",
       "石碑",
       "蝴蝶"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "snow_peak",
@@ -2335,7 +2567,9 @@
       "冰峰",
       "狂风",
       "星辰"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "snow_monastery",
@@ -2356,7 +2590,9 @@
       "经幡",
       "佛塔",
       "闭关室"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "swamp_village",
@@ -2377,7 +2613,9 @@
       "草屋",
       "图腾柱",
       "篝火"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "swamp_altar",
@@ -2398,7 +2636,9 @@
       "祭坛",
       "符文石",
       "骨堆"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "demon_prison",
@@ -2416,7 +2656,9 @@
       "刑具",
       "囚笼"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "demon_treasury",
@@ -2434,7 +2676,9 @@
       "宝箱",
       "魔咒结界"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "plains",
@@ -2460,7 +2704,9 @@
       "牛羊",
       "野花"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "plains_camp",
@@ -2481,7 +2727,9 @@
       "帐篷",
       "马群",
       "篝火"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "plains_lake",
@@ -2502,7 +2750,9 @@
       "湖泊",
       "水鸟",
       "倒影"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "plains_ruins",
@@ -2524,7 +2774,9 @@
       "皇陵",
       "壁画"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "mushroom_forest",
@@ -2546,7 +2798,9 @@
       "孢子",
       "荧光"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "wind_valley",
@@ -2567,7 +2821,9 @@
       "风蚀岩",
       "风铃",
       "石柱"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "bamboo_temple",
@@ -2588,7 +2844,9 @@
       "禅堂",
       "钟楼",
       "竹林"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "bamboo_hall",
@@ -2605,7 +2863,9 @@
       "木人桩",
       "经书",
       "香炉"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "dragon_graveyard",
@@ -2627,7 +2887,9 @@
       "龙魂",
       "化石"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "jiao_shrine",
@@ -2644,7 +2906,9 @@
       "神龙像",
       "逆鳞",
       "蛟血池"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "rainbow_bridge",
@@ -2665,7 +2929,9 @@
       "彩虹",
       "祥云",
       "仙境"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "fire_shrine",
@@ -2682,7 +2948,9 @@
       "圣火",
       "火灵石",
       "炎柱"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "water_shrine",
@@ -2699,7 +2967,9 @@
       "水幕",
       "水灵石",
       "珍珠"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "mirror_lake",
@@ -2720,7 +2990,9 @@
       "镜面湖",
       "倒影",
       "莲台"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "phoenix_peak",
@@ -2741,7 +3013,9 @@
       "凤凰石",
       "灰烬",
       "火焰花"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "phoenix_nest",
@@ -2759,7 +3033,9 @@
       "涅槃灰",
       "神火"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "time_tower",
@@ -2780,7 +3056,9 @@
       "沙漏",
       "古钟",
       "时空裂缝"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "time_tower_top",
@@ -2797,7 +3075,9 @@
       "观时镜",
       "日晷",
       "永恒之钟"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "shadow_realm",
@@ -2819,7 +3099,9 @@
       "幽光",
       "影石"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "shadow_throne",
@@ -2836,7 +3118,9 @@
       "影王座",
       "暗影碑文",
       "虚空"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "xuankong_temple",
@@ -2857,7 +3141,9 @@
       "悬空殿",
       "索道",
       "千手观音"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "xuankong_hall",
@@ -2874,7 +3160,9 @@
       "观音像",
       "云海",
       "钟楼"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "underground_river",
@@ -2900,7 +3188,9 @@
       "荧光虫",
       "石笋"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "abyss_waterfall",
@@ -2917,7 +3207,9 @@
       "地下瀑布",
       "深渊",
       "水雾彩虹"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "thunder_peak",
@@ -2939,7 +3231,9 @@
       "雷击木",
       "雷石"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "thunder_shrine",
@@ -2956,7 +3250,9 @@
       "雷神像",
       "雷锤",
       "雷光"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "mist_valley",
@@ -2978,7 +3274,9 @@
       "仙灵歌声",
       "古藤"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "jade_palace",
@@ -2999,7 +3297,9 @@
       "玉殿",
       "仙丹炉",
       "飞升台"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "starlit_bridge",
@@ -3020,7 +3320,9 @@
       "星光",
       "银河",
       "星座"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "void_edge",
@@ -3037,7 +3339,9 @@
       "虚空",
       "世界边界",
       "混沌"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "jiao_palace",
@@ -3063,7 +3367,9 @@
       "虾兵蟹将",
       "定海神珍"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "coral_garden",
@@ -3080,7 +3386,9 @@
       "珊瑚林",
       "热带鱼",
       "珍珠贝"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "dragon_throne_room",
@@ -3098,7 +3406,9 @@
       "夜明珠",
       "镇海柱"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "sky_bazaar",
@@ -3119,7 +3429,9 @@
       "浮岛商铺",
       "仙鹤驿站",
       "灵石兑换"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "underground_city",
@@ -3144,7 +3456,9 @@
       "地底建筑",
       "熔岩灯",
       "地下运河"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "underground_market",
@@ -3161,7 +3475,9 @@
       "宝石摊",
       "矿石铺",
       "地下酒馆"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "opera_house",
@@ -3182,7 +3498,9 @@
       "戏台",
       "后台",
       "雅座"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "observatory",
@@ -3203,7 +3521,9 @@
       "浑天仪",
       "星图",
       "观星镜"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "cherry_garden",
@@ -3224,7 +3544,9 @@
       "樱花",
       "琴台",
       "茶亭"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "lava_tubes",
@@ -3246,7 +3568,9 @@
       "地热口",
       "硫磺晶"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "volcano_core",
@@ -3264,7 +3588,9 @@
       "火元素精华",
       "地心宝石"
     ],
-    "services": []
+    "services": [],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "warrior_tombs",
@@ -3285,7 +3611,9 @@
       "侠客碑",
       "英雄冢",
       "万剑林"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "city_center",
@@ -3318,7 +3646,9 @@
       "钟楼",
       "鼓楼",
       "马车驿站"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "city_north",
@@ -3338,7 +3668,9 @@
     "features": [
       "富商宅院",
       "酒楼"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "city_south",
@@ -3358,7 +3690,9 @@
     "features": [
       "民居",
       "小吃摊"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "city_east",
@@ -3378,7 +3712,9 @@
     "features": [
       "驿站",
       "茶馆"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "city_west",
@@ -3398,7 +3734,9 @@
     "features": [
       "商铺",
       "当铺"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "shaolin_gate",
@@ -3419,7 +3757,9 @@
       "石碑",
       "古柏",
       "轿夫"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "wudang_gate",
@@ -3440,7 +3780,9 @@
       "石阶",
       "牌坊",
       "轿夫"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "emei_gate",
@@ -3461,7 +3803,9 @@
       "竹林",
       "溪流",
       "轿夫"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "gaibang_gate",
@@ -3482,7 +3826,9 @@
       "石狮",
       "竹竿",
       "轿夫"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "mingjiao_gate",
@@ -3503,7 +3849,9 @@
       "圣火旗",
       "悬崖",
       "轿夫"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "xiaoyao_gate",
@@ -3524,6 +3872,8 @@
       "桃花林",
       "石碑",
       "轿夫"
-    ]
+    ],
+    "monsters": [],
+    "npcs": []
   }
 ]

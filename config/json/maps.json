@@ -4,83 +4,182 @@
     "name": "新手村",
     "description": "一个宁静祥和的小村庄，是许多侠客的起点。",
     "level": "1-10",
-    "rooms": ["village_center", "village_inn", "village_blacksmith", "village_shop", "village_training"]
+    "rooms": [
+      "village_center",
+      "village_inn",
+      "village_blacksmith",
+      "village_shop",
+      "village_training"
+    ],
+    "entryRoom": "village_center",
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "forest",
     "name": "迷雾森林",
     "description": "村外的森林，常有野兽出没，适合初学者练功。",
     "level": "5-15",
-    "rooms": ["forest_entrance", "forest_deep", "forest_clearing", "forest_cave"]
+    "rooms": [
+      "forest_entrance",
+      "forest_deep",
+      "forest_clearing",
+      "forest_cave"
+    ],
+    "entryRoom": "forest_entrance",
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "mountain",
     "name": "青云山",
     "description": "险峻的山脉，山上有数个门派驻地。",
     "level": "15-30",
-    "rooms": ["mountain_path", "mountain_peak", "mountain_temple"]
+    "rooms": [
+      "mountain_path",
+      "mountain_peak",
+      "mountain_temple"
+    ],
+    "entryRoom": "mountain_path",
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "city",
     "name": "洛阳城",
     "description": "繁华的大城市，各路英雄豪杰汇聚于此。",
     "level": "10-50",
-    "rooms": ["city_gate", "city_square", "city_tavern", "city_market", "city_arena", "city_guild"]
+    "rooms": [
+      "city_gate",
+      "city_square",
+      "city_tavern",
+      "city_market",
+      "city_arena",
+      "city_guild"
+    ],
+    "entryRoom": "city_gate",
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "desert",
     "name": "大漠荒原",
     "description": "黄沙漫天的荒漠，传说埋藏着古代宝藏。",
     "level": "25-40",
-    "rooms": ["desert_entrance", "desert_oasis", "desert_ruins", "desert_tomb"]
+    "rooms": [
+      "desert_entrance",
+      "desert_oasis",
+      "desert_ruins",
+      "desert_tomb"
+    ],
+    "entryRoom": "desert_entrance",
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "snow",
     "name": "雪域高原",
     "description": "终年积雪的高原，空气稀薄，生存艰难。",
     "level": "35-50",
-    "rooms": ["snow_pass", "snow_village", "snow_cave", "snow_palace"]
+    "rooms": [
+      "snow_pass",
+      "snow_village",
+      "snow_cave",
+      "snow_palace"
+    ],
+    "entryRoom": "snow_pass",
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "swamp",
     "name": "毒沼泽",
     "description": "瘴气弥漫的沼泽地，毒虫猛兽横行。",
     "level": "20-35",
-    "rooms": ["swamp_entrance", "swamp_deep", "swamp_island", "swamp_lair"]
+    "rooms": [
+      "swamp_entrance",
+      "swamp_deep",
+      "swamp_island",
+      "swamp_lair"
+    ],
+    "entryRoom": "swamp_entrance",
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "island",
     "name": "东海仙岛",
     "description": "传说中的海外仙岛，有高人隐居于此。",
     "level": "40-60",
-    "rooms": ["island_beach", "island_forest", "island_peak", "island_cave"]
+    "rooms": [
+      "island_beach",
+      "island_forest",
+      "island_peak",
+      "island_cave"
+    ],
+    "entryRoom": "island_beach",
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "underground",
     "name": "地下迷宫",
     "description": "深埋地下的古老迷宫，机关重重，危机四伏。",
     "level": "30-45",
-    "rooms": ["underground_entrance", "underground_hall", "underground_prison", "underground_treasure"]
+    "rooms": [
+      "underground_entrance",
+      "underground_hall",
+      "underground_prison",
+      "underground_treasure"
+    ],
+    "entryRoom": "underground_entrance",
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "volcano",
     "name": "火山熔岩",
     "description": "炽热的火山地带，岩浆流淌，火蛟栖息。",
     "level": "45-60",
-    "rooms": ["volcano_base", "volcano_crater", "volcano_lair", "volcano_forge"]
+    "rooms": [
+      "volcano_base",
+      "volcano_crater",
+      "volcano_lair",
+      "volcano_forge"
+    ],
+    "entryRoom": "volcano_base",
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "palace",
     "name": "皇宫禁地",
     "description": "皇帝的居所，守卫森严，藏有无数珍宝。",
     "level": "50-70",
-    "rooms": ["palace_gate", "palace_courtyard", "palace_hall", "palace_garden", "palace_library"]
+    "rooms": [
+      "palace_gate",
+      "palace_courtyard",
+      "palace_hall",
+      "palace_garden",
+      "palace_library"
+    ],
+    "entryRoom": "palace_gate",
+    "monsters": [],
+    "npcs": []
   },
   {
     "id": "demon",
     "name": "魔域深渊",
     "description": "魔族盘踞之地，黑暗力量笼罩一切。",
     "level": "60-80",
-    "rooms": ["demon_portal", "demon_fortress", "demon_arena", "demon_throne"]
+    "rooms": [
+      "demon_portal",
+      "demon_fortress",
+      "demon_arena",
+      "demon_throne"
+    ],
+    "entryRoom": "demon_portal",
+    "monsters": [],
+    "npcs": []
   }
 ]
