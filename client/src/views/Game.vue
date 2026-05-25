@@ -387,7 +387,7 @@
           </div>
           
           <div class="entity-group">
-            <div class="entity-title" style="margin-bottom:2px;font-size:12px">NPC</div>
+            <div class="entity-title" style="margin-bottom:2px;font-size:14px">NPC</div>
             <div class="npc-panel">
               <div class="npc-grid">
                 <div 
@@ -412,17 +412,24 @@
           </div>
           
           <div class="entity-group">
-            <div class="entity-title">怪物</div>
-            <div class="entity-list">
-              <div 
-                v-for="monster in gameStore.currentRoom.monsters" 
-                :key="monster.id" 
-                class="entity-item clickable"
-                @click="attackMonster(monster.id)"
-              >
-                {{ monster.name }}({{ monster.level }}级)
+            <div class="entity-title" style="margin-bottom:2px;font-size:14px">怪物</div>
+            <div class="npc-panel">
+              <div class="npc-grid">
+                <div 
+                  v-for="monster in paginatedMonsters" 
+                  :key="monster.id" 
+                  class="npc-card"
+                  @click="attackMonster(monster.id)"
+                >
+                  <span class="npc-card-name">{{ monster.name }}({{ monster.level }}级)</span>
+                </div>
+                <div v-if="!gameStore.currentRoom.monsters?.length" class="npc-empty">暂无怪物</div>
               </div>
-              <div v-if="!gameStore.currentRoom.monsters?.length" class="entity-item">无</div>
+              <div class="npc-pagination">
+                <button class="npc-page-btn" :disabled="monsterPage <= 1" @click="monsterPage--">◀</button>
+                <span class="npc-page-info">{{ monsterPage }} / {{ totalMonsterPages }}</span>
+                <button class="npc-page-btn" :disabled="monsterPage >= totalMonsterPages" @click="monsterPage++">▶</button>
+              </div>
             </div>
           </div>
         </div>
@@ -1469,6 +1476,18 @@ const totalNpcPages = computed(() => {
   return Math.max(1, Math.ceil(npcs.length / npcPageSize))
 })
 
+// 怪物分页
+const monsterPage = ref(1)
+const paginatedMonsters = computed(() => {
+  const monsters = gameStore.currentRoom?.monsters || []
+  const start = (monsterPage.value - 1) * npcPageSize
+  return monsters.slice(start, start + npcPageSize)
+})
+const totalMonsterPages = computed(() => {
+  const monsters = gameStore.currentRoom?.monsters || []
+  return Math.max(1, Math.ceil(monsters.length / npcPageSize))
+})
+
 const contextualActions = computed(() => {
   const services = currentRoomServices.value
   const actions = []
@@ -2101,9 +2120,10 @@ watch(gameStore.messages, async () => {
   }
 })
 
-// 房间切换时重置 NPC 分页
+// 房间切换时重置 NPC/怪物 分页
 watch(() => gameStore.currentRoom?.id, () => {
   npcPage.value = 1
+  monsterPage.value = 1
 })
 
 onMounted(async () => {
@@ -3201,7 +3221,7 @@ onUnmounted(() => {
   border-radius: 4px;
   color: #4fc3f7;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 14px;
   transition: all 0.2s;
 }
 .npc-card:hover {
