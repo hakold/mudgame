@@ -75,6 +75,10 @@
     },
     "roomIds": [
       "village_blacksmith"
+    ],
+    "services": [
+      "buy_weapon",
+      "repair"
     ]
   },
   {
@@ -104,6 +108,11 @@
     },
     "roomIds": [
       "village_shop"
+    ],
+    "services": [
+      "buy_item",
+      "sell_item",
+      "shop"
     ]
   },
   {
@@ -128,6 +137,9 @@
     },
     "roomIds": [
       "village_training"
+    ],
+    "services": [
+      "train"
     ]
   },
   {
@@ -148,6 +160,10 @@
     },
     "roomIds": [
       "mountain_temple"
+    ],
+    "services": [
+      "learn_skill",
+      "meditate"
     ]
   },
   {
@@ -289,7 +305,8 @@
     "description": "少林寺方丈，佛法精深",
     "type": "trainer",
     "services": [
-      "learn_skill"
+      "learn_skill",
+      "train"
     ],
     "skills": [
       "skill_shaolin_fist",
@@ -305,7 +322,8 @@
     "description": "武当派创始人，仙风道骨",
     "type": "trainer",
     "services": [
-      "learn_skill"
+      "learn_skill",
+      "meditate"
     ],
     "skills": [
       "skill_wudang_fist",
@@ -321,7 +339,9 @@
     "description": "峨眉派掌门，性格刚烈",
     "type": "trainer",
     "services": [
-      "learn_skill"
+      "learn_skill",
+      "meditate",
+      "train"
     ],
     "skills": [
       "skill_emei_sword",
@@ -337,7 +357,9 @@
     "description": "丐帮帮主，武功盖世",
     "type": "trainer",
     "services": [
-      "learn_skill"
+      "drink",
+      "learn_skill",
+      "rest"
     ],
     "skills": [
       "skill_gaibang_stick",
@@ -460,7 +482,8 @@
     "description": "逍遥派掌门，武功已臻化境。",
     "type": "trainer",
     "services": [
-      "learn_skill"
+      "learn_skill",
+      "meditate"
     ],
     "skills": [
       "skill_xiaoyao_xinfa",
@@ -529,6 +552,11 @@
     },
     "roomIds": [
       "city_market"
+    ],
+    "services": [
+      "buy_item",
+      "sell_item",
+      "shop"
     ]
   },
   {
@@ -575,6 +603,9 @@
     },
     "roomIds": [
       "desert_oasis"
+    ],
+    "services": [
+      "water"
     ]
   },
   {
@@ -928,7 +959,8 @@
     "type": "service",
     "services": [
       "guide",
-      "rumor"
+      "rumor",
+      "train"
     ],
     "dialogues": {
       "greeting": [
@@ -976,7 +1008,8 @@
     "description": "明教教众，守护着光明顶。",
     "type": "service",
     "services": [
-      "guide"
+      "guide",
+      "learn_skill"
     ],
     "dialogues": {
       "greeting": [
@@ -995,6 +1028,7 @@
     "type": "service",
     "services": [
       "guide",
+      "learn_skill",
       "rumor"
     ],
     "dialogues": {
@@ -1168,6 +1202,9 @@
     },
     "roomIds": [
       "bandit_stronghold"
+    ],
+    "services": [
+      "rest"
     ]
   },
   {
@@ -1367,7 +1404,9 @@
     "name": "天宫仙师",
     "type": "trainer",
     "services": [
-      "learn_skill"
+      "learn_skill",
+      "meditate",
+      "train"
     ],
     "skills": [
       "skill_shaolin_divine",
@@ -1461,6 +1500,11 @@
     },
     "roomIds": [
       "desert_bazaar"
+    ],
+    "services": [
+      "buy_item",
+      "sell_item",
+      "shop"
     ]
   },
   {
@@ -1468,7 +1512,8 @@
     "name": "探险家",
     "type": "service",
     "services": [
-      "guide"
+      "guide",
+      "rest"
     ],
     "dialogues": {
       "greeting": [
@@ -1807,6 +1852,9 @@
     },
     "roomIds": [
       "palace_garden"
+    ],
+    "services": [
+      "buy_item"
     ]
   },
   {
@@ -2478,6 +2526,9 @@
     },
     "roomIds": [
       "canyon_deep"
+    ],
+    "services": [
+      "rest"
     ]
   },
   {
@@ -2550,6 +2601,9 @@
     },
     "roomIds": [
       "auction_house"
+    ],
+    "services": [
+      "shop"
     ]
   },
   {
@@ -2593,6 +2647,7 @@
     "type": "trainer",
     "services": [
       "meditate",
+      "rest",
       "train"
     ],
     "dialogues": {
@@ -2751,7 +2806,8 @@
     "name": "公会书记官",
     "type": "service",
     "services": [
-      "guide"
+      "guide",
+      "quest"
     ],
     "dialogues": {
       "greeting": [
@@ -2869,6 +2925,9 @@
     },
     "roomIds": [
       "underground_hall"
+    ],
+    "services": [
+      "rest"
     ]
   },
   {
@@ -3005,6 +3064,10 @@
     },
     "roomIds": [
       "swamp_village"
+    ],
+    "services": [
+      "rest",
+      "shop"
     ]
   },
   {
@@ -3081,6 +3144,10 @@
     },
     "roomIds": [
       "plains_camp"
+    ],
+    "services": [
+      "rest",
+      "shop"
     ]
   },
   {
@@ -3269,6 +3336,10 @@
     },
     "roomIds": [
       "snow_village"
+    ],
+    "services": [
+      "rest",
+      "trade"
     ]
   },
   {
@@ -3293,6 +3364,7 @@
     "name": "说书人",
     "type": "service",
     "services": [
+      "rest",
       "rumor"
     ],
     "dialogues": {
@@ -3565,6 +3637,9 @@
     },
     "roomIds": [
       "phoenix_peak"
+    ],
+    "services": [
+      "meditate"
     ]
   },
   {
@@ -3609,6 +3684,7 @@
     "type": "service",
     "services": [
       "meditate",
+      "rest",
       "rumor"
     ],
     "dialogues": {
@@ -3838,7 +3914,8 @@
     "name": "悬空僧人",
     "type": "service",
     "services": [
-      "meditate"
+      "meditate",
+      "train"
     ],
     "dialogues": {
       "greeting": [
@@ -3878,7 +3955,8 @@
     "type": "trainer",
     "services": [
       "learn_skill",
-      "meditate"
+      "meditate",
+      "train"
     ],
     "skills": [
       "skill_shaolin_divine",
@@ -4091,6 +4169,7 @@
     "name": "冰雕师",
     "type": "service",
     "services": [
+      "learn_skill",
       "rumor"
     ],
     "dialogues": {
@@ -4141,6 +4220,9 @@
     },
     "roomIds": [
       "swamp_island"
+    ],
+    "services": [
+      "rest"
     ]
   },
   {
@@ -4328,6 +4410,9 @@
     },
     "roomIds": [
       "sky_bazaar"
+    ],
+    "services": [
+      "shop"
     ]
   },
   {
@@ -4421,6 +4506,7 @@
     "name": "樱花诗人",
     "type": "service",
     "services": [
+      "meditate",
       "rest",
       "rumor"
     ],
@@ -4485,6 +4571,10 @@
     },
     "roomIds": [
       "coral_garden"
+    ],
+    "services": [
+      "meditate",
+      "rest"
     ]
   },
   {
@@ -4543,6 +4633,11 @@
     },
     "roomIds": [
       "underground_market"
+    ],
+    "services": [
+      "buy_item",
+      "sell_item",
+      "shop"
     ]
   },
   {
@@ -4892,7 +4987,8 @@
     "name": "地下城守卫",
     "type": "service",
     "services": [
-      "guide"
+      "guide",
+      "rest"
     ],
     "dialogues": {
       "greeting": "站住！……哦，是地上的客人。",
@@ -5001,8 +5097,10 @@
     "name": "竹院茶师",
     "type": "service",
     "services": [
+      "learn_skill",
       "rest",
-      "rumor"
+      "rumor",
+      "train"
     ],
     "dialogues": {
       "greeting": "竹叶煮茶，清心明目。来一杯？",
@@ -5116,6 +5214,10 @@
     },
     "roomIds": [
       "herbalist_hut"
+    ],
+    "services": [
+      "buy_item",
+      "shop"
     ]
   },
   {
@@ -5124,7 +5226,8 @@
     "type": "service",
     "services": [
       "rest",
-      "rumor"
+      "rumor",
+      "shop"
     ],
     "dialogues": {
       "greeting": "渔村虽小，日子过得舒坦。",
@@ -5378,6 +5481,9 @@
     },
     "roomIds": [
       "shadow_throne"
+    ],
+    "services": [
+      "meditate"
     ]
   },
   {
