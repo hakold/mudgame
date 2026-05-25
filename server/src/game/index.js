@@ -153,9 +153,45 @@ function getNpcsInRoom(roomId) {
   return Object.values(gameConfig.npcs).filter(npc => npc.roomIds?.includes(roomId));
 }
 
-// 获取房间内的怪物
+// 获取房间内的怪物（聚合 room.monsters + map.monsters + 怪物自身的 roomId）
 function getMonstersInRoom(roomId) {
-  return Object.values(gameConfig.monsters).filter(monster => monster.roomId === roomId);
+  const room = getRoom(roomId);
+  if (!room) return [];
+  
+  const result = [];
+  const seen = new Set();
+  
+  // 1. 旧格式：怪物自身的 roomId
+  const directMonsters = Object.values(gameConfig.monsters).filter(m => m.roomId === roomId);
+  for (const m of directMonsters) {
+    if (!seen.has(m.id)) {
+      result.push({ ...m, _spawnWeight: m.spawnWeight || 1 });
+      seen.add(m.id);
+    }
+  }
+  
+  // 2. 房间配置的 monsters 数组
+  for (const entry of (room.monsters || [])) {
+    const monster = gameConfig.monsters[entry.monsterId];
+    if (monster && !seen.has(monster.id)) {
+      result.push({ ...monster, _spawnWeight: entry.spawnWeight || 1 });
+      seen.add(monster.id);
+    }
+  }
+  
+  // 3. 地图配置的 monsters 数组（该房间所属地图）
+  const map = getMap(room.mapId);
+  if (map) {
+    for (const entry of (map.monsters || [])) {
+      const monster = gameConfig.monsters[entry.monsterId];
+      if (monster && !seen.has(monster.id)) {
+        result.push({ ...monster, _spawnWeight: entry.spawnWeight || 1 });
+        seen.add(monster.id);
+      }
+    }
+  }
+  
+  return result;
 }
 
 // 获取房间出口
