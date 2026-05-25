@@ -388,17 +388,24 @@
           
           <div class="entity-group">
             <div class="entity-title">NPC</div>
-            <div class="entity-list">
+            <div class="npc-grid">
               <div 
-                v-for="npc in gameStore.currentRoom.npcs" 
+                v-for="npc in paginatedNpcs" 
                 :key="npc.id" 
-                class="entity-item clickable" 
+                class="npc-card"
                 @click="interactNpc(npc.id)"
                 :title="'点击与' + npc.name + '对话'"
               >
-                🧑 {{ npc.name }}<span v-if="hasNpcQuest(npc)" class="npc-quest-icon" :class="{ 'quest-completed': isNpcQuestDone(npc) }">{{ isNpcQuestDone(npc) ? '✅' : '❗' }}</span>
+                <span class="npc-card-icon">🧑</span>
+                <span class="npc-card-name">{{ npc.name }}</span>
+                <span v-if="hasNpcQuest(npc)" class="npc-quest-icon" :class="{ 'quest-completed': isNpcQuestDone(npc) }">{{ isNpcQuestDone(npc) ? '✅' : '❗' }}</span>
               </div>
-              <div v-if="!gameStore.currentRoom.npcs?.length" class="entity-item">无</div>
+              <div v-if="!gameStore.currentRoom.npcs?.length" class="npc-empty">暂无NPC</div>
+            </div>
+            <div class="npc-pagination" v-if="totalNpcPages > 1">
+              <button class="npc-page-btn" :disabled="npcPage <= 1" @click="npcPage--">◀</button>
+              <span class="npc-page-info">{{ npcPage }} / {{ totalNpcPages }}</span>
+              <button class="npc-page-btn" :disabled="npcPage >= totalNpcPages" @click="npcPage++">▶</button>
             </div>
           </div>
           
@@ -1447,6 +1454,19 @@ const currentMap = computed(() => {
 
 const currentRoomServices = computed(() => gameStore.currentRoom?.services || [])
 
+// NPC 分页
+const npcPage = ref(1)
+const npcPageSize = 6
+const paginatedNpcs = computed(() => {
+  const npcs = gameStore.currentRoom?.npcs || []
+  const start = (npcPage.value - 1) * npcPageSize
+  return npcs.slice(start, start + npcPageSize)
+})
+const totalNpcPages = computed(() => {
+  const npcs = gameStore.currentRoom?.npcs || []
+  return Math.max(1, Math.ceil(npcs.length / npcPageSize))
+})
+
 const contextualActions = computed(() => {
   const services = currentRoomServices.value
   const actions = []
@@ -2077,6 +2097,11 @@ watch(gameStore.messages, async () => {
   if (messageArea.value) {
     messageArea.value.scrollTop = messageArea.value.scrollHeight
   }
+})
+
+// 房间切换时重置 NPC 分页
+watch(() => gameStore.currentRoom?.id, () => {
+  npcPage.value = 1
 })
 
 onMounted(async () => {
@@ -3149,6 +3174,71 @@ onUnmounted(() => {
 }
 .npc-quest-icon.quest-completed {
   opacity: 0.4;
+}
+
+/* NPC 卡片网格 */
+.npc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  min-height: 36px;
+}
+.npc-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 6px 8px;
+  background: #1a1a2e;
+  border: 1px solid #3a3a5e;
+  border-radius: 6px;
+  color: #4fc3f7;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+.npc-card:hover {
+  background: #2a2a4e;
+  border-color: #4fc3f7;
+}
+.npc-card-icon { font-size: 14px; }
+.npc-card-name { flex: 1; text-align: center; }
+.npc-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #555;
+  padding: 12px;
+  font-size: 13px;
+}
+.npc-pagination {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+.npc-page-btn {
+  padding: 3px 8px;
+  background: #1a1a2e;
+  border: 1px solid #3a3a5e;
+  border-radius: 4px;
+  color: #aaa;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+.npc-page-btn:hover:not(:disabled) {
+  color: #ffd700;
+  border-color: #ffd700;
+}
+.npc-page-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.npc-page-info {
+  color: #888;
+  font-size: 12px;
+  text-align: center;
 }
 
 </style>
