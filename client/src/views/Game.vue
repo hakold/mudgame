@@ -402,7 +402,7 @@
               </div>
               <div v-if="!gameStore.currentRoom.npcs?.length" class="npc-empty">暂无NPC</div>
             </div>
-            <div class="npc-pagination" v-if="totalNpcPages > 1">
+            <div class="npc-pagination">
               <button class="npc-page-btn" :disabled="npcPage <= 1" @click="npcPage--">◀</button>
               <span class="npc-page-info">{{ npcPage }} / {{ totalNpcPages }}</span>
               <button class="npc-page-btn" :disabled="npcPage >= totalNpcPages" @click="npcPage++">▶</button>
@@ -3182,6 +3182,9 @@ onUnmounted(() => {
   grid-template-columns: 1fr 1fr;
   gap: 6px;
   min-height: 36px;
+  background: #1a1a2e;
+  padding: 10px;
+  border-radius: 3px;
 }
 .npc-card {
   display: flex;
