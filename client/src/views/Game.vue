@@ -388,24 +388,26 @@
           
           <div class="entity-group">
             <div class="entity-title">NPC</div>
-            <div class="npc-grid">
-              <div 
-                v-for="npc in paginatedNpcs" 
-                :key="npc.id" 
-                class="npc-card"
-                @click="interactNpc(npc.id)"
-                :title="'点击与' + npc.name + '对话'"
-              >
-                <span class="npc-card-icon">🧑</span>
-                <span class="npc-card-name">{{ npc.name }}</span>
-                <span v-if="hasNpcQuest(npc)" class="npc-quest-icon" :class="{ 'quest-completed': isNpcQuestDone(npc) }">{{ isNpcQuestDone(npc) ? '✅' : '❗' }}</span>
+            <div class="npc-panel">
+              <div class="npc-grid">
+                <div 
+                  v-for="npc in paginatedNpcs" 
+                  :key="npc.id" 
+                  class="npc-card"
+                  @click="interactNpc(npc.id)"
+                  :title="'点击与' + npc.name + '对话'"
+                >
+                  <span class="npc-card-icon">🧑</span>
+                  <span class="npc-card-name">{{ npc.name }}</span>
+                  <span v-if="hasNpcQuest(npc)" class="npc-quest-icon" :class="{ 'quest-completed': isNpcQuestDone(npc) }">{{ isNpcQuestDone(npc) ? '✅' : '❗' }}</span>
+                </div>
+                <div v-if="!gameStore.currentRoom.npcs?.length" class="npc-empty">暂无NPC</div>
               </div>
-              <div v-if="!gameStore.currentRoom.npcs?.length" class="npc-empty">暂无NPC</div>
-            </div>
-            <div class="npc-pagination">
-              <button class="npc-page-btn" :disabled="npcPage <= 1" @click="npcPage--">◀</button>
-              <span class="npc-page-info">{{ npcPage }} / {{ totalNpcPages }}</span>
-              <button class="npc-page-btn" :disabled="npcPage >= totalNpcPages" @click="npcPage++">▶</button>
+              <div class="npc-pagination">
+                <button class="npc-page-btn" :disabled="npcPage <= 1" @click="npcPage--">◀</button>
+                <span class="npc-page-info">{{ npcPage }} / {{ totalNpcPages }}</span>
+                <button class="npc-page-btn" :disabled="npcPage >= totalNpcPages" @click="npcPage++">▶</button>
+              </div>
             </div>
           </div>
           
@@ -3176,15 +3178,17 @@ onUnmounted(() => {
   opacity: 0.4;
 }
 
-/* NPC 卡片网格 */
+/* NPC 卡片面板 */
+.npc-panel {
+  background: #1a1a2e;
+  padding: 10px;
+  border-radius: 3px;
+}
 .npc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 6px;
   min-height: 36px;
-  background: #1a1a2e;
-  padding: 10px;
-  border-radius: 3px;
 }
 .npc-card {
   display: flex;
@@ -3218,7 +3222,7 @@ onUnmounted(() => {
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 8px;
-  margin-top: 6px;
+  margin-top: 8px;
 }
 .npc-page-btn {
   padding: 3px 8px;
