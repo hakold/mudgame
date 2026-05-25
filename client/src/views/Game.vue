@@ -389,49 +389,53 @@
           <div class="entity-group">
             <div class="entity-title" style="margin-bottom:2px;font-size:14px">NPC</div>
             <div class="npc-panel">
-              <div class="npc-grid">
-                <div v-if="!gameStore.currentRoom.npcs?.length" class="npc-empty">暂无NPC</div>
-                <template v-else v-for="i in 6" :key="i">
-                  <div v-if="paginatedNpcs[i-1]" 
-                    class="npc-card"
-                    @click="interactNpc(paginatedNpcs[i-1].id)"
-                    :title="'点击与' + paginatedNpcs[i-1].name + '对话'"
-                  >
-                    <span class="npc-card-icon">🧑</span>
-                    <span class="npc-card-name">{{ paginatedNpcs[i-1].name }}</span>
-                    <span v-if="hasNpcQuest(paginatedNpcs[i-1])" class="npc-quest-icon" :class="{ 'quest-completed': isNpcQuestDone(paginatedNpcs[i-1]) }">{{ isNpcQuestDone(paginatedNpcs[i-1]) ? '✅' : '❗' }}</span>
-                  </div>
-                  <div v-else class="npc-card npc-card-empty"></div>
-                </template>
-              </div>
-              <div class="npc-pagination">
-                <button class="npc-page-btn" :disabled="npcPage <= 1" @click="npcPage--">◀</button>
-                <span class="npc-page-info">{{ npcPage }} / {{ totalNpcPages }}</span>
-                <button class="npc-page-btn" :disabled="npcPage >= totalNpcPages" @click="npcPage++">▶</button>
-              </div>
+              <div v-if="!gameStore.currentRoom.npcs?.length" class="npc-empty">暂无NPC</div>
+              <template v-else>
+                <div class="npc-grid">
+                  <template v-for="i in 6" :key="i">
+                    <div v-if="paginatedNpcs[i-1]" 
+                      class="npc-card"
+                      @click="interactNpc(paginatedNpcs[i-1].id)"
+                      :title="'点击与' + paginatedNpcs[i-1].name + '对话'"
+                    >
+                      <span class="npc-card-icon">🧑</span>
+                      <span class="npc-card-name">{{ paginatedNpcs[i-1].name }}</span>
+                      <span v-if="hasNpcQuest(paginatedNpcs[i-1])" class="npc-quest-icon" :class="{ 'quest-completed': isNpcQuestDone(paginatedNpcs[i-1]) }">{{ isNpcQuestDone(paginatedNpcs[i-1]) ? '✅' : '❗' }}</span>
+                    </div>
+                    <div v-else class="npc-card npc-card-empty"></div>
+                  </template>
+                </div>
+                <div class="npc-pagination" v-if="gameStore.currentRoom.npcs?.length">
+                  <button class="npc-page-btn" :disabled="npcPage <= 1" @click="npcPage--">◀</button>
+                  <span class="npc-page-info">{{ npcPage }} / {{ totalNpcPages }}</span>
+                  <button class="npc-page-btn" :disabled="npcPage >= totalNpcPages" @click="npcPage++">▶</button>
+                </div>
+              </template>
             </div>
           </div>
           
           <div class="entity-group">
             <div class="entity-title" style="margin-bottom:2px;font-size:14px">怪物</div>
             <div class="npc-panel">
-              <div class="npc-grid">
-                <div v-if="!gameStore.currentRoom.monsters?.length" class="npc-empty">暂无怪物</div>
-                <template v-else v-for="i in 6" :key="i">
-                  <div v-if="paginatedMonsters[i-1]" 
-                    class="npc-card"
-                    @click="attackMonster(paginatedMonsters[i-1].id)"
-                  >
-                    <span class="npc-card-name">{{ paginatedMonsters[i-1].name }}({{ paginatedMonsters[i-1].level }}级)</span>
-                  </div>
-                  <div v-else class="npc-card npc-card-empty"></div>
-                </template>
-              </div>
-              <div class="npc-pagination">
+              <div v-if="!gameStore.currentRoom.monsters?.length" class="npc-empty">暂无怪物</div>
+              <template v-else>
+                <div class="npc-grid">
+                  <template v-for="i in 6" :key="i">
+                    <div v-if="paginatedMonsters[i-1]" 
+                      class="npc-card"
+                      @click="attackMonster(paginatedMonsters[i-1].id)"
+                    >
+                      <span class="npc-card-name">{{ paginatedMonsters[i-1].name }}({{ paginatedMonsters[i-1].level }}级)</span>
+                    </div>
+                    <div v-else class="npc-card npc-card-empty"></div>
+                  </template>
+                </div>
+                <div class="npc-pagination" v-if="gameStore.currentRoom.monsters?.length">
                 <button class="npc-page-btn" :disabled="monsterPage <= 1" @click="monsterPage--">◀</button>
                 <span class="npc-page-info">{{ monsterPage }} / {{ totalMonsterPages }}</span>
                 <button class="npc-page-btn" :disabled="monsterPage >= totalMonsterPages" @click="monsterPage++">▶</button>
               </div>
+              </template>
             </div>
           </div>
         </div>
@@ -3209,8 +3213,9 @@ onUnmounted(() => {
 .npc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(3, 1fr);
   gap: 4px;
-  min-height: 36px;
+  min-height: 84px;
 }
 .npc-card {
   display: flex;
@@ -3237,11 +3242,12 @@ onUnmounted(() => {
 .npc-card-icon { font-size: 12px; }
 .npc-card-name { flex: 1; text-align: center; }
 .npc-empty {
-  grid-column: 1 / -1;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 84px;
   color: #555;
-  padding: 8px;
-  font-size: 12px;
+  font-size: 13px;
 }
 .npc-pagination {
   display: grid;
