@@ -2902,23 +2902,21 @@ function socketHandler(io) {
         }
       }
 
-      // 返回NPC对话信息
-      // 合并房间服务和NPC服务（商店类NPC需要）
-      const mergedServices = [...new Set([...(npc.services || []), ...(room.services || [])])];
+      // 返回NPC对话信息（服务功能全部由NPC承担）
       socket.emit('npc_dialog', {
         npc: {
           id: npc.id,
           name: npc.name,
           description: npc.description,
           type: npc.type,
-          services: mergedServices,
+          services: npc.services || [],
           shopType: npc.shopType || room.shopType,
           items: npc.items,
           skills: npc.skills,
           quests: npc.quests,
           teleportDestinations: npc.teleportDestinations || null
         },
-        roomServices: room.services || [],
+        roomServices: [],
         roomShopType: room.shopType,
         message: dialog,
         availableQuests,
@@ -3019,7 +3017,7 @@ function socketHandler(io) {
       socket.emit('system_message', { content: `💬 ${rumorNpc.name}悄悄告诉你：「${rumorMsg}」` });
       socket.emit('npc_dialog', {
         npc: { id: rumorNpc.id, name: rumorNpc.name, description: rumorNpc.description, type: rumorNpc.type, services: rumorNpc.services },
-        roomServices: room.services || [],
+        roomServices: [],
         message: `${rumorNpc.name}: 「${rumorMsg}」`
       });
     });
@@ -3775,7 +3773,7 @@ function getRoomDescription(roomId) {
     id: room.id,
     name: room.name,
     description: room.description,
-    services: room.services?.map(s => SERVICE_LABELS[s] || s) || [],
+    services: getNpcsInRoom(roomId).flatMap(n => n.services || []).filter((v, i, a) => a.indexOf(v) === i).map(s => SERVICE_LABELS[s] || s),
     exits,
     players: players.map(p => ({ name: p.name, level: p.level })),
     npcs: npcs.map(n => ({ id: n.id, name: n.name, type: n.type, factionId: n.factionId })),
@@ -3825,13 +3823,15 @@ function findSocketByUserId(userId) {
 }
 
 function roomSupportsShop(room) {
-  if (!room?.services) return false;
-  return room.services.some(service => ['shop', 'buy_item', 'buy_weapon', 'buy_armor', 'sell_item'].includes(service));
+  if (!room?.id) return false;
+  const npcs = getNpcsInRoom(room.id);
+  return npcs.some(npc => (npc.services || []).some(s => ['shop', 'buy_item', 'buy_weapon', 'buy_armor', 'sell_item'].includes(s)));
 }
 
 function roomSupportsSkillLearning(room) {
-  if (!room?.services) return false;
-  return room.services.some(service => ['train', 'learn_skill'].includes(service));
+  if (!room?.id) return false;
+  const npcs = getNpcsInRoom(room.id);
+  return npcs.some(npc => (npc.services || []).some(s => ['train', 'learn_skill'].includes(s)));
 }
 
 function resolveShopType(room) {
