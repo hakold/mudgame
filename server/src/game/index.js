@@ -150,7 +150,7 @@ function getNpc(npcId) {
 
 // 获取房间内的NPC
 function getNpcsInRoom(roomId) {
-  return Object.values(gameConfig.npcs).filter(npc => npc.roomId === roomId);
+  return Object.values(gameConfig.npcs).filter(npc => npc.roomIds?.includes(roomId));
 }
 
 // 获取房间内的怪物
