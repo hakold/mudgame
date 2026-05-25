@@ -242,6 +242,7 @@ body {
 .room-entities {
   display: flex;
   gap: 20px;
+  margin-bottom: 12px;
 }
 
 .entity-group {
