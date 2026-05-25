@@ -510,7 +510,7 @@
       </div>
       <div class="quick-actions">
         <button class="quick-btn" @click="quickCommand('help')">❓ 帮助</button>
-        <button class="quick-btn" @click="quickCommand('inventory')">🎒 背包</button>
+        <button class="quick-btn" @click="showInventory = true">🎒 背包</button>
         <button class="quick-btn" @click="showFullSkills = true">⚔️ 全部技能</button>
         <button class="quick-btn" @click="showQuests = true; loadQuests()">📜 任务</button>
         <button class="quick-btn" @click="showAchievements = true; loadAchievements()">🏆 成就</button>
@@ -1199,6 +1199,48 @@
         </div>
       </div>
 
+      <!-- 背包弹窗 -->
+      <div class="quest-overlay" v-if="showInventory" @click.self="showInventory = false">
+        <div class="quest-dialog" style="max-width:460px">
+          <div class="quest-dialog-title">🎒 背包<button class="popup-x-btn" @click="showInventory = false">✕</button></div>
+          <!-- 装备槽位 -->
+          <div class="equipment-slots">
+            <div class="equip-slots-title">⚔️ 装备栏</div>
+            <div v-for="slot in equipmentSlots" :key="slot.key" class="equip-slot-row">
+              <span class="equip-slot-label">{{ slot.label }}</span>
+              <span class="equip-slot-item" :class="{ empty: !slot.item }">{{ slot.item ? getItemName(slot.item.itemId) : '空' }}</span>
+              <span v-if="slot.item" class="equip-slot-stats">{{ getItemStats(slot.item.itemId) }}</span>
+            </div>
+          </div>
+          <div v-for="item in inventory" :key="item._id" class="inventory-item">
+            <div class="item-header">
+              <span class="item-name" :class="itemRarity(item)">{{ getItemName(item.itemId) }}</span>
+              <span class="item-quantity">x{{ item.quantity }}</span>
+            </div>
+            <div class="item-detail">{{ getItemDescription(item.itemId) }}</div>
+            <div class="item-stats" v-if="getItemStats(item.itemId)">
+              {{ getItemStats(item.itemId) }}
+            </div>
+            <div class="item-actions">
+              <button v-if="isConsumable(item.itemId)" class="item-btn" @click="useItem(item)">使用</button>
+              <button v-if="isEquipment(item.itemId) && !item.isEquipped" class="item-btn" @click="equipItem(item)">装备</button>
+              <button v-if="isEquipment(item.itemId) && item.isEquipped" class="item-btn unequip-btn" @click="unequipItem(item)">卸下</button>
+              <button v-if="isEquipment(item.itemId) && (item.durability?.current || 0) < (item.durability?.max || 100)" class="item-btn repair-btn" @click="repairItem(item._id)">修复</button>
+              <button v-if="currentRoomServices.some(s => ['shop','buy_item','buy_weapon','buy_armor','sell_item'].includes(s))" class="item-btn sell-btn" @click="sellItem(item)">出售</button>
+            </div>
+            <div v-if="isEquipment(item.itemId)" class="durability-bar">
+              <span class="dur-label">耐久</span>
+              <div class="dur-track">
+                <div class="dur-fill" :class="durabilityClass(item)" :style="{ width: durabilityPercent(item) + '%' }"></div>
+              </div>
+              <span class="dur-text" :class="durabilityClass(item)">{{ item.durability?.current || 0 }}/{{ item.durability?.max || 100 }}</span>
+            </div>
+          </div>
+          <div v-if="!inventory.length" class="empty-hint">背包空空如也</div>
+          <button class="quest-close-btn" @click="showInventory = false">关闭</button>
+        </div>
+      </div>
+
 </template>
 
 <script setup>
@@ -1259,6 +1301,7 @@ const showCompletedQuests = ref(false)
 const showShop = ref(false)
 const showAchievements = ref(false)
 const showBattleLog = ref(false)
+const showInventory = ref(false)
 const showFullSkills = ref(false)
 const showQuests = ref(false)
 const showForge = ref(false)
