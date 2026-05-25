@@ -342,49 +342,42 @@
       
       <!-- 房间信息 -->
       <div class="room-info" v-if="gameStore.currentRoom && !isDead">
-        <div class="room-name">{{ gameStore.currentRoom.name }}</div>
-        <div class="room-description">{{ gameStore.currentRoom.description }}</div>
-        
-        <!-- 天气/时间信息 -->
-        <div class="time-weather" v-if="gameStore.timeInfo">
-          <span class="time-display">🕐 {{ gameStore.timeInfo.timeStr }} {{ gameStore.timeInfo.periodName }}</span>
-          <span class="weather-display">{{ gameStore.timeInfo.weather?.name }} - {{ gameStore.timeInfo.weather?.description }}</span>
-        </div>
-        
-        <!-- 地面掉落 -->
-        <div class="room-drops" v-if="gameStore.roomDrops?.length">
-          <div class="drops-title">📦 地面物品</div>
-          <div class="drops-list">
-            <div v-for="(drop, idx) in gameStore.roomDrops" :key="drop.itemId + '-' + idx" class="drop-item">
-              <span class="drop-name">{{ drop.name || drop.itemId }}</span>
-              <span v-if="drop.quantity > 1" class="drop-qty">x{{ drop.quantity }}</span>
-              <button class="pickup-btn" @click="pickupItem(drop.itemId)">拾取</button>
+        <div class="room-info-left">
+          <div class="room-name">{{ gameStore.currentRoom.name }}</div>
+          <div class="room-description">{{ gameStore.currentRoom.description }}</div>
+          
+          <!-- 天气/时间信息 -->
+          <div class="time-weather" v-if="gameStore.timeInfo">
+            <span class="time-display">🕐 {{ gameStore.timeInfo.timeStr }} {{ gameStore.timeInfo.periodName }}</span>
+            <span class="weather-display">{{ gameStore.timeInfo.weather?.name }} - {{ gameStore.timeInfo.weather?.description }}</span>
+          </div>
+          
+          <!-- 地面掉落 -->
+          <div class="room-drops" v-if="gameStore.roomDrops?.length">
+            <div class="drops-title">📦 地面物品</div>
+            <div class="drops-list">
+              <div v-for="(drop, idx) in gameStore.roomDrops" :key="drop.itemId + '-' + idx" class="drop-item">
+                <span class="drop-name">{{ drop.name || drop.itemId }}</span>
+                <span v-if="drop.quantity > 1" class="drop-qty">x{{ drop.quantity }}</span>
+                <button class="pickup-btn" @click="pickupItem(drop.itemId)">拾取</button>
+              </div>
             </div>
           </div>
-        </div>
-        
-        <div class="room-exits">
-          <span class="exit-label">出口:</span>
-          <button 
-            v-for="exit in gameStore.currentRoom.exits" 
-            :key="exit.roomId"
-            class="exit-btn"
-            @click="move(exit.direction)"
-          >
-            {{ directionLabel(exit.direction) }} → {{ exit.roomName }}
-          </button>
+          
+          <div class="room-exits">
+            <span class="exit-label">出口:</span>
+            <button 
+              v-for="exit in gameStore.currentRoom.exits" 
+              :key="exit.roomId"
+              class="exit-btn"
+              @click="move(exit.direction)"
+            >
+              {{ directionLabel(exit.direction) }} → {{ exit.roomName }}
+            </button>
+          </div>
         </div>
         
         <div class="room-entities">
-          <div class="entity-group">
-            <div class="entity-title">玩家</div>
-            <div class="entity-list">
-              <div v-for="player in gameStore.currentRoom.players" :key="player.name" class="entity-item">
-                {{ player.name }}({{ player.level }}级)
-              </div>
-              <div v-if="!gameStore.currentRoom.players?.length" class="entity-item">无</div>
-            </div>
-          </div>
           
           <div class="entity-group">
             <div class="entity-title" style="margin-bottom:2px;font-size:14px">NPC</div>
