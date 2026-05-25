@@ -491,8 +491,8 @@
         <button @click="sendCommand">发送</button>
       </div>
       
-      <!-- 快捷按钮 -->
-      <div v-if="contextualActions.length" class="quick-actions">
+      <!-- 快捷按钮：第1排 — 房间功能 + 主要系统 -->
+      <div class="quick-actions">
         <button
           v-for="action in contextualActions"
           :key="action.command"
@@ -501,27 +501,24 @@
         >
           {{ action.label }}
         </button>
-      </div>
-      <div class="quick-actions">
-        <button class="quick-btn" @click="showChatMode = !showChatMode">💬 {{ showChatMode ? '命令' : '聊天' }}</button>
-        <button class="quick-btn" @click="quickCommand('look')">👁️ 查看</button>
-        <button class="quick-btn" @click="showMap = true; gameStore.socket?.emit('get_map_info')">🗺️ 地图</button>
-        <button class="quick-btn" @click="quickCommand('status')">📊 状态</button>
-      </div>
-      <div class="quick-actions">
-        <button class="quick-btn" @click="quickCommand('help')">❓ 帮助</button>
         <button class="quick-btn" @click="showInventory = true">🎒 背包</button>
-        <button class="quick-btn" @click="showFullSkills = true">⚔️ 全部技能</button>
         <button class="quick-btn" @click="showQuests = true; loadQuests()">📜 任务</button>
-        <button class="quick-btn" @click="showAchievements = true; loadAchievements()">🏆 成就</button>
-        <button class="quick-btn" @click="showBattleLog = true; loadBattleLogs()">📊 战报</button>
-      </div>
-      <div class="quick-actions">
+        <button class="quick-btn" @click="showFullSkills = true">⚔️ 全部技能</button>
         <button class="quick-btn" @click="showForge = true; loadForgeRecipes()">🔨 锻造</button>
-        <button class="quick-btn" @click="showDungeons = true; gameStore.loadDungeons()">🏯 副本</button>
-        <button class="quick-btn" @click="showAuction = true; gameStore.searchAuctions(''); gameStore.loadMyAuctions()">🏪 拍卖</button>
         <button class="quick-btn" @click="showLife = true; gameStore.loadGatheringNodes(); gameStore.loadAlchemyRecipes(); gameStore.loadCookingRecipes()">🌿 生活</button>
+        <button class="quick-btn" @click="showAuction = true; gameStore.searchAuctions(''); gameStore.loadMyAuctions()">🏪 拍卖</button>
+        <button class="quick-btn" @click="showDungeons = true; gameStore.loadDungeons()">🏯 副本</button>
         <button v-if="hasFactionNpc" class="quick-btn" @click="quickCommand('faction')">🏯 门派</button>
+      </div>
+      <!-- 快捷按钮：第2排 — 工具与信息 -->
+      <div class="quick-actions">
+        <button class="quick-btn" @click="showChatMode = !showChatMode">💬 聊天</button>
+        <button class="quick-btn" @click="quickCommand('help')">❓ 帮助</button>
+        <button class="quick-btn" @click="showMap = true; gameStore.socket?.emit('get_map_info')">🗺️ 地图</button>
+        <button class="quick-btn" @click="quickCommand('look')">👁️ 查看</button>
+        <button class="quick-btn" @click="quickCommand('status')">📊 状态</button>
+        <button class="quick-btn" @click="showBattleLog = true; loadBattleLogs()">📊 战报</button>
+        <button class="quick-btn" @click="showAchievements = true; loadAchievements()">🏆 成就</button>
       </div>
     </div>
     
