@@ -573,7 +573,8 @@
               <span class="dur-text" :class="durabilityClass(item)">{{ item.durability?.current || 0 }}/{{ item.durability?.max || 100 }}</span>
             </div>
           </div>
-          <div v-if="!inventory.length" class="empty-hint">背包空空如也</div>
+          <div v-if="!filteredInventory.length && backpackTab === 'all'" class="empty-hint">背包空空如也</div>
+          <div v-if="!filteredInventory.length && backpackTab !== 'all'" class="empty-hint">该分类暂无物品</div>
         </div>
 
         <!-- 已装配技能 -->
@@ -1201,7 +1202,7 @@
 
       <!-- 背包弹窗 -->
       <div class="quest-overlay" v-if="showInventory" @click.self="showInventory = false">
-        <div class="quest-dialog" style="max-width:460px">
+        <div class="quest-dialog" style="max-width:520px">
           <div class="quest-dialog-title">🎒 背包<button class="popup-x-btn" @click="showInventory = false">✕</button></div>
           <!-- 装备槽位 -->
           <div class="equipment-slots">
@@ -1212,7 +1213,16 @@
               <span v-if="slot.item" class="equip-slot-stats">{{ getItemStats(slot.item.itemId) }}</span>
             </div>
           </div>
-          <div v-for="item in inventory" :key="item._id" class="inventory-item">
+          <!-- 分类标签 -->
+          <div class="bp-tabs">
+            <button class="bp-tab" :class="{ active: backpackTab === 'all' }" @click="backpackTab = 'all'">📦 全部</button>
+            <button class="bp-tab" :class="{ active: backpackTab === 'equip' }" @click="backpackTab = 'equip'">⚔️ 装备</button>
+            <button class="bp-tab" :class="{ active: backpackTab === 'material' }" @click="backpackTab = 'material'">🌿 素材</button>
+            <button class="bp-tab" :class="{ active: backpackTab === 'potion' }" @click="backpackTab = 'potion'">💊 药</button>
+            <button class="bp-tab" :class="{ active: backpackTab === 'ore' }" @click="backpackTab = 'ore'">⛏️ 矿</button>
+            <button class="bp-tab" :class="{ active: backpackTab === 'book' }" @click="backpackTab = 'book'">📖 功法书</button>
+          </div>
+          <div v-for="item in filteredInventory" :key="item._id" class="inventory-item">
             <div class="item-header">
               <span class="item-name" :class="itemRarity(item)">{{ getItemName(item.itemId) }}</span>
               <span class="item-quantity">x{{ item.quantity }}</span>
@@ -1302,6 +1312,7 @@ const showShop = ref(false)
 const showAchievements = ref(false)
 const showBattleLog = ref(false)
 const showInventory = ref(false)
+const backpackTab = ref('all')
 const showFullSkills = ref(false)
 const showQuests = ref(false)
 const showForge = ref(false)
@@ -1323,6 +1334,34 @@ const canAdvanceFaction = computed(() => {
   if (rank === 'elder') return rep >= 2000 && lvl >= 50
   if (rank === 'deacon') return rep >= 500 && lvl >= 25
   return rep >= 100 && lvl >= 10 // disciple needs 100 rep + lvl 10 to advance
+})
+
+// 背包分类
+const ITEM_CATEGORIES = { equip: '装备', material: '素材', potion: '药', ore: '矿', book: '功法书' }
+function itemCategory(item) {
+  const itemConfig = gameStore.getItemConfig?.(item.itemId) || {}
+  const type = itemConfig?.type || ''
+  const subtype = itemConfig?.subtype || ''
+  const name = (itemConfig?.name || item.itemId || '').toLowerCase()
+  const id = (item.itemId || '').toLowerCase()
+  
+  // 装备
+  if (['weapon', 'armor', 'equipment'].some(t => type.startsWith(t))) return 'equip'
+  // 功法书
+  if (type === 'skill_book') return 'book'
+  // 矿/石
+  if (type === 'material' && (['矿','石','金','银','铜','铁','锰','玉','琉璃','水晶','宝石','钻'].some(k => name.includes(k) || id.includes(k)))) return 'ore'
+  // 药/食物/消耗品
+  if (type === 'consumable' || ['potion', 'pill', 'elixir', 'food', 'drink'].includes(subtype)) return 'potion'
+  // 素材
+  if (type === 'material') return 'material'
+  // 礼包/其他
+  if (type === 'gift') return 'material'
+  return 'material'
+}
+const filteredInventory = computed(() => {
+  if (backpackTab.value === 'all') return inventory.value
+  return inventory.value.filter(item => itemCategory(item) === backpackTab.value)
 })
 
 const commandPlaceholder = computed(() => {
@@ -2341,6 +2380,7 @@ onUnmounted(() => {
   z-index: 9998;
 }
 .quest-dialog {
+  position: relative;
   background: #1a1a2e;
   border: 2px solid #4a9eff;
   border-radius: 12px;
@@ -2349,6 +2389,33 @@ onUnmounted(() => {
   width: 90%;
   max-height: 70vh;
   overflow-y: auto;
+}
+.bp-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #333;
+}
+.bp-tab {
+  padding: 4px 10px;
+  border: 1px solid #444;
+  border-radius: 6px;
+  background: #1e1e3a;
+  color: #aaa;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.bp-tab:hover {
+  background: #2a2a4a;
+  color: #e0e0e0;
+}
+.bp-tab.active {
+  background: #3a3a6a;
+  color: #ffd700;
+  border-color: #ffd700;
 }
 .popup-x-btn {
   position: absolute;
