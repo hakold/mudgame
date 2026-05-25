@@ -1339,7 +1339,7 @@ const canAdvanceFaction = computed(() => {
 // 背包分类
 const ITEM_CATEGORIES = { equip: '装备', material: '素材', potion: '药', ore: '矿', book: '功法书' }
 function itemCategory(item) {
-  const itemConfig = gameStore.getItemConfig?.(item.itemId) || {}
+  const itemConfig = gameStore.gameConfig?.items?.[item.itemId] || {}
   const type = itemConfig?.type || ''
   const subtype = itemConfig?.subtype || ''
   const name = (itemConfig?.name || item.itemId || '').toLowerCase()
