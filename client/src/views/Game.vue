@@ -365,7 +365,7 @@
           </div>
           
           <div class="room-exits">
-            <span class="exit-label">出口:</span>
+            <span class="exit-label">移动:</span>
             <button 
               v-for="exit in gameStore.currentRoom.exits" 
               :key="exit.roomId"

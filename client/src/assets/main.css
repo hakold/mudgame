@@ -231,6 +231,12 @@ body {
   display: flex;
   gap: 6px;
   margin-bottom: 10px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.exit-label {
+  flex-shrink: 0;
 }
 
 .exit-btn {
@@ -241,6 +247,8 @@ body {
   color: #eee;
   cursor: pointer;
   font-size: 13px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .exit-btn:hover {
