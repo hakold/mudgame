@@ -3209,7 +3209,7 @@ onUnmounted(() => {
   background: #1a1a2e;
   padding: 6px;
   border-radius: 3px;
-  height: 124px;
+  height: 140px;
   display: flex;
   flex-direction: column;
 }
