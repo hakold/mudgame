@@ -231,12 +231,12 @@ body {
   display: flex;
   gap: 6px;
   margin-bottom: 10px;
-  flex-wrap: nowrap;
-  overflow-x: auto;
+  flex-wrap: wrap;
 }
 
 .exit-label {
   flex-shrink: 0;
+  align-self: center;
 }
 
 .exit-btn {
