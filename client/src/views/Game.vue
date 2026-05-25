@@ -3209,13 +3209,16 @@ onUnmounted(() => {
   background: #1a1a2e;
   padding: 6px;
   border-radius: 3px;
+  height: 124px;
+  display: flex;
+  flex-direction: column;
 }
 .npc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(3, 1fr);
   gap: 4px;
-  min-height: 84px;
+  flex: 1;
 }
 .npc-card {
   display: flex;
@@ -3245,7 +3248,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 84px;
+  flex: 1;
   color: #555;
   font-size: 13px;
 }
