@@ -40,7 +40,7 @@ function testRequiredFields() {
     rooms: ['id', 'name', 'description', 'mapId'],
     items: ['id', 'name', 'type'],
     monsters: ['id', 'name', 'level', 'hp', 'attack', 'defense', 'roomId'],
-    npcs: ['id', 'name', 'roomId', 'type'],
+    npcs: ['id', 'name', 'roomIds', 'type'],
     quests: ['id', 'name', 'type', 'objectives', 'rewards'],
     factions: ['id', 'name', 'requireLevel'],
     factionQuests: ['id', 'factionId', 'name', 'type', 'objectives', 'rewards'],
@@ -75,8 +75,11 @@ function testCrossReferences() {
   const factionIds = new Set(configs.factions.map(f => f.id));
 
   // NPC references
-  const brokenNpcRoom = configs.npcs.filter(n => !roomIds.has(n.roomId));
-  results.push({ name: 'NPC roomIds exist', pass: brokenNpcRoom.length === 0, broken: brokenNpcRoom.map(n => `${n.id}→${n.roomId}`) });
+  const brokenNpcRoom = configs.npcs.filter(n => {
+    const ids = n.roomIds || [];
+    return ids.length === 0 || ids.some(rid => !roomIds.has(rid));
+  });
+  results.push({ name: 'NPC roomIds exist', pass: brokenNpcRoom.length === 0, broken: brokenNpcRoom.map(n => `${n.id}→${(n.roomIds||[]).join(',')}`) });
 
   const brokenNpcSkills = [];
   configs.npcs.forEach(n => (n.skills || []).forEach(s => { if (!skillIds.has(s)) brokenNpcSkills.push(`${n.id}→${s}`); }));

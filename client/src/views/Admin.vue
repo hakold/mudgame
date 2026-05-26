@@ -191,42 +191,186 @@
         </div>
       </div>
 
-      <!-- ====== 地图管理（增强） ====== -->
+      <!-- ====== 地图管理（重构） ====== -->
       <div v-if="activeMenu === 'maps'">
         <h2 class="admin-title">地图管理</h2>
         <div class="maps-grid">
-          <div v-for="map in maps" :key="map.id" class="map-card" :class="{ selected: selectedMap?.id === map.id }" @click="selectedMap = map; loadRoomsForMap(map.id)">
+          <div v-for="map in maps" :key="map.id" class="map-card" :class="{ selected: selectedMap?.id === map.id }" @click="selectMap(map)">
             <div class="map-card-header"><span class="map-name">{{ map.name }}</span><span class="map-level">{{ map.level }}</span></div>
             <div class="map-card-desc">{{ map.description }}</div>
-            <div class="map-card-rooms">房间数: {{ map.roomCount || 0 }}</div>
+            <div class="map-card-rooms">房间: {{ map.rooms?.length || 0 }} | 入口: {{ mapsRoomNames[map.id]?.entry || '-' }}</div>
+          </div>
+          <div class="map-card map-card-new" @click="createMap">
+            <div class="map-card-header" style="font-size:24px;justify-content:center;">+ 新建地图</div>
           </div>
         </div>
+
+        <!-- 地图详情 -->
         <div v-if="selectedMap" class="map-detail">
-          <h3>{{ selectedMap.name }} - 房间列表</h3>
-          <div class="rooms-list">
-            <div v-for="room in mapRooms" :key="room.id" class="room-item">
-              <div class="room-name">{{ room.name }} <span style="color:#888; font-size:11px;">({{ room.id }})</span></div>
-              <div class="room-desc">{{ room.description }}</div>
-              <div class="room-exits">出口: {{ room.exits?.map(e => e.direction + '→' + e.roomId).join(', ') || '无' }} | 服务: {{ (room.services || []).join(', ') || '无' }}</div>
-              <div style="margin-top:5px;"><button @click="editRoom(room)" style="font-size:11px;">编辑</button></div>
-            </div>
+          <h3>{{ isEditingMap ? '编辑' : '' }}{{ selectedMap.name || '新建地图' }}</h3>
+          <div class="form-group"><label>地图ID</label><input v-model="selectedMap.id" :disabled="!isNewMap" /></div>
+          <div class="form-group"><label>名称</label><input v-model="selectedMap.name" /></div>
+          <div class="form-group"><label>描述</label><textarea v-model="selectedMap.description" rows="2"></textarea></div>
+          <div class="form-group"><label>等级范围</label><input v-model="selectedMap.level" placeholder="1-10" /></div>
+          <div class="form-group">
+            <label>入口房间（地图作为房间的方向目标）</label>
+            <select v-model="selectedMap.entryRoom">
+              <option value="">-- 选择入口房间 --</option>
+              <option v-for="r in mapRooms" :key="r.id" :value="r.id">{{ r.name }} ({{ r.id }})</option>
+            </select>
           </div>
+          <button class="btn" @click="saveMap" style="margin-top:8px;">💾 保存地图</button>
+
+          <!-- 房间管理 -->
+          <h4 style="color:#ffd700; margin-top:20px;">📁 房间管理</h4>
+          <div style="display:flex; gap:8px; align-items:center; margin-bottom:10px;">
+            <select v-model="selectedRoomId" @change="onRoomSelect" style="flex:1; padding:8px; background:#0f3460; color:#eee; border:1px solid #1a4a7a; border-radius:5px;">
+              <option value="">-- 选择房间 --</option>
+              <option v-for="r in mapRooms" :key="r.id" :value="r.id">{{ r.name }} ({{ r.id }})</option>
+            </select>
+            <button @click="editSelectedRoom" :disabled="!selectedRoomId">✏️ 编辑</button>
+            <button @click="createRoom">+ 新建房间</button>
+          </div>
+          <div class="rooms-list">
+            <div v-for="room in mapRooms" :key="room.id" class="room-item" style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;">
+              <div>
+                <span class="room-name">{{ room.name }}</span>
+                <span style="color:#888;font-size:11px;"> ({{ room.id }})</span>
+                <div style="color:#888;font-size:11px;">
+                  出口: {{ room.exits?.length || 0 }} | NPC: {{ room.npcs?.length || 0 }} | 怪物: {{ room.monsters?.length || 0 }}
+                </div>
+              </div>
+              <div style="display:flex;gap:4px;">
+                <button @click="editRoom(room)" style="font-size:11px;">✏️</button>
+                <button @click="deleteRoom(room.id)" style="font-size:11px;background:#e94560;">🗑️</button>
+              </div>
+            </div>
+            <div v-if="!mapRooms.length" style="color:#666;text-align:center;padding:20px;">暂无房间，点击「新建房间」创建</div>
+          </div>
+
+          <!-- 地图级怪物 -->
+          <h4 style="color:#ffd700; margin-top:20px;">👹 地图怪物</h4>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;">
+            <span v-for="(m, i) in (selectedMap.monsters || [])" :key="i" class="tag">
+              {{ monsterNames[m.monsterId] || m.monsterId }} (权重{{ m.spawnWeight || 1 }})
+              <button @click="removeMapMonster(i)" style="background:none;border:none;color:#e94560;cursor:pointer;padding:0 2px;">×</button>
+            </span>
+          </div>
+          <button @click="openMonsterPicker('map')" class="btn" style="width:auto;padding:6px 12px;">+ 添加怪物</button>
         </div>
+
         <!-- 房间编辑弹窗 -->
         <div v-if="showRoomEditor" class="modal-overlay" @click.self="showRoomEditor = false">
-          <div class="modal-content" style="max-width:500px;">
-            <h3>编辑房间: {{ editingRoom.id }}</h3>
+          <div class="modal-content" style="max-width:700px;max-height:85vh;">
+            <h3>{{ isNewRoom ? '新建房间' : '编辑房间' }} <span v-if="!isNewRoom" style="color:#888;font-size:14px;">{{ editingRoom.id }}</span></h3>
+            <div class="form-group"><label>房间ID</label><input v-model="editingRoom.id" :disabled="!isNewRoom" /></div>
             <div class="form-group"><label>名称</label><input v-model="editingRoom.name" /></div>
             <div class="form-group"><label>描述</label><textarea v-model="editingRoom.description" rows="2"></textarea></div>
-            <div class="form-group"><label>服务 (逗号分隔)</label><input v-model="editingRoom.servicesStr" /></div>
-            <div class="form-group"><label>出口 (JSON)</label><textarea v-model="editingRoom.exitsStr" rows="3" placeholder='[{"direction":"north","roomId":"forest_path"}]'></textarea></div>
-            <button class="btn" @click="saveRoom">保存</button>
+
+            <!-- 方向 -->
+            <h4 style="color:#ffd700;margin-top:12px;">🧭 出入口</h4>
+            <div v-for="(exit, i) in (editingRoom.exits || [])" :key="i" style="display:flex;gap:6px;align-items:center;margin-bottom:4px;flex-wrap:wrap;">
+              <select v-model="exit.direction" style="width:100px;padding:6px;background:#0f3460;color:#eee;border:1px solid #1a4a7a;">
+                <option v-for="d in DIR_OPTIONS" :key="d" :value="d">{{ d }}</option>
+              </select>
+              <span style="color:#888;">→</span>
+              <select v-model="exit.targetMapId" @change="onExitMapChange(i)" style="flex:1;min-width:120px;padding:6px;background:#0f3460;color:#eee;border:1px solid #1a4a7a;">
+                <option value="">选择地图</option>
+                <option v-for="m in maps" :key="m.id" :value="m.id">{{ m.name }}</option>
+              </select>
+              <select v-model="exit.roomId" style="flex:1;min-width:120px;padding:6px;background:#0f3460;color:#eee;border:1px solid #1a4a7a;">
+                <option value="">选择房间</option>
+                <option v-if="exit.targetMap" :value="exit.targetMap.entryRoom">🏠 {{ exit.targetMap.name }}（地图入口）</option>
+                <option v-for="r in exitRoomOptions(i)" :key="r.id" :value="r.id">{{ r.name }}</option>
+              </select>
+              <button @click="removeExit(i)" style="font-size:12px;color:#e94560;">×</button>
+            </div>
+            <button @click="addExit" class="btn" style="width:auto;padding:4px 10px;font-size:12px;">+ 添加方向</button>
+
+            <!-- NPC -->
+            <h4 style="color:#ffd700;margin-top:12px;">👤 NPC</h4>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px;">
+              <span v-for="(nid, i) in (editingRoom.npcs || [])" :key="i" class="tag">
+                {{ npcNames[nid] || nid }}
+                <button @click="removeRoomNpc(i)" style="background:none;border:none;color:#e94560;cursor:pointer;padding:0 2px;">×</button>
+              </span>
+            </div>
+            <button @click="openNpcPicker" class="btn" style="width:auto;padding:6px 12px;">+ 添加NPC</button>
+
+            <!-- 怪物 -->
+            <h4 style="color:#ffd700;margin-top:12px;">👹 房间怪物</h4>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px;">
+              <span v-for="(m, i) in (editingRoom.monsters || [])" :key="i" class="tag">
+                {{ monsterNames[m.monsterId] || m.monsterId }} ({{ m.spawnWeight || 1 }})
+                <button @click="removeRoomMonster(i)" style="background:none;border:none;color:#e94560;cursor:pointer;padding:0 2px;">×</button>
+              </span>
+            </div>
+            <button @click="openMonsterPicker('room')" class="btn" style="width:auto;padding:6px 12px;">+ 添加怪物</button>
+
+            <!-- 自动聚合功能 -->
+            <h4 style="color:#888;margin-top:12px;font-size:13px;">⚙️ 房间功能（NPC聚合）</h4>
+            <div style="color:#aaa;font-size:12px;">
+              <template v-if="editingRoom.npcs?.length">
+                <span v-for="nid in editingRoom.npcs" :key="nid">
+                  <template v-for="svc in (allNpcServices[nid] || [])" :key="svc">
+                    <span class="tag" style="background:#1a3a5a;">{{ svc }}</span>
+                  </template>
+                </span>
+              </template>
+              <span v-else>（无NPC）</span>
+            </div>
+
+            <button class="btn" @click="saveRoom" style="margin-top:15px;">{{ isNewRoom ? '创建' : '保存' }}</button>
             <button class="btn btn-secondary" @click="showRoomEditor = false" style="margin-left:10px;">取消</button>
+          </div>
+        </div>
+
+        <!-- NPC选择弹窗 -->
+        <div v-if="showNpcPicker" class="modal-overlay" @click.self="showNpcPicker = false">
+          <div class="modal-content" style="max-width:500px;max-height:70vh;">
+            <h3>选择NPC</h3>
+            <input v-model="npcSearch" placeholder="搜索NPC名称或ID..." style="width:100%;margin-bottom:10px;padding:8px;background:#0f3460;border:1px solid #1a4a7a;color:#eee;" />
+            <div style="max-height:350px;overflow-y:auto;">
+              <div v-for="npc in filteredNpcs" :key="npc.id" style="display:flex;align-items:center;padding:6px;border-bottom:1px solid #1a1a40;cursor:pointer;" @click="toggleNpc(npc.id)">
+                <input type="checkbox" :checked="selectedNpcIds.includes(npc.id)" style="margin-right:8px;" @click.stop @change="toggleNpc(npc.id)" />
+                <div>
+                  <div style="font-weight:bold;">{{ npc.name }}</div>
+                  <div style="font-size:11px;color:#888;">{{ npc.id }} | {{ npc.type || '?' }} | {{ (npc.services || []).join(', ') || '无服务' }} | 出现: {{ (npc.roomIds || []).length }}房间</div>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top:8px;color:#aaa;font-size:12px;">已选 {{ selectedNpcIds.length }} 个</div>
+            <button class="btn" @click="confirmNpcSelection">确认选择</button>
+            <button class="btn btn-secondary" @click="showNpcPicker = false" style="margin-left:10px;">取消</button>
+          </div>
+        </div>
+
+        <!-- 怪物选择弹窗 -->
+        <div v-if="showMonsterPicker" class="modal-overlay" @click.self="showMonsterPicker = false">
+          <div class="modal-content" style="max-width:500px;max-height:70vh;">
+            <h3>添加怪物</h3>
+            <input v-model="monsterSearch" placeholder="搜索怪物名称或ID..." style="width:100%;margin-bottom:10px;padding:8px;background:#0f3460;border:1px solid #1a4a7a;color:#eee;" />
+            <div style="max-height:350px;overflow-y:auto;">
+              <div v-for="mon in filteredMonsters" :key="mon.id" style="display:flex;align-items:center;padding:6px;border-bottom:1px solid #1a1a40;cursor:pointer;" @click="addMonster(mon)">
+                <div style="flex:1;">
+                  <div style="font-weight:bold;">{{ mon.name }}</div>
+                  <div style="font-size:11px;color:#888;">{{ mon.id }} | Lv{{ mon.level }} | HP:{{ mon.hp }} ATK:{{ mon.attack }}</div>
+                </div>
+                <span style="color:#4fc3f7;font-size:12px;margin-left:8px;">点击添加</span>
+              </div>
+            </div>
+            <div v-if="pendingMonsterId" style="margin-top:8px;display:flex;gap:8px;align-items:center;">
+              <span style="color:#ffd700;">{{ monsterNames[pendingMonsterId] }} — 刷怪权重:</span>
+              <input v-model.number="pendingMonsterWeight" type="number" min="1" max="10" style="width:60px;padding:4px;background:#0f3460;color:#eee;border:1px solid #1a4a7a;" />
+              <button class="btn" @click="confirmAddMonster">确认</button>
+              <button class="btn btn-secondary" @click="pendingMonsterId = null">取消</button>
+            </div>
+            <button class="btn btn-secondary" @click="showMonsterPicker = false">关闭</button>
           </div>
         </div>
       </div>
 
-      <!-- ====== 公告管理 ====== -->
+
       <div v-if="activeMenu === 'announcements'">
         <div class="admin-header"><h2 class="admin-title">公告管理</h2><button class="btn" style="width:auto; padding:8px 15px;" @click="showCreateAnnouncement = true">发布公告</button></div>
         <div v-if="showCreateAnnouncement" style="background:#16213e; padding:20px; border-radius:5px; margin-bottom:20px;">
@@ -254,7 +398,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 
@@ -344,20 +488,230 @@ async function saveItemConfig() {
 }
 async function deleteItemConfig(id) { if (!confirm('删除道具 ' + id + '?')) return; try { await axios.delete(`/gm/config/items/${id}`); loadItemConfigs() } catch(e) { alert('删除失败') } }
 
-// 地图
-const maps = ref([]), mapRooms = ref([]), selectedMap = ref(null), showRoomEditor = ref(false), editingRoom = ref({})
-async function loadMaps() { try { maps.value = (await axios.get('/gm/config/maps')).data.data } catch(e) {} }
-async function loadRoomsForMap(mapId) { try { mapRooms.value = (await axios.get('/gm/config/rooms', { params: { mapId } })).data.data } catch(e) {} }
-function editRoom(room) { editingRoom.value = JSON.parse(JSON.stringify(room)); editingRoom.value.servicesStr = (room.services || []).join(','); editingRoom.value.exitsStr = JSON.stringify(room.exits || []); showRoomEditor.value = true }
-async function saveRoom() {
-  const r = editingRoom.value
+// 地图（重构）
+const DIR_OPTIONS = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'out', 'north_east', 'north_west', 'south_east', 'south_west']
+const maps = ref([]), mapRooms = ref([]), selectedMap = ref(null), selectedRoomId = ref('')
+const showRoomEditor = ref(false), editingRoom = ref({}), isNewRoom = ref(false), isNewMap = ref(false)
+const allNpcs = ref([]), allMonsters = ref([])
+const showNpcPicker = ref(false), selectedNpcIds = ref([]), npcSearch = ref('')
+const showMonsterPicker = ref(false), monsterPickerTarget = ref(''), pendingMonsterId = ref(null), pendingMonsterWeight = ref(5)
+const monsterSearch = ref('')
+const mapsRoomNames = ref({}) // 地图入口房间名缓存
+
+async function loadMaps() {
+  try { maps.value = (await axios.get('/gm/config/maps')).data.data } catch(e) {}
+  // 加载所有房间以构建入口名
+  try { const { data } = await axios.get('/gm/config/rooms'); for (const r of data.data) { const m = maps.value.find(m => m.id === r.mapId); if (m) mapsRoomNames.value[m.id] = mapsRoomNames.value[m.id] || { entry: r.name } } } catch(e) {}
+}
+async function selectMap(map) {
+  selectedMap.value = JSON.parse(JSON.stringify(map))
+  isNewMap.value = false
+  selectedRoomId.value = ''
+  await loadRoomsForMap(map.id)
+  await loadAllNpcs()
+  await loadAllMonsters()
+}
+function createMap() {
+  selectedMap.value = { id: '', name: '', description: '', level: '1-10', entryRoom: '', rooms: [], monsters: [], npcs: [] }
+  isNewMap.value = true
+  selectedRoomId.value = ''
+  mapRooms.value = []
+}
+async function saveMap() {
+  const m = selectedMap.value
+  if (!m.id || !m.name) return alert('地图ID和名称不能为空')
   try {
-    r.services = r.servicesStr ? r.servicesStr.split(',').map(s => s.trim()).filter(Boolean) : []
-    r.exits = JSON.parse(r.exitsStr || '[]')
-    await axios.put(`/gm/config/rooms/${r.id}`, r)
-    showRoomEditor.value = false; loadRoomsForMap(selectedMap.value.id); loadMaps()
+    if (isNewMap.value) {
+      await axios.post('/gm/config/maps', m)
+    } else {
+      await axios.put(`/gm/config/maps/${m.id}`, m)
+    }
+    isNewMap.value = false
+    await loadMaps()
   } catch(e) { alert('保存失败: ' + (e.response?.data?.message || e.message)) }
 }
+async function loadRoomsForMap(mapId) {
+  try { mapRooms.value = (await axios.get('/gm/config/rooms', { params: { mapId } })).data.data } catch(e) {}
+}
+async function loadAllNpcs() {
+  try { allNpcs.value = (await axios.get('/gm/config/npcs')).data.data } catch(e) {}
+}
+async function loadAllMonsters() {
+  try { allMonsters.value = (await axios.get('/gm/config/monsters')).data.data } catch(e) {}
+}
+
+// 房间操作
+function createRoom() {
+  editingRoom.value = { id: '', name: '', description: '', mapId: selectedMap.value.id, exits: [], npcs: [], monsters: [], features: [] }
+  isNewRoom.value = true
+  showRoomEditor.value = true
+}
+function editRoom(room) {
+  editingRoom.value = JSON.parse(JSON.stringify(room))
+  // 为每个exit补充targetMap信息（根据roomId推断）
+  for (const exit of (editingRoom.value.exits || [])) {
+    const allMapRooms = allNpcs.value.length ? [] : [] // will be resolved via rooms
+    exit._resolved = false
+  }
+  isNewRoom.value = false
+  showRoomEditor.value = true
+}
+function editSelectedRoom() {
+  const room = mapRooms.value.find(r => r.id === selectedRoomId.value)
+  if (room) editRoom(room)
+}
+function onRoomSelect() {}
+async function deleteRoom(roomId) {
+  if (!confirm(`删除房间 ${roomId}？此操作不可撤销。`)) return
+  try {
+    await axios.delete(`/gm/config/rooms/${roomId}`)
+    await loadRoomsForMap(selectedMap.value.id)
+    await loadMaps()
+  } catch(e) { alert('删除失败: ' + (e.response?.data?.message || e.message)) }
+}
+
+// 方向操作
+function addExit() {
+  if (!editingRoom.value.exits) editingRoom.value.exits = []
+  editingRoom.value.exits.push({ direction: 'north', roomId: '', targetMapId: '' })
+}
+function removeExit(i) { editingRoom.value.exits.splice(i, 1) }
+function onExitMapChange(i) {
+  const exit = editingRoom.value.exits[i]
+  // Store targetMap ref for room options
+  exit.targetMap = maps.value.find(m => m.id === exit.targetMapId)
+  exit.roomId = '' // reset room selection
+}
+function exitRoomOptions(i) {
+  const exit = editingRoom.value.exits[i]
+  if (!exit.targetMapId) return []
+  const targetMap = maps.value.find(m => m.id === exit.targetMapId)
+  if (!targetMap) return []
+  // Find rooms belonging to this map
+  const allRooms = allNpcs.value.length ? [] : [] // placeholder - rooms are loaded per-map
+  // Actually we need ALL rooms for cross-map exits. Load them on demand.
+  return exitRoomCache.value[exit.targetMapId] || []
+}
+const exitRoomCache = ref({})
+async function loadExitRoomOptions(mapId) {
+  if (exitRoomCache.value[mapId]) return
+  try {
+    const { data } = await axios.get('/gm/config/rooms', { params: { mapId } })
+    exitRoomCache.value[mapId] = data.data
+  } catch(e) {}
+}
+// Preload exit room options when editing
+watch(showRoomEditor, async (val) => {
+  if (val && editingRoom.value.exits?.length) {
+    for (const exit of editingRoom.value.exits) {
+      if (exit.targetMapId) await loadExitRoomOptions(exit.targetMapId)
+    }
+    // For exits without targetMapId, try to infer from roomId
+    if (allNpcs.value.length === 0) await loadAllNpcs()
+    for (const exit of editingRoom.value.exits) {
+      if (!exit.targetMapId && exit.roomId) {
+        // Try to find which map this room belongs to
+        try {
+          const { data } = await axios.get('/gm/config/rooms')
+          const targetRoom = data.data.find(r => r.id === exit.roomId)
+          if (targetRoom) {
+            exit.targetMapId = targetRoom.mapId
+            exit.targetMap = maps.value.find(m => m.id === targetRoom.mapId)
+            await loadExitRoomOptions(targetRoom.mapId)
+          }
+        } catch(e) {}
+      }
+    }
+  }
+})
+async function saveRoom() {
+  const r = editingRoom.value
+  if (!r.id || !r.name) return alert('房间ID和名称不能为空')
+  if (!r.mapId) r.mapId = selectedMap.value.id
+  // Clean exits (remove UI-only fields)
+  r.exits = (r.exits || []).map(e => ({ direction: e.direction, roomId: e.roomId })).filter(e => e.roomId)
+  try {
+    if (isNewRoom.value) {
+      await axios.post('/gm/config/rooms', r)
+    } else {
+      await axios.put(`/gm/config/rooms/${r.id}`, r)
+    }
+    showRoomEditor.value = false
+    await loadRoomsForMap(selectedMap.value.id)
+    await loadMaps()
+  } catch(e) { alert('保存失败: ' + (e.response?.data?.message || e.message)) }
+}
+
+// NPC操作
+function openNpcPicker() {
+  selectedNpcIds.value = [...(editingRoom.value.npcs || [])]
+  npcSearch.value = ''
+  if (allNpcs.value.length === 0) loadAllNpcs()
+  showNpcPicker.value = true
+}
+const filteredNpcs = computed(() => {
+  if (!npcSearch.value) return allNpcs.value
+  const q = npcSearch.value.toLowerCase()
+  return allNpcs.value.filter(n => n.id.toLowerCase().includes(q) || n.name.includes(q))
+})
+function toggleNpc(npcId) {
+  const idx = selectedNpcIds.value.indexOf(npcId)
+  if (idx >= 0) selectedNpcIds.value.splice(idx, 1)
+  else selectedNpcIds.value.push(npcId)
+}
+function confirmNpcSelection() {
+  editingRoom.value.npcs = [...selectedNpcIds.value]
+  showNpcPicker.value = false
+}
+function removeRoomNpc(i) { editingRoom.value.npcs.splice(i, 1) }
+const npcNames = computed(() => {
+  const m = {}
+  for (const n of allNpcs.value) m[n.id] = n.name
+  return m
+})
+const allNpcServices = computed(() => {
+  const m = {}
+  for (const n of allNpcs.value) m[n.id] = n.services || []
+  return m
+})
+
+// 怪物操作
+function openMonsterPicker(target) {
+  monsterPickerTarget.value = target
+  monsterSearch.value = ''
+  pendingMonsterId.value = null
+  if (allMonsters.value.length === 0) loadAllMonsters()
+  showMonsterPicker.value = true
+}
+const filteredMonsters = computed(() => {
+  if (!monsterSearch.value) return allMonsters.value
+  const q = monsterSearch.value.toLowerCase()
+  return allMonsters.value.filter(m => m.id.toLowerCase().includes(q) || m.name.includes(q))
+})
+const monsterNames = computed(() => {
+  const m = {}
+  for (const mon of allMonsters.value) m[mon.id] = mon.name
+  return m
+})
+function addMonster(mon) {
+  pendingMonsterId.value = mon.id
+  pendingMonsterWeight.value = 5
+}
+function confirmAddMonster() {
+  if (!pendingMonsterId.value) return
+  const entry = { monsterId: pendingMonsterId.value, spawnWeight: pendingMonsterWeight.value || 5 }
+  if (monsterPickerTarget.value === 'map') {
+    if (!selectedMap.value.monsters) selectedMap.value.monsters = []
+    selectedMap.value.monsters.push(entry)
+  } else {
+    if (!editingRoom.value.monsters) editingRoom.value.monsters = []
+    editingRoom.value.monsters.push(entry)
+  }
+  pendingMonsterId.value = null
+  showMonsterPicker.value = false
+}
+function removeRoomMonster(i) { editingRoom.value.monsters.splice(i, 1) }
+function removeMapMonster(i) { selectedMap.value.monsters.splice(i, 1) }
 
 // 公告
 const announcements = ref([]), showCreateAnnouncement = ref(false)

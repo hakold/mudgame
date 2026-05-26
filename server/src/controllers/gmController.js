@@ -371,6 +371,77 @@ class GMController {
     } catch (error) { res.status(500).json({ success: false, message: error.message }); }
   }
 
+  async createRoomConfig(req, res) {
+    try {
+      const rooms = readConfig('rooms');
+      const newRoom = req.body;
+      if (!newRoom.id || !newRoom.name) return res.status(400).json({ success: false, message: '房间ID和名称不能为空' });
+      if (rooms.find(r => r.id === newRoom.id)) return res.status(400).json({ success: false, message: '房间ID已存在' });
+      // 默认值
+      newRoom.exits = newRoom.exits || [];
+      newRoom.monsters = newRoom.monsters || [];
+      newRoom.npcs = newRoom.npcs || [];
+      newRoom.features = newRoom.features || [];
+      rooms.push(newRoom);
+      writeConfig('rooms', rooms);
+      // 同步地图的 rooms 列表
+      if (newRoom.mapId) {
+        const maps = readConfig('maps');
+        const map = maps.find(m => m.id === newRoom.mapId);
+        if (map && !map.rooms.includes(newRoom.id)) {
+          map.rooms.push(newRoom.id);
+          writeConfig('maps', maps);
+        }
+      }
+      res.json({ success: true, message: '房间创建成功', data: newRoom });
+    } catch (error) { res.status(500).json({ success: false, message: error.message }); }
+  }
+
+  async deleteRoomConfig(req, res) {
+    try {
+      const rooms = readConfig('rooms');
+      const idx = rooms.findIndex(r => r.id === req.params.roomId);
+      if (idx === -1) return res.status(404).json({ success: false, message: '房间不存在' });
+      const removed = rooms.splice(idx, 1)[0];
+      writeConfig('rooms', rooms);
+      // 同步地图的 rooms 列表
+      if (removed.mapId) {
+        const maps = readConfig('maps');
+        const map = maps.find(m => m.id === removed.mapId);
+        if (map) {
+          map.rooms = map.rooms.filter(rid => rid !== removed.id);
+          writeConfig('maps', maps);
+        }
+      }
+      res.json({ success: true, message: '房间删除成功' });
+    } catch (error) { res.status(500).json({ success: false, message: error.message }); }
+  }
+
+  async updateMapConfig(req, res) {
+    try {
+      const maps = readConfig('maps');
+      const idx = maps.findIndex(m => m.id === req.params.mapId);
+      if (idx === -1) return res.status(404).json({ success: false, message: '地图不存在' });
+      maps[idx] = { ...maps[idx], ...req.body, id: maps[idx].id };
+      writeConfig('maps', maps);
+      res.json({ success: true, message: '地图更新成功', data: maps[idx] });
+    } catch (error) { res.status(500).json({ success: false, message: error.message }); }
+  }
+
+  async getNpcList(req, res) {
+    try {
+      const npcs = readConfig('npcs');
+      res.json({ success: true, data: npcs });
+    } catch (error) { res.status(500).json({ success: false, message: error.message }); }
+  }
+
+  async getMonsterList(req, res) {
+    try {
+      const monsters = readConfig('monsters');
+      res.json({ success: true, data: monsters });
+    } catch (error) { res.status(500).json({ success: false, message: error.message }); }
+  }
+
   // 可疑玩家列表
   async getSuspiciousPlayers(req, res) {
     try {
