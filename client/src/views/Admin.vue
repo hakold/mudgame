@@ -332,7 +332,7 @@
             <input v-model="npcSearch" placeholder="搜索NPC名称或ID..." style="width:100%;margin-bottom:10px;padding:8px;background:#0f3460;border:1px solid #1a4a7a;color:#eee;" />
             <div style="max-height:350px;overflow-y:auto;">
               <div v-for="npc in filteredNpcs" :key="npc.id" style="display:flex;align-items:center;padding:6px;border-bottom:1px solid #1a1a40;cursor:pointer;" @click="toggleNpc(npc.id)">
-                <input type="checkbox" :checked="selectedNpcIds.includes(npc.id)" style="margin-right:8px;" @click.stop @change="toggleNpc(npc.id)" />
+                <input type="checkbox" :checked="selectedNpcIds.includes(npc.id)" @click.stop="toggleNpc(npc.id)" />
                 <div>
                   <div style="font-weight:bold;">{{ npc.name }}</div>
                   <div style="font-size:11px;color:#888;">{{ npc.id }} | {{ npc.type || '?' }} | {{ (npc.services || []).join(', ') || '无服务' }} | 出现: {{ (npc.roomIds || []).length }}房间</div>
@@ -643,10 +643,10 @@ async function saveRoom() {
 }
 
 // NPC操作
-function openNpcPicker() {
+async function openNpcPicker() {
   selectedNpcIds.value = [...(editingRoom.value.npcs || [])]
   npcSearch.value = ''
-  if (allNpcs.value.length === 0) loadAllNpcs()
+  if (allNpcs.value.length === 0) await loadAllNpcs()
   showNpcPicker.value = true
 }
 const filteredNpcs = computed(() => {

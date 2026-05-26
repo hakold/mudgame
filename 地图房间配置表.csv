@@ -1,0 +1,820 @@
+﻿=== 表1-A: 地图节点 (MAP Nodes) ===
+节点类型,节点ID,节点名称,所属地图,等级范围,入口房间,房间数
+MAP,village,新手村,新手村,1-10,village_center,5
+MAP,forest,迷雾森林,迷雾森林,5-15,forest_entrance,4
+MAP,mountain,青云山,青云山,15-30,mountain_path,3
+MAP,city,洛阳城,洛阳城,10-50,city_gate,6
+MAP,desert,大漠荒原,大漠荒原,25-40,desert_entrance,4
+MAP,snow,雪域高原,雪域高原,35-50,snow_pass,4
+MAP,swamp,毒沼泽,毒沼泽,20-35,swamp_entrance,4
+MAP,island,东海仙岛,东海仙岛,40-60,island_beach,4
+MAP,underground,地下迷宫,地下迷宫,30-45,underground_entrance,4
+MAP,volcano,火山熔岩,火山熔岩,45-60,volcano_base,4
+MAP,palace,皇宫禁地,皇宫禁地,50-70,palace_gate,5
+MAP,demon,魔域深渊,魔域深渊,60-80,demon_portal,4
+ROOM,village_center,村庄广场,新手村,1-10,,
+ROOM,village_inn,客栈,新手村,1-10,,
+ROOM,village_blacksmith,铁匠铺,新手村,1-10,,
+ROOM,village_shop,杂货铺,新手村,1-10,,
+ROOM,village_training,练武场,新手村,1-10,,
+ROOM,forest_entrance,森林入口,迷雾森林,5-15,,
+ROOM,forest_deep,森林深处,迷雾森林,5-15,,
+ROOM,forest_clearing,林间空地,迷雾森林,5-15,,
+ROOM,forest_cave,神秘洞穴,迷雾森林,5-15,,
+ROOM,city_gate,城门,洛阳城,10-50,,
+ROOM,city_square,城市广场,洛阳城,10-50,,
+ROOM,city_tavern,醉仙楼,洛阳城,10-50,,
+ROOM,city_market,集市,洛阳城,10-50,,
+ROOM,city_arena,竞技场,洛阳城,10-50,,
+ROOM,city_guild,侠客公会,洛阳城,10-50,,
+ROOM,mountain_path,山道,青云山,15-30,,
+ROOM,mountain_peak,山顶,青云山,15-30,,
+ROOM,mountain_temple,青云观,青云山,15-30,,
+ROOM,desert_entrance,荒漠入口,大漠荒原,25-40,,
+ROOM,desert_oasis,绿洲,大漠荒原,25-40,,
+ROOM,desert_ruins,古城遗址,大漠荒原,25-40,,
+ROOM,desert_tomb,地下陵墓,大漠荒原,25-40,,
+ROOM,snow_pass,雪山关隘,雪域高原,35-50,,
+ROOM,snow_village,雪村,雪域高原,35-50,,
+ROOM,snow_cave,冰洞,雪域高原,35-50,,
+ROOM,snow_palace,冰宫,雪域高原,35-50,,
+ROOM,swamp_entrance,沼泽边缘,毒沼泽,20-35,,
+ROOM,swamp_deep,沼泽深处,毒沼泽,20-35,,
+ROOM,swamp_island,沼泽孤岛,毒沼泽,20-35,,
+ROOM,swamp_lair,毒蛟巢穴,毒沼泽,20-35,,
+ROOM,island_beach,仙岛海滩,东海仙岛,40-60,,
+ROOM,island_forest,仙岛密林,东海仙岛,40-60,,
+ROOM,island_peak,仙岛山顶,东海仙岛,40-60,,
+ROOM,island_cave,仙人洞府,东海仙岛,40-60,,
+ROOM,underground_entrance,迷宫入口,地下迷宫,30-45,,
+ROOM,underground_hall,中央大厅,地下迷宫,30-45,,
+ROOM,underground_prison,囚牢区,地下迷宫,30-45,,
+ROOM,underground_treasure,宝藏室,地下迷宫,30-45,,
+ROOM,volcano_base,火山脚下,火山熔岩,45-60,,
+ROOM,volcano_crater,火山口,火山熔岩,45-60,,
+ROOM,volcano_lair,火蛟巢穴,火山熔岩,45-60,,
+ROOM,volcano_forge,熔火锻造,火山熔岩,45-60,,
+ROOM,palace_gate,宫门,皇宫禁地,50-70,,
+ROOM,palace_courtyard,御花园,皇宫禁地,50-70,,
+ROOM,palace_hall,金銮殿,皇宫禁地,50-70,,
+ROOM,palace_garden,后花园,皇宫禁地,50-70,,
+ROOM,palace_library,皇家藏书阁,皇宫禁地,50-70,,
+ROOM,demon_portal,魔域入口,魔域深渊,60-80,,
+ROOM,demon_fortress,魔族堡垒,魔域深渊,60-80,,
+ROOM,demon_arena,魔族竞技场,魔域深渊,60-80,,
+ROOM,demon_throne,魔王殿,魔域深渊,60-80,,
+ROOM,forest_path,林间小径,迷雾森林,5-15,,
+ROOM,deep_forest,密林深处,迷雾森林,5-15,,
+ROOM,village_field,村外田野,新手村,1-10,,
+ROOM,river_bank,河边,新手村,1-10,,
+ROOM,dark_cave,黑暗洞窟,迷雾森林,5-15,,
+ROOM,snow_field,雪原,青云山,15-30,,
+ROOM,bamboo_grove,竹林,迷雾森林,5-15,,
+ROOM,shaolin_temple,少林寺,青云山,15-30,,
+ROOM,shaolin_pagoda,少林塔林,青云山,15-30,,
+ROOM,wudang_peak,武当山,青云山,15-30,,
+ROOM,wudang_hall,武当真武殿,青云山,15-30,,
+ROOM,emei_temple,峨眉金顶,青云山,15-30,,
+ROOM,emei_hall,峨眉万法堂,青云山,15-30,,
+ROOM,mingjiao_hall,明教光明顶,火山熔岩,45-60,,
+ROOM,mingjiao_sanctum,明教密殿,火山熔岩,45-60,,
+ROOM,xiaoyao_valley,逍遥谷,东海仙岛,40-60,,
+ROOM,xiaoyao_pavilion,逍遥阁,东海仙岛,40-60,,
+ROOM,gaibang_hq,丐帮总舵,洛阳城,10-50,,
+ROOM,gaibang_hall,丐帮议事厅,洛阳城,10-50,,
+ROOM,forest_waterfall,林中瀑布,迷雾森林,5-15,,
+ROOM,herbalist_hut,药师草庐,迷雾森林,5-15,,
+ROOM,city_docks,洛阳码头,洛阳城,10-50,,
+ROOM,city_residential,民居区,洛阳城,10-50,,
+ROOM,city_temple,城隍庙,洛阳城,10-50,,
+ROOM,city_bridge,石桥,洛阳城,10-50,,
+ROOM,mountain_cliff,山崖,青云山,15-30,,
+ROOM,mountain_spring,山泉,青云山,15-30,,
+ROOM,mountain_bridge,铁索桥,青云山,15-30,,
+ROOM,sky_path,天路,青云山,15-30,,
+ROOM,heaven_gate,天之门,青云山,15-30,,
+ROOM,celestial_palace,天宫,青云山,15-30,,
+ROOM,desert_bazaar,沙漠集市,大漠荒原,25-40,,
+ROOM,desert_pyramid,金字塔,大漠荒原,25-40,,
+ROOM,pyramid_interior,金字塔内,大漠荒原,25-40,,
+ROOM,pyramid_tomb,法老之墓,大漠荒原,25-40,,
+ROOM,graveyard_entrance,乱葬岗,迷雾森林,5-15,,
+ROOM,graveyard_deep,墓地深处,迷雾森林,5-15,,
+ROOM,crypt,地下墓穴,迷雾森林,5-15,,
+ROOM,lakeside,湖畔,新手村,1-10,,
+ROOM,lake_village,渔村,新手村,1-10,,
+ROOM,lake_island,湖心岛,新手村,1-10,,
+ROOM,underwater_cave,水下洞穴,新手村,1-10,,
+ROOM,cave_network,地下洞穴,地下迷宫,30-45,,
+ROOM,bandit_camp,山贼营地,迷雾森林,5-15,,
+ROOM,bandit_stronghold,山贼山寨,迷雾森林,5-15,,
+ROOM,canyon_entrance,峡谷入口,青云山,15-30,,
+ROOM,canyon_deep,峡谷深处,青云山,15-30,,
+ROOM,canyon_cross,峡谷岔路,青云山,15-30,,
+ROOM,canyon_abyss,深渊谷底,青云山,15-30,,
+ROOM,crystal_cave,水晶洞,地下迷宫,30-45,,
+ROOM,city_rich,富人区,洛阳城,10-50,,
+ROOM,auction_house,拍卖行,洛阳城,10-50,,
+ROOM,city_slums,贫民窟,洛阳城,10-50,,
+ROOM,gambling_den,地下赌坊,洛阳城,10-50,,
+ROOM,tea_house,清风茶楼,洛阳城,10-50,,
+ROOM,ancient_tree,万年古树,迷雾森林,5-15,,
+ROOM,tree_canopy,树冠之上,迷雾森林,5-15,,
+ROOM,cloud_sea,云海,青云山,15-30,,
+ROOM,hot_springs,山间温泉,青云山,15-30,,
+ROOM,coastal_cliff,海崖,东海仙岛,40-60,,
+ROOM,pirate_cove,海盗湾,东海仙岛,40-60,,
+ROOM,pirate_ship,幽灵海盗船,东海仙岛,40-60,,
+ROOM,captain_cabin,船长室,东海仙岛,40-60,,
+ROOM,ancient_battlefield,古战场,大漠荒原,25-40,,
+ROOM,secret_garden,秘境花园,迷雾森林,5-15,,
+ROOM,snow_peak,雪山顶,雪域高原,35-50,,
+ROOM,snow_monastery,雪寺,雪域高原,35-50,,
+ROOM,swamp_village,沼泽村落,毒沼泽,20-35,,
+ROOM,swamp_altar,沼泽祭坛,毒沼泽,20-35,,
+ROOM,demon_prison,魔族监狱,魔域深渊,60-80,,
+ROOM,demon_treasury,魔族宝库,魔域深渊,60-80,,
+ROOM,plains,草原,新手村,1-10,,
+ROOM,plains_camp,游牧营地,新手村,1-10,,
+ROOM,plains_lake,草原湖泊,新手村,1-10,,
+ROOM,plains_ruins,草原遗迹,新手村,1-10,,
+ROOM,mushroom_forest,蘑菇林,迷雾森林,5-15,,
+ROOM,wind_valley,风之谷,青云山,15-30,,
+ROOM,bamboo_temple,竹林禅院,迷雾森林,5-15,,
+ROOM,bamboo_hall,禅院武堂,迷雾森林,5-15,,
+ROOM,dragon_graveyard,龙墓,青云山,15-30,,
+ROOM,jiao_shrine,龙神殿,青云山,15-30,,
+ROOM,rainbow_bridge,彩虹桥,青云山,15-30,,
+ROOM,fire_shrine,炎之殿,火山熔岩,45-60,,
+ROOM,water_shrine,水之殿,东海仙岛,40-60,,
+ROOM,mirror_lake,镜湖,迷雾森林,5-15,,
+ROOM,phoenix_peak,凤凰台,青云山,15-30,,
+ROOM,phoenix_nest,凤凰巢,青云山,15-30,,
+ROOM,time_tower,时光塔,大漠荒原,25-40,,
+ROOM,time_tower_top,时光之巅,大漠荒原,25-40,,
+ROOM,shadow_realm,暗影界,魔域深渊,60-80,,
+ROOM,shadow_throne,暗影王座,魔域深渊,60-80,,
+ROOM,xuankong_temple,悬空寺,青云山,15-30,,
+ROOM,xuankong_hall,悬空大殿,青云山,15-30,,
+ROOM,underground_river,地下暗河,地下迷宫,30-45,,
+ROOM,abyss_waterfall,深渊瀑布,地下迷宫,30-45,,
+ROOM,thunder_peak,雷霆峰,青云山,15-30,,
+ROOM,thunder_shrine,雷神殿,青云山,15-30,,
+ROOM,mist_valley,迷雾谷,迷雾森林,5-15,,
+ROOM,jade_palace,玉虚宫,青云山,15-30,,
+ROOM,starlit_bridge,星光桥,青云山,15-30,,
+ROOM,void_edge,虚空边缘,青云山,15-30,,
+ROOM,jiao_palace,海底水府,东海仙岛,40-60,,
+ROOM,coral_garden,珊瑚园,东海仙岛,40-60,,
+ROOM,dragon_throne_room,龙王殿,东海仙岛,40-60,,
+ROOM,sky_bazaar,云中集市,青云山,15-30,,
+ROOM,underground_city,地下城,地下迷宫,30-45,,
+ROOM,underground_market,地下集市,地下迷宫,30-45,,
+ROOM,opera_house,梨园,洛阳城,10-50,,
+ROOM,observatory,观星台,洛阳城,10-50,,
+ROOM,cherry_garden,樱园,迷雾森林,5-15,,
+ROOM,lava_tubes,熔岩通道,火山熔岩,45-60,,
+ROOM,volcano_core,地核之心,火山熔岩,45-60,,
+ROOM,warrior_tombs,侠客陵,青云山,15-30,,
+ROOM,city_center,洛阳城中心,洛阳城,10-50,,
+ROOM,city_north,洛阳北街,洛阳城,10-50,,
+ROOM,city_south,洛阳南街,洛阳城,10-50,,
+ROOM,city_east,洛阳东街,洛阳城,10-50,,
+ROOM,city_west,洛阳西街,洛阳城,10-50,,
+ROOM,shaolin_gate,少林寺山门,青云山,15-30,,
+ROOM,wudang_gate,武当山山门,青云山,15-30,,
+ROOM,emei_gate,峨眉派山门,青云山,15-30,,
+ROOM,gaibang_gate,丐帮总舵入口,洛阳城,10-50,,
+ROOM,mingjiao_gate,明教光明顶入口,火山熔岩,45-60,,
+ROOM,xiaoyao_gate,逍遥派入口,东海仙岛,40-60,,
+
+=== 表1-B: 房间出口连线 (Room Exits / Edges) ===
+起点房间ID,起点房间名,起点地图,方向(EN),方向(CN),终点房间ID,终点房间名,终点地图,跨地图连接
+village_center,村庄广场,新手村,north,北,village_inn,客栈,新手村,
+village_center,村庄广场,新手村,east,东,village_shop,杂货铺,新手村,
+village_center,村庄广场,新手村,south,南,village_training,练武场,新手村,
+village_center,村庄广场,新手村,west,西,village_blacksmith,铁匠铺,新手村,
+village_center,村庄广场,新手村,out,出去,forest_entrance,森林入口,迷雾森林,是
+village_center,村庄广场,新手村,south_east,东南,village_field,村外田野,新手村,
+village_inn,客栈,新手村,south,南,village_center,村庄广场,新手村,
+village_blacksmith,铁匠铺,新手村,east,东,village_center,村庄广场,新手村,
+village_shop,杂货铺,新手村,west,西,village_center,村庄广场,新手村,
+village_training,练武场,新手村,north,北,village_center,村庄广场,新手村,
+forest_entrance,森林入口,迷雾森林,in,in,forest_deep,森林深处,迷雾森林,
+forest_entrance,森林入口,迷雾森林,back,back,village_center,村庄广场,新手村,是
+forest_deep,森林深处,迷雾森林,north,北,forest_clearing,林间空地,迷雾森林,
+forest_deep,森林深处,迷雾森林,south,南,forest_cave,神秘洞穴,迷雾森林,
+forest_deep,森林深处,迷雾森林,in,in,forest_cave,神秘洞穴,迷雾森林,
+forest_deep,森林深处,迷雾森林,out,出去,forest_entrance,森林入口,迷雾森林,
+forest_deep,森林深处,迷雾森林,back,back,swamp_entrance,沼泽边缘,毒沼泽,是
+forest_clearing,林间空地,迷雾森林,south,南,forest_deep,森林深处,迷雾森林,
+forest_cave,神秘洞穴,迷雾森林,out,出去,forest_deep,森林深处,迷雾森林,
+forest_cave,神秘洞穴,迷雾森林,west,西,deep_forest,密林深处,迷雾森林,
+city_gate,城门,洛阳城,in,in,city_square,城市广场,洛阳城,
+city_gate,城门,洛阳城,out,出去,mountain_path,山道,青云山,是
+city_square,城市广场,洛阳城,north,北,city_tavern,醉仙楼,洛阳城,
+city_square,城市广场,洛阳城,east,东,city_market,集市,洛阳城,
+city_square,城市广场,洛阳城,south,南,city_arena,竞技场,洛阳城,
+city_square,城市广场,洛阳城,west,西,city_guild,侠客公会,洛阳城,
+city_square,城市广场,洛阳城,out,出去,city_gate,城门,洛阳城,
+city_tavern,醉仙楼,洛阳城,south,南,city_square,城市广场,洛阳城,
+city_market,集市,洛阳城,west,西,city_square,城市广场,洛阳城,
+city_arena,竞技场,洛阳城,north,北,city_square,城市广场,洛阳城,
+city_guild,侠客公会,洛阳城,east,东,city_square,城市广场,洛阳城,
+mountain_path,山道,青云山,up,上,mountain_peak,山顶,青云山,
+mountain_path,山道,青云山,down,下,city_gate,城门,洛阳城,是
+mountain_path,山道,青云山,west,西,bamboo_grove,竹林,迷雾森林,是
+mountain_path,山道,青云山,east,东,emei_gate,峨眉派山门,青云山,
+mountain_peak,山顶,青云山,temple,temple,mountain_temple,青云观,青云山,
+mountain_peak,山顶,青云山,down,下,mountain_path,山道,青云山,
+mountain_temple,青云观,青云山,out,出去,mountain_peak,山顶,青云山,
+desert_entrance,荒漠入口,大漠荒原,in,in,desert_oasis,绿洲,大漠荒原,
+desert_entrance,荒漠入口,大漠荒原,back,back,city_gate,城门,洛阳城,是
+desert_oasis,绿洲,大漠荒原,north,北,desert_ruins,古城遗址,大漠荒原,
+desert_oasis,绿洲,大漠荒原,out,出去,desert_entrance,荒漠入口,大漠荒原,
+desert_ruins,古城遗址,大漠荒原,down,下,desert_tomb,地下陵墓,大漠荒原,
+desert_ruins,古城遗址,大漠荒原,south,南,desert_oasis,绿洲,大漠荒原,
+desert_tomb,地下陵墓,大漠荒原,up,上,desert_ruins,古城遗址,大漠荒原,
+snow_pass,雪山关隘,雪域高原,up,上,snow_village,雪村,雪域高原,
+snow_pass,雪山关隘,雪域高原,down,下,mountain_path,山道,青云山,是
+snow_pass,雪山关隘,雪域高原,north,北,snow_field,雪原,青云山,是
+snow_village,雪村,雪域高原,north,北,snow_cave,冰洞,雪域高原,
+snow_village,雪村,雪域高原,east,东,snow_palace,冰宫,雪域高原,
+snow_village,雪村,雪域高原,down,下,snow_pass,雪山关隘,雪域高原,
+snow_cave,冰洞,雪域高原,south,南,snow_village,雪村,雪域高原,
+snow_cave,冰洞,雪域高原,west,西,snow_field,雪原,青云山,是
+snow_palace,冰宫,雪域高原,west,西,snow_village,雪村,雪域高原,
+swamp_entrance,沼泽边缘,毒沼泽,in,in,swamp_deep,沼泽深处,毒沼泽,
+swamp_entrance,沼泽边缘,毒沼泽,back,back,forest_deep,森林深处,迷雾森林,是
+swamp_deep,沼泽深处,毒沼泽,north,北,swamp_island,沼泽孤岛,毒沼泽,
+swamp_deep,沼泽深处,毒沼泽,out,出去,swamp_entrance,沼泽边缘,毒沼泽,
+swamp_island,沼泽孤岛,毒沼泽,north,北,swamp_lair,毒蛟巢穴,毒沼泽,
+swamp_island,沼泽孤岛,毒沼泽,south,南,swamp_deep,沼泽深处,毒沼泽,
+swamp_lair,毒蛟巢穴,毒沼泽,south,南,swamp_island,沼泽孤岛,毒沼泽,
+island_beach,仙岛海滩,东海仙岛,in,in,island_forest,仙岛密林,东海仙岛,
+island_forest,仙岛密林,东海仙岛,up,上,island_peak,仙岛山顶,东海仙岛,
+island_forest,仙岛密林,东海仙岛,out,出去,island_beach,仙岛海滩,东海仙岛,
+island_peak,仙岛山顶,东海仙岛,cave,cave,island_cave,仙人洞府,东海仙岛,
+island_peak,仙岛山顶,东海仙岛,down,下,island_forest,仙岛密林,东海仙岛,
+island_cave,仙人洞府,东海仙岛,out,出去,island_peak,仙岛山顶,东海仙岛,
+underground_entrance,迷宫入口,地下迷宫,down,下,underground_hall,中央大厅,地下迷宫,
+underground_entrance,迷宫入口,地下迷宫,up,上,mountain_temple,青云观,青云山,是
+underground_hall,中央大厅,地下迷宫,north,北,underground_prison,囚牢区,地下迷宫,
+underground_hall,中央大厅,地下迷宫,east,东,underground_treasure,宝藏室,地下迷宫,
+underground_hall,中央大厅,地下迷宫,up,上,underground_entrance,迷宫入口,地下迷宫,
+underground_prison,囚牢区,地下迷宫,south,南,underground_hall,中央大厅,地下迷宫,
+underground_treasure,宝藏室,地下迷宫,west,西,underground_hall,中央大厅,地下迷宫,
+volcano_base,火山脚下,火山熔岩,up,上,volcano_crater,火山口,火山熔岩,
+volcano_base,火山脚下,火山熔岩,back,back,desert_ruins,古城遗址,大漠荒原,是
+volcano_crater,火山口,火山熔岩,in,in,volcano_lair,火蛟巢穴,火山熔岩,
+volcano_crater,火山口,火山熔岩,forge,forge,volcano_forge,熔火锻造,火山熔岩,
+volcano_crater,火山口,火山熔岩,down,下,volcano_base,火山脚下,火山熔岩,
+volcano_lair,火蛟巢穴,火山熔岩,out,出去,volcano_crater,火山口,火山熔岩,
+volcano_forge,熔火锻造,火山熔岩,out,出去,volcano_crater,火山口,火山熔岩,
+palace_gate,宫门,皇宫禁地,in,in,palace_courtyard,御花园,皇宫禁地,
+palace_gate,宫门,皇宫禁地,out,出去,city_square,城市广场,洛阳城,是
+palace_courtyard,御花园,皇宫禁地,north,北,palace_hall,金銮殿,皇宫禁地,
+palace_courtyard,御花园,皇宫禁地,east,东,palace_garden,后花园,皇宫禁地,
+palace_courtyard,御花园,皇宫禁地,west,西,palace_library,皇家藏书阁,皇宫禁地,
+palace_courtyard,御花园,皇宫禁地,out,出去,palace_gate,宫门,皇宫禁地,
+palace_hall,金銮殿,皇宫禁地,south,南,palace_courtyard,御花园,皇宫禁地,
+palace_garden,后花园,皇宫禁地,west,西,palace_courtyard,御花园,皇宫禁地,
+palace_library,皇家藏书阁,皇宫禁地,east,东,palace_courtyard,御花园,皇宫禁地,
+demon_portal,魔域入口,魔域深渊,in,in,demon_fortress,魔族堡垒,魔域深渊,
+demon_portal,魔域入口,魔域深渊,back,back,volcano_lair,火蛟巢穴,火山熔岩,是
+demon_fortress,魔族堡垒,魔域深渊,north,北,demon_arena,魔族竞技场,魔域深渊,
+demon_fortress,魔族堡垒,魔域深渊,east,东,demon_throne,魔王殿,魔域深渊,
+demon_fortress,魔族堡垒,魔域深渊,out,出去,demon_portal,魔域入口,魔域深渊,
+demon_arena,魔族竞技场,魔域深渊,south,南,demon_fortress,魔族堡垒,魔域深渊,
+demon_throne,魔王殿,魔域深渊,west,西,demon_fortress,魔族堡垒,魔域深渊,
+forest_path,林间小径,迷雾森林,north,北,village_center,村庄广场,新手村,是
+forest_path,林间小径,迷雾森林,south,南,deep_forest,密林深处,迷雾森林,
+deep_forest,密林深处,迷雾森林,north,北,forest_path,林间小径,迷雾森林,
+deep_forest,密林深处,迷雾森林,east,东,forest_cave,神秘洞穴,迷雾森林,
+village_field,村外田野,新手村,west,西,village_center,村庄广场,新手村,
+river_bank,河边,新手村,east,东,village_center,村庄广场,新手村,
+dark_cave,黑暗洞窟,迷雾森林,west,西,deep_forest,密林深处,迷雾森林,
+snow_field,雪原,青云山,south,南,snow_pass,雪山关隘,雪域高原,是
+snow_field,雪原,青云山,east,东,snow_cave,冰洞,雪域高原,是
+bamboo_grove,竹林,迷雾森林,south,南,forest_path,林间小径,迷雾森林,
+bamboo_grove,竹林,迷雾森林,east,东,mountain_path,山道,青云山,是
+shaolin_temple,少林寺,青云山,south,南,mountain_temple,青云观,青云山,
+shaolin_temple,少林寺,青云山,north,北,shaolin_pagoda,少林塔林,青云山,
+shaolin_pagoda,少林塔林,青云山,south,南,shaolin_temple,少林寺,青云山,
+wudang_peak,武当山,青云山,east,东,mountain_peak,山顶,青云山,
+wudang_peak,武当山,青云山,up,上,wudang_hall,武当真武殿,青云山,
+wudang_hall,武当真武殿,青云山,down,下,wudang_peak,武当山,青云山,
+emei_temple,峨眉金顶,青云山,west,西,emei_gate,峨眉派山门,青云山,
+emei_temple,峨眉金顶,青云山,east,东,emei_hall,峨眉万法堂,青云山,
+emei_hall,峨眉万法堂,青云山,west,西,emei_temple,峨眉金顶,青云山,
+mingjiao_hall,明教光明顶,火山熔岩,down,下,volcano_crater,火山口,火山熔岩,
+mingjiao_hall,明教光明顶,火山熔岩,north,北,mingjiao_sanctum,明教密殿,火山熔岩,
+mingjiao_sanctum,明教密殿,火山熔岩,south,南,mingjiao_hall,明教光明顶,火山熔岩,
+xiaoyao_valley,逍遥谷,东海仙岛,north,北,island_cave,仙人洞府,东海仙岛,
+xiaoyao_valley,逍遥谷,东海仙岛,south,南,xiaoyao_pavilion,逍遥阁,东海仙岛,
+xiaoyao_pavilion,逍遥阁,东海仙岛,north,北,xiaoyao_valley,逍遥谷,东海仙岛,
+gaibang_hq,丐帮总舵,洛阳城,east,东,city_square,城市广场,洛阳城,
+gaibang_hq,丐帮总舵,洛阳城,north,北,gaibang_hall,丐帮议事厅,洛阳城,
+gaibang_hall,丐帮议事厅,洛阳城,south,南,gaibang_hq,丐帮总舵,洛阳城,
+forest_waterfall,林中瀑布,迷雾森林,south,南,forest_deep,森林深处,迷雾森林,
+forest_waterfall,林中瀑布,迷雾森林,up,上,mountain_spring,山泉,青云山,是
+herbalist_hut,药师草庐,迷雾森林,east,东,forest_path,林间小径,迷雾森林,
+city_docks,洛阳码头,洛阳城,east,东,city_gate,城门,洛阳城,
+city_docks,洛阳码头,洛阳城,sail,sail,island_beach,仙岛海滩,东海仙岛,是
+city_residential,民居区,洛阳城,north,北,city_square,城市广场,洛阳城,
+city_residential,民居区,洛阳城,east,东,city_temple,城隍庙,洛阳城,
+city_temple,城隍庙,洛阳城,west,西,city_residential,民居区,洛阳城,
+city_temple,城隍庙,洛阳城,south,南,city_bridge,石桥,洛阳城,
+city_bridge,石桥,洛阳城,north,北,city_temple,城隍庙,洛阳城,
+city_bridge,石桥,洛阳城,south,南,city_gate,城门,洛阳城,
+mountain_cliff,山崖,青云山,down,下,mountain_path,山道,青云山,
+mountain_cliff,山崖,青云山,east,东,mountain_spring,山泉,青云山,
+mountain_spring,山泉,青云山,down,下,forest_waterfall,林中瀑布,迷雾森林,是
+mountain_spring,山泉,青云山,west,西,mountain_cliff,山崖,青云山,
+mountain_bridge,铁索桥,青云山,west,西,mountain_peak,山顶,青云山,
+mountain_bridge,铁索桥,青云山,east,东,sky_path,天路,青云山,
+sky_path,天路,青云山,west,西,mountain_bridge,铁索桥,青云山,
+sky_path,天路,青云山,up,上,heaven_gate,天之门,青云山,
+heaven_gate,天之门,青云山,down,下,sky_path,天路,青云山,
+heaven_gate,天之门,青云山,in,in,celestial_palace,天宫,青云山,
+celestial_palace,天宫,青云山,out,出去,heaven_gate,天之门,青云山,
+desert_bazaar,沙漠集市,大漠荒原,south,南,desert_oasis,绿洲,大漠荒原,
+desert_bazaar,沙漠集市,大漠荒原,west,西,desert_pyramid,金字塔,大漠荒原,
+desert_pyramid,金字塔,大漠荒原,east,东,desert_bazaar,沙漠集市,大漠荒原,
+desert_pyramid,金字塔,大漠荒原,in,in,pyramid_interior,金字塔内,大漠荒原,
+pyramid_interior,金字塔内,大漠荒原,out,出去,desert_pyramid,金字塔,大漠荒原,
+pyramid_interior,金字塔内,大漠荒原,down,下,pyramid_tomb,法老之墓,大漠荒原,
+pyramid_tomb,法老之墓,大漠荒原,up,上,pyramid_interior,金字塔内,大漠荒原,
+graveyard_entrance,乱葬岗,迷雾森林,north,北,deep_forest,密林深处,迷雾森林,
+graveyard_entrance,乱葬岗,迷雾森林,south,南,graveyard_deep,墓地深处,迷雾森林,
+graveyard_deep,墓地深处,迷雾森林,north,北,graveyard_entrance,乱葬岗,迷雾森林,
+graveyard_deep,墓地深处,迷雾森林,down,下,crypt,地下墓穴,迷雾森林,
+crypt,地下墓穴,迷雾森林,up,上,graveyard_deep,墓地深处,迷雾森林,
+lakeside,湖畔,新手村,west,西,village_field,村外田野,新手村,
+lakeside,湖畔,新手村,north,北,lake_village,渔村,新手村,
+lakeside,湖畔,新手村,south,南,lake_island,湖心岛,新手村,
+lake_village,渔村,新手村,south,南,lakeside,湖畔,新手村,
+lake_village,渔村,新手村,east,东,village_field,村外田野,新手村,
+lake_island,湖心岛,新手村,north,北,lakeside,湖畔,新手村,
+lake_island,湖心岛,新手村,east,东,underwater_cave,水下洞穴,新手村,
+underwater_cave,水下洞穴,新手村,west,西,lake_island,湖心岛,新手村,
+underwater_cave,水下洞穴,新手村,down,下,cave_network,地下洞穴,地下迷宫,是
+cave_network,地下洞穴,地下迷宫,up,上,underwater_cave,水下洞穴,新手村,是
+cave_network,地下洞穴,地下迷宫,north,北,dark_cave,黑暗洞窟,迷雾森林,是
+cave_network,地下洞穴,地下迷宫,east,东,underground_hall,中央大厅,地下迷宫,
+bandit_camp,山贼营地,迷雾森林,south,南,deep_forest,密林深处,迷雾森林,
+bandit_camp,山贼营地,迷雾森林,north,北,bandit_stronghold,山贼山寨,迷雾森林,
+bandit_stronghold,山贼山寨,迷雾森林,south,南,bandit_camp,山贼营地,迷雾森林,
+canyon_entrance,峡谷入口,青云山,south,南,mountain_path,山道,青云山,
+canyon_entrance,峡谷入口,青云山,down,下,canyon_deep,峡谷深处,青云山,
+canyon_deep,峡谷深处,青云山,up,上,canyon_entrance,峡谷入口,青云山,
+canyon_deep,峡谷深处,青云山,south,南,canyon_cross,峡谷岔路,青云山,
+canyon_deep,峡谷深处,青云山,east,东,crystal_cave,水晶洞,地下迷宫,是
+canyon_cross,峡谷岔路,青云山,north,北,canyon_deep,峡谷深处,青云山,
+canyon_cross,峡谷岔路,青云山,west,西,desert_entrance,荒漠入口,大漠荒原,是
+canyon_cross,峡谷岔路,青云山,down,下,canyon_abyss,深渊谷底,青云山,
+canyon_abyss,深渊谷底,青云山,up,上,canyon_cross,峡谷岔路,青云山,
+crystal_cave,水晶洞,地下迷宫,west,西,canyon_deep,峡谷深处,青云山,是
+crystal_cave,水晶洞,地下迷宫,down,下,cave_network,地下洞穴,地下迷宫,
+city_rich,富人区,洛阳城,west,西,city_square,城市广场,洛阳城,
+city_rich,富人区,洛阳城,north,北,auction_house,拍卖行,洛阳城,
+auction_house,拍卖行,洛阳城,south,南,city_rich,富人区,洛阳城,
+city_slums,贫民窟,洛阳城,south,南,city_residential,民居区,洛阳城,
+city_slums,贫民窟,洛阳城,down,下,gambling_den,地下赌坊,洛阳城,
+city_slums,贫民窟,洛阳城,east,东,underground_entrance,迷宫入口,地下迷宫,是
+gambling_den,地下赌坊,洛阳城,up,上,city_slums,贫民窟,洛阳城,
+tea_house,清风茶楼,洛阳城,north,北,city_residential,民居区,洛阳城,
+tea_house,清风茶楼,洛阳城,east,东,city_market,集市,洛阳城,
+ancient_tree,万年古树,迷雾森林,north,北,forest_clearing,林间空地,迷雾森林,
+ancient_tree,万年古树,迷雾森林,up,上,tree_canopy,树冠之上,迷雾森林,
+ancient_tree,万年古树,迷雾森林,east,东,deep_forest,密林深处,迷雾森林,
+tree_canopy,树冠之上,迷雾森林,down,下,ancient_tree,万年古树,迷雾森林,
+tree_canopy,树冠之上,迷雾森林,east,东,cloud_sea,云海,青云山,是
+cloud_sea,云海,青云山,west,西,tree_canopy,树冠之上,迷雾森林,是
+cloud_sea,云海,青云山,north,北,mountain_peak,山顶,青云山,
+hot_springs,山间温泉,青云山,south,南,mountain_cliff,山崖,青云山,
+hot_springs,山间温泉,青云山,east,东,mountain_spring,山泉,青云山,
+coastal_cliff,海崖,东海仙岛,south,南,island_beach,仙岛海滩,东海仙岛,
+coastal_cliff,海崖,东海仙岛,east,东,pirate_cove,海盗湾,东海仙岛,
+pirate_cove,海盗湾,东海仙岛,west,西,coastal_cliff,海崖,东海仙岛,
+pirate_cove,海盗湾,东海仙岛,ship,ship,pirate_ship,幽灵海盗船,东海仙岛,
+pirate_ship,幽灵海盗船,东海仙岛,shore,shore,pirate_cove,海盗湾,东海仙岛,
+pirate_ship,幽灵海盗船,东海仙岛,cabin,cabin,captain_cabin,船长室,东海仙岛,
+captain_cabin,船长室,东海仙岛,deck,deck,pirate_ship,幽灵海盗船,东海仙岛,
+ancient_battlefield,古战场,大漠荒原,west,西,desert_ruins,古城遗址,大漠荒原,
+ancient_battlefield,古战场,大漠荒原,east,东,canyon_cross,峡谷岔路,青云山,是
+secret_garden,秘境花园,迷雾森林,north,北,bamboo_grove,竹林,迷雾森林,
+secret_garden,秘境花园,迷雾森林,east,东,herbalist_hut,药师草庐,迷雾森林,
+snow_peak,雪山顶,雪域高原,down,下,snow_pass,雪山关隘,雪域高原,
+snow_peak,雪山顶,雪域高原,east,东,snow_monastery,雪寺,雪域高原,
+snow_monastery,雪寺,雪域高原,west,西,snow_peak,雪山顶,雪域高原,
+snow_monastery,雪寺,雪域高原,south,南,snow_village,雪村,雪域高原,
+swamp_village,沼泽村落,毒沼泽,north,北,swamp_deep,沼泽深处,毒沼泽,
+swamp_village,沼泽村落,毒沼泽,south,南,swamp_entrance,沼泽边缘,毒沼泽,
+swamp_altar,沼泽祭坛,毒沼泽,east,东,swamp_island,沼泽孤岛,毒沼泽,
+swamp_altar,沼泽祭坛,毒沼泽,west,西,swamp_village,沼泽村落,毒沼泽,
+demon_prison,魔族监狱,魔域深渊,west,西,demon_fortress,魔族堡垒,魔域深渊,
+demon_treasury,魔族宝库,魔域深渊,north,北,demon_throne,魔王殿,魔域深渊,
+plains,草原,新手村,south,南,village_field,村外田野,新手村,
+plains,草原,新手村,north,北,plains_camp,游牧营地,新手村,
+plains,草原,新手村,west,西,plains_lake,草原湖泊,新手村,
+plains_camp,游牧营地,新手村,south,南,plains,草原,新手村,
+plains_camp,游牧营地,新手村,east,东,plains_ruins,草原遗迹,新手村,
+plains_lake,草原湖泊,新手村,east,东,plains,草原,新手村,
+plains_lake,草原湖泊,新手村,north,北,desert_entrance,荒漠入口,大漠荒原,是
+plains_ruins,草原遗迹,新手村,west,西,plains_camp,游牧营地,新手村,
+plains_ruins,草原遗迹,新手村,north,北,desert_entrance,荒漠入口,大漠荒原,是
+mushroom_forest,蘑菇林,迷雾森林,south,南,deep_forest,密林深处,迷雾森林,
+mushroom_forest,蘑菇林,迷雾森林,east,东,secret_garden,秘境花园,迷雾森林,
+wind_valley,风之谷,青云山,west,西,mountain_cliff,山崖,青云山,
+wind_valley,风之谷,青云山,south,南,mountain_path,山道,青云山,
+bamboo_temple,竹林禅院,迷雾森林,east,东,bamboo_grove,竹林,迷雾森林,
+bamboo_temple,竹林禅院,迷雾森林,north,北,bamboo_hall,禅院武堂,迷雾森林,
+bamboo_hall,禅院武堂,迷雾森林,south,南,bamboo_temple,竹林禅院,迷雾森林,
+dragon_graveyard,龙墓,青云山,south,南,cave_network,地下洞穴,地下迷宫,是
+dragon_graveyard,龙墓,青云山,up,上,jiao_shrine,龙神殿,青云山,
+jiao_shrine,龙神殿,青云山,down,下,dragon_graveyard,龙墓,青云山,
+rainbow_bridge,彩虹桥,青云山,west,西,cloud_sea,云海,青云山,
+rainbow_bridge,彩虹桥,青云山,east,东,celestial_palace,天宫,青云山,
+fire_shrine,炎之殿,火山熔岩,east,东,volcano_crater,火山口,火山熔岩,
+water_shrine,水之殿,东海仙岛,up,上,underwater_cave,水下洞穴,新手村,是
+mirror_lake,镜湖,迷雾森林,east,东,secret_garden,秘境花园,迷雾森林,
+mirror_lake,镜湖,迷雾森林,south,南,bamboo_grove,竹林,迷雾森林,
+phoenix_peak,凤凰台,青云山,south,南,volcano_crater,火山口,火山熔岩,是
+phoenix_peak,凤凰台,青云山,up,上,phoenix_nest,凤凰巢,青云山,
+phoenix_nest,凤凰巢,青云山,down,下,phoenix_peak,凤凰台,青云山,
+time_tower,时光塔,大漠荒原,east,东,desert_ruins,古城遗址,大漠荒原,
+time_tower,时光塔,大漠荒原,up,上,time_tower_top,时光之巅,大漠荒原,
+time_tower_top,时光之巅,大漠荒原,down,下,time_tower,时光塔,大漠荒原,
+shadow_realm,暗影界,魔域深渊,north,北,demon_portal,魔域入口,魔域深渊,
+shadow_realm,暗影界,魔域深渊,down,下,shadow_throne,暗影王座,魔域深渊,
+shadow_throne,暗影王座,魔域深渊,up,上,shadow_realm,暗影界,魔域深渊,
+xuankong_temple,悬空寺,青云山,east,东,mountain_cliff,山崖,青云山,
+xuankong_temple,悬空寺,青云山,up,上,xuankong_hall,悬空大殿,青云山,
+xuankong_hall,悬空大殿,青云山,down,下,xuankong_temple,悬空寺,青云山,
+underground_river,地下暗河,地下迷宫,north,北,cave_network,地下洞穴,地下迷宫,
+underground_river,地下暗河,地下迷宫,south,南,underwater_cave,水下洞穴,新手村,是
+underground_river,地下暗河,地下迷宫,down,下,abyss_waterfall,深渊瀑布,地下迷宫,
+abyss_waterfall,深渊瀑布,地下迷宫,up,上,underground_river,地下暗河,地下迷宫,
+thunder_peak,雷霆峰,青云山,east,东,mountain_peak,山顶,青云山,
+thunder_peak,雷霆峰,青云山,up,上,thunder_shrine,雷神殿,青云山,
+thunder_shrine,雷神殿,青云山,down,下,thunder_peak,雷霆峰,青云山,
+mist_valley,迷雾谷,迷雾森林,north,北,forest_waterfall,林中瀑布,迷雾森林,
+mist_valley,迷雾谷,迷雾森林,east,东,mirror_lake,镜湖,迷雾森林,
+jade_palace,玉虚宫,青云山,south,南,celestial_palace,天宫,青云山,
+jade_palace,玉虚宫,青云山,up,上,starlit_bridge,星光桥,青云山,
+starlit_bridge,星光桥,青云山,down,下,jade_palace,玉虚宫,青云山,
+starlit_bridge,星光桥,青云山,north,北,void_edge,虚空边缘,青云山,
+void_edge,虚空边缘,青云山,south,南,starlit_bridge,星光桥,青云山,
+jiao_palace,海底水府,东海仙岛,up,上,underwater_cave,水下洞穴,新手村,是
+jiao_palace,海底水府,东海仙岛,north,北,coral_garden,珊瑚园,东海仙岛,
+jiao_palace,海底水府,东海仙岛,in,in,dragon_throne_room,龙王殿,东海仙岛,
+coral_garden,珊瑚园,东海仙岛,south,南,jiao_palace,海底水府,东海仙岛,
+dragon_throne_room,龙王殿,东海仙岛,out,出去,jiao_palace,海底水府,东海仙岛,
+sky_bazaar,云中集市,青云山,west,西,rainbow_bridge,彩虹桥,青云山,
+sky_bazaar,云中集市,青云山,down,下,cloud_sea,云海,青云山,
+underground_city,地下城,地下迷宫,north,北,cave_network,地下洞穴,地下迷宫,
+underground_city,地下城,地下迷宫,south,南,underground_market,地下集市,地下迷宫,
+underground_city,地下城,地下迷宫,east,东,underground_hall,中央大厅,地下迷宫,
+underground_market,地下集市,地下迷宫,north,北,underground_city,地下城,地下迷宫,
+opera_house,梨园,洛阳城,west,西,city_rich,富人区,洛阳城,
+opera_house,梨园,洛阳城,south,南,city_residential,民居区,洛阳城,
+observatory,观星台,洛阳城,down,下,city_temple,城隍庙,洛阳城,
+observatory,观星台,洛阳城,east,东,city_rich,富人区,洛阳城,
+cherry_garden,樱园,迷雾森林,west,西,bamboo_grove,竹林,迷雾森林,
+cherry_garden,樱园,迷雾森林,north,北,secret_garden,秘境花园,迷雾森林,
+lava_tubes,熔岩通道,火山熔岩,north,北,volcano_base,火山脚下,火山熔岩,
+lava_tubes,熔岩通道,火山熔岩,down,下,volcano_core,地核之心,火山熔岩,
+volcano_core,地核之心,火山熔岩,up,上,lava_tubes,熔岩通道,火山熔岩,
+warrior_tombs,侠客陵,青云山,south,南,mountain_peak,山顶,青云山,
+warrior_tombs,侠客陵,青云山,east,东,graveyard_entrance,乱葬岗,迷雾森林,是
+city_center,洛阳城中心,洛阳城,north,北,city_north,洛阳北街,洛阳城,
+city_center,洛阳城中心,洛阳城,south,南,city_south,洛阳南街,洛阳城,
+city_center,洛阳城中心,洛阳城,east,东,city_east,洛阳东街,洛阳城,
+city_center,洛阳城中心,洛阳城,west,西,city_west,洛阳西街,洛阳城,
+city_center,洛阳城中心,洛阳城,square,square,city_square,城市广场,洛阳城,
+city_north,洛阳北街,洛阳城,south,南,city_center,洛阳城中心,洛阳城,
+city_north,洛阳北街,洛阳城,east,东,city_gate,城门,洛阳城,
+city_south,洛阳南街,洛阳城,north,北,city_center,洛阳城中心,洛阳城,
+city_south,洛阳南街,洛阳城,west,西,city_arena,竞技场,洛阳城,
+city_east,洛阳东街,洛阳城,west,西,city_center,洛阳城中心,洛阳城,
+city_east,洛阳东街,洛阳城,north,北,city_square,城市广场,洛阳城,
+city_west,洛阳西街,洛阳城,east,东,city_center,洛阳城中心,洛阳城,
+city_west,洛阳西街,洛阳城,north,北,city_market,集市,洛阳城,
+shaolin_gate,少林寺山门,青云山,north,北,shaolin_temple,少林寺,青云山,
+shaolin_gate,少林寺山门,青云山,south,南,mountain_temple,青云观,青云山,
+wudang_gate,武当山山门,青云山,up,上,wudang_peak,武当山,青云山,
+wudang_gate,武当山山门,青云山,west,西,mountain_peak,山顶,青云山,
+emei_gate,峨眉派山门,青云山,east,东,emei_temple,峨眉金顶,青云山,
+emei_gate,峨眉派山门,青云山,west,西,mountain_path,山道,青云山,
+gaibang_gate,丐帮总舵入口,洛阳城,west,西,gaibang_hq,丐帮总舵,洛阳城,
+gaibang_gate,丐帮总舵入口,洛阳城,east,东,city_square,城市广场,洛阳城,
+mingjiao_gate,明教光明顶入口,火山熔岩,up,上,mingjiao_hall,明教光明顶,火山熔岩,
+mingjiao_gate,明教光明顶入口,火山熔岩,down,下,volcano_crater,火山口,火山熔岩,
+xiaoyao_gate,逍遥派入口,东海仙岛,south,南,xiaoyao_valley,逍遥谷,东海仙岛,
+xiaoyao_gate,逍遥派入口,东海仙岛,east,东,island_cave,仙人洞府,东海仙岛,
+
+=== 表1-C: 孤立房间 (无出口连接的房间) ===
+房间ID,房间名称,所属地图
+
+=== 表2: NPC投放表 ===
+NPC_ID,NPC名称,NPC类型,投放房间ID,投放房间名,所属地图,服务功能,有对话
+npc_village_chief,村长,quest_giver,village_center,村庄广场,新手村,,是
+npc_innkeeper,客栈老板,service,village_inn,客栈,新手村,"rest, rumor",是
+npc_blacksmith,铁匠老张,shop,village_blacksmith,铁匠铺,新手村,"buy_weapon, repair",是
+npc_shopkeeper,杂货铺老板,shop,village_shop,杂货铺,新手村,"buy_item, sell_item, shop",是
+npc_trainer,武馆教头,trainer,village_training,练武场,新手村,train,是
+npc_faction_shaolin,少林弟子,faction,mountain_temple,青云观,青云山,"learn_skill, meditate",是
+npc_faction_wudang,武当弟子,faction,mountain_temple,青云观,青云山,,是
+npc_quest_guild,公会管理员,quest_giver,city_guild,侠客公会,洛阳城,,是
+npc_arena_master,竞技场主持,arena,city_arena,竞技场,洛阳城,,是
+npc_immortal,隐世仙人,quest_giver,mountain_peak,山顶,青云山,,是
+npc_shaolin_abbot,方证大师,trainer,shaolin_temple,少林寺,青云山,"learn_skill, train",
+npc_wudang_master,张三丰,trainer,wudang_peak,武当山,青云山,"learn_skill, meditate",
+npc_emei_abbess,灭绝师太,trainer,emei_temple,峨眉金顶,青云山,"learn_skill, meditate, train",
+npc_gaibang_leader,洪七公,trainer,city_tavern,醉仙楼,洛阳城,"drink, learn_skill, rest",
+npc_guard_captain,守卫队长,quest_giver,mountain_path,山道,青云山,,
+npc_old_hermit,隐士老者,quest_giver,deep_forest,密林深处,迷雾森林,,
+npc_hunter,猎户,quest_giver,deep_forest,密林深处,迷雾森林,,
+npc_mingjiao_leader,光明左使,faction,volcano_crater,火山口,火山熔岩,,是
+npc_xiaoyao_elder,逍遥长老,faction,island_cave,仙人洞府,东海仙岛,,是
+npc_mingjiao_trainer,光明右使,trainer,volcano_forge,熔火锻造,火山熔岩,learn_skill,是
+npc_xiaoyao_trainer,逍遥掌门,trainer,island_cave,仙人洞府,东海仙岛,"learn_skill, meditate",是
+npc_bank_teller,钱庄老板,service,city_square,城市广场,洛阳城,"bank, storage",是
+npc_herb_merchant,药商,shop,city_market,集市,洛阳城,"buy_item, sell_item, shop",是
+npc_fisherman,渔夫,shop,river_bank,河边,新手村,,是
+npc_desert_merchant,沙漠行商,shop,desert_oasis,绿洲,大漠荒原,water,是
+npc_snow_village_elder,雪村长老,quest_giver,snow_village,雪村,雪域高原,,是
+npc_palace_minister,朝廷大臣,quest_giver,palace_hall,金銮殿,皇宫禁地,,是
+npc_demon_hunter,除魔师,quest_giver,demon_portal,魔域入口,魔域深渊,repair,是
+npc_traveling_merchant,行商,shop,forest_path,林间小径,迷雾森林,,是
+npc_mysterious_swordsman,神秘剑客,trainer,bamboo_grove,竹林,迷雾森林,train,是
+npc_fortune_teller,算命先生,service,city_square,城市广场,洛阳城,fortune,是
+npc_drunkard,老酒鬼,service,city_tavern,醉仙楼,洛阳城,rumor,是
+npc_herbalist,采药老人,quest_giver,deep_forest,密林深处,迷雾森林,,是
+npc_emei_recruiter,峨眉弟子,faction,mountain_temple,青云观,青云山,,是
+npc_gaibang_recruiter,丐帮弟子,faction,city_square,城市广场,洛阳城,,是
+npc_shaolin_guard,少林武僧,service,shaolin_temple,少林寺,青云山,guide,是
+npc_shaolin_elder,达摩院首座,trainer,shaolin_temple,少林寺,青云山,learn_skill,是
+npc_wudang_guard,武当道童,service,wudang_peak,武当山,青云山,guide,是
+npc_wudang_elder,武当长老,trainer,wudang_peak,武当山,青云山,learn_skill,是
+npc_emei_guard,峨眉女弟子,service,emei_temple,峨眉金顶,青云山,guide,是
+npc_emei_elder,峨眉长老,trainer,emei_temple,峨眉金顶,青云山,learn_skill,是
+npc_gaibang_guard,丐帮执事,service,gaibang_hq,丐帮总舵,洛阳城,"guide, rumor, train",是
+npc_gaibang_elder,丐帮传功长老,trainer,gaibang_hq,丐帮总舵,洛阳城,learn_skill,是
+npc_mingjiao_guard,明教教众,service,mingjiao_hall,明教光明顶,火山熔岩,"guide, learn_skill",是
+npc_xiaoyao_guard,逍遥门人,service,xiaoyao_valley,逍遥谷,东海仙岛,"guide, learn_skill, rumor",是
+npc_shaolin_exchange,少林藏经阁首座,faction_exchange,shaolin_temple,少林寺,青云山,exchange,是
+npc_wudang_exchange,武当传功长老,faction_exchange,wudang_peak,武当山,青云山,exchange,是
+npc_emei_exchange,峨眉功法长老,faction_exchange,emei_temple,峨眉金顶,青云山,exchange,是
+npc_gaibang_exchange,丐帮执法长老,faction_exchange,gaibang_hq,丐帮总舵,洛阳城,exchange,是
+npc_mingjiao_exchange,明教圣火使,faction_exchange,mingjiao_hall,明教光明顶,火山熔岩,exchange,是
+npc_xiaoyao_exchange,逍遥阁主,faction_exchange,xiaoyao_valley,逍遥谷,东海仙岛,exchange,是
+npc_forest_guide,林中老人,service,forest_entrance,森林入口,迷雾森林,"guide, rumor",是
+npc_waterfall_spirit,水潭灵,service,forest_waterfall,林中瀑布,迷雾森林,"rest, rumor",是
+npc_bandit_chief,山贼大当家,quest_giver,bandit_stronghold,山贼山寨,迷雾森林,rest,是
+npc_bandit_guard,山贼哨兵,service,bandit_camp,山贼营地,迷雾森林,,是
+npc_city_guard,城门守卫,service,city_gate,城门,洛阳城,guide,是
+npc_dock_master,码头管事,service,city_docks,洛阳码头,洛阳城,"travel, rumor",是
+npc_temple_priest,庙祝,service,city_temple,城隍庙,洛阳城,"meditate, fortune",是
+npc_resident,城中居民,service,city_residential,民居区,洛阳城,,是
+npc_bridge_keeper,守桥人,service,city_bridge,石桥,洛阳城,guide,是
+npc_pawn_shop,当铺老板,shop,city_market,集市,洛阳城,,是
+npc_mountain_hermit,山居隐者,quest_giver,mountain_cliff,山崖,青云山,,是
+npc_spring_keeper,泉眼守护,service,mountain_spring,山泉,青云山,"rest, water",是
+npc_bridge_guard,守桥力士,service,mountain_bridge,铁索桥,青云山,guide,是
+npc_sky_guardian,天门守卫,service,heaven_gate,天之门,青云山,,是
+npc_celestial_master,天宫仙师,trainer,celestial_palace,天宫,青云山,"learn_skill, meditate, train",是
+npc_desert_guide,沙漠向导,service,desert_entrance,荒漠入口,大漠荒原,"guide, rumor",是
+npc_desert_archaeologist,考古学者,quest_giver,desert_ruins,古城遗址,大漠荒原,,是
+npc_tomb_guardian,陵墓守卫,service,desert_tomb,地下陵墓,大漠荒原,,是
+npc_bazaar_merchant,沙漠富商,shop,desert_bazaar,沙漠集市,大漠荒原,"buy_item, sell_item, shop",是
+npc_pyramid_explorer,探险家,service,pyramid_interior,金字塔内,大漠荒原,"guide, rest",是
+npc_snow_guard,雪山守卫,service,snow_pass,雪山关隘,雪域高原,guide,是
+npc_ice_hermit,冰洞隐士,trainer,snow_cave,冰洞,雪域高原,train,是
+npc_ice_palace_master,冰宫主人,quest_giver,snow_palace,冰宫,雪域高原,,是
+npc_swamp_witch,沼泽巫婆,service,swamp_entrance,沼泽边缘,毒沼泽,rumor,是
+npc_swamp_hermit,沼泽隐者,quest_giver,swamp_island,沼泽孤岛,毒沼泽,,是
+npc_jiao_hunter,斩蛟者,service,swamp_lair,毒蛟巢穴,毒沼泽,,是
+npc_island_fisherman,岛上渔夫,shop,island_beach,仙岛海滩,东海仙岛,,是
+npc_island_explorer,寻仙者,quest_giver,island_forest,仙岛密林,东海仙岛,,是
+npc_island_guardian,仙岛老人,service,island_peak,仙岛山顶,东海仙岛,"guide, rumor",是
+npc_dungeon_explorer,地宫探险者,service,underground_entrance,迷宫入口,地下迷宫,guide,是
+npc_trapped_scholar,被困学者,quest_giver,underground_hall,中央大厅,地下迷宫,,是
+npc_prison_ghost,囚牢幽魂,service,underground_prison,囚牢区,地下迷宫,rumor,是
+npc_treasure_hunter,盗宝者,shop,underground_treasure,宝藏室,地下迷宫,,是
+npc_volcano_guide,火山矿工,shop,volcano_base,火山脚下,火山熔岩,,是
+npc_jiao_keeper,养龙人,service,volcano_lair,火蛟巢穴,火山熔岩,,是
+npc_palace_guard,宫门侍卫,service,palace_gate,宫门,皇宫禁地,guide,是
+npc_palace_maid,宫女,service,palace_courtyard,御花园,皇宫禁地,guide,是
+npc_palace_gardener,御花园管事,shop,palace_garden,后花园,皇宫禁地,buy_item,是
+npc_palace_librarian,藏书阁学士,trainer,palace_library,皇家藏书阁,皇宫禁地,learn_skill,是
+npc_demon_scout,魔域哨兵,service,demon_fortress,魔族堡垒,魔域深渊,,是
+npc_arena_champion,魔族勇士,service,demon_arena,魔族竞技场,魔域深渊,pvp,是
+npc_demon_prisoner,被囚仙灵,quest_giver,demon_throne,魔王殿,魔域深渊,,是
+npc_farmer,农夫,service,village_field,村外田野,新手村,,是
+npc_lake_elder,渔村长老,quest_giver,lake_village,渔村,新手村,,是
+npc_lake_hermit,岛上剑客,trainer,lake_island,湖心岛,新手村,"train, meditate",是
+npc_grave_keeper,守墓人,service,graveyard_entrance,乱葬岗,迷雾森林,rumor,是
+npc_ghost_merchant,鬼商,shop,graveyard_deep,墓地深处,迷雾森林,,是
+npc_ancient_general,古代将军之魂,quest_giver,crypt,地下墓穴,迷雾森林,,是
+npc_cave_explorer,洞穴探险家,service,cave_network,地下洞穴,地下迷宫,guide,是
+npc_pagoda_keeper,塔林守护僧,service,shaolin_pagoda,少林塔林,青云山,meditate,是
+npc_wudang_elder_hall,真武殿长老,trainer,wudang_hall,武当真武殿,青云山,"learn_skill, meditate",是
+npc_emei_hall_elder,万法堂首座,trainer,emei_hall,峨眉万法堂,青云山,"learn_skill, meditate",是
+npc_mingjiao_sanctum_guard,密殿护法,trainer,mingjiao_sanctum,明教密殿,火山熔岩,learn_skill,是
+npc_xiaoyao_pavilion_master,逍遥阁主事,trainer,xiaoyao_pavilion,逍遥阁,东海仙岛,"learn_skill, meditate",是
+npc_gaibang_hall_elder,丐帮长老会首,trainer,gaibang_hall,丐帮议事厅,洛阳城,learn_skill,是
+npc_tea_master,茶馆老板,service,city_residential,民居区,洛阳城,"rest, rumor",是
+npc_fortune_cat,招财猫,service,city_market,集市,洛阳城,,是
+npc_forest_ranger,森林巡逻兵,service,forest_deep,森林深处,迷雾森林,guide,是
+npc_clearing_hermit,空地修行者,service,forest_clearing,林间空地,迷雾森林,"meditate, rest",是
+npc_swamp_survivor,沼泽生存者,service,swamp_deep,沼泽深处,毒沼泽,guide,是
+npc_dark_cave_explorer,地底探索者,service,dark_cave,黑暗洞窟,迷雾森林,guide,是
+npc_snow_tracker,雪原猎人,service,snow_field,雪原,青云山,guide,是
+npc_sky_wanderer,云游仙人,service,sky_path,天路,青云山,"guide, meditate",是
+npc_pyramid_guard,金字塔守卫,service,desert_pyramid,金字塔,大漠荒原,guide,是
+npc_mummy_priest,木乃伊守护者,service,pyramid_tomb,法老之墓,大漠荒原,,是
+npc_lakeside_fisherman,垂钓老者,service,lakeside,湖畔,新手村,rest,是
+npc_water_spirit,水灵,service,underwater_cave,水下洞穴,新手村,"water, rumor",是
+npc_village_elder_wife,村长夫人,service,village_center,村庄广场,新手村,rumor,是
+npc_village_kid,村童,service,village_center,村庄广场,新手村,,是
+npc_inn_waitress,客栈伙计,service,village_inn,客栈,新手村,rest,是
+npc_blacksmith_apprentice,铁匠学徒,service,village_blacksmith,铁匠铺,新手村,,是
+npc_hunter_lodge,猎户头领,quest_giver,deep_forest,密林深处,迷雾森林,,是
+npc_bird_watcher,观鸟老者,service,forest_clearing,林间空地,迷雾森林,rumor,是
+npc_canyon_explorer,峡谷探险家,service,canyon_entrance,峡谷入口,青云山,guide,是
+npc_canyon_miner,峡谷矿工,shop,canyon_deep,峡谷深处,青云山,rest,是
+npc_abyss_creature,深渊古兽,service,canyon_abyss,深渊谷底,青云山,,是
+npc_crystal_spirit,水晶之灵,service,crystal_cave,水晶洞,地下迷宫,"meditate, rumor",是
+npc_rich_merchant,富商,quest_giver,city_rich,富人区,洛阳城,,是
+npc_auctioneer,拍卖师,shop,auction_house,拍卖行,洛阳城,shop,是
+npc_beggar,乞丐,service,city_slums,贫民窟,洛阳城,rumor,是
+npc_gambler,赌场老板,service,gambling_den,地下赌坊,洛阳城,"rest, rumor",是
+npc_tree_keeper,守树人,trainer,ancient_tree,万年古树,迷雾森林,"meditate, rest, train",是
+npc_cloud_sage,云海仙人,service,cloud_sea,云海,青云山,meditate,是
+npc_hot_spring_keeper,温泉老板娘,service,hot_springs,山间温泉,青云山,"rest, water",是
+npc_lighthouse_keeper,守塔人,service,coastal_cliff,海崖,东海仙岛,guide,是
+npc_pirate_ghost,海盗幽魂,service,pirate_ship,幽灵海盗船,东海仙岛,rumor,是
+npc_pirate_captain,海盗船长之魂,quest_giver,captain_cabin,船长室,东海仙岛,,是
+npc_pirate_bartender,海盗酒保,service,pirate_cove,海盗湾,东海仙岛,"rest, rumor",是
+npc_battlefield_spirit,战场英魂,quest_giver,ancient_battlefield,古战场,大漠荒原,,是
+npc_arena_trainer,竞技场教官,trainer,city_arena,竞技场,洛阳城,train,是
+npc_guild_secretary,公会书记官,service,city_guild,侠客公会,洛阳城,"guide, quest",是
+npc_mountain_merchant,山道茶摊,shop,mountain_path,山道,青云山,,是
+npc_desert_hermit,荒漠苦行僧,service,desert_entrance,荒漠入口,大漠荒原,"meditate, rumor",是
+npc_oasis_guard,绿洲护卫,service,desert_oasis,绿洲,大漠荒原,rest,是
+npc_swamp_guide,沼泽引路人,service,swamp_entrance,沼泽边缘,毒沼泽,guide,是
+npc_beachcomber,拾荒者,service,island_beach,仙岛海滩,东海仙岛,rumor,是
+npc_underground_merchant,地下商人,shop,underground_hall,中央大厅,地下迷宫,rest,是
+npc_palace_doctor,御医,shop,palace_courtyard,御花园,皇宫禁地,,是
+npc_garden_spirit,花仙子,service,secret_garden,秘境花园,迷雾森林,"rest, meditate, rumor",是
+npc_canyon_cross_guide,岔路石碑,service,canyon_cross,峡谷岔路,青云山,guide,是
+npc_canopy_bird,神鸟,service,tree_canopy,树冠之上,迷雾森林,"meditate, rumor",是
+npc_snow_monk,雪寺僧人,trainer,snow_monastery,雪寺,雪域高原,"learn_skill, meditate",是
+npc_snow_peak_hermit,雪峰隐士,service,snow_peak,雪山顶,雪域高原,meditate,是
+npc_swamp_chief,沼泽族长,quest_giver,swamp_village,沼泽村落,毒沼泽,"rest, shop",是
+npc_swamp_shaman_npc,沼泽萨满,service,swamp_altar,沼泽祭坛,毒沼泽,"meditate, rumor",是
+npc_demon_prisoner_npc,被囚英雄,quest_giver,demon_prison,魔族监狱,魔域深渊,,是
+npc_demon_treasurer,魔族库官,shop,demon_treasury,魔族宝库,魔域深渊,,是
+npc_nomad_chief,游牧族长,quest_giver,plains_camp,游牧营地,新手村,"rest, shop",是
+npc_plains_hunter,草原猎人,service,plains,草原,新手村,guide,是
+npc_plains_fisherman,湖畔牧人,service,plains_lake,草原湖泊,新手村,"rest, water",是
+npc_plains_archaeologist,遗迹学者,quest_giver,plains_ruins,草原遗迹,新手村,,是
+npc_mushroom_collector,采菇人,shop,mushroom_forest,蘑菇林,迷雾森林,,是
+npc_wind_listener,听风者,service,wind_valley,风之谷,青云山,"meditate, rumor",是
+npc_city_guide,城市向导,service,city_gate,城门,洛阳城,guide,是
+npc_black_market_dealer,黑市商人,shop,city_slums,贫民窟,洛阳城,,是
+npc_underground_guide,地底向导,service,underground_entrance,迷宫入口,地下迷宫,guide,是
+npc_peak_poet,吟游诗人,service,mountain_peak,山顶,青云山,rumor,是
+npc_snow_village_merchant,雪村商人,shop,snow_village,雪村,雪域高原,"rest, trade",是
+npc_guild_ranker,排行榜管理员,service,city_guild,侠客公会,洛阳城,ranking,是
+npc_tea_house_poet,说书人,service,tea_house,清风茶楼,洛阳城,"rest, rumor",是
+npc_tavern_bard,江湖艺人,service,city_tavern,醉仙楼,洛阳城,rumor,是
+npc_village_guard,村庄守卫,service,village_center,村庄广场,新手村,guide,是
+npc_village_trader,行脚商,shop,village_center,村庄广场,新手村,,是
+npc_inn_guest,住店侠客,service,village_inn,客栈,新手村,rumor,是
+npc_training_dummy_npc,练功木人,service,village_training,练武场,新手村,,是
+npc_forest_woodcutter,樵夫,service,forest_entrance,森林入口,迷雾森林,guide,是
+npc_city_crier,报信官差,service,city_square,城市广场,洛阳城,rumor,是
+npc_street_performer,街头艺人,service,city_square,城市广场,洛阳城,,是
+npc_arena_gladiator,竞技场冠军,service,city_arena,竞技场,洛阳城,pvp,是
+npc_mountain_trail_guide,山路向导,service,mountain_path,山道,青云山,guide,是
+npc_ruins_guardian,遗迹守护者,service,desert_ruins,古城遗址,大漠荒原,guide,是
+npc_pyramid_priest,金字塔守护者,service,pyramid_interior,金字塔内,大漠荒原,guide,是
+npc_bamboo_abbot,禅院住持,trainer,bamboo_temple,竹林禅院,迷雾森林,"meditate, learn_skill",是
+npc_jiao_priest,龙祝,service,jiao_shrine,龙神殿,青云山,"meditate, rumor",是
+npc_phoenix_keeper,凤凰守护者,quest_giver,phoenix_peak,凤凰台,青云山,meditate,是
+npc_time_scholar,时光学者,trainer,time_tower,时光塔,大漠荒原,"train, meditate",是
+npc_shadow_walker,影行者,service,shadow_realm,暗影界,魔域深渊,"guide, rumor",是
+npc_mirror_sage,镜湖智者,service,mirror_lake,镜湖,迷雾森林,"meditate, rest, rumor",是
+npc_rainbow_hermit,彩虹隐者,service,rainbow_bridge,彩虹桥,青云山,meditate,是
+npc_fire_priest,炎之祝者,trainer,fire_shrine,炎之殿,火山熔岩,"train, meditate",是
+npc_water_priest,水之祝者,service,water_shrine,水之殿,东海仙岛,"rest, meditate, water",是
+npc_mountain_peak_guardian,青云道长,trainer,mountain_peak,山顶,青云山,"meditate, train",是
+npc_forest_cave_hermit,洞穴隐修,service,forest_cave,神秘洞穴,迷雾森林,"meditate, rest",是
+npc_desert_tomb_ghost,古王幽灵,service,pyramid_tomb,法老之墓,大漠荒原,rumor,是
+npc_island_peak_seer,仙岛先知,service,island_peak,仙岛山顶,东海仙岛,"rumor, fortune",是
+npc_forest_herbalist,采药少女,shop,deep_forest,密林深处,迷雾森林,,是
+npc_forest_spirit,树灵,service,ancient_tree,万年古树,迷雾森林,meditate,是
+npc_mist_guide,雾中引路人,service,mist_valley,迷雾谷,迷雾森林,guide,是
+npc_xuankong_abbot,悬空寺方丈,trainer,xuankong_temple,悬空寺,青云山,"meditate, learn_skill",是
+npc_xuankong_monk,悬空僧人,service,xuankong_hall,悬空大殿,青云山,"meditate, train",是
+npc_thunder_shaman,雷神祝者,trainer,thunder_shrine,雷神殿,青云山,"train, meditate",是
+npc_jade_immortal,玉虚真人,trainer,jade_palace,玉虚宫,青云山,"learn_skill, meditate, train",是
+npc_starlit_guide,星桥引路人,service,starlit_bridge,星光桥,青云山,guide,是
+npc_void_sage,虚空智者,service,void_edge,虚空边缘,青云山,"meditate, rumor",是
+npc_river_boatman,暗河船夫,service,underground_river,地下暗河,地下迷宫,guide,是
+npc_abyss_hermit,深渊隐者,service,abyss_waterfall,深渊瀑布,地下迷宫,"meditate, rest",是
+npc_desert_caravan,商队首领,shop,desert_bazaar,沙漠集市,大漠荒原,,是
+npc_pyramid_scholar,金字塔学者,service,pyramid_tomb,法老之墓,大漠荒原,rumor,是
+npc_forge_master,神匠,service,volcano_forge,熔火锻造,火山熔岩,"forge_weapon, repair",是
+npc_island_trader,仙岛商贩,shop,island_beach,仙岛海滩,东海仙岛,,是
+npc_island_dancer,仙岛舞者,service,island_forest,仙岛密林,东海仙岛,rumor,是
+npc_snow_hunter,雪域猎人,shop,snow_field,雪原,青云山,,是
+npc_ice_sculptor,冰雕师,service,snow_palace,冰宫,雪域高原,"learn_skill, rumor",是
+npc_swamp_trapper,沼泽捕兽人,service,swamp_deep,沼泽深处,毒沼泽,guide,是
+npc_swamp_herb_collector,沼泽采药人,shop,swamp_island,沼泽孤岛,毒沼泽,rest,是
+npc_city_artist,画师,service,city_bridge,石桥,洛阳城,,是
+npc_city_scholar,落第秀才,service,city_temple,城隍庙,洛阳城,rumor,是
+npc_demon_spy,魔族叛徒,service,demon_fortress,魔族堡垒,魔域深渊,"guide, rumor",是
+npc_imperial_guard,御前侍卫,service,palace_gate,宫门,皇宫禁地,guide,是
+npc_imperial_chef,御厨,shop,palace_garden,后花园,皇宫禁地,,是
+npc_canyon_merchant,峡谷行商,shop,canyon_entrance,峡谷入口,青云山,,是
+npc_canyon_hermit,谷底隐士,trainer,canyon_deep,峡谷深处,青云山,"train, meditate",是
+npc_spring_nymph,山泉仙子,service,mountain_spring,山泉,青云山,"rest, water, rumor",是
+npc_bridge_hermit,铁索桥隐僧,service,mountain_bridge,铁索桥,青云山,meditate,是
+npc_sky_bazaar_merchant,云游仙商,shop,sky_bazaar,云中集市,青云山,shop,是
+npc_warrior_tomb_keeper,守陵人,service,warrior_tombs,侠客陵,青云山,"meditate, rumor",是
+npc_sky_guard_captain,天路守将,service,sky_path,天路,青云山,guide,是
+npc_heaven_guardian,天门神将,service,heaven_gate,天之门,青云山,guide,是
+npc_forest_beastmaster,驯兽师,service,forest_deep,森林深处,迷雾森林,train,是
+npc_forest_path_guide,林径向导,service,forest_path,林间小径,迷雾森林,guide,是
+npc_cherry_poet,樱花诗人,service,cherry_garden,樱园,迷雾森林,"meditate, rest, rumor",是
+npc_waterfall_monk,瀑布修行僧,trainer,forest_waterfall,林中瀑布,迷雾森林,"train, meditate",是
+npc_mushroom_shaman,蘑菇萨满,service,mushroom_forest,蘑菇林,迷雾森林,"rumor, meditate",是
+npc_jiao_princess,龙女,quest_giver,coral_garden,珊瑚园,东海仙岛,"meditate, rest",是
+npc_turtle_advisor,龟丞相,service,jiao_palace,海底水府,东海仙岛,guide,是
+npc_underground_elder,地下城主,quest_giver,underground_city,地下城,地下迷宫,,是
+npc_underground_jeweler,宝石工匠,shop,underground_market,地下集市,地下迷宫,"buy_item, sell_item, shop",是
+npc_opera_master,梨园园主,service,opera_house,梨园,洛阳城,"rest, rumor",是
+npc_astronomer,司天监,service,observatory,观星台,洛阳城,"meditate, rumor",是
+npc_dock_sailor,老水手,service,city_docks,洛阳码头,洛阳城,rumor,是
+npc_rich_merchant_wife,富商夫人,service,city_rich,富人区,洛阳城,rumor,是
+npc_gambling_addict,赌徒,service,gambling_den,地下赌坊,洛阳城,,是
+npc_auction_appraiser,鉴宝师,service,auction_house,拍卖行,洛阳城,guide,是
+npc_lava_collector,熔岩采集者,shop,lava_tubes,熔岩通道,火山熔岩,,是
+npc_time_hermit,时光隐士,service,time_tower_top,时光之巅,大漠荒原,"meditate, rumor",是
+npc_pirate_historian,海盗史官,service,pirate_cove,海盗湾,东海仙岛,rumor,是
+npc_coastal_climber,攀岩者,service,coastal_cliff,海崖,东海仙岛,guide,是
+npc_gaibang_scribe,丐帮文书,service,gaibang_hall,丐帮议事厅,洛阳城,guide,是
+npc_wandering_merchant,游商,shop,city_market,集市,洛阳城,,是
+npc_sword_master,剑客柳白,trainer,bamboo_grove,竹林,迷雾森林,train,是
+npc_herb_gatherer,采药老人,service,forest_clearing,林间空地,迷雾森林,gathering,是
+npc_wudang_disciple,武当道童,service,wudang_hall,武当真武殿,青云山,guide,是
+npc_shaolin_cook,少林火头僧,service,shaolin_temple,少林寺,青云山,rumor,是
+npc_emei_herbalist,峨眉药姑,shop,emei_hall,峨眉万法堂,青云山,,是
+npc_mingjiao_scout,明教探子,service,mingjiao_hall,明教光明顶,火山熔岩,rumor,是
+npc_xiaoyao_hermit,逍遥隐者,trainer,xiaoyao_valley,逍遥谷,东海仙岛,"meditate, train",是
+npc_underground_blacksmith,地下铁匠,service,underground_market,地下集市,地下迷宫,repair,是
+npc_underground_guard,地下城守卫,service,underground_city,地下城,地下迷宫,"guide, rest",是
+npc_celestial_attendant,天宫侍者,service,celestial_palace,天宫,青云山,"guide, rumor",是
+npc_pyramid_scribe,金字塔书吏,service,pyramid_interior,金字塔内,大漠荒原,rumor,是
+npc_pirate_quartermaster,海盗军需官,shop,pirate_cove,海盗湾,东海仙岛,,是
+npc_starlit_watcher,星桥守望者,service,starlit_bridge,星光桥,青云山,meditate,是
+npc_plains_herder,牧羊人,service,plains_lake,草原湖泊,新手村,"rest, water",是
+npc_cliff_painter,山崖画师,service,mountain_cliff,山崖,青云山,rumor,是
+npc_bamboo_tea_master,竹院茶师,service,bamboo_hall,禅院武堂,迷雾森林,"learn_skill, rest, rumor, train",是
+npc_xuankong_pilgrim,朝圣香客,service,xuankong_hall,悬空大殿,青云山,,是
+npc_crystal_miner,水晶矿工,shop,crystal_cave,水晶洞,地下迷宫,,是
+npc_palace_historian,史官,service,palace_library,皇家藏书阁,皇宫禁地,rumor,是
+npc_demon_refugee,魔域流亡者,service,demon_arena,魔族竞技场,魔域深渊,rumor,是
+npc_swamp_fisher,沼泽渔人,service,swamp_entrance,沼泽边缘,毒沼泽,guide,是
+npc_snow_caravan,雪域商队,shop,snow_pass,雪山关隘,雪域高原,,是
+npc_herbalist_apprentice,药童,service,herbalist_hut,药师草庐,迷雾森林,"buy_item, shop",是
+npc_lake_fisherman,渔村长者,service,lake_village,渔村,新手村,"rest, rumor, shop",是
+npc_snow_village_healer,雪村巫医,shop,snow_village,雪村,雪域高原,,是
+npc_swamp_elder,沼泽长老,quest_giver,swamp_entrance,沼泽边缘,毒沼泽,,是
+npc_underground_scavenger,地底拾荒者,service,underground_entrance,迷宫入口,地下迷宫,rumor,是
+npc_underground_prisoner,囚牢幸存者,service,underground_prison,囚牢区,地下迷宫,rumor,是
+npc_volcano_smith,火山铁匠,service,volcano_forge,熔火锻造,火山熔岩,"forge_weapon, repair",是
+npc_shaolin_meditator,少林禅僧,service,shaolin_temple,少林寺,青云山,meditate,是
+npc_wudang_swordsman,武当剑侠,trainer,wudang_peak,武当山,青云山,train,是
+npc_emei_nun,峨眉小师太,service,emei_temple,峨眉金顶,青云山,guide,是
+npc_mingjiao_elder,明教五散人,trainer,mingjiao_hall,明教光明顶,火山熔岩,train,是
+npc_xiaoyao_musician,逍遥琴师,service,xiaoyao_valley,逍遥谷,东海仙岛,"rest, rumor",是
+npc_heaven_scribe,天门录事,service,heaven_gate,天之门,青云山,rumor,是
+npc_thunder_hermit,雷霆修士,service,thunder_peak,雷霆峰,青云山,"meditate, rumor",是
+npc_jade_scholar,玉虚学士,service,jade_palace,玉虚宫,青云山,rumor,是
+npc_starlit_astronomer,星桥观星者,service,starlit_bridge,星光桥,青云山,meditate,是
+npc_void_watcher,虚空守望者,service,void_edge,虚空边缘,青云山,rumor,是
+npc_shadow_merchant,暗影商人,shop,shadow_throne,暗影王座,魔域深渊,meditate,是
+npc_demon_veteran,魔族老兵,service,demon_arena,魔族竞技场,魔域深渊,"pvp, rumor",是
+npc_time_keeper,守时人,service,time_tower_top,时光之巅,大漠荒原,meditate,是
+npc_village_carter,门派传送车夫,teleport,village_center,村庄广场,新手村,teleport,是
+npc_carter_shaolin,门派传送轿夫,teleport,shaolin_gate,少林寺山门,青云山,teleport,是
+npc_carter_wudang,门派传送轿夫,teleport,wudang_gate,武当山山门,青云山,teleport,是
+npc_carter_emei,门派传送轿夫,teleport,emei_gate,峨眉派山门,青云山,teleport,是
+npc_carter_gaibang,门派传送轿夫,teleport,gaibang_gate,丐帮总舵入口,洛阳城,teleport,是
+npc_carter_mingjiao,门派传送轿夫,teleport,mingjiao_gate,明教光明顶入口,火山熔岩,teleport,是
+npc_carter_xiaoyao,门派传送轿夫,teleport,xiaoyao_gate,逍遥派入口,东海仙岛,teleport,是
