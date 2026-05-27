@@ -27,7 +27,9 @@
       "公告栏"
     ],
     "monsters": [],
-    "npcs": []
+    "npcs": [
+      "npc_village_chief"
+    ]
   },
   {
     "id": "Daoxiang_village_north",
@@ -141,7 +143,9 @@
       "休息室"
     ],
     "monsters": [],
-    "npcs": []
+    "npcs": [
+      "npc_innkeeper"
+    ]
   },
   {
     "id": "Daoxiang_village_blacksmith",
@@ -159,7 +163,9 @@
       "武器架"
     ],
     "monsters": [],
-    "npcs": []
+    "npcs": [
+      "npc_blacksmith"
+    ]
   },
   {
     "id": "Daoxiang_village_shop",
@@ -178,7 +184,9 @@
     ],
     "shopType": "general",
     "monsters": [],
-    "npcs": []
+    "npcs": [
+      "npc_shopkeeper"
+    ]
   },
   {
     "id": "Daoxiang_village_training",
@@ -196,7 +204,9 @@
       "靶子"
     ],
     "monsters": [],
-    "npcs": []
+    "npcs": [
+      "npc_trainer"
+    ]
   },
   {
     "id": "Cloud_forest_outside",
@@ -206,7 +216,7 @@
     "exits": [
       {
         "direction": "north",
-        "roomId": "forest_deep"
+        "roomId": "Cloud_forest_deep"
       },
       {
         "direction": "south",
@@ -785,7 +795,11 @@
     "exits": [
       {
         "direction": "east",
-        "roomId": "Qingyun_mountain_mirrolake_east"
+        "roomId": "Qinyun_moutain_mirrorlake_east"
+      },
+      {
+        "direction": "west",
+        "roomId": "Qingyun_mountain_mirrorlake_west"
       }
     ],
     "npcs": [],
@@ -800,11 +814,11 @@
     "exits": [
       {
         "direction": "west",
-        "roomId": "Qingyun_mountain_valley"
+        "roomId": "Qingyun_mountain_mirrorlake"
       },
       {
         "direction": "east",
-        "roomId": "Qingyun_mountain_mirrorlake"
+        "roomId": "Qingyun_mountain_valley"
       }
     ],
     "npcs": [],

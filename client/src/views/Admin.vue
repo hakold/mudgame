@@ -375,41 +375,15 @@
           </div>
         </div>
 
-        <!-- ====== 全貌视图：地图+房间总览 ====== -->
-        <div v-if="mapViewMode === 'overview'" class="map-overview">
-          <div v-for="map in maps" :key="map.id" class="overview-map-block">
-            <div class="overview-map-header" @click="toggleOverviewMap(map.id)">
-              <span style="font-size:16px;font-weight:bold;color:#ffd700;">{{ map.name }}</span>
-              <span style="color:#aaa;font-size:13px;">Lv {{ map.level }} | {{ map.rooms?.length || 0 }} 房间 | 入口: {{ allRoomNames[map.entryRoom] || map.entryRoom || '-' }}</span>
-              <span style="margin-left:auto;color:#888;">{{ overviewExpanded[map.id] ? '▼' : '▶' }}</span>
-            </div>
-            <div v-if="overviewExpanded[map.id]" class="overview-rooms">
-              <table style="width:100%;font-size:12px;border-collapse:collapse;">
-                <thead><tr style="color:#aaa;border-bottom:1px solid #1a1a40;">
-                  <th style="text-align:left;padding:4px 8px;">房间</th>
-                  <th style="text-align:left;padding:4px 8px;">ID</th>
-                  <th style="text-align:left;padding:4px 8px;">出口</th>
-                  <th style="text-align:center;padding:4px 8px;">NPC</th>
-                  <th style="text-align:center;padding:4px 8px;">怪物</th>
-                </tr></thead>
-                <tbody>
-                  <tr v-for="r in getOverviewRooms(map.id)" :key="r.id" style="border-bottom:1px solid #1a1a40;cursor:pointer;" @click="editRoomFromOverview(r)" :title="'点击编辑 ' + r.name">
-                    <td style="padding:4px 8px;color:#4fc3f7;">{{ r.name }}</td>
-                    <td style="padding:4px 8px;color:#888;">{{ r.id }}</td>
-                    <td style="padding:4px 8px;color:#aaa;">
-                      <span v-for="(e, i) in (r.exits || [])" :key="i">
-                        <span style="color:#69f0ae;">{{ e.direction }}</span> → <span style="color:#ffd700;">{{ allRoomNames[e.roomId] || e.roomId }}</span>{{ i < (r.exits||[]).length-1 ? ', ' : '' }}
-                      </span>
-                      <span v-if="!(r.exits||[]).length" style="color:#666;">—</span>
-                    </td>
-                    <td style="padding:4px 8px;text-align:center;color:#aaa;">{{ (r.npcs||[]).length || '-' }}</td>
-                    <td style="padding:4px 8px;text-align:center;color:#aaa;">{{ (r.monsters||[]).length || '-' }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+        <!-- ====== 全貌视图：SVG 总览图 ====== -->
+        <div v-if="mapViewMode === 'overview'" class="map-overview-svg">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <span style="color:#888;font-size:13px;">MAP: {{ maps.length }} | ROOM: {{ totalRoomCount }} | 入口房间高亮 🟡 | 跨地图连线 <span style="color:#ff9800;">━━━</span></span>
+            <a href="/map-overview.svg" download target="_blank" class="btn" style="width:auto;padding:6px 15px;text-decoration:none;">📥 下载 SVG</a>
           </div>
-          <div v-if="!maps.length" style="color:#666;text-align:center;padding:40px;">暂无地图配置</div>
+          <div class="svg-container" style="background:#0a0a1a;border-radius:8px;overflow:auto;max-height:70vh;">
+            <img src="/map-overview.svg" alt="地图总览" style="width:100%;min-width:800px;" />
+          </div>
         </div>
 
       </div>
@@ -541,8 +515,9 @@ const showNpcPicker = ref(false), selectedNpcIds = ref([]), npcSearch = ref('')
 const showMonsterPicker = ref(false), monsterPickerTarget = ref(''), pendingMonsterId = ref(null), pendingMonsterWeight = ref(5)
 const monsterSearch = ref('')
 
-// 所有房间名称查找表 (roomId → name)，用于入口房间显示和出口补全
+// 所有房间名称查找表 (roomId → name)
 const allRoomNames = ref({})
+const totalRoomCount = computed(() => Object.keys(allRoomNames.value).length)
 
 async function loadMaps() {
   try { maps.value = (await axios.get('/gm/config/maps')).data.data } catch(e) {}
@@ -688,40 +663,10 @@ async function editSelectedRoom() {
 function onRoomSelect() {}
 
 // ============ 全貌视图 ============
-const overviewExpanded = ref({})
-
 async function switchToOverview() {
   mapViewMode.value = 'overview'
-  // Ensure we have all rooms loaded
+  // Ensure we have all rooms loaded for the SVG
   if (!Object.keys(allRoomsLookup.value).length) await loadAllRoomsLookup()
-  // Expand the first map by default
-  if (maps.value.length && !Object.values(overviewExpanded.value).some(v => v)) {
-    overviewExpanded.value[maps.value[0].id] = true
-  }
-}
-
-function toggleOverviewMap(mapId) {
-  overviewExpanded.value[mapId] = !overviewExpanded.value[mapId]
-}
-
-function getOverviewRooms(mapId) {
-  // Use exitRoomCache if available, otherwise try allRoomsLookup
-  if (exitRoomCache.value[mapId]) return exitRoomCache.value[mapId]
-  return Object.values(allRoomsLookup.value)
-    .filter(info => info.mapId === mapId)
-    .map(info => info.room)
-}
-
-async function editRoomFromOverview(room) {
-  // Switch back to cards view and open the editor
-  mapViewMode.value = 'cards'
-  // Find the map that owns this room and select it
-  const mapId = room.mapId || allRoomsLookup.value[room.id]?.mapId
-  if (mapId) {
-    const map = maps.value.find(m => m.id === mapId)
-    if (map) await selectMap(map)
-  }
-  await editRoom(room)
 }
 
 async function deleteRoom(roomId) {
@@ -906,12 +851,5 @@ button { background: #0f3460; color: #eee; border: 1px solid #1a4a7a; padding: 5
 button:hover { background: #1a4a7a; }
 
 /* 全貌视图 */
-.map-overview { display:flex; flex-direction:column; gap:12px; }
-.overview-map-block { background:#16213e; border-radius:8px; overflow:hidden; border:1px solid #1a1a40; }
-.overview-map-header { display:flex; gap:15px; align-items:center; padding:12px 16px; cursor:pointer; user-select:none; transition:background 0.2s; }
-.overview-map-header:hover { background:#1a3a5a; }
-.overview-rooms { padding:0 16px 12px; }
-.overview-rooms table { background:#0f3460; border-radius:5px; overflow:hidden; }
-.overview-rooms tr:hover { background:#1a4a7a; }
-.overview-rooms th { color:#e94560; }
+.svg-container { background:#0a0a1a; border-radius:8px; overflow:auto; max-height:70vh; padding:8px; }
 </style>

@@ -18,6 +18,20 @@ function writeConfig(filename, data) {
   reloadConfigSection(filename);
 }
 
+// SVG 总览图自动重生成
+let svgRegenTimer = null;
+function scheduleSvgRegen() {
+  clearTimeout(svgRegenTimer);
+  svgRegenTimer = setTimeout(() => {
+    const { exec } = require('child_process');
+    const scriptPath = path.join(__dirname, '../../scripts/generate-svg-overview.js');
+    exec(`node "${scriptPath}"`, (err, stdout, stderr) => {
+      if (err) console.error('[SVG] 生成失败:', stderr);
+      else console.log('[SVG] 总览图已更新');
+    });
+  }, 1000); // 1秒防抖
+}
+
 class GMController {
   // ==================== 玩家管理 ====================
 
@@ -370,6 +384,7 @@ class GMController {
       if (idx === -1) return res.status(404).json({ success: false, message: '房间不存在' });
       rooms[idx] = { ...rooms[idx], ...req.body, id: rooms[idx].id };
       writeConfig('rooms', rooms);
+      scheduleSvgRegen();
       res.json({ success: true, message: '房间更新成功', data: rooms[idx] });
     } catch (error) { res.status(500).json({ success: false, message: error.message }); }
   }
@@ -387,6 +402,7 @@ class GMController {
       newRoom.features = newRoom.features || [];
       rooms.push(newRoom);
       writeConfig('rooms', rooms);
+      scheduleSvgRegen();
       // 同步地图的 rooms 列表
       if (newRoom.mapId) {
         const maps = getConfigArray('maps');
@@ -407,6 +423,7 @@ class GMController {
       if (idx === -1) return res.status(404).json({ success: false, message: '房间不存在' });
       const removed = rooms.splice(idx, 1)[0];
       writeConfig('rooms', rooms);
+      scheduleSvgRegen();
       // 同步地图的 rooms 列表
       if (removed.mapId) {
         const maps = getConfigArray('maps');
@@ -427,6 +444,7 @@ class GMController {
       if (idx === -1) return res.status(404).json({ success: false, message: '地图不存在' });
       maps[idx] = { ...maps[idx], ...req.body, id: maps[idx].id };
       writeConfig('maps', maps);
+      scheduleSvgRegen();
       res.json({ success: true, message: '地图更新成功', data: maps[idx] });
     } catch (error) { res.status(500).json({ success: false, message: error.message }); }
   }
@@ -446,6 +464,7 @@ class GMController {
       newMap.entryRoom = newMap.entryRoom || '';
       maps.push(newMap);
       writeConfig('maps', maps);
+      scheduleSvgRegen();
       res.json({ success: true, message: '地图创建成功', data: newMap });
     } catch (error) { res.status(500).json({ success: false, message: error.message }); }
   }
