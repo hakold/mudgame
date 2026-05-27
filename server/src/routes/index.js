@@ -96,6 +96,7 @@ router.put('/gm/config/rooms/:roomId', gmMiddleware('canModifyConfig'), gmContro
 router.post('/gm/config/rooms', gmMiddleware('canModifyConfig'), gmController.createRoomConfig);
 router.delete('/gm/config/rooms/:roomId', gmMiddleware('canModifyConfig'), gmController.deleteRoomConfig);
 router.put('/gm/config/maps/:mapId', gmMiddleware('canModifyConfig'), gmController.updateMapConfig);
+router.post('/gm/config/maps', gmMiddleware('canModifyConfig'), gmController.createMapConfig);
 router.get('/gm/config/npcs', gmController.getNpcList);
 router.get('/gm/config/monsters', gmController.getMonsterList);
 

@@ -296,7 +296,30 @@ module.exports = {
   getForgeRecipe: (recipeId) => gameConfig.forgeRecipes[recipeId] || null,
   getAllForgeRecipes: () => Object.values(gameConfig.forgeRecipes),
   items: () => Object.values(gameConfig.items),
-  gameConfig
+  gameConfig,
+  // 从内存获取配置数组（零磁盘IO）
+  getConfigArray(key) { return Object.values(gameConfig[key] || {}) },
+  // 从磁盘重载单个配置段到内存
+  reloadConfigSection(key) {
+    const configFileMap = {
+      maps:'maps', rooms:'rooms', npcs:'npcs', monsters:'monsters',
+      items:'items', skills:'skills', quests:'quests', factions:'factions',
+      factionQuests:'factionQuests', achievements:'achievements',
+      forgeRecipes:'forgeRecipes', weatherConfig:'weatherConfig'
+    }
+    const filename = configFileMap[key]
+    if (!filename) return
+    const filePath = path.join(__dirname, '../../../config/json', `${filename}.json`)
+    if (!fs.existsSync(filePath)) return
+    const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
+    if (Array.isArray(data)) {
+      gameConfig[key] = {}
+      for (const item of data) gameConfig[key][item.id] = item
+    } else {
+      gameConfig[key] = data
+    }
+    configVersion++
+  }
 };
 
 // 配置热重载

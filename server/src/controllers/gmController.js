@@ -3,16 +3,19 @@ const path = require('path');
 const { User, Announcement, ChatMessage, BattleLog, ActionLog, Inventory, CharacterSkill, Quest } = require('../models');
 const actionLogService = require('../game/actionLogService');
 const antiCheatService = require('../game/antiCheatService');
-const { getItem } = require('../game');
+const { getItem, getConfigArray, reloadConfigSection } = require('../game');
 
-// 读写 JSON 配置的辅助函数
-function readConfig(filename) {
-  const filePath = path.join(__dirname, '../../../config/json', `${filename}.json`);
-  return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
-}
+// 配置类型→文件名映射
+const CONFIG_MAP = {
+  quests: 'quests', items: 'items', maps: 'maps', rooms: 'rooms',
+  npcs: 'npcs', monsters: 'monsters'
+};
+
+// 写配置到磁盘+同步内存（避免IO风暴）
 function writeConfig(filename, data) {
   const filePath = path.join(__dirname, '../../../config/json', `${filename}.json`);
   fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+  reloadConfigSection(filename);
 }
 
 class GMController {
@@ -256,14 +259,14 @@ class GMController {
 
   async getQuestConfigs(req, res) {
     try {
-      const quests = readConfig('quests');
+      const quests = getConfigArray('quests');
       res.json({ success: true, data: quests });
     } catch (error) { res.status(500).json({ success: false, message: error.message }); }
   }
 
   async createQuestConfig(req, res) {
     try {
-      const quests = readConfig('quests');
+      const quests = getConfigArray('quests');
       const newQuest = req.body;
       if (quests.find(q => q.id === newQuest.id)) return res.status(400).json({ success: false, message: '任务ID已存在' });
       quests.push(newQuest);
@@ -274,7 +277,7 @@ class GMController {
 
   async updateQuestConfig(req, res) {
     try {
-      const quests = readConfig('quests');
+      const quests = getConfigArray('quests');
       const idx = quests.findIndex(q => q.id === req.params.questId);
       if (idx === -1) return res.status(404).json({ success: false, message: '任务不存在' });
       quests[idx] = { ...quests[idx], ...req.body, id: quests[idx].id };
@@ -285,7 +288,7 @@ class GMController {
 
   async deleteQuestConfig(req, res) {
     try {
-      let quests = readConfig('quests');
+      let quests = getConfigArray('quests');
       const before = quests.length;
       quests = quests.filter(q => q.id !== req.params.questId);
       if (quests.length === before) return res.status(404).json({ success: false, message: '任务不存在' });
@@ -298,7 +301,7 @@ class GMController {
 
   async getItemConfigs(req, res) {
     try {
-      const items = readConfig('items');
+      const items = getConfigArray('items');
       const { type } = req.query;
       res.json({ success: true, data: type ? items.filter(i => i.type === type) : items });
     } catch (error) { res.status(500).json({ success: false, message: error.message }); }
@@ -306,7 +309,7 @@ class GMController {
 
   async createItemConfig(req, res) {
     try {
-      const items = readConfig('items');
+      const items = getConfigArray('items');
       const newItem = req.body;
       if (items.find(i => i.id === newItem.id)) return res.status(400).json({ success: false, message: '道具ID已存在' });
       items.push(newItem);
@@ -317,7 +320,7 @@ class GMController {
 
   async updateItemConfig(req, res) {
     try {
-      const items = readConfig('items');
+      const items = getConfigArray('items');
       const idx = items.findIndex(i => i.id === req.params.itemId);
       if (idx === -1) return res.status(404).json({ success: false, message: '道具不存在' });
       items[idx] = { ...items[idx], ...req.body, id: items[idx].id };
@@ -328,7 +331,7 @@ class GMController {
 
   async deleteItemConfig(req, res) {
     try {
-      let items = readConfig('items');
+      let items = getConfigArray('items');
       const before = items.length;
       items = items.filter(i => i.id !== req.params.itemId);
       if (items.length === before) return res.status(404).json({ success: false, message: '道具不存在' });
@@ -341,8 +344,8 @@ class GMController {
 
   async getMapConfigs(req, res) {
     try {
-      const maps = readConfig('maps');
-      const rooms = readConfig('rooms');
+      const maps = getConfigArray('maps');
+      const rooms = getConfigArray('rooms');
       const mapsWithStats = maps.map(m => ({
         ...m,
         roomCount: rooms.filter(r => r.mapId === m.id || (r.id && r.id.startsWith(m.id))).length
@@ -353,7 +356,7 @@ class GMController {
 
   async getRoomConfigs(req, res) {
     try {
-      const rooms = readConfig('rooms');
+      const rooms = getConfigArray('rooms');
       const { mapId } = req.query;
       const filtered = mapId ? rooms.filter(r => r.mapId === mapId || (r.id && r.id.startsWith(mapId))) : rooms;
       res.json({ success: true, data: filtered });
@@ -362,7 +365,7 @@ class GMController {
 
   async updateRoomConfig(req, res) {
     try {
-      const rooms = readConfig('rooms');
+      const rooms = getConfigArray('rooms');
       const idx = rooms.findIndex(r => r.id === req.params.roomId);
       if (idx === -1) return res.status(404).json({ success: false, message: '房间不存在' });
       rooms[idx] = { ...rooms[idx], ...req.body, id: rooms[idx].id };
@@ -373,7 +376,7 @@ class GMController {
 
   async createRoomConfig(req, res) {
     try {
-      const rooms = readConfig('rooms');
+      const rooms = getConfigArray('rooms');
       const newRoom = req.body;
       if (!newRoom.id || !newRoom.name) return res.status(400).json({ success: false, message: '房间ID和名称不能为空' });
       if (rooms.find(r => r.id === newRoom.id)) return res.status(400).json({ success: false, message: '房间ID已存在' });
@@ -386,7 +389,7 @@ class GMController {
       writeConfig('rooms', rooms);
       // 同步地图的 rooms 列表
       if (newRoom.mapId) {
-        const maps = readConfig('maps');
+        const maps = getConfigArray('maps');
         const map = maps.find(m => m.id === newRoom.mapId);
         if (map && !map.rooms.includes(newRoom.id)) {
           map.rooms.push(newRoom.id);
@@ -399,14 +402,14 @@ class GMController {
 
   async deleteRoomConfig(req, res) {
     try {
-      const rooms = readConfig('rooms');
+      const rooms = getConfigArray('rooms');
       const idx = rooms.findIndex(r => r.id === req.params.roomId);
       if (idx === -1) return res.status(404).json({ success: false, message: '房间不存在' });
       const removed = rooms.splice(idx, 1)[0];
       writeConfig('rooms', rooms);
       // 同步地图的 rooms 列表
       if (removed.mapId) {
-        const maps = readConfig('maps');
+        const maps = getConfigArray('maps');
         const map = maps.find(m => m.id === removed.mapId);
         if (map) {
           map.rooms = map.rooms.filter(rid => rid !== removed.id);
@@ -419,7 +422,7 @@ class GMController {
 
   async updateMapConfig(req, res) {
     try {
-      const maps = readConfig('maps');
+      const maps = getConfigArray('maps');
       const idx = maps.findIndex(m => m.id === req.params.mapId);
       if (idx === -1) return res.status(404).json({ success: false, message: '地图不存在' });
       maps[idx] = { ...maps[idx], ...req.body, id: maps[idx].id };
@@ -428,16 +431,35 @@ class GMController {
     } catch (error) { res.status(500).json({ success: false, message: error.message }); }
   }
 
+  async createMapConfig(req, res) {
+    try {
+      const maps = getConfigArray('maps');
+      const newMap = req.body;
+      if (!newMap.id || !newMap.name) return res.status(400).json({ success: false, message: '地图ID和名称不能为空' });
+      if (maps.find(m => m.id === newMap.id)) return res.status(400).json({ success: false, message: '地图ID已存在' });
+      // 设置默认值
+      newMap.description = newMap.description || '';
+      newMap.level = newMap.level || '1-10';
+      newMap.rooms = newMap.rooms || [];
+      newMap.monsters = newMap.monsters || [];
+      newMap.npcs = newMap.npcs || [];
+      newMap.entryRoom = newMap.entryRoom || '';
+      maps.push(newMap);
+      writeConfig('maps', maps);
+      res.json({ success: true, message: '地图创建成功', data: newMap });
+    } catch (error) { res.status(500).json({ success: false, message: error.message }); }
+  }
+
   async getNpcList(req, res) {
     try {
-      const npcs = readConfig('npcs');
+      const npcs = getConfigArray('npcs');
       res.json({ success: true, data: npcs });
     } catch (error) { res.status(500).json({ success: false, message: error.message }); }
   }
 
   async getMonsterList(req, res) {
     try {
-      const monsters = readConfig('monsters');
+      const monsters = getConfigArray('monsters');
       res.json({ success: true, data: monsters });
     } catch (error) { res.status(500).json({ success: false, message: error.message }); }
   }

@@ -194,11 +194,16 @@
       <!-- ====== 地图管理（重构） ====== -->
       <div v-if="activeMenu === 'maps'">
         <h2 class="admin-title">地图管理</h2>
+        <div style="display:flex;gap:8px;margin-bottom:15px;align-items:center;">
+          <button :class="mapViewMode === 'cards' ? 'btn' : 'btn btn-secondary'" @click="mapViewMode = 'cards'" style="width:auto;padding:6px 15px;">🗺️ 卡片视图</button>
+          <button :class="mapViewMode === 'overview' ? 'btn' : 'btn btn-secondary'" @click="switchToOverview()" style="width:auto;padding:6px 15px;">📋 全貌视图</button>
+        </div>
+        <div v-if="mapViewMode === 'cards'">
         <div class="maps-grid">
           <div v-for="map in maps" :key="map.id" class="map-card" :class="{ selected: selectedMap?.id === map.id }" @click="selectMap(map)">
             <div class="map-card-header"><span class="map-name">{{ map.name }}</span><span class="map-level">{{ map.level }}</span></div>
             <div class="map-card-desc">{{ map.description }}</div>
-            <div class="map-card-rooms">房间: {{ map.rooms?.length || 0 }} | 入口: {{ mapsRoomNames[map.id]?.entry || '-' }}</div>
+            <div class="map-card-rooms">房间: {{ map.rooms?.length || 0 }} | 入口: {{ allRoomNames[map.entryRoom] || map.entryRoom || '-' }}</div>
           </div>
           <div class="map-card map-card-new" @click="createMap">
             <div class="map-card-header" style="font-size:24px;justify-content:center;">+ 新建地图</div>
@@ -258,6 +263,7 @@
           </div>
           <button @click="openMonsterPicker('map')" class="btn" style="width:auto;padding:6px 12px;">+ 添加怪物</button>
         </div>
+        </div>  <!-- end cards view -->
 
         <!-- 房间编辑弹窗 -->
         <div v-if="showRoomEditor" class="modal-overlay" @click.self="showRoomEditor = false">
@@ -368,8 +374,45 @@
             <button class="btn btn-secondary" @click="showMonsterPicker = false">关闭</button>
           </div>
         </div>
-      </div>
 
+        <!-- ====== 全貌视图：地图+房间总览 ====== -->
+        <div v-if="mapViewMode === 'overview'" class="map-overview">
+          <div v-for="map in maps" :key="map.id" class="overview-map-block">
+            <div class="overview-map-header" @click="toggleOverviewMap(map.id)">
+              <span style="font-size:16px;font-weight:bold;color:#ffd700;">{{ map.name }}</span>
+              <span style="color:#aaa;font-size:13px;">Lv {{ map.level }} | {{ map.rooms?.length || 0 }} 房间 | 入口: {{ allRoomNames[map.entryRoom] || map.entryRoom || '-' }}</span>
+              <span style="margin-left:auto;color:#888;">{{ overviewExpanded[map.id] ? '▼' : '▶' }}</span>
+            </div>
+            <div v-if="overviewExpanded[map.id]" class="overview-rooms">
+              <table style="width:100%;font-size:12px;border-collapse:collapse;">
+                <thead><tr style="color:#aaa;border-bottom:1px solid #1a1a40;">
+                  <th style="text-align:left;padding:4px 8px;">房间</th>
+                  <th style="text-align:left;padding:4px 8px;">ID</th>
+                  <th style="text-align:left;padding:4px 8px;">出口</th>
+                  <th style="text-align:center;padding:4px 8px;">NPC</th>
+                  <th style="text-align:center;padding:4px 8px;">怪物</th>
+                </tr></thead>
+                <tbody>
+                  <tr v-for="r in getOverviewRooms(map.id)" :key="r.id" style="border-bottom:1px solid #1a1a40;cursor:pointer;" @click="editRoomFromOverview(r)" :title="'点击编辑 ' + r.name">
+                    <td style="padding:4px 8px;color:#4fc3f7;">{{ r.name }}</td>
+                    <td style="padding:4px 8px;color:#888;">{{ r.id }}</td>
+                    <td style="padding:4px 8px;color:#aaa;">
+                      <span v-for="(e, i) in (r.exits || [])" :key="i">
+                        <span style="color:#69f0ae;">{{ e.direction }}</span> → <span style="color:#ffd700;">{{ allRoomNames[e.roomId] || e.roomId }}</span>{{ i < (r.exits||[]).length-1 ? ', ' : '' }}
+                      </span>
+                      <span v-if="!(r.exits||[]).length" style="color:#666;">—</span>
+                    </td>
+                    <td style="padding:4px 8px;text-align:center;color:#aaa;">{{ (r.npcs||[]).length || '-' }}</td>
+                    <td style="padding:4px 8px;text-align:center;color:#aaa;">{{ (r.monsters||[]).length || '-' }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div v-if="!maps.length" style="color:#666;text-align:center;padding:40px;">暂无地图配置</div>
+        </div>
+
+      </div>
 
       <div v-if="activeMenu === 'announcements'">
         <div class="admin-header"><h2 class="admin-title">公告管理</h2><button class="btn" style="width:auto; padding:8px 15px;" @click="showCreateAnnouncement = true">发布公告</button></div>
@@ -398,7 +441,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 
@@ -491,17 +534,35 @@ async function deleteItemConfig(id) { if (!confirm('删除道具 ' + id + '?')) 
 // 地图（重构）
 const DIR_OPTIONS = ['north', 'south', 'east', 'west', 'up', 'down', 'enter', 'out', 'north_east', 'north_west', 'south_east', 'south_west']
 const maps = ref([]), mapRooms = ref([]), selectedMap = ref(null), selectedRoomId = ref('')
+const mapViewMode = ref('cards') // 'cards' | 'overview'
 const showRoomEditor = ref(false), editingRoom = ref({}), isNewRoom = ref(false), isNewMap = ref(false)
 const allNpcs = ref([]), allMonsters = ref([])
 const showNpcPicker = ref(false), selectedNpcIds = ref([]), npcSearch = ref('')
 const showMonsterPicker = ref(false), monsterPickerTarget = ref(''), pendingMonsterId = ref(null), pendingMonsterWeight = ref(5)
 const monsterSearch = ref('')
-const mapsRoomNames = ref({}) // 地图入口房间名缓存
+
+// 所有房间名称查找表 (roomId → name)，用于入口房间显示和出口补全
+const allRoomNames = ref({})
 
 async function loadMaps() {
   try { maps.value = (await axios.get('/gm/config/maps')).data.data } catch(e) {}
-  // 加载所有房间以构建入口名
-  try { const { data } = await axios.get('/gm/config/rooms'); for (const r of data.data) { const m = maps.value.find(m => m.id === r.mapId); if (m) mapsRoomNames.value[m.id] = mapsRoomNames.value[m.id] || { entry: r.name } } } catch(e) {}
+  // 全量加载房间并构建 roomId→name 查找表
+  try {
+    const { data } = await axios.get('/gm/config/rooms')
+    const lookup = {}
+    const byMap = {}
+    for (const r of (data.data || [])) {
+      lookup[r.id] = r.name
+      if (!byMap[r.mapId]) byMap[r.mapId] = []
+      byMap[r.mapId].push(r)
+      allRoomsLookup.value[r.id] = { mapId: r.mapId, room: r }
+    }
+    allRoomNames.value = lookup
+    exitRoomCache.value = byMap
+  } catch(e) { console.error('loadMaps rooms failed:', e) }
+  // 预加载 NPC / 怪物列表，避免编辑器弹窗为空
+  if (allNpcs.value.length === 0) loadAllNpcs()
+  if (allMonsters.value.length === 0) loadAllMonsters()
 }
 async function selectMap(map) {
   selectedMap.value = JSON.parse(JSON.stringify(map))
@@ -528,49 +589,150 @@ async function saveMap() {
     }
     isNewMap.value = false
     await loadMaps()
+    // 刷新 selectedMap 以获取最新的 rooms 列表
+    const updated = maps.value.find(m => m.id === selectedMap.value.id)
+    if (updated) selectedMap.value = JSON.parse(JSON.stringify(updated))
   } catch(e) { alert('保存失败: ' + (e.response?.data?.message || e.message)) }
 }
-async function loadRoomsForMap(mapId) {
-  try { mapRooms.value = (await axios.get('/gm/config/rooms', { params: { mapId } })).data.data } catch(e) {}
-}
 async function loadAllNpcs() {
-  try { allNpcs.value = (await axios.get('/gm/config/npcs')).data.data } catch(e) {}
+  try { allNpcs.value = (await axios.get('/gm/config/npcs')).data.data } catch(e) { alert('加载NPC列表失败: ' + (e.response?.data?.message || e.message)) }
 }
 async function loadAllMonsters() {
-  try { allMonsters.value = (await axios.get('/gm/config/monsters')).data.data } catch(e) {}
+  try { allMonsters.value = (await axios.get('/gm/config/monsters')).data.data } catch(e) { alert('加载怪物列表失败: ' + (e.response?.data?.message || e.message)) }
 }
 
-// 房间操作
+// ============ 房间操作（重构版）============
+const allRoomsLookup = ref({}) // roomId → { mapId, room }
+const exitRoomCache = ref({})  // mapId → rooms[]
+
+// 全量加载所有房间，构建 roomId→mapId 查找表，同时按地图分组缓存
+async function loadAllRoomsLookup() {
+  try {
+    const { data } = await axios.get('/gm/config/rooms')
+    const rooms = data.data || []
+    const lookup = {}
+    const byMap = {}
+    for (const r of rooms) {
+      lookup[r.id] = { mapId: r.mapId, room: r }
+      if (!byMap[r.mapId]) byMap[r.mapId] = []
+      byMap[r.mapId].push(r)
+    }
+    allRoomsLookup.value = lookup
+    exitRoomCache.value = byMap
+  } catch(e) {}
+}
+
+// 加载指定地图的房间。onlyCache=true 时仅更新缓存不覆盖当前 mapRooms 显示
+async function loadRoomsForMap(mapId, { onlyCache = false } = {}) {
+  try {
+    const { data } = await axios.get('/gm/config/rooms', { params: { mapId } })
+    const rooms = data.data || []
+    exitRoomCache.value[mapId] = rooms
+    if (!onlyCache) mapRooms.value = rooms
+    for (const r of rooms) {
+      allRoomsLookup.value[r.id] = { mapId: r.mapId, room: r }
+      allRoomNames.value[r.id] = r.name
+    }
+  } catch(e) {}
+}
+
+// 统一的后刷新：清缓存 + 重载数据 + 同步 selectedMap
+async function refreshAfterRoomCRUD() {
+  exitRoomCache.value = {}
+  allRoomsLookup.value = {}
+  await loadRoomsForMap(selectedMap.value.id)
+  await loadMaps()
+  const updatedMap = maps.value.find(m => m.id === selectedMap.value.id)
+  if (updatedMap) selectedMap.value = JSON.parse(JSON.stringify(updatedMap))
+}
+
+// 创建房间 — 不需要加载数据
 function createRoom() {
   editingRoom.value = { id: '', name: '', description: '', mapId: selectedMap.value.id, exits: [], npcs: [], monsters: [], features: [] }
   isNewRoom.value = true
   showRoomEditor.value = true
 }
-function editRoom(room) {
+
+// 编辑房间 — 始终从服务器拉最新数据，并自动解析退出方向
+async function editRoom(room) {
   editingRoom.value = JSON.parse(JSON.stringify(room))
-  // 为每个exit补充targetMap信息（根据roomId推断）
-  for (const exit of (editingRoom.value.exits || [])) {
-    const allMapRooms = allNpcs.value.length ? [] : [] // will be resolved via rooms
-    exit._resolved = false
-  }
   isNewRoom.value = false
   showRoomEditor.value = true
+
+  // 全量加载房间查找表
+  await loadAllRoomsLookup()
+
+  // 自动为每个 exit 补全 targetMapId 和 targetMap
+  for (const exit of (editingRoom.value.exits || [])) {
+    if (exit.roomId) {
+      const info = allRoomsLookup.value[exit.roomId]
+      if (info) {
+        exit.targetMapId = info.mapId
+        exit.targetMap = maps.value.find(m => m.id === info.mapId)
+        // ensure the target map's rooms are cached
+        if (!exitRoomCache.value[info.mapId]) {
+          exitRoomCache.value[info.mapId] = []
+        }
+      }
+    }
+  }
 }
-function editSelectedRoom() {
+
+// 下拉选择房间后点击「编辑」
+async function editSelectedRoom() {
+  await loadRoomsForMap(selectedMap.value.id)
   const room = mapRooms.value.find(r => r.id === selectedRoomId.value)
-  if (room) editRoom(room)
+  if (room) await editRoom(room)
 }
+
 function onRoomSelect() {}
+
+// ============ 全貌视图 ============
+const overviewExpanded = ref({})
+
+async function switchToOverview() {
+  mapViewMode.value = 'overview'
+  // Ensure we have all rooms loaded
+  if (!Object.keys(allRoomsLookup.value).length) await loadAllRoomsLookup()
+  // Expand the first map by default
+  if (maps.value.length && !Object.values(overviewExpanded.value).some(v => v)) {
+    overviewExpanded.value[maps.value[0].id] = true
+  }
+}
+
+function toggleOverviewMap(mapId) {
+  overviewExpanded.value[mapId] = !overviewExpanded.value[mapId]
+}
+
+function getOverviewRooms(mapId) {
+  // Use exitRoomCache if available, otherwise try allRoomsLookup
+  if (exitRoomCache.value[mapId]) return exitRoomCache.value[mapId]
+  return Object.values(allRoomsLookup.value)
+    .filter(info => info.mapId === mapId)
+    .map(info => info.room)
+}
+
+async function editRoomFromOverview(room) {
+  // Switch back to cards view and open the editor
+  mapViewMode.value = 'cards'
+  // Find the map that owns this room and select it
+  const mapId = room.mapId || allRoomsLookup.value[room.id]?.mapId
+  if (mapId) {
+    const map = maps.value.find(m => m.id === mapId)
+    if (map) await selectMap(map)
+  }
+  await editRoom(room)
+}
+
 async function deleteRoom(roomId) {
   if (!confirm(`删除房间 ${roomId}？此操作不可撤销。`)) return
   try {
     await axios.delete(`/gm/config/rooms/${roomId}`)
-    await loadRoomsForMap(selectedMap.value.id)
-    await loadMaps()
+    await refreshAfterRoomCRUD()
   } catch(e) { alert('删除失败: ' + (e.response?.data?.message || e.message)) }
 }
 
-// 方向操作
+// ============ 方向操作 ============
 function addExit() {
   if (!editingRoom.value.exits) editingRoom.value.exits = []
   editingRoom.value.exits.push({ direction: 'north', roomId: '', targetMapId: '' })
@@ -578,52 +740,20 @@ function addExit() {
 function removeExit(i) { editingRoom.value.exits.splice(i, 1) }
 function onExitMapChange(i) {
   const exit = editingRoom.value.exits[i]
-  // Store targetMap ref for room options
   exit.targetMap = maps.value.find(m => m.id === exit.targetMapId)
-  exit.roomId = '' // reset room selection
+  exit.roomId = ''
+  // 仅加载到缓存，不覆盖当前地图的 mapRooms 显示
+  if (exit.targetMapId && !exitRoomCache.value[exit.targetMapId]) {
+    loadRoomsForMap(exit.targetMapId, { onlyCache: true })
+  }
 }
 function exitRoomOptions(i) {
   const exit = editingRoom.value.exits[i]
   if (!exit.targetMapId) return []
-  const targetMap = maps.value.find(m => m.id === exit.targetMapId)
-  if (!targetMap) return []
-  // Find rooms belonging to this map
-  const allRooms = allNpcs.value.length ? [] : [] // placeholder - rooms are loaded per-map
-  // Actually we need ALL rooms for cross-map exits. Load them on demand.
   return exitRoomCache.value[exit.targetMapId] || []
 }
-const exitRoomCache = ref({})
-async function loadExitRoomOptions(mapId) {
-  if (exitRoomCache.value[mapId]) return
-  try {
-    const { data } = await axios.get('/gm/config/rooms', { params: { mapId } })
-    exitRoomCache.value[mapId] = data.data
-  } catch(e) {}
-}
-// Preload exit room options when editing
-watch(showRoomEditor, async (val) => {
-  if (val && editingRoom.value.exits?.length) {
-    for (const exit of editingRoom.value.exits) {
-      if (exit.targetMapId) await loadExitRoomOptions(exit.targetMapId)
-    }
-    // For exits without targetMapId, try to infer from roomId
-    if (allNpcs.value.length === 0) await loadAllNpcs()
-    for (const exit of editingRoom.value.exits) {
-      if (!exit.targetMapId && exit.roomId) {
-        // Try to find which map this room belongs to
-        try {
-          const { data } = await axios.get('/gm/config/rooms')
-          const targetRoom = data.data.find(r => r.id === exit.roomId)
-          if (targetRoom) {
-            exit.targetMapId = targetRoom.mapId
-            exit.targetMap = maps.value.find(m => m.id === targetRoom.mapId)
-            await loadExitRoomOptions(targetRoom.mapId)
-          }
-        } catch(e) {}
-      }
-    }
-  }
-})
+
+// ============ 保存房间 ============
 async function saveRoom() {
   const r = editingRoom.value
   if (!r.id || !r.name) return alert('房间ID和名称不能为空')
@@ -637,8 +767,7 @@ async function saveRoom() {
       await axios.put(`/gm/config/rooms/${r.id}`, r)
     }
     showRoomEditor.value = false
-    await loadRoomsForMap(selectedMap.value.id)
-    await loadMaps()
+    await refreshAfterRoomCRUD()
   } catch(e) { alert('保存失败: ' + (e.response?.data?.message || e.message)) }
 }
 
@@ -775,4 +904,14 @@ onMounted(() => { loadDashboard(); loadPlayers(); loadAnnouncements() })
 .btn-secondary { background: #555; }
 button { background: #0f3460; color: #eee; border: 1px solid #1a4a7a; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-size: 12px; }
 button:hover { background: #1a4a7a; }
+
+/* 全貌视图 */
+.map-overview { display:flex; flex-direction:column; gap:12px; }
+.overview-map-block { background:#16213e; border-radius:8px; overflow:hidden; border:1px solid #1a1a40; }
+.overview-map-header { display:flex; gap:15px; align-items:center; padding:12px 16px; cursor:pointer; user-select:none; transition:background 0.2s; }
+.overview-map-header:hover { background:#1a3a5a; }
+.overview-rooms { padding:0 16px 12px; }
+.overview-rooms table { background:#0f3460; border-radius:5px; overflow:hidden; }
+.overview-rooms tr:hover { background:#1a4a7a; }
+.overview-rooms th { color:#e94560; }
 </style>
