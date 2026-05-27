@@ -872,7 +872,12 @@
     "name": "洛阳城中心广场",
     "description": "洛阳城的中心广场",
     "mapId": "Luoyang_city",
-    "exits": [],
+    "exits": [
+      {
+        "direction": "south",
+        "roomId": "Luoyang_city_south_street"
+      }
+    ],
     "npcs": [],
     "monsters": [],
     "features": []
@@ -882,7 +887,16 @@
     "name": "洛阳城中心南街",
     "description": "",
     "mapId": "Luoyang_city",
-    "exits": [],
+    "exits": [
+      {
+        "direction": "north",
+        "roomId": "Luoyang_city_center"
+      },
+      {
+        "direction": "south",
+        "roomId": "Luoyang_city_south_gate"
+      }
+    ],
     "npcs": [],
     "monsters": [],
     "features": []

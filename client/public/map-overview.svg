@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2700 1592" width="2700" height="1592">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2490 1280" width="2490" height="1280">
 <defs>
   <marker id="arrow-green" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
     <polygon points="0 0, 8 3, 0 6" fill="#4fc3f7"/></marker>
   <marker id="arrow-orange" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
     <polygon points="0 0, 8 3, 0 6" fill="#ff9800"/></marker>
 </defs>
-<rect width="2700" height="1592" fill="#0a0a1a"/>
+<rect width="2490" height="1280" fill="#0a0a1a"/>
 <text x="30" y="35" font-size="22" font-weight="bold" fill="#e94560" font-family="monospace">侠客行 MUD — 地图总览</text>
-<text x="30" y="55" font-size="12" fill="#888" font-family="monospace">MAP: 4 | ROOM: 47 | 连线: 70 | 跨地图: 10 | 孤立: 1</text>
+<text x="30" y="55" font-size="12" fill="#888" font-family="monospace">MAP: 4 | ROOM: 47 | 连线: 73 | 跨地图: 10 | 孤立: 0</text>
 <path d="M1515,156 Q840,116 165,248" fill="none" stroke="#ff9800" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrow-orange)" opacity="0.7"/>
 <path d="M165,1012 Q270,116 375,156" fill="none" stroke="#ff9800" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrow-orange)" opacity="0.7"/>
 <path d="M1005,920 Q1470,116 1935,156" fill="none" stroke="#ff9800" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrow-orange)" opacity="0.7"/>
-<path d="M1005,920 Q1725,116 2445,156" fill="none" stroke="#ff9800" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrow-orange)" opacity="0.7"/>
-<path d="M2445,156 Q1725,116 1005,920" fill="none" stroke="#ff9800" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrow-orange)" opacity="0.7"/>
+<path d="M1005,920 Q1620,392 2235,432" fill="none" stroke="#ff9800" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrow-orange)" opacity="0.7"/>
+<path d="M2235,432 Q1620,392 1005,920" fill="none" stroke="#ff9800" stroke-width="1.5" stroke-dasharray="6,3" marker-end="url(#arrow-orange)" opacity="0.7"/>
 <rect x="60" y="60" width="1290" height="428" rx="8" fill="#1a3a2a" stroke="#ffd700" stroke-width="3"/>
 <text x="75" y="88" font-size="15" font-weight="bold" fill="#ffd700" font-family="monospace">稻香村</text>
 <text x="75" y="104" font-size="10" fill="#888" font-family="monospace">Lv 1-10 | 11 房间 | 稻香村广场</text>
@@ -210,38 +210,43 @@
 <text x="1433" y="516" font-size="12" fill="#eee" font-family="monospace" font-weight="bold">药师草庐</text>
 <text x="1433" y="532" font-size="9" fill="#888" font-family="monospace">Cloud_forest_medic_home</text>
 <text x="1595" y="532" font-size="9" fill="#4fc3f7" font-family="monospace" text-anchor="end">1↗</text>
-<rect x="2130" y="60" width="450" height="428" rx="8" fill="#2a1a3a" stroke="#4fc3f7" stroke-width="1.5"/>
+<rect x="2130" y="60" width="240" height="520" rx="8" fill="#2a1a3a" stroke="#4fc3f7" stroke-width="1.5"/>
 <text x="2145" y="88" font-size="15" font-weight="bold" fill="#ffd700" font-family="monospace">洛阳城</text>
 <text x="2145" y="104" font-size="10" fill="#888" font-family="monospace">Lv 10-50 | 10 房间 | 洛阳城中心广场</text>
-<line x1="2445" y1="156" x2="2235" y2="248" stroke="#4fc3f7" stroke-width="1" marker-end="url(#arrow-green)" opacity="0.6"/>
+<line x1="2235" y1="432" x2="2235" y2="340" stroke="#4fc3f7" stroke-width="1" marker-end="url(#arrow-green)" opacity="0.6"/>
+<line x1="2235" y1="156" x2="2235" y2="248" stroke="#4fc3f7" stroke-width="1" marker-end="url(#arrow-green)" opacity="0.6"/>
+<line x1="2235" y1="248" x2="2235" y2="156" stroke="#4fc3f7" stroke-width="1" marker-end="url(#arrow-green)" opacity="0.6"/>
 <line x1="2235" y1="248" x2="2235" y2="340" stroke="#4fc3f7" stroke-width="1" marker-end="url(#arrow-green)" opacity="0.6"/>
-<line x1="2235" y1="248" x2="2445" y2="156" stroke="#4fc3f7" stroke-width="1" marker-end="url(#arrow-green)" opacity="0.6"/>
+<line x1="2235" y1="340" x2="2235" y2="248" stroke="#4fc3f7" stroke-width="1" marker-end="url(#arrow-green)" opacity="0.6"/>
+<line x1="2235" y1="340" x2="2235" y2="432" stroke="#4fc3f7" stroke-width="1" marker-end="url(#arrow-green)" opacity="0.6"/>
 <rect x="2145" y="130" width="180" height="52" rx="4"
       fill="#0f3460" stroke="#ffd700"
       stroke-width="2.5"/>
 <text x="2153" y="148" font-size="12" fill="#eee" font-family="monospace" font-weight="bold">洛阳城中心广场</text>
 <text x="2153" y="164" font-size="9" fill="#888" font-family="monospace">Luoyang_city_center</text>
+<text x="2315" y="164" font-size="9" fill="#4fc3f7" font-family="monospace" text-anchor="end">1↗</text>
 <rect x="2289" y="134" width="30" height="14" rx="3" fill="#ffd700" opacity="0.8"/>
 <text x="2304" y="145" font-size="8" fill="#0a0a1a" font-family="monospace" text-anchor="middle">入口</text>
-<rect x="2355" y="130" width="180" height="52" rx="4"
-      fill="#0f3460" stroke="#ff9800"
-      stroke-width="1"/>
-<text x="2363" y="148" font-size="12" fill="#eee" font-family="monospace" font-weight="bold">洛阳城南郊</text>
-<text x="2363" y="164" font-size="9" fill="#888" font-family="monospace">Luoyang_city_south_side</text>
-<text x="2525" y="164" font-size="9" fill="#4fc3f7" font-family="monospace" text-anchor="end">2↗</text>
-<rect x="2499" y="134" width="30" height="14" rx="3" fill="#ff9800" opacity="0.6"/>
-<text x="2514" y="145" font-size="7" fill="#fff" font-family="monospace" text-anchor="middle">跨图</text>
 <rect x="2145" y="222" width="180" height="52" rx="4"
       fill="#0f3460" stroke="#1a4a7a"
       stroke-width="1"/>
-<text x="2153" y="240" font-size="12" fill="#eee" font-family="monospace" font-weight="bold">洛阳城南门</text>
-<text x="2153" y="256" font-size="9" fill="#888" font-family="monospace">Luoyang_city_south_gate</text>
+<text x="2153" y="240" font-size="12" fill="#eee" font-family="monospace" font-weight="bold">洛阳城中心南街</text>
+<text x="2153" y="256" font-size="9" fill="#888" font-family="monospace">Luoyang_city_south_street</text>
 <text x="2315" y="256" font-size="9" fill="#4fc3f7" font-family="monospace" text-anchor="end">2↗</text>
 <rect x="2145" y="314" width="180" height="52" rx="4"
       fill="#0f3460" stroke="#1a4a7a"
       stroke-width="1"/>
-<text x="2153" y="332" font-size="12" fill="#eee" font-family="monospace" font-weight="bold">洛阳城中心南街</text>
-<text x="2153" y="348" font-size="9" fill="#888" font-family="monospace">Luoyang_city_south_street</text>
+<text x="2153" y="332" font-size="12" fill="#eee" font-family="monospace" font-weight="bold">洛阳城南门</text>
+<text x="2153" y="348" font-size="9" fill="#888" font-family="monospace">Luoyang_city_south_gate</text>
+<text x="2315" y="348" font-size="9" fill="#4fc3f7" font-family="monospace" text-anchor="end">2↗</text>
+<rect x="2145" y="406" width="180" height="52" rx="4"
+      fill="#0f3460" stroke="#ff9800"
+      stroke-width="1"/>
+<text x="2153" y="424" font-size="12" fill="#eee" font-family="monospace" font-weight="bold">洛阳城南郊</text>
+<text x="2153" y="440" font-size="9" fill="#888" font-family="monospace">Luoyang_city_south_side</text>
+<text x="2315" y="440" font-size="9" fill="#4fc3f7" font-family="monospace" text-anchor="end">2↗</text>
+<rect x="2289" y="410" width="30" height="14" rx="3" fill="#ff9800" opacity="0.6"/>
+<text x="2304" y="421" font-size="7" fill="#fff" font-family="monospace" text-anchor="middle">跨图</text>
 <rect x="60" y="732" width="1290" height="428" rx="8" fill="#1a1a3a" stroke="#4fc3f7" stroke-width="1.5"/>
 <text x="75" y="760" font-size="15" font-weight="bold" fill="#ffd700" font-family="monospace">青云山</text>
 <text x="75" y="776" font-size="10" fill="#888" font-family="monospace">Lv 15-30 | 15 房间 | 青云山山顶</text>
@@ -338,10 +343,4 @@
 <text x="245" y="1020" font-size="9" fill="#4fc3f7" font-family="monospace" text-anchor="end">1↗</text>
 <rect x="219" y="990" width="30" height="14" rx="3" fill="#ff9800" opacity="0.6"/>
 <text x="234" y="1001" font-size="7" fill="#fff" font-family="monospace" text-anchor="middle">跨图</text>
-<rect x="60" y="1280" width="240" height="192" rx="8" fill="#1a1a1a" stroke="#666" stroke-width="1.5" stroke-dasharray="5,3"/>
-<text x="75" y="1308" font-size="14" fill="#999" font-family="monospace">孤立房间 (1)</text>
-<rect x="90" y="1320" width="180" height="52" rx="4" fill="#1a1a2a" stroke="#444" stroke-width="1"/>
-<text x="98" y="1338" font-size="11" fill="#777" font-family="monospace">洛阳城中心广场</text>
-<text x="98" y="1354" font-size="9" fill="#555" font-family="monospace">Luoyang_city_center</text>
-<text x="260" y="1354" font-size="8" fill="#555" font-family="monospace" text-anchor="end">⚡孤立</text>
 </svg>
