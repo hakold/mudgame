@@ -5,6 +5,7 @@
     "type": "main",
     "description": "与村长对话，了解村庄情况",
     "roomId": "village_center",
+    "npcId": "npc_village_chief",
     "completionMode": "npc",
     "handInNpcId": "npc_village_chief",
     "objectives": [
@@ -18,12 +19,7 @@
       "gold": 50
     },
     "nextQuest": "quest_buy_weapon",
-    "hint": "去村庄广场找村长对话，他会指引你踏上江湖之路。",
-    "dialogue": {
-      "available": "最近村外的森林里野兽增多，你能帮忙清理一下吗？",
-      "accepted": "太好了！去森林入口看看吧。",
-      "completed": "辛苦了！这是给你的报酬。"
-    }
+    "hint": "去村庄广场找村长对话，他会指引你踏上江湖之路。"
   },
   {
     "id": "quest_buy_weapon",
@@ -46,8 +42,7 @@
       "gold": 100
     },
     "nextQuest": "quest_kill_boars",
-    "hint": "去铁匠铺(村庄广场向西)买把武器。",
-    "dialogue": {}
+    "hint": "去铁匠铺(村庄广场向西)买把武器。"
   },
   {
     "id": "quest_kill_boars",
@@ -74,12 +69,7 @@
       ]
     },
     "nextQuest": "quest_join_faction",
-    "hint": "去森林入口(村庄广场向外)猎杀3只野猪。",
-    "dialogue": {
-      "available": "最近村外的森林里野兽增多，你能帮忙清理一下吗？",
-      "accepted": "太好了！去森林入口看看吧。",
-      "completed": "辛苦了！这是给你的报酬。"
-    }
+    "hint": "去森林入口(村庄广场向外)猎杀3只野猪。"
   },
   {
     "id": "quest_join_faction",
@@ -99,8 +89,7 @@
       "gold": 200
     },
     "nextQuest": "quest_learn_skill",
-    "hint": "去山顶的青云观找门派弟子，加入一个门派。",
-    "dialogue": {}
+    "hint": "去山顶的青云观找门派弟子，加入一个门派。"
   },
   {
     "id": "quest_learn_skill",
@@ -120,8 +109,7 @@
       "gold": 100
     },
     "nextQuest": "quest_explore_forest",
-    "hint": "加入门派后，找门派导师学习技能。",
-    "dialogue": {}
+    "hint": "加入门派后，找门派导师学习技能。"
   },
   {
     "id": "quest_explore_forest",
@@ -142,12 +130,7 @@
       "gold": 300
     },
     "nextQuest": "quest_kill_wolf_king",
-    "hint": "深入探索森林：林间空地、神秘洞穴和密林深处都要走遍。",
-    "dialogue": {
-      "available": "最近村外的森林里野兽增多，你能帮忙清理一下吗？",
-      "accepted": "太好了！去森林入口看看吧。",
-      "completed": "辛苦了！这是给你的报酬。"
-    }
+    "hint": "深入探索森林：林间空地、神秘洞穴和密林深处都要走遍。"
   },
   {
     "id": "quest_kill_wolf_king",
@@ -172,12 +155,7 @@
       ]
     },
     "nextQuest": "quest_enter_city",
-    "hint": "去林间空地击败狼王(10级BOSS)。",
-    "dialogue": {
-      "available": "最近村外的森林里野兽增多，你能帮忙清理一下吗？",
-      "accepted": "太好了！去森林入口看看吧。",
-      "completed": "辛苦了！这是给你的报酬。"
-    }
+    "hint": "去林间空地击败狼王(10级BOSS)。"
   },
   {
     "id": "quest_enter_city",
@@ -198,12 +176,7 @@
       "gold": 400
     },
     "nextQuest": "quest_city_guild",
-    "hint": "穿过山道前往洛阳城，开启新的冒险。",
-    "dialogue": {
-      "available": "最近村外的森林里野兽增多，你能帮忙清理一下吗？",
-      "accepted": "太好了！去森林入口看看吧。",
-      "completed": "辛苦了！这是给你的报酬。"
-    }
+    "hint": "穿过山道前往洛阳城，开启新的冒险。"
   },
   {
     "id": "quest_city_guild",
@@ -224,11 +197,7 @@
       "gold": 200
     },
     "nextQuest": "quest_bandit_bounty",
-    "hint": "去洛阳城的侠客公会(广场向西)接取新的任务。",
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
-    }
+    "hint": "去洛阳城的侠客公会(广场向西)接取新的任务。"
   },
   {
     "id": "quest_bandit_bounty",
@@ -253,12 +222,7 @@
       ]
     },
     "nextQuest": "quest_mountain_temple",
-    "hint": "去山道(洛阳城南)讨伐山贼。",
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。",
-      "available": "替我打败附近的邪恶势力，让这片土地恢复安宁。"
-    }
+    "hint": "去山道(洛阳城南)讨伐山贼。"
   },
   {
     "id": "quest_mountain_temple",
@@ -283,12 +247,7 @@
       "gold": 1000
     },
     "nextQuest": "quest_desert_explore",
-    "hint": "去山顶的青云观一探究竟。",
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。",
-      "available": "我的宝剑被魔教弟子偷走了，帮我找回来！"
-    }
+    "hint": "去山顶的青云观一探究竟。"
   },
   {
     "id": "quest_desert_explore",
@@ -313,12 +272,7 @@
       "gold": 600
     },
     "nextQuest": "quest_tomb_secret",
-    "hint": "穿过洛阳城前往大沙漠探险。",
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。",
-      "available": "北边就是大沙漠，去探索那里的古城遗址吧。"
-    }
+    "hint": "穿过洛阳城前往大沙漠探险。"
   },
   {
     "id": "quest_tomb_secret",
@@ -347,12 +301,7 @@
       ]
     },
     "nextQuest": "quest_poison_jiao",
-    "hint": "在沙漠古城遗址找到地下陵墓的秘密。",
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。",
-      "available": "金字塔内藏有远古的秘密，你能去探索一下吗？"
-    }
+    "hint": "在沙漠古城遗址找到地下陵墓的秘密。"
   },
   {
     "id": "quest_poison_jiao",
@@ -378,12 +327,7 @@
       ]
     },
     "nextQuest": "quest_fire_jiao",
-    "hint": "前往沼泽深处的毒蛟巢穴，击败毒蛟。",
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。",
-      "available": "毒蛟霸占了北边的巢穴，你能除掉它吗？"
-    }
+    "hint": "前往沼泽深处的毒蛟巢穴，击败毒蛟。"
   },
   {
     "id": "quest_fire_jiao",
@@ -409,11 +353,7 @@
       ]
     },
     "nextQuest": "quest_demon_lord",
-    "hint": "前往火山口的火蛟巢穴，击败火蛟。",
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
-    }
+    "hint": "前往火山口的火蛟巢穴，击败火蛟。"
   },
   {
     "id": "quest_demon_lord",
@@ -438,13 +378,7 @@
         "weapon_fire_jiao_sword"
       ]
     },
-    "hint": "进入魔域，打败魔王拯救天下。",
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。",
-      "available": "若你能除掉魔王，我愿意给你丰厚的报酬。",
-      "completed": "了不起！魔王竟然真的被消灭了！"
-    }
+    "hint": "进入魔域，打败魔王拯救天下。"
   },
   {
     "id": "quest_daily_kill_monsters",
@@ -520,10 +454,6 @@
       "items": [
         "item_hp_potion_medium"
       ]
-    },
-    "dialogue": {
-      "available": "能帮我采一些草药吗？",
-      "completed": "太好了，这些药材品质上乘。"
     }
   },
   {
@@ -544,12 +474,6 @@
       "items": [
         "weapon_bandit_sword"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。",
-      "available": "朝廷现在有些麻烦需要江湖侠士相助。",
-      "completed": "有劳侠士了，这是朝廷的赏赐。"
     }
   },
   {
@@ -570,9 +494,6 @@
       "items": [
         "item_wolf_pelt"
       ]
-    },
-    "dialogue": {
-      "available": "最近湖心岛附近有野兽出没，伤了我们的渔民，你能帮忙吗？"
     }
   },
   {
@@ -597,12 +518,6 @@
       "items": [
         "item_ice_core"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。",
-      "available": "雪域最近不太平静，冰洞中似有异动……",
-      "completed": "多谢你帮我们解决了麻烦。"
     }
   },
   {
@@ -626,12 +541,6 @@
       "items": [
         "item_immortal_pearl"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。",
-      "available": "朝廷现在有些麻烦需要江湖侠士相助。",
-      "completed": "有劳侠士了，这是朝廷的赏赐。"
     }
   },
   {
@@ -663,10 +572,6 @@
       "items": [
         "item_obsidian"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -698,10 +603,6 @@
       "items": [
         "item_eagle_feather"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -733,10 +634,6 @@
       "items": [
         "item_coral_gem"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -764,10 +661,6 @@
       "items": [
         "item_spirit_stone"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -795,11 +688,6 @@
       "items": [
         "item_ancient_coin"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。",
-      "available": "替我打败附近的邪恶势力，让这片土地恢复安宁。"
     }
   },
   {
@@ -820,10 +708,6 @@
     "rewards": {
       "exp": 300,
       "gold": 100
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -850,10 +734,6 @@
       "items": [
         "item_mushroom"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -882,10 +762,6 @@
     "rewards": {
       "exp": 700,
       "gold": 400
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -915,10 +791,6 @@
     "rewards": {
       "exp": 700,
       "gold": 350
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -955,10 +827,6 @@
       "items": [
         "item_cursed_gem"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -995,10 +863,6 @@
       "items": [
         "weapon_bandit_sword"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1023,10 +887,6 @@
     "rewards": {
       "exp": 600,
       "gold": 300
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1059,10 +919,6 @@
       "items": [
         "item_ginseng"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1091,10 +947,6 @@
     "rewards": {
       "exp": 1000,
       "gold": 500
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1127,10 +979,6 @@
     "rewards": {
       "exp": 700,
       "gold": 350
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1167,10 +1015,6 @@
       "items": [
         "item_jiao_bone"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1198,10 +1042,6 @@
       "items": [
         "item_phoenix_feather"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1230,10 +1070,6 @@
     "rewards": {
       "exp": 3500,
       "gold": 2500
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1270,10 +1106,6 @@
       "items": [
         "item_meteorite"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1310,10 +1142,6 @@
       "items": [
         "item_fire_essence"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1341,10 +1169,6 @@
     "rewards": {
       "exp": 800,
       "gold": 400
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1376,10 +1200,6 @@
       "items": [
         "item_meteorite"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1408,10 +1228,6 @@
         "item_meteorite",
         "item_mystic_crystal"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1444,10 +1260,6 @@
     "rewards": {
       "exp": 5000,
       "gold": 3000
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1479,10 +1291,6 @@
       "items": [
         "item_pearl"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1519,10 +1327,6 @@
       "items": [
         "item_jiao_dan"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1555,10 +1359,6 @@
         "item_magma_core",
         "item_mystic_crystal"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1587,10 +1387,6 @@
     "rewards": {
       "exp": 2500,
       "gold": 1500
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1615,10 +1411,6 @@
     "rewards": {
       "exp": 3500,
       "gold": 2000
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1646,10 +1438,6 @@
       "items": [
         "item_sky_pearl"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1673,10 +1461,6 @@
       "items": [
         "item_scorpion_venom"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1704,10 +1488,6 @@
       "items": [
         "item_ancient_coin"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1735,10 +1515,6 @@
       "items": [
         "item_immortal_pearl"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1766,10 +1542,6 @@
       "items": [
         "item_coral_gem"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1797,10 +1569,6 @@
       "items": [
         "item_cursed_gem"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1837,10 +1605,6 @@
       "items": [
         "item_jade_piece"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1865,10 +1629,6 @@
     "rewards": {
       "exp": 1200,
       "gold": 600
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1896,10 +1656,6 @@
       "items": [
         "item_ginseng"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1927,10 +1683,6 @@
       "items": [
         "item_spirit_stone"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1958,10 +1710,6 @@
       "items": [
         "item_void_essence"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -1989,10 +1737,6 @@
       "items": [
         "item_sand_crystal"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -2020,10 +1764,6 @@
       "items": [
         "item_thunder_crystal"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -2051,11 +1791,6 @@
       "items": [
         "item_alien_skin"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。",
-      "available": "孤岛上的巨鳄越来越多了……"
     }
   },
   {
@@ -2083,10 +1818,6 @@
       "items": [
         "item_ancient_coin"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -2117,10 +1848,6 @@
     "rewards": {
       "exp": 1500,
       "gold": 800
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -2148,10 +1875,6 @@
       "items": [
         "item_lava_rock"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -2176,10 +1899,6 @@
     "rewards": {
       "exp": 2200,
       "gold": 1200
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -2207,10 +1926,6 @@
       "items": [
         "item_jade_piece"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -2239,10 +1954,6 @@
         "item_phoenix_feather",
         "item_ice_core"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -2270,10 +1981,6 @@
       "items": [
         "item_thunder_crystal"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -2301,10 +2008,6 @@
       "items": [
         "item_mystic_crystal"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   },
   {
@@ -2332,10 +2035,6 @@
       "items": [
         "item_frozen_heart"
       ]
-    },
-    "dialogue": {
-      "accepted": "任务已接取，完成后回来领取奖励。",
-      "list": "这里有一些任务可以接取。"
     }
   }
 ]

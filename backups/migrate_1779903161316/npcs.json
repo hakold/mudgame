@@ -10,7 +10,10 @@
         "又见面了，少侠。村子虽然小，但总有些事情需要人手帮忙。",
         "你来了。最近村外的野兽越发猖獗，村民们都很不安。",
         "欢迎你，侠客。希望你能为村子做些什么。"
-      ]
+      ],
+      "quest_available": "最近村外的森林里野兽增多，你能帮忙清理一下吗？",
+      "quest_accepted": "太好了！去森林入口看看吧。",
+      "quest_completed": "辛苦了！这是给你的报酬。"
     },
     "quests": [
       "quest_talk_chief",
@@ -256,7 +259,9 @@
     "dialogues": {
       "greeting": [
         "欢迎来到侠客公会，有什么任务要接？"
-      ]
+      ],
+      "quest_list": "这里有一些任务可以接取。",
+      "quest_accepted": "任务已接取，完成后回来领取奖励。"
     },
     "roomIds": [
       "city_guild"
@@ -614,7 +619,9 @@
     "dialogues": {
       "greeting": [
         "远道而来的客人，雪村欢迎你。"
-      ]
+      ],
+      "quest_available": "雪域最近不太平静，冰洞中似有异动……",
+      "quest_completed": "多谢你帮我们解决了麻烦。"
     },
     "roomIds": [
       "snow_village"
@@ -632,7 +639,9 @@
     "dialogues": {
       "greeting": [
         "这位侠士，可愿为朝廷效力？"
-      ]
+      ],
+      "quest_available": "朝廷现在有些麻烦需要江湖侠士相助。",
+      "quest_completed": "有劳侠士了，这是朝廷的赏赐。"
     },
     "roomIds": [
       "palace_hall"
@@ -652,7 +661,9 @@
     "dialogues": {
       "greeting": [
         "这里很危险，你确定要进去？"
-      ]
+      ],
+      "quest_available": "若你能除掉魔王，我愿意给你丰厚的报酬。",
+      "quest_completed": "了不起！魔王竟然真的被消灭了！"
     },
     "roomIds": [
       "demon_portal"
@@ -750,7 +761,9 @@
     "dialogues": {
       "greeting": [
         "这山里的草药可不少，就是野兽多了点。"
-      ]
+      ],
+      "quest_available": "能帮我采一些草药吗？",
+      "quest_completed": "太好了，这些药材品质上乘。"
     },
     "roomIds": [
       "deep_forest"
@@ -1329,7 +1342,8 @@
     "dialogues": {
       "greeting": [
         "这山崖景色绝佳，老夫在此住了三十年。"
-      ]
+      ],
+      "quest_available": "最近山下的草药被人采光了，你能帮我找一些吗？"
     },
     "roomIds": [
       "mountain_cliff"
@@ -1442,7 +1456,8 @@
     "dialogues": {
       "greeting": [
         "这片遗址有两千年历史了……你要听吗？"
-      ]
+      ],
+      "quest_available": "金字塔内藏有远古的秘密，你能去探索一下吗？"
     },
     "roomIds": [
       "desert_ruins"
@@ -1557,7 +1572,8 @@
     "dialogues": {
       "greeting": [
         "是谁擅闯我冰宫？……罢了，来者是客。"
-      ]
+      ],
+      "quest_available": "既然你来了，帮我清除冰洞里的那些冰魔。"
     },
     "roomIds": [
       "snow_palace"
@@ -1590,7 +1606,8 @@
     "dialogues": {
       "greeting": [
         "我在这沼泽住了二十年，终于有人来了。"
-      ]
+      ],
+      "quest_available": "毒蛟霸占了北边的巢穴，你能除掉它吗？"
     },
     "roomIds": [
       "swamp_island"
@@ -1642,7 +1659,8 @@
     "dialogues": {
       "greeting": [
         "我在找传说中的仙人洞府，你也来找仙人的吗？"
-      ]
+      ],
+      "quest_available": "听说仙兽的内丹能让人功力大增，你能帮我弄一颗吗？"
     },
     "roomIds": [
       "island_forest"
@@ -1695,7 +1713,8 @@
     "dialogues": {
       "greeting": [
         "谢天谢地！终于有人来了！我在这里困了三天。"
-      ]
+      ],
+      "quest_available": "你能带我出去吗？这里太可怕了。"
     },
     "roomIds": [
       "underground_hall"
@@ -1903,7 +1922,8 @@
     "dialogues": {
       "greeting": [
         "我已被囚禁千年……只有魔王陨落我才能脱身。"
-      ]
+      ],
+      "quest_available": "杀死魔王，还天地以光明！"
     },
     "roomIds": [
       "demon_throne"
@@ -1934,6 +1954,7 @@
       "greeting": [
         "欢迎来到我们渔村，这里世代以渔为生。"
       ],
+      "quest_available": "最近湖心岛附近有野兽出没，伤了我们的渔民，你能帮忙吗？",
       "rumor": "湖底的洞穴据说连通着地下世界。"
     },
     "roomIds": [
@@ -2007,7 +2028,8 @@
     "dialogues": {
       "greeting": [
         "千年了……终于有人来了。"
-      ]
+      ],
+      "quest_available": "我的宝剑被魔教弟子偷走了，帮我找回来！"
     },
     "roomIds": [
       "crypt"
@@ -2441,7 +2463,8 @@
     "dialogues": {
       "greeting": [
         "我是这一带猎户的头领，最近猎物都被狼群赶走了。"
-      ]
+      ],
+      "quest_available": "帮我们清理掉狼群的威胁，报酬丰厚！"
     },
     "roomIds": [
       "deep_forest"
@@ -2550,7 +2573,8 @@
     "dialogues": {
       "greeting": [
         "我是洛阳城最有钱的人——之一。想赚钱吗？"
-      ]
+      ],
+      "quest_available": "听说仙岛有仙人留下的秘籍，找到它，我出高价！"
     },
     "roomIds": [
       "city_rich"
@@ -2717,7 +2741,8 @@
     "dialogues": {
       "greeting": [
         "我的财宝都在这片海里，想要吗？"
-      ]
+      ],
+      "quest_available": "帮我找到失落在仙岛的海盗王戒指，我就把这里的财宝分你一半。"
     },
     "roomIds": [
       "captain_cabin"
@@ -2752,7 +2777,8 @@
     "dialogues": {
       "greeting": [
         "千年前的那场大战……我至今无法安息。"
-      ]
+      ],
+      "quest_available": "替我打败附近的邪恶势力，让这片土地恢复安宁。"
     },
     "roomIds": [
       "ancient_battlefield"
@@ -3033,7 +3059,8 @@
     "dialogues": {
       "greeting": [
         "外来人……你已经走遍了沼泽的每个角落。"
-      ]
+      ],
+      "quest_available": "毒蛟盘踞北方巢穴，威胁着我们的生存。帮我们除掉它！"
     },
     "roomIds": [
       "swamp_village"
@@ -3071,7 +3098,8 @@
     "dialogues": {
       "greeting": [
         "我是百年前讨伐魔王失败的英雄……帮我完成未竟的使命！"
-      ]
+      ],
+      "quest_available": "杀了魔王，让我安息。作为回报，我告诉你魔族宝库的位置。"
     },
     "roomIds": [
       "demon_prison"
@@ -3111,7 +3139,8 @@
     "dialogues": {
       "greeting": [
         "草原儿女，最重义气！"
-      ]
+      ],
+      "quest_available": "帮我们解决附近的麻烦，草原人会记住你的恩情。"
     },
     "roomIds": [
       "plains_camp"
@@ -3167,7 +3196,8 @@
     "dialogues": {
       "greeting": [
         "这些遗迹至少有两千年了！你能帮我探索一下吗？"
-      ]
+      ],
+      "quest_available": "北边就是大沙漠，去探索那里的古城遗址吧。"
     },
     "roomIds": [
       "plains_ruins"
@@ -5233,7 +5263,8 @@
       "quest_side_swamp_croc"
     ],
     "dialogues": {
-      "greeting": "沼泽养育了我们，但也养育了怪物。"
+      "greeting": "沼泽养育了我们，但也养育了怪物。",
+      "quest_available": "孤岛上的巨鳄越来越多了……"
     },
     "roomIds": [
       "swamp_entrance"

@@ -137,7 +137,7 @@
               <td style="font-size:12px;">{{ q.objectives?.map(o => o.type + ':' + (o.npcId || o.monsterId || '')).join(', ') }}</td>
               <td style="font-size:12px;">exp:{{ q.rewards?.exp }} gold:{{ q.rewards?.gold }}</td>
               <td>
-                <button @click="editingQuest = JSON.parse(JSON.stringify(q)); originalQuestId = q.id; showQuestEditor = true;" style="margin-right:3px;">编辑</button>
+                <button @click="openQuestEditor(q)" style="margin-right:3px;">编辑</button>
                 <button @click="deleteQuestConfig(q.id)">删除</button>
               </td>
             </tr>
@@ -153,6 +153,11 @@
             <div class="form-group"><label>类型</label><input v-model="editingQuest.type" /></div>
             <div class="form-group"><label>目标 (JSON)</label><textarea v-model="editingQuest.objectivesStr" rows="3" placeholder='[{"type":"kill","monsterId":"monster_wild_wolf","count":3}]'></textarea></div>
             <div class="form-group"><label>奖励 (JSON)</label><textarea v-model="editingQuest.rewardsStr" rows="2" placeholder='{"exp":100,"gold":50}'></textarea></div>
+            <h4 style="color:#ffd700;margin-top:12px;">💬 任务对话</h4>
+            <div class="form-group"><label>接取前 (before)</label><textarea v-model="editingQuest.dialogueBefore" rows="2" placeholder="NPC在玩家接取前说的话"></textarea></div>
+            <div class="form-group"><label>接取时 (accept)</label><textarea v-model="editingQuest.dialogueAccept" rows="2" placeholder="玩家接取任务后NPC嘱咐的话"></textarea></div>
+            <div class="form-group"><label>进行中 (progress)</label><textarea v-model="editingQuest.dialogueProgress" rows="2" placeholder="任务进行中再次对话时NPC说的话"></textarea></div>
+            <div class="form-group"><label>完成时 (complete)</label><textarea v-model="editingQuest.dialogueComplete" rows="2" placeholder="玩家交任务时NPC说的话"></textarea></div>
             <button class="btn" @click="saveQuestConfig">保存</button>
             <button class="btn btn-secondary" @click="showQuestEditor = false" style="margin-left:10px;">取消</button>
           </div>
@@ -433,28 +438,42 @@
               <option value="faction_exchange">faction_exchange</option><option value="arena">arena</option>
             </select></div>
 
-            <!-- 出现房间 -->
-            <h4 style="color:#ffd700;margin-top:12px;">🏠 出现房间</h4>
+            <!-- 对话（结构化键值编辑） -->
+            <h4 style="color:#ffd700;margin-top:12px;">💬 对话
+              <button @click="addDialogueKey" style="background:none;border:none;color:#4fc3f7;cursor:pointer;font-size:12px;margin-left:8px;">+ 添加键</button>
+            </h4>
+            <div v-for="(lines, key) in (editingNpc.dialogues || {})" :key="key" style="margin-bottom:10px;border:1px solid #1a1a40;border-radius:5px;padding:8px;background:#0a0a2a;">
+              <div style="display:flex;align-items:center;margin-bottom:4px;">
+                <input v-model="editingNpcDialogueKeys[key]" @input="renameDialogueKey(key)" placeholder="键名" style="width:120px;padding:3px 6px;background:#0f3460;border:1px solid #1a4a7a;color:#ffd700;border-radius:3px;font-size:12px;margin-right:8px;" />
+                <button @click="deleteDialogueKey(key)" style="background:none;border:none;color:#e94560;cursor:pointer;font-size:14px;" title="删除此键">×</button>
+              </div>
+              <div v-for="(line, li) in (Array.isArray(lines) ? lines : [lines])" :key="li" style="display:flex;align-items:flex-start;margin-bottom:3px;">
+                <span style="color:#888;font-size:10px;min-width:20px;padding-top:5px;">#{{ li+1 }}</span>
+                <textarea :value="line" @input="updateDialogueLine(key, li, $event.target.value)" @keydown.enter.prevent="addDialogueLine(key)" rows="1" style="flex:1;padding:4px 8px;background:#0f3460;border:1px solid #1a4a7a;color:#eee;border-radius:3px;font-size:12px;resize:none;overflow:hidden;"></textarea>
+                <button v-if="Array.isArray(lines) && lines.length > 1" @click="removeDialogueLine(key, li)" style="background:none;border:none;color:#e94560;cursor:pointer;padding:0 4px;">×</button>
+              </div>
+              <button v-if="Array.isArray(lines)" @click="addDialogueLine(key)" style="background:none;border:none;color:#4fc3f7;cursor:pointer;font-size:11px;">+ 添加一句</button>
+            </div>
+            <div v-if="!Object.keys(editingNpc.dialogues || {}).length" style="color:#666;font-size:12px;padding:8px;">暂无对话配置</div>
+
+            <!-- 关联任务（所有类型可配） -->
+            <h4 style="color:#ffd700;margin-top:12px;">📜 关联任务</h4>
             <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px;">
-              <span v-for="(rid, i) in (editingNpc.roomIds || [])" :key="rid" class="tag">
-                {{ allRoomNames[rid] || rid }}
-                <button @click="editingNpc.roomIds.splice(i,1)" style="background:none;border:none;color:#e94560;cursor:pointer;padding:0 2px;">×</button>
-              </span>
+              <div v-for="(qid, i) in (editingNpc.quests || [])" :key="qid" class="tag" style="display:flex;align-items:center;gap:4px;padding:4px 8px;background:#1a3a5a;border-radius:5px;">
+                <div>
+                  <div style="font-weight:bold;font-size:12px;">{{ questNames[qid] || qid }}</div>
+                  <div v-if="questInfos[qid]" style="font-size:10px;color:#aaa;">{{ questInfos[qid].type }} · {{ questInfos[qid].description?.slice(0,30) }}</div>
+                </div>
+                <button @click="editingNpc.quests.splice(i,1)" style="background:none;border:none;color:#e94560;cursor:pointer;padding:0 2px;">×</button>
+              </div>
             </div>
             <div style="display:flex;gap:8px;">
-              <select v-model="npcNewRoomId" style="flex:1;padding:6px;background:#0f3460;color:#eee;border:1px solid #1a4a7a;border-radius:5px;">
-                <option value="">-- 选择房间 --</option>
-                <option v-for="(name, rid) in allRoomNames" :key="rid" :value="rid">{{ name }} ({{ rid }})</option>
+              <select v-model="npcNewQuestId" style="flex:1;padding:6px;background:#0f3460;color:#eee;border:1px solid #1a4a7a;border-radius:5px;">
+                <option value="">-- 选择任务 --</option>
+                <option v-for="q in questConfigs" :key="q.id" :value="q.id">{{ q.name }} ({{ q.type }})</option>
               </select>
-              <button @click="addNpcRoom" :disabled="!npcNewRoomId" class="btn" style="width:auto;padding:4px 12px;">添加</button>
+              <button @click="addNpcQuest" :disabled="!npcNewQuestId" class="btn" style="width:auto;padding:4px 12px;">添加</button>
             </div>
-
-            <!-- 对话 -->
-            <h4 style="color:#ffd700;margin-top:12px;">💬 对话 (JSON)</h4>
-            <textarea v-model="editingNpcDialoguesStr" rows="8" style="width:100%;background:#0f3460;color:#eee;border:1px solid #1a4a7a;border-radius:5px;padding:8px;font-size:12px;font-family:monospace;"></textarea>
-            <div v-if="editingNpcDialoguesError" style="color:#e94560;font-size:11px;">JSON 格式错误: {{ editingNpcDialoguesError }}</div>
-
-            <!-- 类型专属字段 -->
             <div v-if="editingNpc.type === 'shop'">
               <h4 style="color:#ffd700;margin-top:12px;">🛒 商店配置</h4>
               <div class="form-group"><label>商店类型</label><input :value="editingNpc.shopType || ''" @input="editingNpc.shopType = $event.target.value" placeholder="weapon/armor/general/..." /></div>
@@ -492,19 +511,6 @@
               <div style="display:flex;gap:8px;">
                 <input v-model="npcNewService" placeholder="服务名称" style="flex:1;padding:6px;background:#0f3460;border:1px solid #1a4a7a;color:#eee;border-radius:5px;" @keyup.enter="addNpcService" />
                 <button @click="addNpcService" class="btn" style="width:auto;padding:4px 12px;">添加</button>
-              </div>
-            </div>
-
-            <div v-if="editingNpc.type === 'quest_giver'">
-              <h4 style="color:#ffd700;margin-top:12px;">📜 关联任务</h4>
-              <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px;">
-                <span v-for="(qid, i) in (editingNpc.quests || [])" :key="qid" class="tag">
-                  {{ qid }} <button @click="editingNpc.quests.splice(i,1)" style="background:none;border:none;color:#e94560;cursor:pointer;padding:0 2px;">×</button>
-                </span>
-              </div>
-              <div style="display:flex;gap:8px;">
-                <input v-model="npcNewQuestId" placeholder="任务ID" style="flex:1;padding:6px;background:#0f3460;border:1px solid #1a4a7a;color:#eee;border-radius:5px;" @keyup.enter="addNpcQuest" />
-                <button @click="addNpcQuest" class="btn" style="width:auto;padding:4px 12px;">添加</button>
               </div>
             </div>
 
@@ -622,11 +628,30 @@ async function loadActionLogs() {
 // 任务配置
 const questConfigs = ref([]), showQuestEditor = ref(false), editingQuest = ref({}), originalQuestId = ref(null)
 async function loadQuestConfigs() { try { questConfigs.value = (await axios.get('/gm/config/quests')).data.data } catch(e) {} }
+function openQuestEditor(q) {
+  editingQuest.value = JSON.parse(JSON.stringify(q))
+  originalQuestId.value = q.id
+  // 展平 dialogue 对象到编辑字段
+  const d = editingQuest.value.dialogue || {}
+  editingQuest.value.dialogueBefore = d.before || ''
+  editingQuest.value.dialogueAccept = d.accept || ''
+  editingQuest.value.dialogueProgress = d.progress || ''
+  editingQuest.value.dialogueComplete = d.complete || ''
+  showQuestEditor.value = true
+}
 async function saveQuestConfig() {
   const q = editingQuest.value
   try {
     if (q.objectivesStr) q.objectives = JSON.parse(q.objectivesStr)
     if (q.rewardsStr) q.rewards = JSON.parse(q.rewardsStr)
+    // 构建 dialogue 对象
+    const dialogue = {}
+    if (q.dialogueBefore) dialogue.before = q.dialogueBefore
+    if (q.dialogueAccept) dialogue.accept = q.dialogueAccept
+    if (q.dialogueProgress) dialogue.progress = q.dialogueProgress
+    if (q.dialogueComplete) dialogue.complete = q.dialogueComplete
+    if (Object.keys(dialogue).length) q.dialogue = dialogue
+    delete q.dialogueBefore; delete q.dialogueAccept; delete q.dialogueProgress; delete q.dialogueComplete
     if (questConfigs.value.find(x => x.id === q.id)) { await axios.put(`/gm/config/quests/${q.id}`, q) }
     else { await axios.post('/gm/config/quests', q) }
     showQuestEditor.value = false; originalQuestId.value = null; loadQuestConfigs()
@@ -950,14 +975,24 @@ const npcFilter = ref({ search: '', type: '' })
 const showNpcEditor = ref(false)
 const editingNpc = ref({})
 const isNewNpc = ref(false)
-const editingNpcDialoguesStr = ref('')
-const editingNpcDialoguesError = ref('')
-const npcNewRoomId = ref('')
+const editingNpcDialogueKeys = ref({}) // key→newKeyName for renaming
 const npcNewItemId = ref('')
 const npcNewSkillId = ref('')
 const npcNewService = ref('')
 const npcNewQuestId = ref('')
 const npcNewTeleport = ref('')
+
+// 任务名称+信息查找表（供 NPC 编辑器关联任务展示）
+const questNames = computed(() => {
+  const m = {}
+  for (const q of questConfigs.value) m[q.id] = q.name
+  return m
+})
+const questInfos = computed(() => {
+  const m = {}
+  for (const q of questConfigs.value) m[q.id] = { type: q.type, description: q.description }
+  return m
+})
 
 const filteredNpcConfigs = computed(() => {
   let list = npcConfigs.value
@@ -971,6 +1006,10 @@ const filteredNpcConfigs = computed(() => {
 
 async function loadNpcConfigs() {
   try { npcConfigs.value = (await axios.get('/gm/config/npcs')).data.data } catch(e) { alert('加载NPC失败: ' + (e.response?.data?.message || e.message)) }
+  // 加载任务列表（供关联任务下拉选择）
+  if (!questConfigs.value.length) {
+    try { questConfigs.value = (await axios.get('/gm/config/quests')).data.data } catch(e) {}
+  }
   // 确保 roomNames 已加载
   if (!Object.keys(allRoomNames.value).length) {
     try { const { data } = await axios.get('/gm/config/rooms'); for (const r of (data.data || [])) allRoomNames.value[r.id] = r.name } catch(e) {}
@@ -981,14 +1020,15 @@ function openNpcEditor(npc) {
   if (npc) {
     editingNpc.value = JSON.parse(JSON.stringify(npc))
     isNewNpc.value = false
-    editingNpcDialoguesStr.value = JSON.stringify(editingNpc.value.dialogues || {}, null, 2)
   } else {
-    editingNpc.value = { id: '', name: '', description: '', type: 'service', roomIds: [], dialogues: {} }
+    editingNpc.value = { id: '', name: '', description: '', type: 'service', roomIds: [], dialogues: { greeting: ['你好，侠客！'] }, quests: [] }
     isNewNpc.value = true
-    editingNpcDialoguesStr.value = '{\n  "greeting": ["你好，侠客！"]\n}'
   }
-  editingNpcDialoguesError.value = ''
-  npcNewRoomId.value = ''
+  // 构建对话键名快照
+  editingNpcDialogueKeys.value = {}
+  for (const k of Object.keys(editingNpc.value.dialogues || {})) {
+    editingNpcDialogueKeys.value[k] = k
+  }
   npcNewItemId.value = ''
   npcNewSkillId.value = ''
   npcNewService.value = ''
@@ -997,12 +1037,44 @@ function openNpcEditor(npc) {
   showNpcEditor.value = true
 }
 
-function addNpcRoom() {
-  if (!npcNewRoomId.value) return
-  if (!editingNpc.value.roomIds) editingNpc.value.roomIds = []
-  if (!editingNpc.value.roomIds.includes(npcNewRoomId.value)) editingNpc.value.roomIds.push(npcNewRoomId.value)
-  npcNewRoomId.value = ''
+// ====== 对话结构化编辑器 ======
+function addDialogueKey() {
+  const key = 'new_key_' + Date.now()
+  if (!editingNpc.value.dialogues) editingNpc.value.dialogues = {}
+  editingNpc.value.dialogues[key] = ['']
+  editingNpcDialogueKeys.value[key] = key
 }
+function deleteDialogueKey(key) {
+  delete editingNpc.value.dialogues[key]
+  delete editingNpcDialogueKeys.value[key]
+}
+function renameDialogueKey(oldKey) {
+  const newKey = editingNpcDialogueKeys.value[oldKey]
+  if (!newKey || newKey === oldKey) return
+  if (editingNpc.value.dialogues[newKey] !== undefined) return // name collision
+  editingNpc.value.dialogues[newKey] = editingNpc.value.dialogues[oldKey]
+  delete editingNpc.value.dialogues[oldKey]
+  editingNpcDialogueKeys.value[newKey] = newKey
+  delete editingNpcDialogueKeys.value[oldKey]
+}
+function addDialogueLine(key) {
+  if (!Array.isArray(editingNpc.value.dialogues[key])) {
+    editingNpc.value.dialogues[key] = [editingNpc.value.dialogues[key] || '']
+  }
+  editingNpc.value.dialogues[key].push('')
+}
+function removeDialogueLine(key, idx) {
+  editingNpc.value.dialogues[key].splice(idx, 1)
+}
+function updateDialogueLine(key, idx, value) {
+  const lines = editingNpc.value.dialogues[key]
+  if (Array.isArray(lines)) {
+    lines[idx] = value
+  } else {
+    editingNpc.value.dialogues[key] = value
+  }
+}
+
 function addNpcItem() { if (!npcNewItemId.value) return; if (!editingNpc.value.items) editingNpc.value.items = []; if (!editingNpc.value.items.includes(npcNewItemId.value)) editingNpc.value.items.push(npcNewItemId.value); npcNewItemId.value = '' }
 function addNpcSkill() { if (!npcNewSkillId.value) return; if (!editingNpc.value.skills) editingNpc.value.skills = []; if (!editingNpc.value.skills.includes(npcNewSkillId.value)) editingNpc.value.skills.push(npcNewSkillId.value); npcNewSkillId.value = '' }
 function addNpcService() { if (!npcNewService.value) return; if (!editingNpc.value.services) editingNpc.value.services = []; if (!editingNpc.value.services.includes(npcNewService.value)) editingNpc.value.services.push(npcNewService.value); npcNewService.value = '' }
@@ -1012,10 +1084,6 @@ function addNpcTeleport() { if (!npcNewTeleport.value) return; if (!editingNpc.v
 async function saveNpcConfig() {
   const n = editingNpc.value
   if (!n.id || !n.name) return alert('ID和名称不能为空')
-  // Parse dialogues JSON
-  editingNpcDialoguesError.value = ''
-  try { n.dialogues = JSON.parse(editingNpcDialoguesStr.value) || {} }
-  catch(e) { editingNpcDialoguesError.value = e.message; return }
   try {
     if (isNewNpc.value) { await axios.post('/gm/config/npcs', n) }
     else { await axios.put(`/gm/config/npcs/${n.id}`, n) }

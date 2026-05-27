@@ -497,18 +497,6 @@ class GMController {
       newNpc.dialogues = newNpc.dialogues || {};
       npcs.push(newNpc);
       writeConfig('npcs', npcs);
-      // 同步房间的 npcs 列表
-      for (const roomId of newNpc.roomIds) {
-        const rooms = getConfigArray('rooms');
-        const room = rooms.find(r => r.id === roomId);
-        if (room) {
-          if (!room.npcs) room.npcs = [];
-          if (!room.npcs.includes(newNpc.id)) {
-            room.npcs.push(newNpc.id);
-            writeConfig('rooms', rooms);
-          }
-        }
-      }
       res.json({ success: true, message: 'NPC创建成功', data: newNpc });
     } catch (error) { res.status(500).json({ success: false, message: error.message }); }
   }
@@ -521,20 +509,6 @@ class GMController {
       const oldRoomIds = npcs[idx].roomIds || [];
       npcs[idx] = { ...npcs[idx], ...req.body, id: npcs[idx].id };
       writeConfig('npcs', npcs);
-      // 同步房间的 npcs 列表
-      const newRoomIds = npcs[idx].roomIds || [];
-      const removed = oldRoomIds.filter(id => !newRoomIds.includes(id));
-      const added = newRoomIds.filter(id => !oldRoomIds.includes(id));
-      for (const roomId of added) {
-        const rooms = getConfigArray('rooms');
-        const room = rooms.find(r => r.id === roomId);
-        if (room) { if (!room.npcs) room.npcs = []; if (!room.npcs.includes(req.params.npcId)) room.npcs.push(req.params.npcId); writeConfig('rooms', rooms); }
-      }
-      for (const roomId of removed) {
-        const rooms = getConfigArray('rooms');
-        const room = rooms.find(r => r.id === roomId);
-        if (room) { room.npcs = (room.npcs || []).filter(id => id !== req.params.npcId); writeConfig('rooms', rooms); }
-      }
       res.json({ success: true, message: 'NPC更新成功', data: npcs[idx] });
     } catch (error) { res.status(500).json({ success: false, message: error.message }); }
   }
@@ -546,12 +520,6 @@ class GMController {
       if (idx === -1) return res.status(404).json({ success: false, message: 'NPC不存在' });
       const removed = npcs.splice(idx, 1)[0];
       writeConfig('npcs', npcs);
-      // 清理房间引用
-      for (const roomId of (removed.roomIds || [])) {
-        const rooms = getConfigArray('rooms');
-        const room = rooms.find(r => r.id === roomId);
-        if (room) { room.npcs = (room.npcs || []).filter(id => id !== removed.id); writeConfig('rooms', rooms); }
-      }
       res.json({ success: true, message: 'NPC已删除' });
     } catch (error) { res.status(500).json({ success: false, message: error.message }); }
   }
