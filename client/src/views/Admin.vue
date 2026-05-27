@@ -8,6 +8,7 @@
       <div class="admin-menu-item" :class="{ active: activeMenu === 'questConfig' }" @click="activeMenu = 'questConfig'; loadQuestConfigs()">📜 任务配置</div>
       <div class="admin-menu-item" :class="{ active: activeMenu === 'itemConfig' }" @click="activeMenu = 'itemConfig'; loadItemConfigs()">🎒 道具配置</div>
       <div class="admin-menu-item" :class="{ active: activeMenu === 'maps' }" @click="activeMenu = 'maps'; loadMaps()">🗺️ 地图管理</div>
+      <div class="admin-menu-item" :class="{ active: activeMenu === 'npcs' }" @click="activeMenu = 'npcs'; loadNpcConfigs()">👤 NPC管理</div>
       <div class="admin-menu-item" :class="{ active: activeMenu === 'announcements' }" @click="activeMenu = 'announcements'; loadAnnouncements()">📢 公告管理</div>
       <div class="admin-menu-item" :class="{ active: activeMenu === 'logs' }" @click="activeMenu = 'logs'; loadBattleLogs()">⚔️ 战斗日志</div>
       <div style="margin-top: 20px;"><button class="btn btn-secondary" @click="goBack">返回游戏</button></div>
@@ -386,6 +387,149 @@
           </div>
         </div>
 
+      </div>
+
+      <!-- ====== NPC管理 ====== -->
+      <div v-if="activeMenu === 'npcs'">
+        <h2 class="admin-title">NPC 管理</h2>
+        <div style="display:flex;gap:8px;margin-bottom:15px;flex-wrap:wrap;align-items:center;">
+          <button class="btn" style="width:auto;padding:6px 15px;" @click="openNpcEditor(null)">+ 新建NPC</button>
+          <input v-model="npcFilter.search" placeholder="搜索ID或名称..." style="padding:6px;width:180px;background:#0f3460;border:1px solid #1a4a7a;color:#eee;border-radius:5px;" />
+          <select v-model="npcFilter.type" style="padding:6px;background:#0f3460;color:#eee;border:1px solid #1a4a7a;border-radius:5px;">
+            <option value="">全部类型</option>
+            <option value="service">service</option><option value="shop">shop</option><option value="trainer">trainer</option>
+            <option value="quest_giver">quest_giver</option><option value="teleport">teleport</option><option value="faction">faction</option>
+            <option value="faction_exchange">faction_exchange</option><option value="arena">arena</option>
+          </select>
+        </div>
+        <table class="data-table">
+          <thead><tr><th>ID</th><th>名称</th><th>类型</th><th>描述</th><th>房间</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr v-for="npc in filteredNpcConfigs" :key="npc.id">
+              <td style="font-size:11px;">{{ npc.id }}</td>
+              <td>{{ npc.name }}</td>
+              <td>{{ npc.type }}</td>
+              <td style="font-size:12px;max-width:200px;overflow:hidden;text-overflow:ellipsis;">{{ npc.description }}</td>
+              <td>{{ (npc.roomIds || []).length }}</td>
+              <td>
+                <button @click="openNpcEditor(npc)" style="margin-right:3px;">编辑</button>
+                <button @click="deleteNpcConfig(npc.id)" style="background:#e94560;">删除</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:8px;color:#888;font-size:12px;">共 {{ npcConfigs.length }} 个NPC，显示 {{ filteredNpcConfigs.length }} 个</div>
+
+        <!-- NPC编辑弹窗 -->
+        <div v-if="showNpcEditor" class="modal-overlay" @click.self="showNpcEditor = false">
+          <div class="modal-content" style="max-width:650px;max-height:85vh;">
+            <h3>{{ isNewNpc ? '新建NPC' : '编辑NPC' }} <span v-if="!isNewNpc" style="color:#888;font-size:14px;">{{ editingNpc.id }}</span></h3>
+            <div class="form-group"><label>ID</label><input v-model="editingNpc.id" :disabled="!isNewNpc" /></div>
+            <div class="form-group"><label>名称</label><input v-model="editingNpc.name" /></div>
+            <div class="form-group"><label>描述</label><textarea v-model="editingNpc.description" rows="2"></textarea></div>
+            <div class="form-group"><label>类型</label><select v-model="editingNpc.type">
+              <option value="service">service</option><option value="shop">shop</option><option value="trainer">trainer</option>
+              <option value="quest_giver">quest_giver</option><option value="teleport">teleport</option><option value="faction">faction</option>
+              <option value="faction_exchange">faction_exchange</option><option value="arena">arena</option>
+            </select></div>
+
+            <!-- 出现房间 -->
+            <h4 style="color:#ffd700;margin-top:12px;">🏠 出现房间</h4>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px;">
+              <span v-for="(rid, i) in (editingNpc.roomIds || [])" :key="rid" class="tag">
+                {{ allRoomNames[rid] || rid }}
+                <button @click="editingNpc.roomIds.splice(i,1)" style="background:none;border:none;color:#e94560;cursor:pointer;padding:0 2px;">×</button>
+              </span>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <select v-model="npcNewRoomId" style="flex:1;padding:6px;background:#0f3460;color:#eee;border:1px solid #1a4a7a;border-radius:5px;">
+                <option value="">-- 选择房间 --</option>
+                <option v-for="(name, rid) in allRoomNames" :key="rid" :value="rid">{{ name }} ({{ rid }})</option>
+              </select>
+              <button @click="addNpcRoom" :disabled="!npcNewRoomId" class="btn" style="width:auto;padding:4px 12px;">添加</button>
+            </div>
+
+            <!-- 对话 -->
+            <h4 style="color:#ffd700;margin-top:12px;">💬 对话 (JSON)</h4>
+            <textarea v-model="editingNpcDialoguesStr" rows="8" style="width:100%;background:#0f3460;color:#eee;border:1px solid #1a4a7a;border-radius:5px;padding:8px;font-size:12px;font-family:monospace;"></textarea>
+            <div v-if="editingNpcDialoguesError" style="color:#e94560;font-size:11px;">JSON 格式错误: {{ editingNpcDialoguesError }}</div>
+
+            <!-- 类型专属字段 -->
+            <div v-if="editingNpc.type === 'shop'">
+              <h4 style="color:#ffd700;margin-top:12px;">🛒 商店配置</h4>
+              <div class="form-group"><label>商店类型</label><input :value="editingNpc.shopType || ''" @input="editingNpc.shopType = $event.target.value" placeholder="weapon/armor/general/..." /></div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px;">
+                <span v-for="(itemId, i) in (editingNpc.items || [])" :key="itemId" class="tag">
+                  {{ itemId }} <button @click="editingNpc.items.splice(i,1)" style="background:none;border:none;color:#e94560;cursor:pointer;padding:0 2px;">×</button>
+                </span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <input v-model="npcNewItemId" placeholder="物品ID" style="flex:1;padding:6px;background:#0f3460;border:1px solid #1a4a7a;color:#eee;border-radius:5px;" />
+                <button @click="addNpcItem" class="btn" style="width:auto;padding:4px 12px;">添加</button>
+              </div>
+            </div>
+
+            <div v-if="editingNpc.type === 'trainer'">
+              <h4 style="color:#ffd700;margin-top:12px;">📚 可教技能</h4>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px;">
+                <span v-for="(sid, i) in (editingNpc.skills || [])" :key="sid" class="tag">
+                  {{ sid }} <button @click="editingNpc.skills.splice(i,1)" style="background:none;border:none;color:#e94560;cursor:pointer;padding:0 2px;">×</button>
+                </span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <input v-model="npcNewSkillId" placeholder="技能ID" style="flex:1;padding:6px;background:#0f3460;border:1px solid #1a4a7a;color:#eee;border-radius:5px;" />
+                <button @click="addNpcSkill" class="btn" style="width:auto;padding:4px 12px;">添加</button>
+              </div>
+            </div>
+
+            <div v-if="['service','shop','trainer','faction','faction_exchange'].includes(editingNpc.type)">
+              <h4 style="color:#ffd700;margin-top:12px;">🔧 服务</h4>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px;">
+                <span v-for="(s, i) in (editingNpc.services || [])" :key="s" class="tag">
+                  {{ s }} <button @click="editingNpc.services.splice(i,1)" style="background:none;border:none;color:#e94560;cursor:pointer;padding:0 2px;">×</button>
+                </span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <input v-model="npcNewService" placeholder="服务名称" style="flex:1;padding:6px;background:#0f3460;border:1px solid #1a4a7a;color:#eee;border-radius:5px;" @keyup.enter="addNpcService" />
+                <button @click="addNpcService" class="btn" style="width:auto;padding:4px 12px;">添加</button>
+              </div>
+            </div>
+
+            <div v-if="editingNpc.type === 'quest_giver'">
+              <h4 style="color:#ffd700;margin-top:12px;">📜 关联任务</h4>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px;">
+                <span v-for="(qid, i) in (editingNpc.quests || [])" :key="qid" class="tag">
+                  {{ qid }} <button @click="editingNpc.quests.splice(i,1)" style="background:none;border:none;color:#e94560;cursor:pointer;padding:0 2px;">×</button>
+                </span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <input v-model="npcNewQuestId" placeholder="任务ID" style="flex:1;padding:6px;background:#0f3460;border:1px solid #1a4a7a;color:#eee;border-radius:5px;" @keyup.enter="addNpcQuest" />
+                <button @click="addNpcQuest" class="btn" style="width:auto;padding:4px 12px;">添加</button>
+              </div>
+            </div>
+
+            <div v-if="editingNpc.type === 'teleport'">
+              <h4 style="color:#ffd700;margin-top:12px;">🚪 传送目标</h4>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px;">
+                <span v-for="(dest, i) in (editingNpc.teleportDestinations || [])" :key="i" class="tag">
+                  {{ typeof dest === 'object' ? dest.name : dest }}
+                  <button @click="editingNpc.teleportDestinations.splice(i,1)" style="background:none;border:none;color:#e94560;cursor:pointer;padding:0 2px;">×</button>
+                </span>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <input v-model="npcNewTeleport" placeholder="目标名称或房间ID" style="flex:1;padding:6px;background:#0f3460;border:1px solid #1a4a7a;color:#eee;border-radius:5px;" @keyup.enter="addNpcTeleport" />
+                <button @click="addNpcTeleport" class="btn" style="width:auto;padding:4px 12px;">添加</button>
+              </div>
+            </div>
+
+            <div v-if="editingNpc.type === 'faction'">
+              <div class="form-group"><label>所属门派</label><input v-model="editingNpc.factionId" placeholder="shaolin/wudang/emei/..." /></div>
+            </div>
+
+            <button class="btn" @click="saveNpcConfig" style="margin-top:15px;">{{ isNewNpc ? '创建' : '保存' }}</button>
+            <button class="btn btn-secondary" @click="showNpcEditor = false" style="margin-left:10px;">取消</button>
+          </div>
+        </div>
       </div>
 
       <div v-if="activeMenu === 'announcements'">
@@ -799,6 +943,92 @@ async function deleteAnnouncement(id) { if (!confirm('删除？')) return; try {
 // 战斗日志
 const battleLogs = ref([])
 async function loadBattleLogs() { try { battleLogs.value = (await axios.get('/gm/battle-logs')).data.data.logs } catch(e) {} }
+
+// ============ NPC 管理 ============
+const npcConfigs = ref([])
+const npcFilter = ref({ search: '', type: '' })
+const showNpcEditor = ref(false)
+const editingNpc = ref({})
+const isNewNpc = ref(false)
+const editingNpcDialoguesStr = ref('')
+const editingNpcDialoguesError = ref('')
+const npcNewRoomId = ref('')
+const npcNewItemId = ref('')
+const npcNewSkillId = ref('')
+const npcNewService = ref('')
+const npcNewQuestId = ref('')
+const npcNewTeleport = ref('')
+
+const filteredNpcConfigs = computed(() => {
+  let list = npcConfigs.value
+  if (npcFilter.value.type) list = list.filter(n => n.type === npcFilter.value.type)
+  if (npcFilter.value.search) {
+    const q = npcFilter.value.search.toLowerCase()
+    list = list.filter(n => n.id.toLowerCase().includes(q) || n.name.includes(q))
+  }
+  return list
+})
+
+async function loadNpcConfigs() {
+  try { npcConfigs.value = (await axios.get('/gm/config/npcs')).data.data } catch(e) { alert('加载NPC失败: ' + (e.response?.data?.message || e.message)) }
+  // 确保 roomNames 已加载
+  if (!Object.keys(allRoomNames.value).length) {
+    try { const { data } = await axios.get('/gm/config/rooms'); for (const r of (data.data || [])) allRoomNames.value[r.id] = r.name } catch(e) {}
+  }
+}
+
+function openNpcEditor(npc) {
+  if (npc) {
+    editingNpc.value = JSON.parse(JSON.stringify(npc))
+    isNewNpc.value = false
+    editingNpcDialoguesStr.value = JSON.stringify(editingNpc.value.dialogues || {}, null, 2)
+  } else {
+    editingNpc.value = { id: '', name: '', description: '', type: 'service', roomIds: [], dialogues: {} }
+    isNewNpc.value = true
+    editingNpcDialoguesStr.value = '{\n  "greeting": ["你好，侠客！"]\n}'
+  }
+  editingNpcDialoguesError.value = ''
+  npcNewRoomId.value = ''
+  npcNewItemId.value = ''
+  npcNewSkillId.value = ''
+  npcNewService.value = ''
+  npcNewQuestId.value = ''
+  npcNewTeleport.value = ''
+  showNpcEditor.value = true
+}
+
+function addNpcRoom() {
+  if (!npcNewRoomId.value) return
+  if (!editingNpc.value.roomIds) editingNpc.value.roomIds = []
+  if (!editingNpc.value.roomIds.includes(npcNewRoomId.value)) editingNpc.value.roomIds.push(npcNewRoomId.value)
+  npcNewRoomId.value = ''
+}
+function addNpcItem() { if (!npcNewItemId.value) return; if (!editingNpc.value.items) editingNpc.value.items = []; if (!editingNpc.value.items.includes(npcNewItemId.value)) editingNpc.value.items.push(npcNewItemId.value); npcNewItemId.value = '' }
+function addNpcSkill() { if (!npcNewSkillId.value) return; if (!editingNpc.value.skills) editingNpc.value.skills = []; if (!editingNpc.value.skills.includes(npcNewSkillId.value)) editingNpc.value.skills.push(npcNewSkillId.value); npcNewSkillId.value = '' }
+function addNpcService() { if (!npcNewService.value) return; if (!editingNpc.value.services) editingNpc.value.services = []; if (!editingNpc.value.services.includes(npcNewService.value)) editingNpc.value.services.push(npcNewService.value); npcNewService.value = '' }
+function addNpcQuest() { if (!npcNewQuestId.value) return; if (!editingNpc.value.quests) editingNpc.value.quests = []; if (!editingNpc.value.quests.includes(npcNewQuestId.value)) editingNpc.value.quests.push(npcNewQuestId.value); npcNewQuestId.value = '' }
+function addNpcTeleport() { if (!npcNewTeleport.value) return; if (!editingNpc.value.teleportDestinations) editingNpc.value.teleportDestinations = []; editingNpc.value.teleportDestinations.push(npcNewTeleport.value); npcNewTeleport.value = '' }
+
+async function saveNpcConfig() {
+  const n = editingNpc.value
+  if (!n.id || !n.name) return alert('ID和名称不能为空')
+  // Parse dialogues JSON
+  editingNpcDialoguesError.value = ''
+  try { n.dialogues = JSON.parse(editingNpcDialoguesStr.value) || {} }
+  catch(e) { editingNpcDialoguesError.value = e.message; return }
+  try {
+    if (isNewNpc.value) { await axios.post('/gm/config/npcs', n) }
+    else { await axios.put(`/gm/config/npcs/${n.id}`, n) }
+    showNpcEditor.value = false
+    await loadNpcConfigs()
+  } catch(e) { alert('保存失败: ' + (e.response?.data?.message || e.message)) }
+}
+
+async function deleteNpcConfig(id) {
+  if (!confirm(`删除NPC ${id}？此操作不可撤销。`)) return
+  try { await axios.delete(`/gm/config/npcs/${id}`); await loadNpcConfigs() }
+  catch(e) { alert('删除失败: ' + (e.response?.data?.message || e.message)) }
+}
 
 // 通用
 const formatDate = d => d ? new Date(d).toLocaleString('zh-CN') : ''
