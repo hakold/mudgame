@@ -402,9 +402,9 @@
           <input v-model="npcFilter.search" placeholder="搜索ID或名称..." style="padding:6px;width:180px;background:#0f3460;border:1px solid #1a4a7a;color:#eee;border-radius:5px;" />
           <select v-model="npcFilter.type" style="padding:6px;background:#0f3460;color:#eee;border:1px solid #1a4a7a;border-radius:5px;">
             <option value="">全部类型</option>
-            <option value="service">service</option><option value="shop">shop</option><option value="trainer">trainer</option>
-            <option value="quest_giver">quest_giver</option><option value="teleport">teleport</option><option value="faction">faction</option>
-            <option value="faction_exchange">faction_exchange</option><option value="arena">arena</option>
+            <option value="service">服务</option><option value="shop">商店</option><option value="trainer">教官</option>
+            <option value="quest_giver">任务</option><option value="teleport">传送</option><option value="faction">门派</option>
+            <option value="faction_exchange">门派兑换</option><option value="arena">竞技场</option><option value="atmosphere">氛围</option>
           </select>
         </div>
         <table class="data-table">
@@ -432,10 +432,16 @@
             <div class="form-group"><label>ID</label><input v-model="editingNpc.id" :disabled="!isNewNpc" /></div>
             <div class="form-group"><label>名称</label><input v-model="editingNpc.name" /></div>
             <div class="form-group"><label>描述</label><textarea v-model="editingNpc.description" rows="2"></textarea></div>
-            <div class="form-group"><label>类型</label><select v-model="editingNpc.type">
-              <option value="service">service</option><option value="shop">shop</option><option value="trainer">trainer</option>
-              <option value="quest_giver">quest_giver</option><option value="teleport">teleport</option><option value="faction">faction</option>
-              <option value="faction_exchange">faction_exchange</option><option value="arena">arena</option>
+            <div class="form-group"><label>角色类型</label><select v-model="editingNpc.type">
+              <option value="service">服务 — 提供休息/治疗/打听等基础服务</option>
+              <option value="shop">商店 — 出售/修理/锻造装备</option>
+              <option value="trainer">教官 — 教授技能</option>
+              <option value="quest_giver">任务 — 发放任务</option>
+              <option value="teleport">传送 — 跨地图传送</option>
+              <option value="faction">门派 — 门派招募/入门</option>
+              <option value="faction_exchange">门派兑换 — 贡献兑换物品</option>
+              <option value="arena">竞技场 — 竞技场主持</option>
+              <option value="atmosphere">氛围 — 纯对话NPC，无功能</option>
             </select></div>
 
             <!-- 对话（结构化键值编辑） -->

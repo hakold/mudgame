@@ -1197,7 +1197,7 @@
   {
     "id": "npc_bandit_guard",
     "name": "山贼哨兵",
-    "type": "service",
+    "type": "atmosphere",
     "dialogues": {
       "greeting": [
         "站住！你是来投靠的还是来找死的？"
@@ -1267,7 +1267,7 @@
   {
     "id": "npc_resident",
     "name": "城中居民",
-    "type": "service",
+    "type": "atmosphere",
     "dialogues": {
       "greeting": [
         "你好啊侠士，有空来家里喝杯茶。"
@@ -1374,7 +1374,7 @@
   {
     "id": "npc_sky_guardian",
     "name": "天门守卫",
-    "type": "service",
+    "type": "atmosphere",
     "dialogues": {
       "greeting": [
         "凡人止步！只有击败过魔王的强者方能进入天宫。"
@@ -1451,7 +1451,7 @@
   {
     "id": "npc_tomb_guardian",
     "name": "陵墓守卫",
-    "type": "service",
+    "type": "atmosphere",
     "dialogues": {
       "greeting": [
         "擅入者死……不过我看你命格不凡。"
@@ -1599,7 +1599,7 @@
   {
     "id": "npc_jiao_hunter",
     "name": "斩蛟者",
-    "type": "service",
+    "type": "atmosphere",
     "dialogues": {
       "greeting": [
         "你也是来斩蛟的？小心，它可不是吃素的。"
@@ -1766,7 +1766,7 @@
   {
     "id": "npc_jiao_keeper",
     "name": "养龙人",
-    "type": "service",
+    "type": "atmosphere",
     "dialogues": {
       "greeting": [
         "嘘……火蛟在睡觉，别吵醒它。"
@@ -1865,7 +1865,7 @@
   {
     "id": "npc_demon_scout",
     "name": "魔域哨兵",
-    "type": "service",
+    "type": "atmosphere",
     "dialogues": {
       "greeting": [
         "人类？胆子不小，敢闯魔域。"
@@ -1912,7 +1912,7 @@
   {
     "id": "npc_farmer",
     "name": "农夫",
-    "type": "service",
+    "type": "atmosphere",
     "dialogues": {
       "greeting": [
         "今年收成不错，就是野兽太多了。"
@@ -2182,7 +2182,7 @@
   {
     "id": "npc_fortune_cat",
     "name": "招财猫",
-    "type": "service",
+    "type": "atmosphere",
     "dialogues": {
       "greeting": [
         "喵~（它似乎在向你招手）"
@@ -2323,7 +2323,7 @@
   {
     "id": "npc_mummy_priest",
     "name": "木乃伊守护者",
-    "type": "service",
+    "type": "atmosphere",
     "dialogues": {
       "greeting": [
         "你……竟敢闯入法老的安息之地……"
@@ -2389,7 +2389,7 @@
   {
     "id": "npc_village_kid",
     "name": "村童",
-    "type": "service",
+    "type": "atmosphere",
     "dialogues": {
       "greeting": [
         "大侠！大侠！教我武功吧！"
@@ -2420,7 +2420,7 @@
   {
     "id": "npc_blacksmith_apprentice",
     "name": "铁匠学徒",
-    "type": "service",
+    "type": "atmosphere",
     "dialogues": {
       "greeting": [
         "铛铛铛——啊，客人来了！师父在里屋。"
@@ -2511,7 +2511,7 @@
   {
     "id": "npc_abyss_creature",
     "name": "深渊古兽",
-    "type": "service",
+    "type": "atmosphere",
     "dialogues": {
       "greeting": [
         "……（它用古老的眼神注视着你）"
@@ -3423,7 +3423,7 @@
   {
     "id": "npc_training_dummy_npc",
     "name": "练功木人",
-    "type": "service",
+    "type": "atmosphere",
     "dialogues": {
       "greeting": [
         "（木人静静地立在那里，身上布满了拳印和剑痕）"
@@ -3471,7 +3471,7 @@
   {
     "id": "npc_street_performer",
     "name": "街头艺人",
-    "type": "service",
+    "type": "atmosphere",
     "dialogues": {
       "greeting": [
         "各位看官，有钱的捧个钱场，没钱的捧个人场！"
@@ -4198,7 +4198,7 @@
   {
     "id": "npc_city_artist",
     "name": "画师",
-    "type": "service",
+    "type": "atmosphere",
     "dialogues": {
       "greeting": [
         "这桥上的风景最适合入画。要不要给你画一张？"
@@ -4683,7 +4683,7 @@
   {
     "id": "npc_gambling_addict",
     "name": "赌徒",
-    "type": "service",
+    "type": "atmosphere",
     "dialogues": {
       "greeting": [
         "最后一把！这把肯定翻盘！"
@@ -5083,7 +5083,7 @@
   {
     "id": "npc_xuankong_pilgrim",
     "name": "朝圣香客",
-    "type": "service",
+    "type": "atmosphere",
     "dialogues": {
       "greeting": "跋涉千里，只为在悬空寺上一炷香。"
     },
