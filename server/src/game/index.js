@@ -322,51 +322,51 @@ module.exports = {
   }
 };
 
-// 配置热重载
+// 配置热重载 — 已由 GM 控制器的 reloadConfigSection 接管
+// fs.watch 保留但仅监听 maps.json 和 rooms.json
+// 避免 VSCode Remote 等工具触发全量文件读取导致 IO 风暴
+
 const configFileMap = {
-  maps: 'maps', rooms: 'rooms', npcs: 'npcs', monsters: 'monsters',
-  items: 'items', skills: 'skills', quests: 'quests', factions: 'factions',
-  factionQuests: 'factionQuests', achievements: 'achievements',
-  forgeRecipes: 'forgeRecipes', weatherConfig: 'weatherConfig'
+  maps: 'maps', rooms: 'rooms'
 };
+
+const WATCHED_FILES = ['maps.json', 'rooms.json'];
+const WATCH_DEBOUNCE_MS = 2000; // 2秒防抖避免编辑器连发写入
 
 let configVersion = 0;
 function startConfigWatcher() {
   const configDir = path.join(__dirname, '../../../config/json');
   try {
-    fs.watch(configDir, { recursive: false }, (eventType, filename) => {
-      if (!filename || !filename.endsWith('.json')) return;
-      const baseName = filename.replace('.json', '');
-      const configKey = configFileMap[baseName];
-      if (!configKey) return;
+    for (const watchFile of WATCHED_FILES) {
+      const filePath = path.join(configDir, watchFile);
+      if (!fs.existsSync(filePath)) continue;
+      fs.watch(filePath, (eventType) => {
+        if (eventType !== 'change') return;
+        const baseName = watchFile.replace('.json', '');
+        const configKey = configFileMap[baseName];
+        if (!configKey) return;
 
-      // 防抖：延迟200ms，避免编辑器多次保存
-      clearTimeout(startConfigWatcher._timeout);
-      startConfigWatcher._timeout = setTimeout(() => {
-        try {
-          const filePath = path.join(configDir, filename);
-          if (!fs.existsSync(filePath)) return;
-
-          const content = fs.readFileSync(filePath, 'utf-8');
-          const data = JSON.parse(content);
-
-          if (Array.isArray(data)) {
-            gameConfig[configKey] = {};
-            for (const item of data) {
-              gameConfig[configKey][item.id] = item;
+        clearTimeout(startConfigWatcher._timers[watchFile]);
+        startConfigWatcher._timers[watchFile] = setTimeout(() => {
+          try {
+            const content = fs.readFileSync(filePath, 'utf-8');
+            const data = JSON.parse(content);
+            if (Array.isArray(data)) {
+              gameConfig[configKey] = {};
+              for (const item of data) gameConfig[configKey][item.id] = item;
+            } else {
+              gameConfig[configKey] = data;
             }
-          } else {
-            gameConfig[configKey] = data;
+            configVersion++;
+            console.log(`[Game] 热重载: ${watchFile} (v${configVersion})`);
+          } catch (err) {
+            console.error(`[Game] 热重载失败 ${watchFile}:`, err.message);
           }
-
-          configVersion++;
-          console.log(`[Game] 配置热重载: ${filename} (v${configVersion})`);
-        } catch (err) {
-          console.error(`[Game] 配置热重载失败 ${filename}:`, err.message);
-        }
-      }, 200);
-    });
-    console.log('[Game] 配置热重载监控已启动');
+        }, WATCH_DEBOUNCE_MS);
+      });
+    }
+    startConfigWatcher._timers = startConfigWatcher._timers || {};
+    console.log('[Game] 配置热重载监控已启动 (仅 maps/rooms)');
   } catch (err) {
     console.warn('[Game] 配置热重载监控启动失败:', err.message);
   }
