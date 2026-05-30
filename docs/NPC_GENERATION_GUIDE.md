@@ -23,8 +23,8 @@
 | 字段 | 类型 | 必填 | 说明 |
 |------|------|------|------|
 | `id` | string | ✅ | 全局唯一标识，命名规范见 §3 |
-| `name` | string | ✅ | 显示名称，2~6 字为宜 |
-| `description` | string | ✅ | 外观/背景描述，10~40 字，古文白话风格 |
+| `name` | string | ✅ | 显示名称，2~6 字为宜，允许直接使用姓+名的格式 |
+| `description` | string | ✅ | 外观/背景描述，10~40 字，古文白话风格，需要描述清楚角色是什么人。 |
 | `type` | string | ✅ | NPC 类型，必须是 §4 中列举的类型之一 |
 | `roomIds` | string[] | ✅ | 所在房间 ID 列表，至少 1 个，必须是已有房间 ID |
 | `dialogues` | object | 推荐 | 对话集合，见 §5 |
@@ -356,9 +356,9 @@ Cloud_forest_cave_cemetery    — 地下墓穴
 Cloud_forest_mining_rest      — 矿工歇脚点
 
 # 青云山 (15-30 级)
-mountain_path                 — 山道
-mountain_temple               — 寺庙 (原 mountain_temple)
-mountain_peak                 — 山顶 (原 mountain_peak)
+Qingyun_mountain_path                 — 山道
+Qingyun_mountain_temple               — 寺庙 (原 mountain_temple)
+Qingyun_mountain_peak                 — 山顶 (原 mountain_peak)
 Qingyun_mountain_side         — 青云山下
 Qingyun_mountain_midroad      — 青云山道
 Qingyun_mountain_top          — 青云山山顶
@@ -368,12 +368,12 @@ Qingyun_mountain_valley       — 迷雾谷
 Qingyun_mountain_mirrorlake   — 镜湖小岛
 
 # 洛阳城 (10-50 级)
-city_gate                     — 城门
-city_square                   — 城市广场
-city_tavern                   — 醉仙楼
-city_market                   — 集市
-city_arena                    — 竞技场
-city_guild                    — 侠客公会
+Luoyang_city_city_gate                     — 城门
+Luoyang_city_city_square                   — 城市广场
+Luoyang_city_city_tavern                   — 醉仙楼
+Luoyang_city_city_market                   — 集市
+Luoyang_city_city_arena                    — 竞技场
+Luoyang_city_city_guild                    — 侠客公会
 Luoyang_city_center           — 洛阳城中心广场
 Luoyang_city_south_street     — 洛阳城中心南街
 Luoyang_city_south_gate       — 洛阳城南门

@@ -4,824 +4,917 @@
     "name": "村长",
     "description": "村庄的老村长，慈祥而睿智。",
     "type": "quest_giver",
+    "quests": [],
+    "roomIds": [
+      "Daoxiang_village_center"
+    ],
     "dialogues": {
       "greeting": [
         "年轻人，欢迎来到我们村庄。有什么需要帮助的吗？",
         "又见面了，少侠。村子虽然小，但总有些事情需要人手帮忙。",
-        "你来了。最近村外的野兽越发猖獗，村民们都很不安。",
-        "欢迎你，侠客。希望你能为村子做些什么。"
+        "你来了。最近村外的野兽越发猖獗，村民们都很不安。"
       ]
-    },
-    "quests": [
-      "quest_talk_chief",
-      "quest_kill_boars",
-      "quest_explore_forest",
-      "quest_kill_wolf_king",
-      "quest_enter_city"
-    ],
-    "roomIds": [
-      "village_center"
-    ]
+    }
   },
   {
     "id": "npc_innkeeper",
     "name": "客栈老板",
     "description": "客栈的老板，热情好客。",
     "type": "service",
-    "services": [
-      "rest",
-      "rumor"
+    "quests": [],
+    "roomIds": [
+      "Daoxiang_village_inn"
     ],
     "dialogues": {
       "greeting": [
         "欢迎光临！要住店还是打听消息？",
         "客官来得正好，小店还有上房。要住店吗？",
-        "哟，少侠！一看就是赶路累了，进来歇歇脚？",
-        "你好你好，住店50金币，全恢复！"
-      ],
-      "rest": "一间房50金币，可以恢复全部HP和MP。",
-      "rumor": "最近听说洛阳城来了不少江湖人物..."
-    },
-    "roomIds": [
-      "village_inn"
-    ]
+        "哟，少侠！一看就是赶路累了，进来歇歇脚？"
+      ]
+    }
   },
   {
     "id": "npc_blacksmith",
     "name": "铁匠老张",
     "description": "村里的铁匠，手艺精湛。",
     "type": "shop",
-    "shopType": "weapon",
-    "items": [
-      "weapon_wooden_sword",
-      "weapon_oak_staff",
-      "weapon_iron_dagger",
-      "weapon_iron_knuckles",
-      "weapon_iron_sword",
-      "weapon_hunting_bow"
-    ],
-    "quests": [
-      "quest_buy_weapon"
+    "quests": [],
+    "roomIds": [
+      "Daoxiang_village_blacksmith"
     ],
     "dialogues": {
       "greeting": [
-        "要打造武器还是修理装备？"
-      ],
-      "buy": "看看这些武器，都是我亲手打造的。",
-      "repair": "修理装备要花费一些金币。"
-    },
-    "roomIds": [
-      "village_blacksmith"
-    ],
-    "services": [
-      "buy_weapon",
-      "repair"
-    ]
+        "要打造武器还是修理装备？",
+        "兵器是侠客的命根子，坏了可别撑着。",
+        "新到了一批好铁，打造一把？价钱公道。"
+      ]
+    }
   },
   {
     "id": "npc_shopkeeper",
     "name": "杂货铺老板",
     "description": "杂货铺的老板，出售各种日用品。",
     "type": "shop",
-    "shopType": "general",
-    "items": [
-      "item_hp_potion_small",
-      "item_mp_potion_small",
-      "armor_cloth",
-      "helmet_cloth",
-      "boots_cloth",
-      "armor_leather",
-      "helmet_leather",
-      "boots_leather",
-      "item_herb",
-      "item_antidote"
+    "quests": [],
+    "roomIds": [
+      "Daoxiang_village_shop"
     ],
     "dialogues": {
       "greeting": [
-        "要买点什么？"
-      ],
-      "buy": "这里都是日常用品，价格实惠。",
-      "sell": "有什么要卖的吗？"
-    },
-    "roomIds": [
-      "village_shop"
-    ],
-    "services": [
-      "buy_item",
-      "sell_item",
-      "shop"
-    ]
+        "要买点什么？",
+        "客官需要啥尽管开口，应有尽有。",
+        "今日新到了些护具，要看看么？"
+      ]
+    }
   },
   {
     "id": "npc_trainer",
     "name": "武馆教头",
     "description": "练武场的教头，可以指导新手。",
     "type": "trainer",
-    "skills": [
-      "skill_basic_attack",
-      "skill_heal_basic",
-      "skill_meditation"
-    ],
-    "quests": [
-      "quest_learn_skill"
+    "quests": [],
+    "roomIds": [
+      "Daoxiang_village_training"
     ],
     "dialogues": {
       "greeting": [
-        "年轻人，想学武功吗？"
-      ],
-      "learn": "我可以教你一些基础功夫。",
-      "train": "练习可以提高你的熟练度。"
-    },
-    "roomIds": [
-      "village_training"
-    ],
-    "services": [
-      "train"
-    ]
+        "年轻人，想学武功吗？",
+        "习武之人，首先要有一身硬功夫。",
+        "莫要懈怠，勤加练习才能有所成就。"
+      ]
+    }
   },
   {
     "id": "npc_faction_shaolin",
     "name": "少林弟子",
     "description": "少林派弟子，在此招募新成员。",
     "type": "faction",
-    "factionId": "shaolin",
-    "quests": [
-      "quest_join_faction"
+    "quests": [],
+    "roomIds": [
+      "Qingyun_mountain_temple"
     ],
     "dialogues": {
       "greeting": [
-        "少林派欢迎有志之士加入。"
-      ],
-      "join": "加入少林派需要等级5以上。",
-      "joined": "欢迎加入少林派！"
-    },
-    "roomIds": [
-      "mountain_temple"
-    ],
-    "services": [
-      "learn_skill",
-      "meditate"
-    ]
+        "少林派欢迎有志之士加入。",
+        "阿弥陀佛，施主若想体验少林武学，不妨一试。",
+        "少林武学源远流长，望施主好生思量。"
+      ]
+    }
   },
   {
     "id": "npc_faction_wudang",
     "name": "武当弟子",
     "description": "武当派弟子，在此招募新成员。",
     "type": "faction",
-    "factionId": "wudang",
-    "quests": [
-      "quest_join_faction"
-    ],
-    "dialogues": {
-      "greeting": [
-        "武当派讲究以柔克刚，欢迎加入。"
-      ],
-      "join": "加入武当派需要等级5以上。",
-      "joined": "欢迎加入武当派！"
-    },
-    "roomIds": [
-      "mountain_temple"
-    ]
-  },
-  {
-    "id": "npc_quest_guild",
-    "name": "公会管理员",
-    "description": "侠客公会管理员，负责发布任务。",
-    "type": "quest_giver",
-    "quests": [
-      "quest_city_guild",
-      "quest_bandit_bounty",
-      "quest_mountain_temple",
-      "quest_desert_explore",
-      "quest_tomb_secret",
-      "quest_poison_jiao",
-      "quest_fire_jiao",
-      "quest_demon_lord",
-      "quest_side_bandit_clear",
-      "quest_side_ice_cave",
-      "quest_side_island_secret",
-      "quest_canyon_explore",
-      "quest_ancient_tree",
-      "quest_pirate_treasure",
-      "quest_crystal_depths",
-      "quest_battlefield_spirits",
-      "quest_hot_springs",
-      "quest_secret_garden",
-      "quest_cloud_sea",
-      "quest_plains_explore",
-      "quest_graveyard_mystery",
-      "quest_bandit_suppression",
-      "quest_wind_valley",
-      "quest_mushroom_forest",
-      "quest_snow_monastery",
-      "quest_bamboo_temple",
-      "quest_jiao_graveyard",
-      "quest_phoenix_feather",
-      "quest_time_tower",
-      "quest_shadow_realm",
-      "quest_elemental_shrines",
-      "quest_xuankong_temple",
-      "quest_thunder_trial",
-      "quest_void_edge",
-      "quest_jade_palace",
-      "quest_underground_river",
-      "quest_jiao_palace",
-      "quest_volcano_core",
-      "quest_underground_city",
-      "quest_warrior_tombs",
-      "quest_sky_bazaar",
-      "quest_side_scorpion_hunt",
-      "quest_side_treasure_hunter",
-      "quest_side_celestial_trial",
-      "quest_side_pirate_hunt",
-      "quest_side_pharaoh_curse",
-      "quest_side_xuankong",
-      "quest_side_bridge_troll",
-      "quest_side_garden_spirit",
-      "quest_side_pagoda_cleanse",
-      "quest_side_abyss_challenge",
-      "quest_side_desert_djinn",
-      "quest_side_plains_hunt",
-      "quest_side_swamp_croc",
-      "quest_side_treasure_mimic",
-      "quest_side_faction_training",
-      "quest_side_volcano_forge",
-      "quest_side_heaven_gate",
-      "quest_side_jade_guardian",
-      "quest_side_ice_phoenix",
-      "quest_side_thunder_jiao",
-      "quest_side_eternal_guard",
-      "quest_side_frozen_giant"
-    ],
-    "dialogues": {
-      "greeting": [
-        "欢迎来到侠客公会，有什么任务要接？"
-      ]
-    },
-    "roomIds": [
-      "city_guild"
-    ]
-  },
-  {
-    "id": "npc_arena_master",
-    "name": "竞技场主持",
-    "description": "竞技场的主持，负责安排比赛。",
-    "type": "arena",
-    "dialogues": {
-      "greeting": [
-        "想在竞技场挑战其他侠客吗？"
-      ],
-      "challenge": "选择对手开始战斗吧。",
-      "result": "战斗结束！"
-    },
-    "roomIds": [
-      "city_arena"
-    ]
-  },
-  {
-    "id": "npc_immortal",
-    "name": "隐世仙人",
-    "description": "隐居深山的仙人，通晓天地玄机。",
-    "type": "quest_giver",
     "quests": [],
-    "dialogues": {
-      "greeting": [
-        "有缘人，你终于来了。"
-      ],
-      "default": "世间万物，皆有定数。"
-    },
     "roomIds": [
-      "mountain_peak"
-    ]
-  },
-  {
-    "id": "npc_shaolin_abbot",
-    "name": "方证大师",
-    "description": "少林寺方丈，佛法精深",
-    "type": "trainer",
-    "services": [
-      "learn_skill",
-      "train"
-    ],
-    "skills": [
-      "skill_shaolin_fist",
-      "skill_shaolin_palm"
-    ],
-    "roomIds": [
-      "shaolin_temple"
-    ]
-  },
-  {
-    "id": "npc_wudang_master",
-    "name": "张三丰",
-    "description": "武当派创始人，仙风道骨",
-    "type": "trainer",
-    "services": [
-      "learn_skill",
-      "meditate"
-    ],
-    "skills": [
-      "skill_wudang_fist",
-      "skill_wudang_sword"
-    ],
-    "roomIds": [
-      "wudang_peak"
-    ]
-  },
-  {
-    "id": "npc_emei_abbess",
-    "name": "灭绝师太",
-    "description": "峨眉派掌门，性格刚烈",
-    "type": "trainer",
-    "services": [
-      "learn_skill",
-      "meditate",
-      "train"
-    ],
-    "skills": [
-      "skill_emei_sword",
-      "skill_jiuyang"
-    ],
-    "roomIds": [
-      "emei_temple"
-    ]
-  },
-  {
-    "id": "npc_gaibang_leader",
-    "name": "洪七公",
-    "description": "丐帮帮主，武功盖世",
-    "type": "trainer",
-    "services": [
-      "drink",
-      "learn_skill",
-      "rest"
-    ],
-    "skills": [
-      "skill_gaibang_stick",
-      "skill_xianglong"
-    ],
-    "roomIds": [
-      "city_tavern"
-    ]
-  },
-  {
-    "id": "npc_guard_captain",
-    "name": "守卫队长",
-    "description": "守卫边疆的将军",
-    "type": "quest_giver",
-    "services": [],
-    "quests": [
-      "quest_side_bandit_clear"
-    ],
-    "roomIds": [
-      "mountain_path"
-    ]
-  },
-  {
-    "id": "npc_old_hermit",
-    "name": "隐士老者",
-    "description": "隐居山林的神秘老者",
-    "type": "quest_giver",
-    "services": [],
-    "quests": [
-      "quest_side_herb_collection",
-      "quest_side_wolf_pack"
-    ],
-    "roomIds": [
-      "deep_forest"
-    ]
-  },
-  {
-    "id": "npc_hunter",
-    "name": "猎户",
-    "description": "山林中的猎户，熟悉猛兽习性",
-    "type": "quest_giver",
-    "services": [],
-    "quests": [
-      "quest_side_wolf_pack"
-    ],
-    "roomIds": [
-      "deep_forest"
-    ]
-  },
-  {
-    "id": "npc_mingjiao_leader",
-    "name": "光明左使",
-    "description": "明教光明左使杨逍，武功高强，气度不凡。",
-    "type": "faction",
-    "factionId": "mingjiao",
-    "quests": [
-      "quest_join_faction"
+      "Qingyun_mountain_temple"
     ],
     "dialogues": {
       "greeting": [
-        "明教圣火永不熄灭！你可愿加入我教？"
-      ],
-      "join": "加入明教需要等级10以上。",
-      "joined": "欢迎加入明教！圣火昭昭，薪火相传！"
-    },
-    "roomIds": [
-      "volcano_crater"
-    ]
-  },
-  {
-    "id": "npc_xiaoyao_elder",
-    "name": "逍遥长老",
-    "description": "逍遥派长老，仙风道骨，不问世事。",
-    "type": "faction",
-    "factionId": "xiaoyao",
-    "quests": [
-      "quest_join_faction"
-    ],
-    "dialogues": {
-      "greeting": [
-        "逍遥自在，天地为家。你可想学逍遥派的功夫？"
-      ],
-      "join": "加入逍遥派需要等级15以上。",
-      "joined": "欢迎加入逍遥派！从此天地任逍遥！"
-    },
-    "roomIds": [
-      "island_cave"
-    ]
-  },
-  {
-    "id": "npc_mingjiao_trainer",
-    "name": "光明右使",
-    "description": "明教光明右使，掌管明教武学传授。",
-    "type": "trainer",
-    "services": [
-      "learn_skill"
-    ],
-    "skills": [
-      "skill_mingjiao_fire",
-      "skill_mingjiao_xinfa",
-      "skill_blazing_blade",
-      "skill_holy_flame_order",
-      "skill_light_fist",
-      "skill_burn_heaven"
-    ],
-    "dialogues": {
-      "greeting": [
-        "圣火昭昭，要学武艺吗？"
-      ],
-      "learn": "明教武学，刚猛霸道。",
-      "train": "勤学苦练，方成大器。"
-    },
-    "roomIds": [
-      "volcano_forge"
-    ]
-  },
-  {
-    "id": "npc_xiaoyao_trainer",
-    "name": "逍遥掌门",
-    "description": "逍遥派掌门，武功已臻化境。",
-    "type": "trainer",
-    "services": [
-      "learn_skill",
-      "meditate"
-    ],
-    "skills": [
-      "skill_xiaoyao_xinfa",
-      "skill_lingbo_weibu",
-      "skill_beiming",
-      "skill_xiaoyao_sword",
-      "skill_tianshan_liuyang",
-      "skill_bahuang"
-    ],
-    "dialogues": {
-      "greeting": [
-        "逍遥派武功，以柔克刚。"
-      ],
-      "learn": "我看你根骨不错，可愿学几招？",
-      "train": "武功一道，贵在坚持。"
-    },
-    "roomIds": [
-      "island_cave"
-    ]
+        "武当派讲究以柔克刚，欢迎加入。",
+        "武当九阳，以静制动，施主可有兴趣？",
+        "大道至简，武道亦如此，愿施主深思。"
+      ]
+    }
   },
   {
     "id": "npc_bank_teller",
     "name": "钱庄老板",
     "description": "洛阳城钱庄的老板，可以存取金币和物品。",
     "type": "service",
-    "services": [
-      "bank",
-      "storage"
+    "quests": [],
+    "roomIds": [
+      "city_square"
     ],
     "dialogues": {
       "greeting": [
-        "欢迎光临洛阳钱庄！要存钱还是取钱？"
-      ],
-      "deposit": "存入金币，安全放心。",
-      "withdraw": "随时可取，信誉保证。"
-    },
-    "roomIds": [
-      "city_square"
-    ]
+        "欢迎光临洛阳钱庄！要存钱还是取钱？",
+        "出门在外，钱财安全最为重要。",
+        "洛阳钱庄，百年老字号，信誉担保。"
+      ]
+    }
   },
   {
     "id": "npc_herb_merchant",
     "name": "药商",
     "description": "专卖药材的商人，也出售各种丹药。",
     "type": "shop",
-    "shopType": "herb",
-    "items": [
-      "item_herb",
-      "item_ginseng",
-      "item_hp_potion_small",
-      "item_hp_potion_medium",
-      "item_mp_potion_small",
-      "item_mp_potion_medium",
-      "item_antidote",
-      "item_strength_pill",
-      "item_speed_pill",
-      "item_defense_pill",
-      "item_intelligence_pill"
+    "quests": [],
+    "roomIds": [
+      "Daoxiang_village_center"
     ],
     "dialogues": {
       "greeting": [
-        "来看看，都是上好的药材和丹药！"
-      ],
-      "buy": "本店药品质量保证。",
-      "sell": "也收各种药材。"
-    },
-    "roomIds": [
-      "city_market"
-    ],
-    "services": [
-      "buy_item",
-      "sell_item",
-      "shop"
-    ]
+        "来看看，都是上好的药材和丹药！",
+        "行走江湖，难免受伤，备些丹药总没错。",
+        "本店药材皆来自名山大川，品质上乘。"
+      ]
+    }
   },
   {
     "id": "npc_fisherman",
     "name": "渔夫",
     "description": "在河边垂钓的渔夫，出售鲜鱼。",
     "type": "shop",
-    "shopType": "food",
-    "items": [
-      "item_fish",
-      "item_grilled_fish",
-      "item_pearl"
+    "quests": [],
+    "roomIds": [
+      "Daoxiang_village_center"
     ],
     "dialogues": {
       "greeting": [
-        "今天运气不错，钓了不少鱼。"
-      ],
-      "buy": "刚钓的鲜鱼，要来点吗？",
-      "rumor": "听说河里有宝贝，但我可不敢下去。"
-    },
-    "roomIds": [
-      "river_bank"
-    ]
+        "今天运气不错，钓了不少鱼。",
+        "这江里的鱼肥得很，客官要不要来几条？",
+        "听说江底藏着什么宝贝，但我可没胆子下去。"
+      ]
+    }
   },
   {
     "id": "npc_village_carter",
     "name": "门派传送车夫",
     "description": "专门负责将侠客送往各大门派的马车夫",
     "type": "teleport",
-    "services": [
-      "teleport"
+    "quests": [],
+    "roomIds": [
+      "Daoxiang_village_center"
     ],
     "dialogues": {
       "greeting": [
-        "想去哪个门派？我可以送你一程，每次100金币。"
-      ],
-      "teleport": "请选择目的地"
-    },
-    "teleportDestinations": [
-      {
-        "id": "shaolin",
-        "name": "少林寺",
-        "roomId": "shaolin_gate",
-        "cost": 100
-      },
-      {
-        "id": "wudang",
-        "name": "武当山",
-        "roomId": "wudang_gate",
-        "cost": 100
-      },
-      {
-        "id": "emei",
-        "name": "峨眉派",
-        "roomId": "emei_gate",
-        "cost": 100
-      },
-      {
-        "id": "gaibang",
-        "name": "丐帮总舵",
-        "roomId": "gaibang_gate",
-        "cost": 100
-      },
-      {
-        "id": "mingjiao",
-        "name": "明教光明顶",
-        "roomId": "mingjiao_gate",
-        "cost": 100
-      },
-      {
-        "id": "xiaoyao",
-        "name": "逍遥派",
-        "roomId": "xiaoyao_gate",
-        "cost": 100
-      }
-    ],
-    "roomIds": [
-      "village_center"
-    ]
+        "想去哪个门派？我可以送你一程，每次100金币。",
+        "咱们这马车结实得很，路上稳当。",
+        "少侠要去哪座门派？快上车吧。"
+      ]
+    }
   },
   {
     "id": "npc_carter_shaolin",
     "name": "门派传送轿夫",
     "description": "在此等候的轿夫，可以送侠客去往别处。",
     "type": "teleport",
-    "services": [
-      "teleport"
+    "quests": [],
+    "roomIds": [
+      "Daoxiang_village_center"
     ],
     "dialogues": {
       "greeting": [
-        "客官要坐轿子去哪里？"
-      ],
-      "teleport": "请选择目的地"
-    },
-    "teleportDestinations": [
-      {
-        "id": "village",
-        "name": "新手村",
-        "roomId": "village_center",
-        "cost": 100
-      },
-      {
-        "id": "city",
-        "name": "洛阳城",
-        "roomId": "city_center",
-        "cost": 150
-      }
-    ],
-    "roomIds": [
-      "shaolin_gate"
-    ]
+        "客官要坐轿子去哪里？",
+        "抬轿子这活计我干了多年，稳当得很。",
+        "客官瞧好了，咱们这就出发。"
+      ]
+    }
   },
   {
     "id": "npc_carter_wudang",
     "name": "门派传送轿夫",
     "description": "在此等候的轿夫，可以送侠客去往别处。",
     "type": "teleport",
-    "services": [
-      "teleport"
+    "quests": [],
+    "roomIds": [
+      "Daoxiang_village_center"
     ],
     "dialogues": {
       "greeting": [
-        "客官要坐轿子去哪里？"
-      ],
-      "teleport": "请选择目的地"
-    },
-    "teleportDestinations": [
-      {
-        "id": "village",
-        "name": "新手村",
-        "roomId": "village_center",
-        "cost": 100
-      },
-      {
-        "id": "city",
-        "name": "洛阳城",
-        "roomId": "city_center",
-        "cost": 150
-      }
-    ],
-    "roomIds": [
-      "wudang_gate"
-    ]
+        "客官要坐轿子去哪里？",
+        "抬轿子这活计我干了多年，稳当得很。",
+        "客官瞧好了，咱们这就出发。"
+      ]
+    }
   },
   {
     "id": "npc_carter_emei",
     "name": "门派传送轿夫",
     "description": "在此等候的轿夫，可以送侠客去往别处。",
     "type": "teleport",
-    "services": [
-      "teleport"
+    "quests": [],
+    "roomIds": [
+      "Daoxiang_village_center"
     ],
     "dialogues": {
       "greeting": [
-        "客官要坐轿子去哪里？"
-      ],
-      "teleport": "请选择目的地"
-    },
-    "teleportDestinations": [
-      {
-        "id": "village",
-        "name": "新手村",
-        "roomId": "village_center",
-        "cost": 100
-      },
-      {
-        "id": "city",
-        "name": "洛阳城",
-        "roomId": "city_center",
-        "cost": 150
-      }
-    ],
-    "roomIds": [
-      "emei_gate"
-    ]
+        "客官要坐轿子去哪里？",
+        "抬轿子这活计我干了多年，稳当得很。",
+        "客官瞧好了，咱们这就出发。"
+      ]
+    }
   },
   {
     "id": "npc_carter_gaibang",
     "name": "门派传送轿夫",
     "description": "在此等候的轿夫，可以送侠客去往别处。",
     "type": "teleport",
-    "services": [
-      "teleport"
+    "quests": [],
+    "roomIds": [
+      "Daoxiang_village_center"
     ],
     "dialogues": {
       "greeting": [
-        "客官要坐轿子去哪里？"
-      ],
-      "teleport": "请选择目的地"
-    },
-    "teleportDestinations": [
-      {
-        "id": "village",
-        "name": "新手村",
-        "roomId": "village_center",
-        "cost": 100
-      },
-      {
-        "id": "city",
-        "name": "洛阳城",
-        "roomId": "city_center",
-        "cost": 150
-      }
-    ],
-    "roomIds": [
-      "gaibang_gate"
-    ]
+        "客官要坐轿子去哪里？",
+        "抬轿子这活计我干了多年，稳当得很。",
+        "客官瞧好了，咱们这就出发。"
+      ]
+    }
   },
   {
     "id": "npc_carter_mingjiao",
     "name": "门派传送轿夫",
     "description": "在此等候的轿夫，可以送侠客去往别处。",
     "type": "teleport",
-    "services": [
-      "teleport"
+    "quests": [],
+    "roomIds": [
+      "Daoxiang_village_center"
     ],
     "dialogues": {
       "greeting": [
-        "客官要坐轿子去哪里？"
-      ],
-      "teleport": "请选择目的地"
-    },
-    "teleportDestinations": [
-      {
-        "id": "village",
-        "name": "新手村",
-        "roomId": "village_center",
-        "cost": 100
-      },
-      {
-        "id": "city",
-        "name": "洛阳城",
-        "roomId": "city_center",
-        "cost": 150
-      }
-    ],
-    "roomIds": [
-      "mingjiao_gate"
-    ]
+        "客官要坐轿子去哪里？",
+        "抬轿子这活计我干了多年，稳当得很。",
+        "客官瞧好了，咱们这就出发。"
+      ]
+    }
   },
   {
     "id": "npc_carter_xiaoyao",
     "name": "门派传送轿夫",
     "description": "在此等候的轿夫，可以送侠客去往别处。",
     "type": "teleport",
-    "services": [
-      "teleport"
+    "quests": [],
+    "roomIds": [
+      "Daoxiang_village_center"
     ],
     "dialogues": {
       "greeting": [
-        "客官要坐轿子去哪里？"
-      ],
-      "teleport": "请选择目的地"
-    },
-    "teleportDestinations": [
-      {
-        "id": "village",
-        "name": "新手村",
-        "roomId": "village_center",
-        "cost": 100
-      },
-      {
-        "id": "city",
-        "name": "洛阳城",
-        "roomId": "city_center",
-        "cost": 150
-      }
-    ],
+        "客官要坐轿子去哪里？",
+        "抬轿子这活计我干了多年，稳当得很。",
+        "客官瞧好了，咱们这就出发。"
+      ]
+    }
+  },
+  {
+    "id": "npc_child_chasing_kites",
+    "name": "追风筝孩童",
+    "description": "一个约莫七八岁的少年，手里攥着一根线轴，正在广场上追逐一只歪歪扭扭的纸鸢。",
+    "type": "atmosphere",
+    "quests": [],
     "roomIds": [
-      "xiaoyao_gate"
-    ]
+      "Daoxiang_village_center"
+    ],
+    "dialogues": {
+      "greeting": [
+        "大哥哥，快看！我的风筝飞得高不高？",
+        "哎呀，线好像缠住了，谁来帮帮我？",
+        "妈妈说，风筝飞得越高，愿望就越容易实现呢。"
+      ]
+    }
+  },
+  {
+    "id": "npc_child_mending_clothes",
+    "name": "补衣孩童",
+    "description": "坐在小板凳上，手里拿着针线，正低头认真地缝补一件旧衣裳，神情专注得如同在完成一件大事。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [
+      "Daoxiang_village_center"
+    ],
+    "dialogues": {
+      "greeting": [
+        "这件衣服破了好几个洞，得缝仔细些才行。",
+        "阿爹说，新三年旧三年，缝缝补补又三年。",
+        "你看这针脚，是不是比上次好看多了？"
+      ]
+    }
+  },
+  {
+    "id": "npc_child_carrying_water",
+    "name": "挑水孩童",
+    "description": "双手提着一个小木桶，步履稳健地走在青石板路上，虽然桶里的水洒出了一些，但他依然坚持自己走。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [
+      "Daoxiang_village_center"
+    ],
+    "dialogues": {
+      "greeting": [
+        "我自己能行，不用你帮，我要做个大人。",
+        "这桶水很重，但阿妈说这样能长力气。",
+        "小心点，别踩到水，会滑倒的。"
+      ]
+    }
+  },
+  {
+    "id": "npc_child_watching_fight",
+    "name": "观战孩童",
+    "description": "站在人群外围，伸长脖子好奇地看着周围的青年切磋武艺，手里还捏着一把瓜子，看得津津有味。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [
+      "Daoxiang_village_center"
+    ],
+    "dialogues": {
+      "greeting": [
+        "那个穿红衣服的哥哥功夫好厉害！",
+        "听说隔壁村的武师比他还强呢，什么时候能来露一手？",
+        "我也想学功夫，长大了要像他们一样威风。"
+      ]
+    }
+  },
+  {
+    "id": "npc_pigeon_squatting",
+    "name": "灰鸽",
+    "description": "一只在广场石板缝隙间觅食的灰色鸽子，神态悠闲。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [
+      "Daoxiang_village_center"
+    ],
+    "dialogues": {
+      "greeting": [
+        "咕咕咕，(歪头打量过客)",
+        "(扑棱两下翅膀，继续啄食)"
+      ]
+    }
+  },
+  {
+    "id": "npc_chicken_scratching",
+    "name": "芦花母鸡",
+    "description": "一只羽毛斑斓的芦花母鸡，在人群中悠闲踱步。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [
+      "Daoxiang_village_center"
+    ],
+    "dialogues": {
+      "greeting": [
+        "咯咯哒，(低头刨土)",
+        "(昂起头，警惕地环顾四周)"
+      ]
+    }
+  },
+  {
+    "id": "npc_dog_sleeping",
+    "name": "黄狗",
+    "description": "一只土黄色的看家狗，正趴在墙角打盹，尾巴偶尔抽动。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [
+      "Daoxiang_village_center"
+    ],
+    "dialogues": {
+      "greeting": [
+        "(呼噜噜，半梦半醒)",
+        "(汪汪！被惊扰后的低声吠叫)"
+      ]
+    }
+  },
+  {
+    "id": "npc_cat_lounging",
+    "name": "狸花猫",
+    "description": "一只慵懒的狸花猫，蜷缩在广场旁的石墩上晒太阳。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [
+      "Daoxiang_village_center"
+    ],
+    "dialogues": {
+      "greeting": [
+        "(喵呜~ 伸个懒腰)",
+        "(眯起眼睛，舔了舔爪子)"
+      ]
+    }
+  },
+  {
+    "id": "npc_traveler_wiping_sweat",
+    "name": "擦汗路人",
+    "description": "一名衣衫半湿的赶路人，正站在路旁石头上擦拭额头的汗水，神情略显疲惫。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [
+      "Qingyun_mountain_side"
+    ],
+    "dialogues": {
+      "greeting": [
+        "这青云山的坡道真是难走，走了半日还不见顶。",
+        "哎哟，这山路崎岖，差点绊了一跤，少侠小心脚下。",
+        "这山里的雾气大，行走还需当心些才好。"
+      ]
+    }
+  },
+  {
+    "id": "npc_martial_artist_sharpening",
+    "name": "磨刀武者",
+    "description": "一位身着粗布劲装的武者，盘膝坐在路旁，正专注地打磨着手中长剑。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [
+      "Qingyun_mountain_side"
+    ],
+    "dialogues": {
+      "greeting": [
+        "剑要常磨，心要常静。阁下也是来登山练武的吗？",
+        "刀锋锐利，方能斩断烦恼。少侠这身内力不错。",
+        "路过青云山，不妨稍作歇息，养精蓄锐再上行。"
+      ]
+    }
+  },
+  {
+    "id": "npc_hiker_carrying_bundles",
+    "name": "挑担樵夫",
+    "description": "一位背着沉重柴捆的老樵夫，步履稳健，正沿着山道缓缓下山。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [
+      "Qingyun_mountain_side"
+    ],
+    "dialogues": {
+      "greeting": [
+        "客官小心，这柴捆虽重，却也是生活所依。",
+        "山下风大，上山的路不好走，客官若是初次来，多留心脚下青苔。",
+        "这山里的柴火好，就是山路难行，老夫这把老骨头也是习惯了的。"
+      ]
+    }
+  },
+  {
+    "id": "npc_elder_drinking_tea",
+    "name": "饮茶老者",
+    "description": "一位白发苍苍的老者，提着个旧陶壶，正从葫芦里倒水饮用，神态悠闲。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [
+      "Qingyun_mountain_side"
+    ],
+    "dialogues": {
+      "greeting": [
+        "上山容易下山难，少侠若是累了，不妨坐下喝口山泉水。",
+        "老夫在这山腰住了几十年，看惯了人来人往，少侠也是去寻仙问道的？",
+        "这山风有些凉，喝口热茶暖暖身子，再赶路也不迟。"
+      ]
+    }
+  },
+  {
+    "id": "npc_old_swordsman_drinking",
+    "name": "醉剑客",
+    "description": "一袭青衫，腰间挂着一壶烈酒，手持竹杖，眼神迷离却隐隐透着锐利寒光。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "酒……好酒！少侠可愿共饮一杯？",
+        "剑不在利，在于心。心若乱了，剑便死了。",
+        "嘿嘿，这世道，唯有酒与剑不可辜负。"
+      ]
+    }
+  },
+  {
+    "id": "npc_blind_lute_player",
+    "name": "盲眼琴师",
+    "description": "身着布衣，双目蒙着黑布，怀抱一张古琴，指尖流淌出悠扬却略带悲凉的曲调。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "听曲吗？一曲换一壶酒，或者……换一段江湖往事。",
+        "琴弦断，心亦断。少侠，你心中可有解不开的结？",
+        "风声雨声，皆在琴中。请静坐片刻，听这红尘喧嚣。"
+      ]
+    }
+  },
+  {
+    "id": "npc_hawker_shouting",
+    "name": "卖唱小生",
+    "description": "少年模样，衣着朴素但整洁，手持折扇，站在路口高声吆喝着江湖轶闻。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "走过路过不要错过！今日有那华山论剑的秘闻，客官来听听？",
+        "哎呀，这位少侠气度不凡，想必也是江湖中人，要不要听段评书？",
+        "一文钱一段，童叟无欺！听说城西最近有高人出世！"
+      ]
+    }
+  },
+  {
+    "id": "npc_elder_drinking_tea_2",
+    "name": "老者",
+    "description": "竹林深处的老者，手持竹杖，神态安详。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "年轻人，心静自然凉，坐下来喝杯茶吧。",
+        "这世间纷扰，不过是过眼云烟，何必执着？",
+        "老夫在此观云已久，不知客官从何处来？"
+      ]
+    }
+  },
+  {
+    "id": "npc_wandering_monk_2",
+    "name": "游方僧人",
+    "description": "身披灰色僧袍，手持念珠，步履蹒跚的游方僧。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "阿弥陀佛，施主有礼了。",
+        "贫僧云游四海，只为求得心中一念。",
+        "缘来则聚，缘去则散，施主请自便。"
+      ]
+    }
+  },
+  {
+    "id": "npc_weeping_widow_2",
+    "name": "寡妇",
+    "description": "衣衫褴褛的女子，坐在桥头掩面哭泣。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "官人...可曾见过我丈夫？他离家已半月有余...",
+        "这世道，人心险恶，连个安稳日子都过不了。",
+        "若见着个背着包袱的汉子，请务必告知一声。"
+      ]
+    }
+  },
+  {
+    "id": "npc_guard_patrolling",
+    "name": "巡逻士兵",
+    "description": "身穿铁甲，手持长枪，神色警惕的城防军。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "站住！出示腰牌！",
+        "最近江湖动荡，闲杂人等请勿在此逗留。",
+        "奉命巡逻，如有发现可疑之人，立即报官。"
+      ]
+    }
+  },
+  {
+    "id": "npc_old_master_drinking",
+    "name": "醉卧松涛",
+    "description": "青云山道上，一蓑衣老者独坐巨石之上，手持酒葫芦，目光如电，似在观察过往行人。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "山风凛冽，正好佐酒。少侠也要喝一杯？",
+        "这青云山道，走过千遍也看不厌。少侠要去哪？",
+        "酒逢知己千杯少，可惜这山上无酒友，唯有松涛相伴。"
+      ]
+    }
+  },
+  {
+    "id": "npc_ferryman_river",
+    "name": "摆渡老翁",
+    "description": "稻香村江边，一位老翁正撑着竹筏，在浑浊的江面上缓缓行驶，动作娴熟。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "过河吗？五文钱一位，童叟无欺。",
+        "这江水深不可测，少侠若不会水，还是坐船稳妥。",
+        "风大了，坐稳了，别掉下去喂鱼。"
+      ]
+    }
+  },
+  {
+    "id": "npc_beggar_eating",
+    "name": "落魄乞丐",
+    "description": "洛阳城广场角落，一个衣衫褴褛的老乞丐正狼吞虎咽地吃着半个馒头，眼神警惕。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "给口吃的吧，几天没吃过饱饭了……",
+        "走开走开，别抢我这馒头！哼，穷鬼也有穷鬼的尊严。",
+        "客官若是好心，赏个铜板也是积德。"
+      ]
+    }
+  },
+  {
+    "id": "npc_scribe_copying",
+    "name": "抄书书生",
+    "description": "洛阳城书肆外，一位白面书生正伏案疾书，神情专注，偶尔摇头晃脑。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "之乎者也，这文章写得真是妙哉！"
+      ]
+    }
+  },
+  {
+    "id": "npc_child_flying_kite",
+    "name": "放纸鸢稚童",
+    "description": "稻香村北街，一个胖乎乎的小孩正举着风筝奔跑，笑声清脆，引得路人侧目。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "大哥哥，你看我的风筝飞得多高！"
+      ]
+    }
+  },
+  {
+    "id": "npc_weaver_labor",
+    "name": "织布阿婆",
+    "description": "稻香村东户旁，一位头发花白的阿婆正坐在织布机前，梭子穿梭，节奏沉稳。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "小伙子，新织的布，要买两尺做衣裳？"
+      ]
+    }
+  },
+  {
+    "id": "npc_horse_keeper",
+    "name": "马夫",
+    "description": "客栈马厩旁，一个粗犷的男子正给战马刷毛，马匹嘶鸣，气氛略显肃杀。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "客官要骑马？今日马价稍贵，毕竟好马难求。"
+      ]
+    }
+  },
+  {
+    "id": "npc_medic_gathering",
+    "name": "采药少年",
+    "description": "迷雾森林边缘，一个背着竹篓的少年正蹲在草丛中辨认草药，神情认真。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "嘘，别出声，我要采那株千年灵芝。"
+      ]
+    }
+  },
+  {
+    "id": "npc_recluse_reading",
+    "name": "林中隐士",
+    "description": "迷雾森林深处，一位身着青衫的男子正倚树读书，周围古木参天，静谧非常。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "读书破万卷，下笔如有神。少侠可曾读过？"
+      ]
+    }
+  },
+  {
+    "id": "npc_vendor_selling",
+    "name": "杂货摊主",
+    "description": "洛阳城集市一角，摆着简陋摊位的老人正拿着扇子驱赶蚊虫，面前摆着些针头线脑。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "买根针吧，缝缝补补又三年。"
+      ]
+    }
+  },
+  {
+    "id": "npc_dog_guarding",
+    "name": "看门狗",
+    "description": "一只凶狠的大黄狗，趴在门口，偶尔发出低吼声。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "汪汪！（滚远点！）"
+      ]
+    }
+  },
+  {
+    "id": "npc_tea_house_host",
+    "name": "茶楼掌柜",
+    "description": "笑容可掬，端着一壶好茶，正在招呼客人。",
+    "type": "service",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "欢迎光临，客官想喝什么茶？新到的雨前龙井。",
+        "坐坐坐，这里清静，适合歇脚。",
+        "今日特惠，买茶送点心，不要错过。"
+      ]
+    }
+  },
+  {
+    "id": "npc_tea_servant",
+    "name": "奉茶丫鬟",
+    "description": "身着粗布衣裳，端着茶盘匆匆走过的丫鬟。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "客官请用茶，这是刚泡好的龙井。",
+        "小心烫，茶水刚烧开。",
+        "大人吩咐了，今日茶资全免。"
+      ]
+    }
+  },
+  {
+    "id": "npc_tea_stall_boy",
+    "name": "茶水店小厮",
+    "description": "提着铜壶在路边忙碌，脸上挂着讨好的笑容，招呼过往行人。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "茶水店小厮向你拱手一礼。"
+      ]
+    }
+  },
+  {
+    "id": "npc_guard_captain",
+    "name": "镖局趟子手",
+    "description": "腰间别着刀枪的镖师，正在整理行装，准备出发护送货物。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "镖旗在此，闲杂人等退避三舍！",
+        "江湖险恶，各位客官还是小心为妙。",
+        "这一趟去洛阳，路途遥远，还望各位保重。"
+      ]
+    }
+  },
+  {
+    "id": "npc_horse_groom",
+    "name": "喂马仆人",
+    "description": "拿着干草，细心地喂着马匹。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "这匹马可是千里良驹，可惜主人不在了。",
+        "少侠若是识马，不妨一看。"
+      ]
+    }
+  },
+  {
+    "id": "npc_scribe_writing",
+    "name": "抄书先生",
+    "description": "坐在路边凉亭下的文弱书生，正埋头临摹字帖，旁边放着笔墨纸砚。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "笔墨纸砚，童叟无欺，客官是要求一幅字画吗？",
+        "字乃心画，客官若有心事，不妨写在纸上。"
+      ]
+    }
+  },
+  {
+    "id": "npc_old_carpenter",
+    "name": "老木匠",
+    "description": "在作坊里打磨着木器，身上满是木屑，神情专注。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "巧夺天工，全靠这双手。",
+        "这木头纹理好，适合做桌椅。",
+        "客官想订做个甚么物件？"
+      ]
+    }
+  },
+  {
+    "id": "npc_guard_gate",
+    "name": "城卫军士",
+    "description": "身穿铁甲，手持长矛，神情严肃地守卫在城门旁。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "闲杂人等不得入内，出示路引。",
+        "大人，城里最近不太平，少到处乱跑。",
+        "站住！有何贵干？"
+      ]
+    }
+  },
+  {
+    "id": "npc_guard_post",
+    "name": "巡逻侍卫",
+    "description": "腰间佩刀，步伐整齐地在街道上游弋巡视。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "夜深了，早点回去歇息吧。",
+        "最近匪患猖獗，各位侠客出门小心。",
+        "这里禁止斗殴，违者以军法论处。"
+      ]
+    }
+  },
+  {
+    "id": "npc_fisherman_mending_net",
+    "name": "补网渔夫",
+    "description": "坐在河边，手里拿着梭子，仔细修补着破损的渔网。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "这网破了个大洞，得补补。",
+        "鱼儿难钓，人心难测啊。",
+        "天气不错，适合收网。"
+      ]
+    }
+  },
+  {
+    "id": "npc_messenger_running",
+    "name": "急送信差",
+    "description": "背着一个大包裹，气喘吁吁地跑来跑去，满头大汗。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "借过！借过！信件要紧！",
+        "这趟差事可累死我了。",
+        "千万别耽误了时辰。"
+      ]
+    }
+  },
+  {
+    "id": "npc_woman_sewing",
+    "name": "浣衣女子",
+    "description": "坐在河边石头上浣洗衣物的少女，哼着轻快的小曲。",
+    "type": "atmosphere",
+    "quests": [],
+    "roomIds": [],
+    "dialogues": {
+      "greeting": [
+        "这河水真清，洗出来的衣裳也格外干净。",
+        "少侠小心脚下，别滑倒了。"
+      ]
+    }
   }
 ]

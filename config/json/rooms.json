@@ -445,7 +445,11 @@
         "roomId": "Daoxiang_village_east"
       }
     ],
-    "npcs": [],
+    "npcs": [
+      "npc_chicken_scratching",
+      "npc_pigeon_squatting",
+      "npc_cat_lounging"
+    ],
     "monsters": [],
     "features": []
   },
@@ -655,7 +659,9 @@
         "roomId": "Daoxiang_village_east"
       }
     ],
-    "npcs": [],
+    "npcs": [
+      "npc_messenger_running"
+    ],
     "monsters": [],
     "features": []
   },
